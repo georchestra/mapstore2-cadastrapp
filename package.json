@@ -98,6 +98,7 @@
         "mapstore2": "file:MapStore2"
     },
     "scripts": {
+        "postinstall": "node MapStore2/utility/build/postInstall.js",
         "clean": "rimraf dist",
         "compile": "npm run clean && mkdirp ./dist && webpack --config prod-webpack.config.js --env.production",
         "start": "webpack-dev-server --progress --colors --port 8081 --hot --inline --content-base .",
