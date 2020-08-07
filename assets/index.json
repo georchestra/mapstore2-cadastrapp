@@ -1,0 +1,11 @@
+{
+    "plugins": [
+        {
+            "name": "Cadastrapp",
+            "description": "Cadastrapp Extension",
+            "dependencies": [
+                "BurgerMenu"
+            ]
+        }
+    ]
+}
