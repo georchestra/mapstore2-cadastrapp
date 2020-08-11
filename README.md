@@ -24,8 +24,8 @@ Download dependencies:
 
 **Requirements:**
 
-- Back-end of MapStore instance of GeoOrchestra running at `localhost:8080/mapstore` (edit `proxyConfig.js` to change it)
-- To test admin permission, it needs to run behind the security proxy of GeOrchestra
+- Back-end of MapStore instance of geoOrchestra running at `localhost:8080/mapstore` (edit `proxyConfig.js` to change it)
+- To test admin permission, it needs to run behind the security proxy of geOrchestra
 
 **Run in development mode:**
 
@@ -33,7 +33,7 @@ Download dependencies:
 
 ## How to develop Cadastrapp Extension
 
-The project here is a mock of GeOrchestra, that tries to reuse most of georchestra as a sub-project to support the development of the `Cadastrapp` plugin.
+The project here is a mock of geOrchestra, that tries to reuse most of geOrchestra as a sub-project to support the development of the `Cadastrapp` plugin.
 
 ### Javascript code
 
