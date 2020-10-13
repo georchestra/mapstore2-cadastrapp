@@ -10,7 +10,7 @@ export default function SelectableTable(props) {
     };
 
     function generateRow(r, index) {
-        if (r.length == 0) {
+        if (r.length === 0) {
             return (<></>);
         }
 

@@ -165,7 +165,7 @@ export default function RequestFormModal(props) {
                 </div>
 
                 <div className={requestClass}>
-                    <RequestObject></RequestObject>
+                    <RequestObject/>
                 </div>
 
             </Modal.Body>
@@ -174,6 +174,6 @@ export default function RequestFormModal(props) {
                 <Button>Print Request</Button>
                 <Button>Generate Documents</Button>
             </Modal.Footer>
-        </Modal>)
+        </Modal>);
 }
 

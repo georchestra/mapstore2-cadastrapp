@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 /**
  * Adds a style tag with the CSS inline.

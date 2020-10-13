@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import {randomString} from '../dummy';
+import { Button, Glyphicon } from "react-bootstrap";
+import RequestObjectItem from './RequestObjectItem';
+
+import { randomString } from '../dummy';
 
 export default function RequestObject() {
     let randomId = randomString(16);
@@ -30,7 +33,7 @@ export default function RequestObject() {
         <div>
             <div className="pull-left" style={{ width: "100%", marginBottom: 10 }}>
                 <Button className="pull-right" onClick={handleAdd} style={{ marginRight: 4 }}>
-                    <Glyphicon glyph="plus"></Glyphicon>
+                    <Glyphicon glyph="plus"/>
                 </Button>
                 <small style={{ marginTop: 5, marginRight: 10 }} className="pull-right">
                     Click to add more request object items
@@ -47,5 +50,5 @@ export default function RequestObject() {
                 ))}
             </div>
         </div>
-    )
+    );
 }
