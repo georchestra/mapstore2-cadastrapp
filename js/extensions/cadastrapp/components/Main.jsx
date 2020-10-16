@@ -238,8 +238,8 @@ export default function Main({
         case "zoom":
             alert("Selection zoom is clicked");
             break;
-        case "landry":
-            alert("You clicked on landry information button, you will redirecting an external service in a new tab");
+        case "owned-unit":
+                alert("You clicked on owned unit information button, you will redirecting an external service in a new tab");
             let url = "https://portail.sig.rennesmetropole.fr/mapfishapp/ws/addons/cadastrapp/html/ficheUniteFonciere.html";
             window.open(url, '_blank');
             break;

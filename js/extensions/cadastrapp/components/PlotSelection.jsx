@@ -158,10 +158,10 @@ function PlotSelectionTopActionButtons(props) {
                     <Glyphicon glyph="zoom-in" />
                 </Button>
             </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Landry Information"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"owned unit Information"}</Tooltip>}>
                 <Button
                     {...(!isAtleastOneSelected ? { disabled: 'true' } : {})}
-                    onClick={() => { props.onClick("landry"); }}>
+                    onClick={() => { props.onClick("owned-unit"); }}>
                     <Glyphicon glyph="th-list" />
                 </Button>
             </OverlayTrigger>
