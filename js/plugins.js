@@ -1,9 +1,10 @@
-const {plugins, ...rest} = require('../mapstore2-georchestra/js/plugins');
-const extensions = require('./extensions');
-module.exports = {
+import georchestra from '../mapstore2-georchestra/js/plugins';
+const { plugins: gsPlugins, ...rest } = georchestra;
+import extensions from './extensions';
+export default {
     plugins: {
-        ...plugins,
-        ...(extensions.default)
+        ...gsPlugins,
+        ...extensions
     },
     ...rest
 };
