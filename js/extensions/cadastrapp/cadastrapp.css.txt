@@ -1,0 +1,241 @@
+.cadastrapp {
+  position: fixed;
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  height: calc(100% - 30px);
+  width: 620px;
+  z-index: 999999999;
+}
+.cadastrapp .top {
+  height: 52px;
+  width: 100%;
+  color: #ffffff;
+  background-color: #078aa3;
+}
+.cadastrapp .top h4 {
+  float: left;
+  width: 200px;
+  line-height: 32px;
+  margin-left: calc(50% - 100px);
+}
+.cadastrapp .top .btn {
+  border: none !important;
+  border-top: none !important;
+}
+.cadastrapp .top .glyphicon:hover {
+  transition: 0.3s;
+  transform: scale(1.2);
+  display: block;
+}
+.cadastrapp .side-bar {
+  width: 52px;
+  margin-top: 52px;
+  height: 100%;
+  background: #eee;
+}
+.cadastrapp h3 {
+  margin-top: 10px;
+  margin-left: 12px;
+}
+.cadastrapp .tab-pane {
+  padding: 10px;
+}
+.cadastrapp .welcome-message {
+  padding: 60px;
+}
+.cadastrapp .table {
+  margin-bottom: 5px;
+}
+.cadastrapp .right-side {
+  height: 100%;
+  width: calc(100% - 52px);
+}
+.cadastrapp .btn-selected {
+  background: #fff;
+  color: #078aa3;
+}
+.cadastrapp .row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.cadastrapp .not-selected-row:hover {
+  color: #078aa3 !important;
+  font-weight: bold;
+  background: #f2f2f2;
+  cursor: pointer;
+}
+.cadastrapp .selected-row {
+  color: #078aa3 !important;
+  font-weight: bold;
+  background: #f2f2f2;
+  cursor: pointer;
+}
+.cadastrapp .col-sm-12 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.cadastrapp .owners-search,
+.cadastrapp .coownership-search,
+.cadastrapp .plots-search {
+  padding: 10px;
+  max-height: 50%;
+  height: 50%;
+}
+.cadastrapp .plots-selection {
+  width: 100%;
+  padding: 10px;
+  height: calc(50% - 52px);
+  overflow: auto;
+}
+.cadastrapp .plots-selection .table-row {
+  float: left;
+  width: 100%;
+  cursor: pointer;
+  border-bottom: solid 1px #ddd;
+}
+.cadastrapp .plots-selection .table-row:hover {
+  color: #078aa3 !important;
+  background: #f2f2f2;
+}
+.cadastrapp .plots-selection .table-row.selected {
+  color: #078aa3 !important;
+  background: #f2f2f2;
+  font-weight: bold;
+}
+.cadastrapp .plots-selection .cell {
+  padding: 4px;
+  float: left;
+}
+.cadastrapp .plots-selection .header {
+  float: left;
+  border-bottom: solid 1px #ddd;
+  font-weight: bold;
+  width: 100%;
+}
+.cadastrapp .tab-content {
+  border: solid 1px #ddd;
+  border-top: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(50vh - 180px);
+  min-height: 200px;
+}
+.cadastrapp .not-scrolled-tab .tab-content {
+  overflow-x: visible;
+  overflow-y: visible;
+  height: calc(50vh - 180px);
+  min-height: 200px;
+}
+/* reconsider this */
+.item-row {
+  width: 100%;
+  float: left;
+  margin-bottom: 5px;
+}
+.label-col {
+  width: 40%;
+  float: left;
+}
+.form-col {
+  width: 60%;
+  float: left;
+}
+.cadastrapp-modal {
+  width: 840px;
+  max-width: none !important;
+}
+.cadastrapp-modal .tab-content {
+  border: solid 1px #ddd;
+  border-top: none;
+  overflow: hidden;
+}
+.cadastrapp-modal .tab-pane {
+  padding: 10px;
+}
+.cadastrapp-modal .modal-footer {
+  border: none;
+}
+.cadastrapp-modal .selected-panel {
+  background: #078aa3 !important;
+  color: #fff !important;
+}
+.cadastrapp-modal .panel-heading {
+  padding: 0 !important;
+}
+.cadastrapp-modal .panel-heading a {
+  padding: 10px;
+  display: block;
+  width: 100%;
+}
+.cadastrapp-modal .panel-heading a:hover {
+  text-decoration: none;
+}
+.cadastrapp-modal .table-row {
+  float: left;
+  width: 100%;
+  cursor: pointer;
+  border-bottom: solid 1px #ddd;
+}
+.cadastrapp-modal .table-row:hover {
+  color: #078aa3 !important;
+  background: #f2f2f2;
+}
+.cadastrapp-modal .table-row.selected {
+  color: #078aa3 !important;
+  background: #f2f2f2;
+  font-weight: bold;
+}
+.cadastrapp-modal .cell {
+  padding: 4px;
+  float: left;
+}
+.cadastrapp-modal .header {
+  float: left;
+  border-bottom: solid 1px #ddd;
+  font-weight: bold;
+  width: 100%;
+}
+.cadastrapp-preferences-modal {
+  width: 400px;
+  max-width: none !important;
+}
+.cadastrapp-preferences-modal .tab-content {
+  border: solid 1px #ddd;
+  border-top: none;
+  overflow: hidden;
+}
+.cadastrapp-preferences-modal .tab-pane {
+  padding: 10px;
+}
+.cadastrapp-preferences-modal .modal-body {
+  overflow: hidden !important;
+  width: 400px !important;
+}
+.cadastrapp-information-modal .modal-body {
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+}
+.cadastrapp-modal.modal-dialog {
+  margin-top: 40px !important;
+}
+.ms-color-picker-overlay {
+  z-index: 12000;
+}
+.Select.is-open {
+  position: relative;
+  z-index: 10000000;
+}
+.Select-menu-outer {
+  width: 160px !important;
+}
+.land-planning-mockup {
+  position: fixed;
+  height: 52px;
+  width: 208px;
+  top: 58px;
+  right: 5px;
+  z-index: 10000000;
+}
