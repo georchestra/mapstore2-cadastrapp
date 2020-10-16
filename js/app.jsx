@@ -35,6 +35,7 @@ ConfigUtils.setConfigProp("geoStoreUrl", "rest/geostore/");
  */
 ConfigUtils.setLocalConfigurationFile("assets/localConfig.json");
 ConfigUtils.setConfigProp("extensionsRegistry", "assets/extensions.json");
+// ConfigUtils.setConfigProp("extensionsRegistry", "rest/config/load/extensions.json");
 ConfigUtils.setConfigProp("contextPluginsConfiguration", "rest/config/load/pluginsConfig.json");
 ConfigUtils.setConfigProp("extensionsFolder", "rest/config/loadasset?resource=");
 // ConfigUtils.setConfigProp("configurationFolder", "rest/config/load/");
