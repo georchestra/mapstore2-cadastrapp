@@ -158,7 +158,7 @@ function PlotSelectionTopActionButtons(props) {
                     <Glyphicon glyph="zoom-in" />
                 </Button>
             </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"owned unit Information"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Owned Unit Information"}</Tooltip>}>
                 <Button
                     {...(!isAtleastOneSelected ? { disabled: 'true' } : {})}
                     onClick={() => { props.onClick("owned-unit"); }}>
