@@ -2,27 +2,62 @@ import Rx from 'rxjs';
 
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
+import { addLayer, removeLayer } from '@mapstore/actions/layers';
+import { getLayerFromId } from '@mapstore/selectors/layers';
+
+const { CADASTRAPP_LAYER_ID } = require('../constants');
+
+import { getConfiguration } from '../api';
 import { configurationSelector } from '../selectors/cadastrapp';
 
 import {
     SETUP,
+    TEAR_DOWN,
     setConfiguration,
     loading
 } from '../actions/cadastrapp';
-import { getConfiguration } from '../api';
 
+
+/**
+ * Intercepts actions of type CADASTRAPP:SETUP.
+ * - Load configuration if missing
+ * - adds the cadastre layer on the map
+ * - TODO: disable getFeatureInfo
+ */
 export const cadastrappSetup = (action$, {getState = () => {}}) =>
     action$.ofType(SETUP).switchMap( () => {
         // initStream loads configuration if not loaded yet
-        const configuration = configurationSelector(getState());
-        let initStream$ = configuration
+        const isConfigurationLoaded = !!configurationSelector(getState());
+        let initStream$ = isConfigurationLoaded
             ? Rx.Observable.empty()
             : Rx.Observable.defer(() => getConfiguration())
                 .switchMap(({ data }) => {
                     return Rx.Observable.of(setConfiguration(data));
                 });
+        const layer = getLayerFromId(getState(), CADASTRAPP_LAYER_ID);
         return initStream$.concat(
-            Rx.Observable.empty() // TODO: add cadastrapp layer
+            layer
+                ? Rx.Observable.empty()
+                : Rx.Observable.defer( () => {
+                    // here the configuration has been loaded
+                    const {
+                        cadastreWMSLayerName,
+                        cadastreWMSURL,
+                        cadastreWFSURL
+                    } = configurationSelector(getState());
+                    return Rx.Observable.of(addLayer({
+                        id: CADASTRAPP_LAYER_ID,
+                        type: "wms",
+                        name: cadastreWMSLayerName,
+                        url: cadastreWMSURL,
+                        visibility: true,
+                        search: {
+                            url: cadastreWFSURL,
+                            type: "wfs"
+                        }
+
+                    }, true));
+                }) // TODO: add cadastrapp layer
         ).let(
             wrapStartStop(
                 loading(true, 'configuration'),
@@ -36,3 +71,9 @@ export const cadastrappSetup = (action$, {getState = () => {}}) =>
         );
     });
 
+/**
+ * Intercept cadastrapp close event.
+ * - Removes the cadastre layer from the map
+ */
+export const cadastrappTearDown = action$ =>
+    action$.ofType(TEAR_DOWN).switchMap(() => Rx.Observable.of(removeLayer(CADASTRAPP_LAYER_ID)));

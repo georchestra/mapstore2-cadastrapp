@@ -24,6 +24,7 @@ const Cadastrapp = compose(
         onClose: toggleControl.bind(null, CONTROL_NAME, null)
     }),
     withStyle(css),
+    // setup and teardown due to open/close
     compose(
         connect( () => ({}), {
             setUp,
