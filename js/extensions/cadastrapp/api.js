@@ -1,6 +1,6 @@
 import axios from '../../../MapStore2/web/client/libs/ajax';
 
-let baseURL = '/cadastrapp/';
+let baseURL = '/cadastrapp';
 
 export function setBaseURL(url) {
     baseURL = url;

@@ -43,5 +43,13 @@ module.exports = {
         headers: {
             host: `${DEV_HOST}`
         }
+    },
+    "/cadastrapp/": {
+        target: `https://georchestra.geo-solutions.it/`,
+        secure: false,
+        logLevel: 'debug',
+        headers: {
+            host: `georchestra.geo-solutions.it`
+        }
     }
-}
+};
