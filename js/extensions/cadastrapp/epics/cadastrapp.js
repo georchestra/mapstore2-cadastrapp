@@ -31,7 +31,7 @@ export const cadastrappSetup = (action$, {getState = () => {}}) =>
         let initStream$ = isConfigurationLoaded
             ? Rx.Observable.empty()
             : Rx.Observable.defer(() => getConfiguration())
-                .switchMap(({ data }) => {
+                .switchMap(data => {
                     return Rx.Observable.of(setConfiguration(data));
                 });
         const layer = getLayerFromId(getState(), CADASTRAPP_LAYER_ID);
