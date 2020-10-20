@@ -9,6 +9,10 @@ import {
     SEARCH_TOOLS
 } from '../../constants';
 
+/**
+ * Renders the search form,
+ * depending on the search tool selected.
+ */
 export default function SearchSection({
     selectedSearchTool,
     handlePlotsSearch,
