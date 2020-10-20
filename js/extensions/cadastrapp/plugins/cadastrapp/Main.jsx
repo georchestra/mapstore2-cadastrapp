@@ -12,6 +12,10 @@ const MainPanel = connect(state => ({
     selectedSearchTool: currentSearchToolSelector(state)
 }))(MP);
 
+/**
+ * Main Container of Cadastrapp.
+ * It contains the whole UI of the plugin.
+ */
 export default connect(state => ({
     enabled: state.controls && state.controls[CONTROL_NAME] && state.controls[CONTROL_NAME].enabled || false
 }))(function Main({ enabled }) {

@@ -4,6 +4,9 @@ import { Button } from "react-bootstrap";
 import { toggleControl } from "@mapstore/actions/controls";
 import { CONTROL_NAME } from '../../constants';
 
+/**
+ * Header of the Cadastrapp panel
+ */
 function Header({onClose = () => {}}) {
     return (<div className="top">
         <h4>Cadastrapp</h4>
