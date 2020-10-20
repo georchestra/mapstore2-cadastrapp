@@ -1,11 +1,11 @@
 import { set } from '@mapstore/utils/ImmutableUtils';
 
 import {
+    LOADING,
     SET_CONFIGURATION,
-    LOADING
+    TOGGLE_SELECTION,
+    TOGGLE_SEARCH
 } from '../actions/cadastrapp';
-
-
 
 /**
  * Holds the state of cadastrapp.
@@ -14,6 +14,8 @@ import {
  * {
  *     loading: true | false // general loading flag
  *     loadingFlags: {} // object that contain loading flag, for various parts of the application.
+ *     searchType: undefined // one of constant.SEARCH_TOOLS
+ *     selectionType: undefined // one of constant.SELECTION_TYPE
  *     configuration: { // the configuration from server. e.g.
  *        cadastreLayerIdParcelle: "geo_parcelle"
  *        cadastreWFSLayerName: "qgis:cadastrapp_parcelle"
@@ -49,6 +51,16 @@ export default function cadastrapp(state = {}, action) {
         return set(action.name === "loading" ? "loading" : `loadFlags.${action.name}`, action.value, set(
             "loading", action.value, state
         ));
+    }
+    case TOGGLE_SELECTION: {
+        const {selectionType} = action;
+        // if the current selection button is clicked, it turns off selection
+        return set("selectionType", selectionType, state);
+    }
+    case TOGGLE_SEARCH: {
+        const { searchType } = action;
+        // if the current search button is clicked, it closes the search section
+        return set("searchType", searchType, state);
     }
     default:
         return state;

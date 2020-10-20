@@ -4,17 +4,19 @@ import { toggleControl } from "@mapstore/actions/controls";
 
 import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
-import Main from '../components/Main';
+import Main from './cadastrapp/Main';
 import css from 'raw-loader!../cadastrapp.css.txt';
 import withStyle from '../enhancers/withStyle';
 import init from '../enhancers/init';
+
+import { CONTROL_NAME } from '../constants';
+
 import {setUp, tearDown} from '../actions/cadastrapp';
 import cadastrapp from '../reducers/cadastrapp';
 import * as epics from '../epics/cadastrapp';
 
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
-const CONTROL_NAME = 'cadastrapp';
 
 const Cadastrapp = compose(
     connect((state) => ({

@@ -22,9 +22,8 @@ export default function PlotsSearch(props) {
         { value: 'H', label: 'H' }
     ];
 
-    const className = props.isShown ? "plots-search" : "collapse";
     return (
-        <div className={className}>
+        <div className="plots-search">
             <h3>Plots Search</h3>
             <Tabs
                 className="not-scrolled-tab"
