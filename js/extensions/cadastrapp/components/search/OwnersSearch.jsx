@@ -9,9 +9,8 @@ import { Tabs, Tab, Button, ControlLabel, FormControl, Checkbox, Glyphicon } fro
 import SearchButtons from './SearchButtons';
 
 export default function OwnersSearch(props) {
-    const className = props.isShown ? "owners-search" : "collapse";
     return (
-        <div className={className}>
+        <div className="owners-search">
             <h3>Owners Search</h3>
             <Tabs
                 className="not-scrolled-tab"

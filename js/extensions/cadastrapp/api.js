@@ -14,3 +14,6 @@ export function getConfiguration() {
     return axios.get(`${baseURL}/services/getConfiguration`).then(({data}) => data);
 }
 
+export function getParcelle(parcelle) {
+    return axios.post(`${baseURL}/services/getParcelle`, {parcelle}).then(({data}) => data);
+}
