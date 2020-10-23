@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import MP from '../../components/MainPanel';
+import MainPanel from './MainPanel';
 
 import MainToolbar from './MainToolbar';
 import Header from './Header';
 import { CONTROL_NAME } from '../../constants';
-import { currentSearchToolSelector } from '../../selectors/cadastrapp';
-
-const MainPanel = connect(state => ({
-    selectedSearchTool: currentSearchToolSelector(state)
-}))(MP);
 
 /**
  * Main Container of Cadastrapp.

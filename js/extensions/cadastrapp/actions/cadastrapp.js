@@ -6,6 +6,10 @@ export const LOADING = "CADASTRAPP:LOADING";
 export const SET_CONFIGURATION = "CADASTRAPP:SET_CONFIGURATION";
 export const TOGGLE_SELECTION = "CADASTRAPP:TOGGLE_SELECTION";
 export const TOGGLE_SEARCH = "CADASTRAPP:TOGGLE_SEARCH";
+export const ADD_PLOTS = "CADASTRAPP:ADD_PLOTS";
+export const SET_ACTIVE_PLOT_SELECTION = "CADASTRAPP:SET_ACTIVE_PLOT_SELECTION";
+export const ADD_PLOT_SELECTION = "CADASTRAPP:ADD_PLOT_SELECTION";
+export const REMOVE_PLOT_SELECTION = "CADASTRAPP:REMOVE_PLOT_SELECTION";
 /**
  * Triggered on cadastrapp activation
  */
@@ -51,3 +55,35 @@ export const toggleSearchTool = (searchType) => ({
     searchType
 });
 
+/**
+ * Insert the new plots in the current selection.
+ * If they exist, they will be selected.
+ * @props plots the parcelles to add.
+ */
+export const addPlots = (plots) => ({
+    type: ADD_PLOTS,
+    plots
+});
+
+/**
+ * Add a tab to the selections
+ */
+export const addPlotSelection = () => ({
+    type: ADD_PLOT_SELECTION
+});
+/**
+ * Select the current tab of the selection
+ * @param {number} active the index of the tab
+ */
+export const setActivePlotSelection = (active) => ({
+    type: SET_ACTIVE_PLOT_SELECTION,
+    active
+});
+/**
+ * Removes a tab from the selection
+ * @param {number} active the index of the tab. If not present, remove the active one
+ */
+export const removePlotSelection = (active) => ({
+    type: REMOVE_PLOT_SELECTION,
+    active
+});

@@ -14,6 +14,7 @@ export function getConfiguration() {
     return axios.get(`${baseURL}/services/getConfiguration`).then(({data}) => data);
 }
 
-export function getParcelle(parcelle) {
-    return axios.post(`${baseURL}/services/getParcelle`, {parcelle}).then(({data}) => data);
+export function getParcelle({ parcelle, cgocommune, dvoilib, dnvoiri, dindic}) {
+    return axios.get(`${baseURL}/services/getParcelle`, { params: {parcelle, cgocommune, dvoilib, dnvoiri, dindic} }).then(({data}) => data);
 }
+

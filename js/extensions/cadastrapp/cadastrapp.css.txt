@@ -1,3 +1,8 @@
+/* support for multiline headers */
+.react-grid-multiline-header .react-grid-HeaderCell {
+  white-space: normal !important;
+}
+
 .cadastrapp {
   position: fixed;
   background: #fff;

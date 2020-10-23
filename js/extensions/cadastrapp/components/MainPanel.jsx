@@ -13,7 +13,12 @@ import { randomPlot } from './dummy';
 
 
 export default function Main({
-    selectedSearchTool
+    children,
+    selectedSearchTool,
+    activeSelectionTab,
+    setActiveSelectionTab,
+    plotSelectionData,
+    setPlotSelectionData
 }) {
 
 
@@ -21,8 +26,6 @@ export default function Main({
 
     let [isPlotSelectionShown, setIsPlotSelectionShown] = useState(false);
 
-    let [activeSelectionTab, setActiveSelectionTab] = useState(0);
-    let [plotSelectionData, setPlotSelectionData] = useState([]);
     // let [selectedBuildings, setSelectedBuildings] = useState({});
     let [expandedPanel, setExpandedPanel] = useState({});
     let [searchIndices, setSearchIndices] = useState({ "owner": -1, "co-owner": -1, "plot": -1 });
@@ -207,10 +210,6 @@ export default function Main({
         setPlotSelectionData(selectionData);
     };
 
-    const handlePlotsSelectionTabChange = (tabIndex) => {
-        setActiveSelectionTab(tabIndex);
-    };
-
     return (
 
         <div className="right-side pull-left">
@@ -224,29 +223,7 @@ export default function Main({
                 handleOwnersSearch={handleOwnersSearch}
                 handleCoownershipSearch={handleCoownershipSearch}
             />
-            <PlotsSelection
-                isShown={isPlotSelectionShown}
-                onInformationForm={handleInformationFormOpen}
-                onZoom={handlePlotsZoom}
-                onClear={handlePlotsClear}
-                onClick={handlePlotsSelectionClick}
-                onTabDelete={handlePlotsSelectionDeleteTab}
-                onTabChange={handlePlotsSelectionTabChange}
-                onNewTab={handlePlotsSelectionNewTab}
-                onAllClick={handleAllRowClick}
-                onRowClick={handleRowClick}
-                data={plotSelectionData}
-                active={activeSelectionTab}
-            />
-            <InformationFormModal
-                expanded={expandedPanel}
-                active={activeSelectionTab}
-                data={plotSelectionData}
-                isShown={isInformationFormShown}
-                onBuildingRowClick={handleBuildingRowClick}
-                onClose={handleInformationFormClose}
-                onPanelExpand={handlePanelExpand}
-            />
+            {children}
         </div>
     );
 }

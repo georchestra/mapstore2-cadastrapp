@@ -15,6 +15,8 @@ import Login from "@js/plugins/Login";
 import AuthenticationAPI from "@mapstore/api/GeoStoreDAO";
 import { Providers } from "@mapstore/api/usersession";
 import serverbackup from "@mapstore/api/usersession/serverbackup";
+import { autoOpenCadastrapp } from './extensions/cadastrapp/epics/test';
+
 
 /**
  * Add custom (overriding) translations with:
@@ -95,7 +97,7 @@ const appConfig = assign({}, appCfg, {
             component: require("@mapstore/product/pages/Context").default
         }
     ],
-    appEpics: {}
+    appEpics: { autoOpenCadastrapp }
 });
 /**
  * Define a custom list of plugins with:

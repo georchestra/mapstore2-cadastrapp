@@ -1,4 +1,5 @@
 import React from 'react';
+import PlotsSelectionTable from './table/PlotsSelectionTable';
 import {
     Tab,
     ButtonGroup,
@@ -14,32 +15,11 @@ import {
     NavItem,
     Glyphicon
 } from "react-bootstrap";
-import SelectableTable from './table/SelectableTable';
 
+function PlotSelectionTabContent({
 
-function PlotsSelectionTable(props) {
-
-    const handleRowClick = (index) => {
-        props.onRowClick(index, props.tableIndex);
-    };
-
-    const handleAllClick = () => {
-        props.onAllClick(props.tableIndex);
-    };
-
-    const headers = ["Town", "Section", "Cadastrall Addr.", "Plan Number", "Surface DGFIP in m2"];
-    const widths = [10, 15, 30, 20, 20];
-    return (
-        <SelectableTable
-            widths={widths}
-            data={props.data}
-            header={headers}
-            onAllClick={handleAllClick}
-            onClick={handleRowClick}/>
-    );
-}
-
-function PlotSelectionTabContent(props) {
+    ...props
+}) {
     return (
         <Col sm={12}>
             <Tab.Content animation>
@@ -57,20 +37,20 @@ function PlotSelectionTabContent(props) {
     );
 }
 
-function PlotSelectionTabActionButtons(props) {
+function PlotSelectionTabActionButtons({onNewTab = () => {}, onTabDelete = () => {}}) {
     return (
         <ButtonGroup className="pull-right">
             <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Add a new Selection Tab"}</Tooltip>}>
                 <Button
                     className="pull-right"
-                    onClick={props.onNewTab}
+                    onClick={onNewTab}
                 ><span className="glyphicon glyphicon-plus"></span>
                 </Button>
             </OverlayTrigger>
             <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Delete current Selection Tab"}</Tooltip>}>
                 <Button
                     className="pull-right"
-                    onClick={props.onTabDelete}>
+                    onClick={onTabDelete}>
                     <Glyphicon glyph="trash" />
                 </Button>
             </OverlayTrigger>
@@ -78,24 +58,29 @@ function PlotSelectionTabActionButtons(props) {
     );
 }
 
-function PlotSelectionTabs(props) {
+function PlotSelectionTabs({
+    active,
+    onTabChange,
+    data,
+    ...props
+}) {
     return (
         <Tab.Container
-            onSelect={props.onTabChange}
-            activeKey={props.active}
-            defaultActiveKey={props.active}>
+            onSelect={onTabChange}
+            activeKey={active}
+            defaultActiveKey={active}>
             <Row className="clearfix">
                 <Col sm={12}>
                     <Nav bsStyle="tabs">
-                        {props.data.map((value, index) => (
+                        {data.map((value, index) => (
                             <NavItem eventKey={index}>
                                 {"Selection " + (index + 1).toString()}
                             </NavItem>
                         ))}
-                        <PlotSelectionTabActionButtons {...props}/>
+                        <PlotSelectionTabActionButtons {...props} data={data}/>
                     </Nav>
                 </Col>
-                <PlotSelectionTabContent {...props}/>
+                <PlotSelectionTabContent {...props} data={data}/>
             </Row>
         </Tab.Container>
     );
