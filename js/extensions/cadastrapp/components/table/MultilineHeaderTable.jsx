@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDataGrid from 'react-data-grid';
+import PropTypes from 'prop-types';
 const DEFAULTS = {
     minWidth: 120,
     maxWidth: 300,
@@ -9,7 +12,10 @@ const DEFAULTS = {
 };
 const H_PADDING_CORRECTION = 4;
 
-class ReactDataGridMultilineHeader {
+/**
+ * Internal helper class for multiline header
+ */
+class Helper {
     constructor(columns, config = {}) {
         this._columns = columns;
         this._config = Object.assign(DEFAULTS, config);
@@ -48,8 +54,7 @@ class ReactDataGridMultilineHeader {
 
         if (textWidth <= maxTextWidth) {
             column.width = Math.max(this._config.minWidth, textWidth + padding);
-        }
-        else {
+        } else {
             const longestWordWidth = column.name
                 .split(' ')
                 .reduce((previousValue, currentValue) =>
@@ -71,4 +76,36 @@ class ReactDataGridMultilineHeader {
     }
 }
 
-export default ReactDataGridMultilineHeader;
+/**
+ * A react data grid wrapper that provides the additional functionality
+ * to provide multiline headers.
+ * It requires the following css:
+ * ```css
+ * .react-grid-multiline-header .react-grid-HeaderCell {
+ *     white-space: normal !important;
+ * }
+ * ```
+ */
+class MultilineHeaderTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.helper = new Helper(this.props.columns);
+    }
+
+    render() {
+        // create mixed column for address
+        return (
+            <div className="react-grid-multiline-header">
+                <ReactDataGrid
+                    headerRowHeight={this.helper.headerRowHeight}
+                    columns={this.helper.columns}
+                    {...this.props}
+                />
+            </div>
+        );
+    }
+}
+MultilineHeaderTable.propTypes = {
+    columns: PropTypes.array
+};
+export default MultilineHeaderTable;

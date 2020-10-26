@@ -23,15 +23,22 @@ export function getCadastrappLayer(state) { return getLayerFromId(state, CADASTR
 /**
  * gets the current active selection tool for map (id)
  * @param {object} state
+ * @returns {string} the selection type (one of constants.SELECTION_TYPES)
  */
 export function currentSelectionToolSelector(state) { return state?.cadastrapp.selectionType; }
 
 /**
  * gets the current active search form id.
  * @param {object} state
+ * @returns {string} the search type (one of constants.SEARCH_TOOLS)
  */
 export function currentSearchToolSelector(state) { return state?.cadastrapp.searchType; }
 
+/**
+ * getst from the state the index of the current tab selected
+ * @param {object} state
+ * @returns {number} the index of the current tab
+ */
 export function activeSelectionTabIndexSelectors(state) { return state?.cadastrapp.activePlotSelection || 0; }
 
 /**
