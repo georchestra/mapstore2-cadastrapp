@@ -53,7 +53,10 @@ function PlotsSelectionTable({
             onRowsDeselected: onRowsDeselected,
             */
             selectBy: {
-                keys: { rowKey: 'id', values: selectedKeys }
+                keys: {
+                    rowKey: 'parcelle',
+                    values: selectedKeys
+                }
             }
         }}
     />);

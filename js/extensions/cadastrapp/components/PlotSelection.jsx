@@ -17,7 +17,7 @@ import {
 } from "react-bootstrap";
 
 function PlotSelectionTabContent({
-
+    selectedPlots,
     ...props
 }) {
     return (
@@ -26,8 +26,7 @@ function PlotSelectionTabContent({
                 {props.data.map((value, index) => (
                     <Tab.Pane eventKey={index}>
                         <PlotsSelectionTable
-                            onAllClick={props.onAllClick}
-                            onRowClick={props.onRowClick}
+                            selectedKeys={selectedPlots}
                             data={props.data[index]}
                             tableIndex={index}/>
                     </Tab.Pane>

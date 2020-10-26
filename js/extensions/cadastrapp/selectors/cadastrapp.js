@@ -41,14 +41,24 @@ export function currentSearchToolSelector(state) { return state?.cadastrapp.sear
  */
 export function activeSelectionTabIndexSelectors(state) { return state?.cadastrapp.activePlotSelection || 0; }
 
+
+export function plotsSelector(state) {
+    return state?.cadastrapp?.plots;
+}
 /**
  * Gets the data of plot selection from the state
  * @param {object} state
  */
 export function plotDataSelector(state) {
-    const selection = state?.cadastrapp?.plots;
+    const selection = plotsSelector(state);
     if (!selection) {
         return [];
     }
     return selection.map(({data}) => data); // transform in array of array
+}
+export function selectedPlotIdsSelector(state) {
+    const plots = plotsSelector(state);
+    const active = activeSelectionTabIndexSelectors(state);
+    const current = plots[active];
+    return current?.selected;
 }

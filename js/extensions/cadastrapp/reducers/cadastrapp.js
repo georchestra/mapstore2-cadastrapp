@@ -11,6 +11,28 @@ import {
     TOGGLE_SEARCH
 } from '../actions/cadastrapp';
 
+/**
+ * Toggles selection of one parcelle, if present
+ * @param {object} currentSelection current selection object
+ * @param {string} parcelle the Id of the parcelle
+ */
+function toggleSelection(currentSelection, parcelle) {
+    if (find(currentSelection.data, {parcelle})) {
+        const isSelectedIndex = currentSelection.selected.indexOf(parcelle);
+        let selected = currentSelection.selected;
+        if (isSelectedIndex >= 0) {
+            selected = selected.filter(v => v !== parcelle);
+        } else {
+            selected = [...selected, parcelle];
+        }
+        return {
+            ...currentSelection,
+            selected
+        };
+    }
+    return currentSelection;
+}
+
 const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
 
 /**
@@ -82,19 +104,7 @@ export default function cadastrapp(state = {
         // add every plot received and toggle selection if exist
         plots.map(({ parcelle, ...other}) => {
             // if exists, toggle selection
-            if (currentSelection.data[parcelle]) {
-                const isSelectedIndex = currentSelection.selected.indexOf(parcelle);
-                let selected = currentSelection.selected;
-                if (isSelectedIndex >= 0) {
-                    selected = selected.filter(v => v === parcelle);
-                } else {
-                    selected = [...selected, parcelle];
-                }
-                currentSelection = {
-                    ...currentSelection,
-                    selected
-                };
-            }
+            currentSelection = toggleSelection(currentSelection, parcelle);
             // update/insert the value at the en
             currentSelection = arrayUpsert(`data`, { parcelle, ...other }, {parcelle}, currentSelection);
         });
