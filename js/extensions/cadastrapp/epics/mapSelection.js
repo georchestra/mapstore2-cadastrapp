@@ -66,7 +66,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
     action$.ofType(TOGGLE_SELECTION).switchMap(({selectionType}) => {
         if (selectionType) {
             const startDrawingAction = changeDrawingStatus('start', drawMethod(selectionType), 'cadastrapp', [], { stopAfterDrawing: true });
-            return action$.ofType(END_DRAWING).switchMap(
+            return action$.ofType(END_DRAWING).flatMap(
                 ({ geometry }) => {
                     // query WFS
                     return createRequest(geometry, getState)
@@ -82,8 +82,8 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                             ).map(parcelles => {
                                 return addPlots(parcelles);
                             });
-                        }).concat(
-                            Rx.Observable.of(startDrawingAction) // reactivate drawing
+                        }).merge(
+                            Rx.Observable.of(startDrawingAction).delay(200) // reactivate drawing
                         );
                     // TODO: Re-activate the tool;
                 })

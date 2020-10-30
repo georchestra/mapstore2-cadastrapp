@@ -99,6 +99,6 @@ export const cadastrappSetup = (action$, { getState = () => { } }) =>
 export const cadastrappTearDown = action$ =>
     action$.ofType(TEAR_DOWN).switchMap(() =>
         Rx.Observable.of(
-            (CADASTRAPP_RASTER_LAYER_ID, CADASTRAPP_OWNER),
+            removeAdditionaLayer(CADASTRAPP_RASTER_LAYER_ID, CADASTRAPP_OWNER),
             removeAdditionaLayer(CADASTRAPP_VECTOR_LAYER_ID, CADASTRAPP_OWNER)
 ));
