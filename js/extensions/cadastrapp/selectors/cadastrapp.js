@@ -1,5 +1,10 @@
-import { CADASTRAPP_LAYER_ID } from '../constants';
-import { getLayerFromId} from '@mapstore/selectors/layers';
+import {
+    CADASTRAPP_RASTER_LAYER_ID,
+    CADASTRAPP_VECTOR_LAYER_ID
+} from '../constants';
+import { additionalLayersSelector } from '@mapstore/selectors/additionallayers';
+
+// import { getLayerFromId } from '@mapstore/selectors/layers';
 
 /**
  * Gets the configuration loaded from cadastrapp API
@@ -19,7 +24,20 @@ export function cadastreLayerIdParcelle(state) {
  * gets the whole cadastrapp layer object
  * @param {object} state
  */
-export function getCadastrappLayer(state) { return getLayerFromId(state, CADASTRAPP_LAYER_ID); }
+export function getCadastrappLayer(state) {
+    const additionalLayers = additionalLayersSelector(state) ?? [];
+    return additionalLayers.filter(({ id }) => id === CADASTRAPP_RASTER_LAYER_ID)?.[0]?.options;
+}
+// this if the layer is in TOC
+// export function getCadastrappLayer(state) { return getLayerFromId(state, CADASTRAPP_RASTER_LAYER_ID); }
+/**
+ * gets the whole cadastrapp vector overlay object
+ * @param {object} state
+ */
+export function getCadastrappVectorLayer(state) {
+    const additionalLayers = additionalLayersSelector(state) ?? [];
+    return additionalLayers.filter(({ id }) => id === CADASTRAPP_VECTOR_LAYER_ID)?.[0]?.options;
+}
 /**
  * gets the current active selection tool for map (id)
  * @param {object} state
@@ -56,9 +74,37 @@ export function plotDataSelector(state) {
     }
     return selection.map(({data}) => data); // transform in array of array
 }
-export function selectedPlotIdsSelector(state) {
+export function currentPlotsSelector(state) {
     const plots = plotsSelector(state);
     const active = activeSelectionTabIndexSelectors(state);
-    const current = plots[active];
+    return plots[active];
+}
+/**
+ * Get the curretn selected plots Ids
+ * @param {object} state
+ * @return {string[]} the IDs of current selected items
+ */
+export function selectedPlotIdsSelector(state) {
+    const current = currentPlotsSelector(state);
     return current?.selected;
+}
+/**
+ * Get the current plots
+ * @param {object} state
+ * @return {object[]} the current plots in the table
+ */
+export function getCurrentPlotData(state) {
+    const current = currentPlotsSelector(state);
+    return current?.data;
+}
+export function getCurrentPlotFeatures(state) {
+    return getCurrentPlotData(state).map(({ feature }) => feature);
+}
+export function getSelectedPlots(state) {
+    const selectedIds = selectedPlotIdsSelector(state);
+    const plots = plotsSelector(state) ?? [];
+    return plots.filter(({ parcelle }) => selectedIds.includes(parcelle));
+}
+export function getSelectedFeatures(state) {
+    return getSelectedPlots(state).map(({feature}) => feature);
 }

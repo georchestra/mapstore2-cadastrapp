@@ -1,11 +1,14 @@
 import { set, arrayUpsert, compose} from '@mapstore/utils/ImmutableUtils';
-import {find} from 'lodash';
+import { find, uniq } from 'lodash';
 import {
     LOADING,
     ADD_PLOTS,
+    REMOVE_PLOTS,
     ADD_PLOT_SELECTION,
     REMOVE_PLOT_SELECTION,
     SET_ACTIVE_PLOT_SELECTION,
+    SELECT_PLOTS,
+    DESELECT_PLOTS,
     SET_CONFIGURATION,
     TOGGLE_SELECTION,
     TOGGLE_SEARCH
@@ -109,6 +112,34 @@ export default function cadastrapp(state = {
             currentSelection = arrayUpsert(`data`, { parcelle, ...other }, {parcelle}, currentSelection);
         });
         // update with new values the state
+        return set(`plots[${activePlotSelection}]`, currentSelection, state);
+    }
+    case REMOVE_PLOTS: {
+        const { parcelles = []} = action;
+        const {activePlotSelection = 0 } = state;
+        // get the current selection or create a new one if it not exists.
+        let currentSelection = state?.plots?.[activePlotSelection] ?? EMPTY_PLOT_SELECTION;
+        currentSelection = {
+            ...currentSelection,
+            data: currentSelection.data.filter(({ parcelle }) => !parcelles.includes(parcelle)),
+            selected: currentSelection.selected.filter(parcelle => !parcelles.includes(parcelle))
+        };
+        // update with new values the state
+        return set(`plots[${activePlotSelection}]`, currentSelection, state);
+    }
+    case SELECT_PLOTS:
+    case DESELECT_PLOTS: {
+        const { activePlotSelection = 0 } = state;
+        let currentSelection = state?.plots?.[activePlotSelection] ?? EMPTY_PLOT_SELECTION;
+        const {plots = []} = action;
+        const parcelles = plots.map(({ parcelle }) => parcelle);
+        const selected = action.type === SELECT_PLOTS
+            ? uniq([...(currentSelection.selected || []), ...parcelles])
+            : (currentSelection.selected || []).filter(id => !parcelles.includes(id));
+        currentSelection = {
+            ...currentSelection,
+            selected
+        };
         return set(`plots[${activePlotSelection}]`, currentSelection, state);
     }
     case ADD_PLOT_SELECTION: {

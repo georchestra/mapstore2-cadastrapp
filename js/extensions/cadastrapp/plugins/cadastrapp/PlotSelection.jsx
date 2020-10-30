@@ -7,7 +7,10 @@ import InformationFormModal from '../../components/Information';
 import {
     addPlotSelection,
     removePlotSelection,
-    setActivePlotSelection
+    setActivePlotSelection,
+    selectPlots,
+    deselectPlots,
+    removePlots
 } from '../../actions/cadastrapp';
 
 import {
@@ -22,9 +25,15 @@ const PlotsSelection = connect((state) => ({
 }), {
     onNewTab: addPlotSelection,
     onTabChange: setActivePlotSelection,
+    onRowsSelected: selectPlots,
+    onRowsDeselected: deselectPlots,
+    removePlots: removePlots,
     onTabDelete: () => removePlotSelection()
 })(PS);
 
+/**
+ * Connected version of Plot selection table, with internal state.
+ */
 export default connect(
     state => ({
         plotSelectionData: plotDataSelector(state),

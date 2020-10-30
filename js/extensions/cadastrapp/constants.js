@@ -1,8 +1,11 @@
 
 /**
- * Indentifier of mapstore layer for cadastrapp
+ * Indentifier of mapstore layer ID for  cadastrapp
  */
-export const CADASTRAPP_LAYER_ID = "__CADASTRAPP__LAYER__";
+export const CADASTRAPP_RASTER_LAYER_ID = "__CADASTRAPP_VECTOR_LAYER__";
+export const CADASTRAPP_VECTOR_LAYER_ID = "__CADASTRAPP_RASTER_LAYER__";
+// owner for tools like additional layers and draw support
+export const CADASTRAPP_OWNER = "CADASTRAPP";
 /**
  * Name of the control in controls reducer to get the enabled property
  */

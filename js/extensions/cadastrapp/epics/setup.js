@@ -3,8 +3,14 @@ import Rx from 'rxjs';
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
 import { addLayer, removeLayer } from '@mapstore/actions/layers';
+import { updateAdditionalLayer, removeAdditionaLayer } from '../../../../MapStore2/web/client/actions/additionallayers';
 
-const { CADASTRAPP_LAYER_ID } = require('../constants');
+
+import {
+    CADASTRAPP_RASTER_LAYER_ID,
+    CADASTRAPP_VECTOR_LAYER_ID,
+    CADASTRAPP_OWNER
+} from '../constants';
 
 import { getConfiguration } from '../api';
 import { configurationSelector, getCadastrappLayer } from '../selectors/cadastrapp';
@@ -44,18 +50,34 @@ export const cadastrappSetup = (action$, { getState = () => { } }) =>
                         cadastreWMSURL,
                         cadastreWFSURL
                     } = configurationSelector(getState());
-                    return Rx.Observable.of(addLayer({
-                        id: CADASTRAPP_LAYER_ID,
-                        type: "wms",
-                        name: cadastreWMSLayerName,
-                        url: cadastreWMSURL,
-                        visibility: true,
-                        search: {
-                            url: cadastreWFSURL,
-                            type: "wfs"
-                        }
-
-                    }, true));
+                    return Rx.Observable.of(
+                        updateAdditionalLayer(
+                            CADASTRAPP_RASTER_LAYER_ID,
+                            CADASTRAPP_OWNER,
+                            'overlay',
+                            {
+                                id: CADASTRAPP_RASTER_LAYER_ID,
+                                type: "wms",
+                                name: cadastreWMSLayerName,
+                                url: cadastreWMSURL,
+                                visibility: true,
+                                search: {
+                                    url: cadastreWFSURL,
+                                    type: "wfs"
+                                }
+                            }, true),
+                        updateAdditionalLayer(
+                            CADASTRAPP_VECTOR_LAYER_ID,
+                            CADASTRAPP_OWNER,
+                            'overlay',
+                            {
+                                id: CADASTRAPP_VECTOR_LAYER_ID,
+                                features: [],
+                                type: "vector",
+                                name: "searchPoints",
+                                visibility: true
+                            })
+                    );
                 }) // TODO: add cadastrapp layer
         ).let(
             wrapStartStop(
@@ -75,4 +97,8 @@ export const cadastrappSetup = (action$, { getState = () => { } }) =>
  * - Removes the cadastre layer from the map
  */
 export const cadastrappTearDown = action$ =>
-    action$.ofType(TEAR_DOWN).switchMap(() => Rx.Observable.of(removeLayer(CADASTRAPP_LAYER_ID)));
+    action$.ofType(TEAR_DOWN).switchMap(() =>
+        Rx.Observable.of(
+            (CADASTRAPP_RASTER_LAYER_ID, CADASTRAPP_OWNER),
+            removeAdditionaLayer(CADASTRAPP_VECTOR_LAYER_ID, CADASTRAPP_OWNER)
+));

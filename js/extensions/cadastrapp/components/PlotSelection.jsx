@@ -1,6 +1,7 @@
 import React from 'react';
 import PlotsSelectionTable from './table/PlotsSelectionTable';
 import {
+    Nav,
     Tab,
     ButtonGroup,
     Button,
@@ -10,22 +11,26 @@ import {
     Col,
     NavDropdown,
     MenuItem,
-    DropdownButton,
-    Nav,
     NavItem,
     Glyphicon
 } from "react-bootstrap";
+import PlotSelectionToolbar from './plot/PlotSelectionToolbar';
+
 
 function PlotSelectionTabContent({
     selectedPlots,
+    onRowsSelected,
+    onRowsDeselected,
     ...props
 }) {
     return (
         <Col sm={12}>
-            <Tab.Content animation>
+            <Tab.Content>
                 {props.data.map((value, index) => (
                     <Tab.Pane eventKey={index}>
                         <PlotsSelectionTable
+                            onRowsSelected={onRowsSelected}
+                            onRowsDeselected={onRowsDeselected}
                             selectedKeys={selectedPlots}
                             data={props.data[index]}
                             tableIndex={index}/>
@@ -120,55 +125,6 @@ function PlotSelectionTabsWithDropdown(props) {
     );
 }
 
-function PlotSelectionTopActionButtons(props) {
-
-
-    let isAtleastOneSelected = false;
-    if (props.data.length > 0) {
-        let data = props.data[props.active];
-        for (let i = 0; i < data.length; i++) {
-            if (data[i][5]) {
-                isAtleastOneSelected = true;
-                break;
-            }
-        }
-    }
-
-    return (
-        <ButtonGroup className="pull-right">
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Zoom"}</Tooltip>}>
-                <Button
-                    onClick={() => { props.onClick("zoom"); }}>
-                    <Glyphicon glyph="zoom-in" />
-                </Button>
-            </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Owned Unit Information"}</Tooltip>}>
-                <Button
-                    {...(!isAtleastOneSelected ? { disabled: 'true' } : {})}
-                    onClick={() => { props.onClick("owned-unit"); }}>
-                    <Glyphicon glyph="th-list" />
-                </Button>
-            </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Information Form"}</Tooltip>}>
-                <Button
-                    {...(!isAtleastOneSelected ? { disabled: 'true' } : {})}
-                    onClick={() => { props.onClick("information-form"); }}
-                ><Glyphicon glyph="info-sign" /></Button>
-            </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Export"}</Tooltip>}>
-                <DropdownButton
-                    {...(!isAtleastOneSelected ? { disabled: 'true' } : {})}
-                    pullRight title={<Glyphicon glyph="export" />}>
-                    <MenuItem>Plot</MenuItem>
-                    <MenuItem>Owners</MenuItem>
-                    <MenuItem>Co-owners</MenuItem>
-                    <MenuItem>Bundle</MenuItem>
-                </DropdownButton>
-            </OverlayTrigger>
-        </ButtonGroup>
-    );
-}
-
 export default function PlotsSelection(props) {
 
     let className = props.data.length === 0 ? "collapse" : "plots-selection";
@@ -177,7 +133,7 @@ export default function PlotsSelection(props) {
     return (
         <div className={className}>
             <h3 className="pull-left">Plots Selection</h3>
-            <PlotSelectionTopActionButtons {...props}/>
+            <PlotSelectionToolbar {...props}/>
             <TabComponent {...props}/>
         </div>
     );

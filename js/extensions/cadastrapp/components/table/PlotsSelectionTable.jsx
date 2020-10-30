@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 
 function PlotsSelectionTable({
+    onRowsSelected = () => { },
+    onRowsDeselected = () => { },
     data,
     selectedKeys
 }) {
@@ -48,10 +50,8 @@ function PlotsSelectionTable({
         rowSelection={{
             showCheckbox: true,
             enableShiftSelect: true,
-            /*
-            onRowsSelected: onRowsSelected,
-            onRowsDeselected: onRowsDeselected,
-            */
+            onRowsSelected: (rr = []) => onRowsSelected(rr.map(({ row }) => row)),
+            onRowsDeselected: (rr = []) => onRowsDeselected(rr.map(({ row }) => row)),
             selectBy: {
                 keys: {
                     rowKey: 'parcelle',

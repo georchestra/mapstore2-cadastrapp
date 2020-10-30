@@ -7,9 +7,12 @@ export const SET_CONFIGURATION = "CADASTRAPP:SET_CONFIGURATION";
 export const TOGGLE_SELECTION = "CADASTRAPP:TOGGLE_SELECTION";
 export const TOGGLE_SEARCH = "CADASTRAPP:TOGGLE_SEARCH";
 export const ADD_PLOTS = "CADASTRAPP:ADD_PLOTS";
+export const REMOVE_PLOTS = "CADASTRAPP:REMOVE_PLOTS";
 export const SET_ACTIVE_PLOT_SELECTION = "CADASTRAPP:SET_ACTIVE_PLOT_SELECTION";
 export const ADD_PLOT_SELECTION = "CADASTRAPP:ADD_PLOT_SELECTION";
 export const REMOVE_PLOT_SELECTION = "CADASTRAPP:REMOVE_PLOT_SELECTION";
+export const SELECT_PLOTS = "CADASTRAPP:SELECT_PLOTS";
+export const DESELECT_PLOTS = "CADASTRAPP:DESELECT_PLOTS";
 /**
  * Triggered on cadastrapp activation
  */
@@ -66,6 +69,16 @@ export const addPlots = (plots) => ({
 });
 
 /**
+ * Remove the plots from the current selection
+ * @prop {string[]}plots the parcelles to remove.
+ */
+export const removePlots = (parcelles) => ({
+    type: REMOVE_PLOTS,
+    parcelles
+});
+
+
+/**
  * Add a tab to the selections
  */
 export const addPlotSelection = () => ({
@@ -86,4 +99,20 @@ export const setActivePlotSelection = (active) => ({
 export const removePlotSelection = (active) => ({
     type: REMOVE_PLOT_SELECTION,
     active
+});
+/**
+ * Select the passed plots
+ * @param {object[]} plots the plot to select
+ */
+export const selectPlots = (plots) => ({
+    type: SELECT_PLOTS,
+    plots
+});
+/**
+ * Deselect the passed plots
+ * @param {object[]} plots the plot to deselect
+ */
+export const deselectPlots = (plots) => ({
+    type: DESELECT_PLOTS,
+    plots
 });
