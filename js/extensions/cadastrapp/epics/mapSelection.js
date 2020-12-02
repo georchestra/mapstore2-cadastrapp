@@ -72,15 +72,15 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                     return createRequest(geometry, getState)
                         .switchMap(({ features = []} = {}) => {
                             // retrieve all parcelles data from API
-                            return Rx.Observable.forkJoin(
-                                features.map((feature) => {
+                            return Rx.Observable.merge(
+                                ...features.map((feature) => {
                                     const parcelle = feature?.properties[cadastreLayerIdParcelle(getState())];
                                     return getParcelle({ parcelle })
                                         // the API returns an array, in this case only the first is ok, and associate the feature to it.
                                         .then(([p]) => ({...p, feature}));
                                 })
-                            ).map(parcelles => {
-                                return addPlots(parcelles);
+                            ).map(parcelle => {
+                                return addPlots([parcelle]);
                             });
                         }).merge(
                             Rx.Observable.of(startDrawingAction).delay(200) // reactivate drawing

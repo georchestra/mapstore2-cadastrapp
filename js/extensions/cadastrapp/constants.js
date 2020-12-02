@@ -1,6 +1,6 @@
 
 /**
- * Indentifier of mapstore layer ID for  cadastrapp
+ * Identifier of mapstore layer ID for  cadastrapp
  */
 export const CADASTRAPP_RASTER_LAYER_ID = "__CADASTRAPP_VECTOR_LAYER__";
 export const CADASTRAPP_VECTOR_LAYER_ID = "__CADASTRAPP_RASTER_LAYER__";
