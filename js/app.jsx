@@ -15,7 +15,6 @@ import Login from "@js/plugins/Login";
 import AuthenticationAPI from "@mapstore/api/GeoStoreDAO";
 import { Providers } from "@mapstore/api/usersession";
 import serverbackup from "@mapstore/api/usersession/serverbackup";
-import { autoOpenCadastrapp } from './extensions/cadastrapp/epics/test';
 
 
 /**
@@ -43,6 +42,11 @@ ConfigUtils.setConfigProp("extensionsFolder", "rest/config/loadasset?resource=")
 // ConfigUtils.setConfigProp("configurationFolder", "rest/config/load/");
 
 Providers.georchestra = serverbackup;
+import MapViewer from '@mapstore/product/pages/MapViewer';
+import Maps from "@mapstore/product/pages/Maps";
+import Admin from "@js/pages/Admin";
+import ContextCreator from "@js/pages/ContextCreator";
+import Context from "@mapstore/product/pages/Context";
 
 /**
  * Use a custom application configuration file with:
@@ -64,37 +68,37 @@ const appConfig = assign({}, appCfg, {
         {
             name: "mapviewer",
             path: "/",
-            component: require("@mapstore/product/pages/MapViewer")
+            component: MapViewer
         },
         {
             name: "mapviewer",
             path: "/viewer/:mapType/:mapId",
-            component: require("@mapstore/product/pages/MapViewer")
+            component: MapViewer
         },
         {
             name: "maps",
             path: "/maps",
-            component: require("@mapstore/product/pages/Maps")
+            component: Maps
         },
         {
             name: "admin",
             path: "/admin",
-            component: require("@js/pages/Admin").default
+            component: Admin
         },
         {
             name: "context-creator",
             path: "/context-creator/:contextId",
-            component: require("@js/pages/ContextCreator").default
+            component: ContextCreator
         },
         {
             name: "context",
             path: "/context/:contextName",
-            component: require("@mapstore/product/pages/Context").default
+            component: Context
         },
         {
             name: "context",
             path: "/context/:contextName/:mapId",
-            component: require("@mapstore/product/pages/Context").default
+            component: Context
         }
     ],
     appEpics: { autoOpenCadastrapp }
