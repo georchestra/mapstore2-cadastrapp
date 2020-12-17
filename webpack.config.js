@@ -50,8 +50,8 @@ const cfg = buildConfig(
                 host: `${DEV_HOST}`
             }
         },
-        "/mapstore/proxy": {
-            target: `https://dev.mapstore.geo-solutions.it`,
+        "/proxy": {
+            target: `https://dev.mapstore.geo-solutions.it/mapstore`,
             secure: false
         },
         "/geonetwork": {
@@ -59,7 +59,7 @@ const cfg = buildConfig(
             secure: false,
             headers: {
                 host: `${DEV_HOST}`
-            },
+            }
         },
         "/header": {
             target: `${DEV_PROTOCOL}://${DEV_HOST}`,
