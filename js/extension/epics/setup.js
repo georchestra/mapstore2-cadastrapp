@@ -2,7 +2,7 @@ import Rx from 'rxjs';
 
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
-import { updateAdditionalLayer, removeAdditionalLayer } from '../../../../MapStore2/web/client/actions/additionallayers';
+import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
 
 
 import {

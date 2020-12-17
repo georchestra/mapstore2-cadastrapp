@@ -1,51 +1,65 @@
-# MapStore2 plugin for Cadastrapp
+# General
 
-This repository hosts the code for the front client of [Cadastrapp](https://github.com/georchestra/) in the [MapStore2 geOrchestra project](https://github.com/georchestra/mapstore2-georchestra).
+This repository is a [MapStore Extensions](https://mapstore.readthedocs.io/en/latest/developer-guide/extensions/) repository to build cadastrapp
+It is based on https://github.com/geosolutions-it/MapStoreExtension with the customizations for geOrchestra, and it follows the same conventions.
 
-## Documentation
+It can be used also as a starting template to create new extensions for geOrchestra.
 
-See http://docs.georchestra.org/cadastrapp/guide_administrateur/
+## Quick Start
 
-## Setup
+Clone the repository with the --recursive option to automatically clone submodules.
 
-Clone this repository with the `--recursive` option, because it uses some git sub-modules:
+`git clone --recursive https://github.com/georchestra/mapstore2-cadastrapp`
 
-- `git clone --recursive https://github.com/georchestra/mapstore2-cadastrapp`
+Install NodeJS >= 12.16.1 , if needed, from [here](https://nodejs.org/en/download/releases/).
 
-Download dependencies:
+You can start the development application locally:
 
-- `npm install`
+`npm install`
 
-## Build
+`npm start`
 
-`npm run compile` will create the extension zip file ready to install in `dist/cadastrapp.zip`.
+The application runs at `http://localhost:8081` afterwards. You will see, opening a map, the sample plugin on top of the map.
 
-## Development
+### Running geOrchestra
 
-**Requirements:**
+You can run this application and refer with the dev proxy all the entry points you expect from geOrchestra.
+If you need to login, you can run geOrchestra locally and use the header extension to fake login. When you will try to login from the login menu,
+you will be logged in as the user indicated in the headers. See geOrchestra development guide for details.
 
-- Back-end of MapStore instance of geoOrchestra running at `localhost:8080/mapstore` (edit `proxyConfig.js` to change it)
-- To test admin permission, it needs to run behind the security proxy of geOrchestra
+### Build Extension
 
-**Run in development mode:**
+To build the extension you should run
 
-`npm start` will start the development server at `http://localhost:8081`. You can edit `proxyConfig.js` to edit the entry points for MapStore back-end (and cadastrapp) you want to access from this development instance.
+- `npm run ext:build`
 
-## How to develop Cadastrapp Extension
+This will create a zip with the name of your extension in `dist` directory.
 
-The project here is a mock of geOrchestra, that tries to reuse most of geOrchestra as a sub-project to support the development of the `Cadastrapp` plugin.
 
-### Javascript code
+### Test Module
 
-All the code of cadastrapp MapStore plugin have to be placed in the folder `js/extensions/cadastrapp`.
-The folder is structured as a typical react-redux application, with `components` folder. You can develop the extension as a normal plugin of MapStore. Also configuration should be passed as
+The current project contains the plugin on its own. In a production environment the extension will be loaded dynamically from the MapStore back-end.
+You can simulate in dev-mode this condition by:
 
-### Bundle files
+Commenting `js/app.js` the lines indicated in `js/app.jsx`, that allow to load the plugin in the main app.
 
-When run `npm run compile` the mock application will build leaving a separated js file for the entry `cadastrapp.js`. This file, will be bundled in the final zip with:
+```javascript
+// Import plugin directly in application. Comment the 3 lines below to test the extension live.
+const extensions = require('./extensions').default;
+plugins.plugins = { ...plugins.plugins, ...extensions };
+ConfigUtils.setConfigProp('translationsPath', ['./MapStore2/web/client/translations', './assets/translations']);
+// end of lines to comment
+```
 
-- Translations Files: you can edit them in `translations` folder, these files will be included in the final zip package.
+- run, in 2 different console the following commands:
+  - `npm run ext:start`
+  - `npm run ext:startapp`
 
-- `index.json` the file `assets/index.json` is the descriptor of the extension with informations and depe
+This will run webpack dev server on port 8081 with MapStore, simulating the `extensions.json`, and will run on port 8082 the effective modules to load.
 
-All details about these files are available [here](https://github.com/geosolutions-it/MapStore2/wiki/%5BProposal%5D:-Extension-System#backend-support).
+## Dev Hints
+
+Here a list of hints to develop your extension:
+
+- In order to keep your changes as much self contained as possible we suggest to put all your code (and assets) in `js/extension/`. (Put css in `js/extension/assets/`, etc...)
+- Use the `@mapstore` alias to refer to MapStore components. This helps your code to be compatible with future enhancements when mapstore will be published as a separated package, that can be shared

@@ -2,11 +2,17 @@
     "proxyUrl": {
         "url": "proxy/?url=",
         "useCORS": [
-          "https://georchestra.geo-solutions.it"
-        ],
-        "autoDetectCORS": true
+          "http://demo.geo-solutions.it/geoserver",
+          "https://demo.geo-solutions.it:443/geoserver",
+          "https://demo.geo-solutions.it/geoserver",
+          "https://nominatim.openstreetmap.org",
+          "http://cloudsdi.geo-solutions.it",
+          "https://gs-stable.geo-solutions.it/geoserver",
+          "https://gs-stable.geo-solutions.it:443/geoserver"
+        ]
     },
     "geoStoreUrl": "rest/geostore/",
+    "mailingList": "https://groups.google.com/forum/#!forum/mapstore-users",
     "printUrl": "pdf/info.json",
     "bingApiKey": "AhuXBu7ipR1gNbBfXhtUAyCZ6rkC5PkWpxs2MnMRZ1ZupxQfivjLCch22ozKSCAn",
     "mapquestApiKey": "__API_KEY_MAPQUEST__",
@@ -14,14 +20,6 @@
     "ignoreMobileCss": false,
     "useAuthenticationRules": true,
     "loadAfterTheme": true,
-    "userSessions": {
-      "enabled": true,
-      "contextOnly": true
-    },
-    "header": {
-      "height": 90,
-      "url": "/header/"
-    },
     "defaultMapOptions": {
       "cesium": {
           "flyTo": true,
@@ -29,71 +27,36 @@
           "terrainProvider": {
               "type": "ellipsoid"
           }
-      }
+      },
+      "floatingIdentifyDelay": 1000
+    },
+    "localizedLayerStyles": {
+      "name": "mapstore_language"
     },
     "authenticationRules": [{
         "urlPattern": ".*geostore.*",
         "method": "bearer"
-    }, {
+      }, {
         "urlPattern": ".*rest/config.*",
         "method": "bearer"
+      },
+      {
+        "urlPattern": "http(s)?\\:\\/\\/gs-stable\\.geo-solutions\\.it(\\:443|\\:80)?\\/geoserver/.*",
+        "authkeyParamName": "authkey",
+        "method": "authkey"
     }],
     "monitorState": [
       {"name": "router", "path": "router.location.pathname"},
       {"name": "browser", "path": "browser"},
       {"name": "geostorymode", "path": "geostory.mode"},
-      {"name": "featuregridmode", "path": "featuregrid.mode"}],
-    "projectionDefs": [{
-      "code": "EPSG:2154",
-      "def": "+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [-378305.81, 6093283.21, 1212610.74, 7186901.68],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3942",
-      "def": "+proj=lcc +lat_1=41.25 +lat_2=42.75 +lat_0=42 +lon_0=3 +x_0=1700000 +y_0=1200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [624506.09, 1186515.84, 2218708.44, 2290184.50],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3943",
-      "def": "+proj=lcc +lat_1=42.25 +lat_2=43.75 +lat_0=43 +lon_0=3 +x_0=1700000 +y_0=2200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [624227.05, 2076993.88, 2217136.99, 3178000.51],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3944",
-      "def": "+proj=lcc +lat_1=43.25 +lat_2=44.75 +lat_0=44 +lon_0=3 +x_0=1700000 +y_0=3200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [623631.35, 2967391.61, 2215750.35, 4066109.53],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3945",
-      "def": "+proj=lcc +lat_1=44.25 +lat_2=45.75 +lat_0=45 +lon_0=3 +x_0=1700000 +y_0=4200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [622723.91, 3857676.97, 2214544.93, 4954472.70],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3946",
-      "def": "+proj=lcc +lat_1=45.25 +lat_2=46.75 +lat_0=46 +lon_0=3 +x_0=1700000 +y_0=5200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [621509.63, 4747818.41, 2213517.21, 5843051.80],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3947",
-      "def": "+proj=lcc +lat_1=46.25 +lat_2=47.75 +lat_0=47 +lon_0=3 +x_0=1700000 +y_0=6200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [619993.48, 5637784.91, 2212663.72, 6731809.22],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3948",
-      "def": "+proj=lcc +lat_1=47.25 +lat_2=48.75 +lat_0=48 +lon_0=3 +x_0=1700000 +y_0=7200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [618180.54, 6527546.03, 2211981.05, 7620707.95],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3949",
-      "def": "+proj=lcc +lat_1=48.25 +lat_2=49.75 +lat_0=49 +lon_0=3 +x_0=1700000 +y_0=8200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [616075.94, 7417071.95, 2211465.79, 8509711.64],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }, {
-      "code": "EPSG:3950",
-      "def": "+proj=lcc +lat_1=49.25 +lat_2=50.75 +lat_0=50 +lon_0=3 +x_0=1700000 +y_0=9200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
-      "extent": [613684.96, 8306333.45, 2211114.59, 9398784.57],
-      "worldExtent": [-9.86, 41.15, 10.38, 51.56]
-    }],
+      {"name": "featuregridmode", "path": "featuregrid.mode"},
+      {"name": "userrole", "path": "security.user.role"},
+      {"name": "printEnabled", "path": "print.capabilities"}
+    ],
+    "userSessions": {
+      "enabled": true
+    },
+    "projectionDefs": [],
     "initialState": {
       "defaultState": {
         "annotations": {
@@ -101,7 +64,6 @@
             "multiGeometry": true,
             "validationErrors": {}
           },
-          "format": "decimal",
           "defaultTextAnnotation": "New"
         },
         "maptype": {
@@ -116,56 +78,25 @@
                 "isNew": true,
                 "autoload": false
             },
-            "selectedService": "local",
+            "selectedService": "gs_stable_csw",
             "services": {
-              "local": {
-                "url": "/geonetwork/srv/fre/csw",
+              "gs_stable_csw": {
+                "url": "https://gs-stable.geo-solutions.it/geoserver/csw",
                 "type": "csw",
-                "title": "le catalogue local",
+                "title": "GeoSolutions GeoServer CSW",
                 "autoload": true
               },
-              "localgs": {
-                "url": "/geoserver/ows",
+              "gs_stable_wms": {
+                "url": "https://gs-stable.geo-solutions.it/geoserver/wms",
                 "type": "wms",
-                "title": "le geoserver local",
-                "autoload": true
+                "title": "GeoSolutions GeoServer WMS",
+                "autoload": false
               },
-              "geobretagne": {
-                "url": "https://geobretagne.fr/geonetwork/srv/fre/csw",
-                "type": "csw",
-                "title": "le catalogue GeoBretagne",
-                "autoload": true
-              },
-              "PIGMA": {
-                "url": "https://www.pigma.org/geonetwork/srv/fre/csw",
-                "type": "csw",
-                "title": "le catalogue PIGMA",
-                "autoload": true
-              },
-              "sadre": {
-                "url": "http://www.sandre.eaufrance.fr/atlas/srv/fre/csw",
-                "type": "csw",
-                "title": "le catalogue du Sandre",
-                "autoload": true
-              },
-              "webservice_energy": {
-                "url": "http://geocatalog.webservice-energy.org/geonetwork/srv/fre/csw",
-                "type": "csw",
-                "title": "le catalogue de webservice-energy",
-                "autoload": true
-              },
-              "ifremer": {
-                "NOTE": "NOT WORKING, requires login. This is configured on the current viewer but do not provide any response",
-                "url": "http://www.ifremer.fr/geonetwork/srv/fre/csw",
-                "type": "csw",
-                "title": "le catalogue de l'Ifremer",
-                "autoload": true
-              },
-              "geograndest": {
-                "url": "https://www.geograndest.fr/geonetwork/srv/fre/csw",
-                "type": "csw",
-                "title": "le catalogue de GéoGrandEst",
-                "autoload": true
+              "gs_stable_wmts": {
+                "url": "https://gs-stable.geo-solutions.it/geoserver/gwc/service/wmts",
+                "type": "wmts",
+                "title": "GeoSolutions GeoServer WMTS",
+                "autoload": false
               }
             },
             "staticServices": {
@@ -193,8 +124,17 @@
                     "name": "OpenTopoMap",
                     "source": "OpenTopoMap",
                     "group": "background"
-                  },
-                  {
+                }, {
+                    "format": "image/jpeg",
+                    "group": "background",
+                    "name": "s2cloudless:s2cloudless",
+                    "opacity": 1,
+                    "title": "Sentinel 2 Cloudless",
+                    "type": "wms",
+                    "url": "https://1maps.geo-solutions.it/geoserver/wms",
+                    "source": "s2cloudless",
+                    "singleTile": false
+                }, {
                     "source": "ol",
                     "group": "background",
                     "title": "Empty Background",
@@ -207,24 +147,32 @@
         },
         "locales": {
           "supportedLocales": {
-            "en": {
-              "code": "en-US",
-              "description": "English"
-            },
             "it": {
               "code": "it-IT",
               "description": "Italiano"
             },
+            "en": {
+              "code": "en-US",
+              "description": "English"
+            },
             "fr": {
               "code": "fr-FR",
               "description": "Français"
+            },
+            "de": {
+              "code": "de-DE",
+              "description": "Deutsch"
+            },
+            "es": {
+              "code": "es-ES",
+              "description": "Español"
             }
           }
         }
       }
     },
     "plugins": {
-        "mobile": ["Header", {
+        "mobile": [{
                 "name": "Map",
                 "cfg": {
                     "mapOptions": {
@@ -271,7 +219,7 @@
                         "alwaysVisible": true
                     }
                 }
-            }, {
+            }, "Home", {
                 "name": "TOC",
                 "cfg": {
                     "activateMetedataTool": false,
@@ -322,18 +270,16 @@
                     }
                 }
             }, "Login",
-            "OmniBar", "BurgerMenu", "Expander", {
+            "OmniBar", "BurgerMenu", "Expander", "GlobeViewSwitcher", {
               "name": "Cookie",
               "cfg": {
-                "externalCookieUrl": "https://docs.georchestra.geo-solutions.it/en/latest/mapstore/index.html",
-                "declineUrl": "https://www.georchestra.org/"
+                "externalCookieUrl" : "",
+                "declineUrl" : "http://www.google.com"
               }
             },
             "FeedbackMask"
         ],
-        "desktop": [
-          "Header",
-          "Details",
+        "desktop": ["Details", "SampleExtension",
           {
             "name": "Map",
             "cfg": {
@@ -359,28 +305,29 @@
                 }
               }
             }
-          }, {
-              "name": "HelpLink",
-              "cfg": {
-                "docsUrl": "https://georchestra.readthedocs.io/"
-              }
-            }, "AutoMapUpdate", "DrawerMenu", "Version", "Notifications", "BackgroundSelector", "Annotations",
+          }, "AutoMapUpdate", "HelpLink", "DrawerMenu", "Version", "Notifications", "BackgroundSelector", "Swipe", {
+            "name": "Annotations",
+            "cfg": {
+              "measurementAnnotationEdit": false
+            }
+          },
             {
               "name": "Share",
               "cfg": {
                 "advancedSettings": {
-                  "bbox": true
+                  "bbox": true,
+                  "centerAndZoom": true
                 }
               }
             },
             {
                 "name": "Identify",
                 "cfg": {
-                    "showEdit": true,
                     "showHighlightFeatureButton": true,
                     "viewerOptions": {
                         "container": "{context.ReactSwipe}"
-                    }
+                    },
+                    "showEdit": true
                 },
                 "override": {
                   "Toolbar": {
@@ -395,9 +342,9 @@
                         "alwaysVisible": true
                     }
                 }
-            },
-            "FeatureEditor",
-            "WFSDownload",
+            }, "Home", "FeatureEditor",
+            "LayerDownload",
+            "ExportDataResults",
             {
               "name": "QueryPanel",
               "cfg": {
@@ -417,48 +364,14 @@
             }, {
                 "name": "TOC",
                 "cfg": {
-                    "activateMetedataTool": true,
-                    "metadataOptions": {
-                        "xmlNamespaces": {
-                            "gmd": "http://www.isotc211.org/2005/gmd",
-                            "srv": "http://www.isotc211.org/2005/srv",
-                            "gco": "http://www.isotc211.org/2005/gco",
-                            "gmx": "http://www.isotc211.org/2005/gmx",
-                            "gfc": "http://www.isotc211.org/2005/gfc",
-                            "gts": "http://www.isotc211.org/2005/gts",
-                            "gml": "http://www.opengis.net/gml"
-                        },
-                        "extractors": [{
-                            "properties": {
-                                "title": "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString",
-                                "abstract": "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString",
-                                "purpose": "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:purpose/gco:CharacterString",
-                                "source": "/gmd:MD_Metadata/gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage/gmd:LI_Lineage/gmd:statement/gco:CharacterString",
-                                "createdDate": "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date[../../gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='creation']]",
-                                "lastRevisionDate": "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date[../../gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='revision']]",
-                                "pointsOfContact": {
-                                    "xpath": "/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty",
-                                    "properties": {
-                                        "individualName": "gmd:individualName/gco:CharacterString",
-                                        "organisationName": "gmd:organisationName/gco:CharacterString",
-                                        "contactInfo": {
-                                            "xpath": "gmd:contactInfo/gmd:CI_Contact",
-                                            "properties": {
-                                                "phone": "gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString",
-                                                "deliveryPoints": "gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString",
-                                                "city": "gmd:address/gmd:CI_Address/gmd:city/gco:CharacterString",
-                                                "postalCode": "gmd:address/gmd:CI_Address/gmd:postalCode/gco:CharacterString",
-                                                "country": "gmd:address/gmd:CI_Address/gmd:country/gco:CharacterString",
-                                                "electronicMailAddress": "gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString",
-                                                "URL": "gmd:onlineResource/gmd:CI_OnlineResource/gmd:linkage/gmd:URL",
-                                                "hoursOfService": "gmd:hoursOfService/gco:CharacterString"
-                                            }
-                                        },
-                                        "role": "gmd:role/gmd:CI_RoleCode/@codeListValue"
-                                    }
-                                }
-                            }
-                        }]
+                    "activateMetedataTool": false,
+                    "layerOptions": {
+                      "legendOptions": {
+                        "WMSLegendOptions": "forceLabels:on",
+                        "scaleDependent": true,
+                        "legendWidth": 12,
+                        "legendHeight": 12
+                      }
                     }
                 }
             },
@@ -472,15 +385,9 @@
                     "showAddAsAnnotation": true
                   }
                 }
+            }, "Print", "MapImport", {
+                "name": "MapExport"
             }, {
-              "name": "Print",
-              "cfg": {
-                "useFixedScales": true,
-                "mapPreviewOptions": {
-                  "enableScalebox": true
-                }
-              }
-            }, "MapImport", "MapExport", {
                 "name": "Settings",
                 "cfg": {
                     "wrap": true
@@ -507,18 +414,7 @@
               "name": "CRSSelector",
               "cfg": {
                 "additionalCRS": {
-                  "EPSG:2154": {
-                    "label": "EPSG:2154"
-                  },
-                  "EPSG:3945": {
-                    "label": "EPSG:3945"
-                  },
-                  "EPSG:3946": {
-                    "label": "EPSG:3946"
-                  },
-                  "EPSG:3948": {
-                    "label": "EPSG:3948"
-                  }
+
                 },
                 "filterAllowedCRS": [
                   "EPSG:4326",
@@ -571,21 +467,141 @@
             }, {
               "name": "Cookie",
               "cfg": {
-                "externalCookieUrl" : "https://docs.georchestra.geo-solutions.it/en/latest/mapstore/index.html",
-                "declineUrl" : "https://www.georchestra.org/"
+                "externalCookieUrl" : "",
+                "declineUrl" : "http://www.google.com"
                 }
             },
-            "OmniBar", "Login", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen", "SearchServicesConfig", "WidgetsBuilder", "Widgets",
+            "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen", "GlobeViewSwitcher", "SearchServicesConfig", "SearchByBookmark", "WidgetsBuilder", "Widgets",
             "WidgetsTray",
             "Timeline",
             "Playback",
             "FeedbackMask",
-            "StyleEditor",
-            "Cadastrapp"
+            "StyleEditor"
         ],
-        "common": [],
-        "maps": [
-          "Login",
+        "embedded": ["Details", {
+                "name": "Map",
+                "cfg": {
+                    "tools": ["locate"],
+                    "mapOptions": {
+                    "openlayers": {
+                      "interactions": {
+                        "pinchRotate": false,
+                        "altShiftDragRotate": false
+                      },
+                      "attribution": {
+                        "container": "#footer-attribution-container"
+                      }
+                    },
+                    "leaflet": {
+                      "attribution": {
+                        "container": "#footer-attribution-container"
+                      }
+                    }
+                  },
+                  "toolsOptions": {
+                    "scalebar": {
+                      "container" : "#footer-scalebar-container"
+                    }
+                  }
+                }
+            }, {
+              "name": "DrawerMenu",
+              "hide": "{!(request.query && request.query.forceDrawer)}"
+              },{
+                  "name": "BackgroundSelector",
+                  "cfg": {
+                      "bottom": 40,
+                      "dimensions": {
+                      "side": 65,
+                      "sidePreview": 65,
+                      "frame": 3,
+                      "margin": 5,
+                      "label": false,
+                      "vertical": true
+                     }
+                  }
+              }, {
+                "name": "Identify",
+                "cfg": {
+                    "showFullscreen": true,
+                    "position": "bottom",
+                    "size": 0.5,
+                    "fluid": true,
+                    "viewerOptions": {
+                        "container": "{context.ReactSwipe}"
+                    }
+                }
+            }, {
+                "name": "ZoomAll",
+                "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            }, {
+                "name": "Locate",
+                "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            }, {
+                "name": "TOC",
+                "cfg": {
+                    "activateMapTitle": false,
+                    "activateSettingsTool": false,
+                    "activateMetedataTool": false,
+                    "activateRemoveLayer": false
+                }
+
+            }, "AddGroup", "MapFooter", {
+                "name": "Settings",
+                "cfg": {
+                    "wrap": true
+                }
+            }, {
+                "name": "Search",
+                "cfg": {
+                  "showOptions": false,
+                  "withToggle": ["max-width: 768px", "min-width: 768px"]
+                }
+            }, {
+                "name": "Toolbar",
+                "id": "NavigationBar",
+                "cfg": {
+                    "id": "navigationBar"
+                }
+            }, {
+                "name": "MapLoading",
+                "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            }, "Cookie",
+            "OmniBar", {
+                "name": "GoFull",
+                "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            },
+            "FeedbackMask"
+        ],
+        "common": [{
+            "name": "OmniBar",
+            "cfg": {
+                "className": "navbar shadow navbar-home"
+            }
+        }, {
+            "name": "ManagerMenu",
+            "cfg": {
+                "enableContextManager": true
+            }
+        }, "Login","Language", "NavMenu", "Attribution", "ScrollTop", "Notifications"],
+        "maps": ["HomeDescription", "Fork", "MapSearch", "CreateNewMap", "FeaturedMaps", "ContentTabs",
+
           {
             "name": "Maps",
             "cfg": {
@@ -595,47 +611,91 @@
               },
               "fluid": true
             }
-          },
-          "MapSearch",
-          "CreateNewMap",
-          "FeaturedMaps"],
-        "admin": [{
-          "name": "Header",
-            "cfg": {
-              "page": "msadmin"
-            }
           }, {
-          "cfg": {
-            "page": "msadmin"
-          }
-        }, {
-          "name": "OmniBar",
-          "cfg": {
-            "className": "navbar shadow navbar-home"
-          }
-        }, "Login", "ContextManager"],
-        "notallowed": [{
-            "name": "Header",
+            "name": "Dashboards",
             "cfg": {
-              "page": "msadmin"
+              "mapsOptions": {
+                "start": 0,
+                "limit": 12
+              },
+              "fluid": true
             }
           },
           {
+            "name": "GeoStories",
+            "cfg": {
+              "mapsOptions": {
+                "start": 0,
+                "limit": 12
+              },
+              "fluid": true
+            }
+          },
+          {
+            "name": "Contexts",
+            "cfg": {
+              "mapsOptions": {
+                "start": 0,
+                "limit": 12
+              },
+              "fluid": true
+            }
+          }
+          , "MailingLists", "Footer", {
+          "name": "Cookie",
+          "cfg": {
+            "externalCookieUrl" : "",
+            "declineUrl" : "http://www.google.com"
+          }
+        }],
+        "dashboard": [{
             "name": "OmniBar",
             "cfg": {
-              "className": "navbar shadow navbar-home"
+                "containerPosition": "header",
+                "className": "navbar shadow navbar-home"
             }
-          },
-          "Login",
-          "NotAllowed"
-        ],
-        "context-creator": [
+        }, "Login", "Language", "NavMenu", "DashboardSave", "DashboardSaveAs", "Attribution", "Home", {
+          "name": "Share",
+          "cfg": {
+            "embedPanel": false,
+            "advancedSettings": false
+          }
+        },
           {
-            "name": "Header",
+          "name": "DashboardEditor",
+          "cfg": {
+            "catalog": {
+              "url": "https://gs-stable.geo-solutions.it/geoserver/csw",
+              "type": "csw",
+              "title": "GeoSolutions GeoServer CSW",
+              "autoload": true
+            },
+            "containerPosition": "columns"
+          }
+        }, {
+          "name": "QueryPanel",
+          "cfg": {
+            "toolsOptions": {
+              "hideCrossLayer": true,
+              "hideSpatialFilter": true
+            },
+            "containerPosition": "columns"
+          }
+        }, "BurgerMenu", "Dashboard", "Notifications", {
+            "name": "Tutorial",
             "cfg": {
-              "page": "msadmin"
+                "allowClicksThruHole": false,
+                "containerPosition": "header",
+                "preset": "dashboard_tutorial"
             }
-          },
+        },
+        {
+            "name": "FeedbackMask",
+            "cfg": {
+                "containerPosition": "header"
+            }
+        }],
+        "geostory": [
           {
             "name": "OmniBar",
             "cfg": {
@@ -643,15 +703,36 @@
               "className": "navbar shadow navbar-home"
             }
           },
-          "Login",
-          "Tutorial",
-
           {
-            "name": "ContextCreator",
+            "name": "Tutorial",
             "cfg": {
-              "documentationBaseURL": "https://mapstore.geo-solutions.it/mapstore/docs/api/plugins",
-              "saveDestLocation": "/admin",
-              "backToPageDestRoute": "/admin"
+              "allowClicksThruHole": false,
+              "containerPosition": "header",
+              "preset": "geostory_view_tutorial"
+            }
+          },
+          "Login",
+          "BurgerMenu",
+          "Language",
+          "NavMenu",
+          "Attribution",
+          "Home",
+          "GeoStory",
+          "GeoStorySave",
+          "GeoStorySaveAs",
+          "MapEditor",
+          "MediaEditor",
+          {
+            "name": "GeoStoryEditor",
+            "cfg": {
+              "disablePluginIf": "{!!(state('browser') && state('browser').mobile)}",
+              "containerPosition": "columns"
+            }
+          },
+          {
+            "name": "GeoStoryNavigation",
+            "cfg": {
+              "containerPosition": "header"
             }
           },
           "Notifications",
@@ -660,7 +741,49 @@
             "cfg": {
               "containerPosition": "header"
             }
+          },
+          {
+            "name": "Share",
+            "cfg": {
+              "embedPanel": false,
+              "advancedSettings": {
+                "homeButton": true,
+                "sectionId": true
+              }
+            }
           }
-        ]
+        ],
+        "context-creator": [
+          {
+            "name": "OmniBar",
+            "cfg": {
+              "containerPosition": "header",
+              "className": "navbar shadow navbar-home"
+            }
+          },
+          "Redirect",
+          "Login",
+          "Language",
+          "NavMenu",
+          "Attribution",
+          "Tutorial",
+          {
+              "name": "ContextCreator",
+              "cfg": {
+                  "documentationBaseURL": "https://mapstore.geo-solutions.it/mapstore/docs/api/plugins",
+                  "backToPageDestRoute": "/context-manager",
+                  "backToPageConfirmationMessage": "contextCreator.undo"
+              }
+          },
+          "Notifications",
+          {
+            "name": "FeedbackMask",
+            "cfg": {
+              "containerPosition": "header"
+            }
+          }
+        ],
+        "manager": ["Header", "Redirect", "Manager", "Home", "UserManager", "GroupManager", "Footer"],
+        "context-manager": ["Header", "Redirect", "Home", "ContextManager", "Footer"]
     }
 }

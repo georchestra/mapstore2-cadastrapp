@@ -7,7 +7,7 @@ import { SELECTION_TYPES } from '../constants';
 import {
     END_DRAWING,
     changeDrawingStatus
-} from '../../../../MapStore2/web/client/actions/draw';
+} from '@mapstore/actions/draw';
 
 
 import {
@@ -17,7 +17,7 @@ import {
 } from '../actions/cadastrapp';
 
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
-import { getLayerJSONFeature } from '../../../../MapStore2/web/client/observables/wfs';
+import { getLayerJSONFeature } from '@mapstore/observables/wfs';
 
 
 const CLEAN_ACTION = changeDrawingStatus("clean");

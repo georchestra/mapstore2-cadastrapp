@@ -1,4 +1,4 @@
-import axios from '../../../MapStore2/web/client/libs/ajax';
+import axios from '@mapstore/libs/ajax';
 
 let baseURL = '/cadastrapp';
 

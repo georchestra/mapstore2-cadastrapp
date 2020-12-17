@@ -15,6 +15,6 @@ updateProjectDevDependencies().then(() => {
     process.exit();
 })
 .catch((err) => {
-    process.stdout.write('Error updating devDependencies\n');
+    process.stdout.write('Error updatind devDependencies\n');
     process.stderr.write(err + '\n');
 });

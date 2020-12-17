@@ -4,6 +4,3 @@
 [submodule "MapStore2"]
 	path = MapStore2
 	url = https://github.com/geosolutions-it/MapStore2.git
-[submodule "mapstore2-georchestra"]
-	path = mapstore2-georchestra
-	url = https://github.com/georchestra/mapstore2-georchestra.git
