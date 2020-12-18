@@ -279,7 +279,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "SampleExtension",
+        "desktop": ["Details", "Cadastrapp",
           {
             "name": "Map",
             "cfg": {

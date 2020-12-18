@@ -8,7 +8,9 @@
 
 import { createPlugin } from "@mapstore/utils/PluginsUtils";
 import Extension from './extension/plugins/Extension';
+import { name } from '../config';
+
 
 export default {
-    "SampleExtension": createPlugin("SampleExtension", Extension)
+    [name]: createPlugin(name, Extension)
 };
