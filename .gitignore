@@ -3,4 +3,5 @@ dist
 npm-debug.log
 package-lock.json
 .vscode
-node_modules
+.project
+.settings

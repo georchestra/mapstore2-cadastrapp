@@ -1,5 +1,8 @@
+// this file contains configurations for dev proxy
+
 const DEV_PROTOCOL = "http";
 const DEV_HOST = "localhost:8080";
+
 module.exports = {
     "/rest": {
         target: `${DEV_PROTOCOL}://${DEV_HOST}/mapstore`,
@@ -23,12 +26,12 @@ module.exports = {
         }
     },
     "/proxy": {
-        // proxy of GeOrchestra is already configured
         target: `${DEV_PROTOCOL}://${DEV_HOST}/mapstore`,
-        secure: false,
-        headers: {
-            host: `${DEV_HOST}`
-        }
+        secure: false
+    },
+    "/mapstore/proxy": {
+        target: `${DEV_PROTOCOL}://${DEV_HOST}`,
+        secure: false
     },
     "/geonetwork": {
         target: `${DEV_PROTOCOL}://${DEV_HOST}/geonetwork`,
@@ -44,10 +47,9 @@ module.exports = {
             host: `${DEV_HOST}`
         }
     },
-    "/cadastrapp/": {
-        target: `https://georchestra.geo-solutions.it/`,
+    "/cadastrapp": {
+        target: `https://georchestra.geo-solutions.it`,
         secure: false,
-        logLevel: 'debug',
         headers: {
             host: `georchestra.geo-solutions.it`
         }
