@@ -13,6 +13,7 @@ export const ADD_PLOT_SELECTION = "CADASTRAPP:ADD_PLOT_SELECTION";
 export const REMOVE_PLOT_SELECTION = "CADASTRAPP:REMOVE_PLOT_SELECTION";
 export const SELECT_PLOTS = "CADASTRAPP:SELECT_PLOTS";
 export const DESELECT_PLOTS = "CADASTRAPP:DESELECT_PLOTS";
+export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
 /**
  * Triggered on cadastrapp activation
  */
@@ -115,4 +116,11 @@ export const selectPlots = (plots) => ({
 export const deselectPlots = (plots) => ({
     type: DESELECT_PLOTS,
     plots
+});
+
+/**
+ * Triggers a zoom to the current selection.
+ */
+export const zoomToSelection = () => ({
+    type: ZOOM_TO_SELECTION
 });

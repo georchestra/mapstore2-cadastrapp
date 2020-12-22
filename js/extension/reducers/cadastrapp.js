@@ -11,7 +11,8 @@ import {
     DESELECT_PLOTS,
     SET_CONFIGURATION,
     TOGGLE_SELECTION,
-    TOGGLE_SEARCH
+    TOGGLE_SEARCH,
+    TEAR_DOWN
 } from '../actions/cadastrapp';
 
 /**
@@ -152,6 +153,11 @@ export default function cadastrapp(state = {
             set(`plots`, newPlots),
             set(`activePlotSelection`, Math.max(state.activePlotSelection - 1, 0))
         )(state);
+    }
+    case TEAR_DOWN: {
+        return {
+            plots: []
+        };
     }
     case SET_ACTIVE_PLOT_SELECTION: {
         return set('activePlotSelection', action.active, state);

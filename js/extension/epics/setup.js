@@ -18,7 +18,8 @@ import {
     SETUP,
     TEAR_DOWN,
     setConfiguration,
-    loading
+    loading,
+    toggleSelectionTool
 } from '../actions/cadastrapp';
 
 
@@ -98,6 +99,7 @@ export const cadastrappSetup = (action$, { getState = () => { } }) =>
 export const cadastrappTearDown = action$ =>
     action$.ofType(TEAR_DOWN).switchMap(() =>
         Rx.Observable.of(
-            removeAdditionalLayer(CADASTRAPP_RASTER_LAYER_ID, CADASTRAPP_OWNER),
-            removeAdditionalLayer(CADASTRAPP_VECTOR_LAYER_ID, CADASTRAPP_OWNER)
+            toggleSelectionTool(),
+            removeAdditionalLayer({id: CADASTRAPP_RASTER_LAYER_ID, owner: CADASTRAPP_OWNER}),
+            removeAdditionalLayer({id: CADASTRAPP_VECTOR_LAYER_ID, owner: CADASTRAPP_OWNER})
         ));
