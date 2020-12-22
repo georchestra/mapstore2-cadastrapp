@@ -33,6 +33,7 @@ You can configure this to point to your running instance of geOrchestra, with ca
 If you will try to do requests to absolute URLs, you may be redirected to use the proxy. (the request will be transformed in something like `/mapstore/proxy?url=...`).
 Make sure that this entry point(s) (configured in `proxyConfig.json`) are able to resolve the URL passed as parameter.
 If supported, you can add the URL to `useCors` entry in `localConfig.json` (see mapstore documentation).
+
 #### Authentication
 
 If you need to login, you can run geOrchestra locally and use the header extension to fake the login (see [Dev documentation of GeOrchestra](https://docs.georchestra.geo-solutions.it/en/latest/developer/index.html#mocking-security)). When you will try to login from the login menu, you will be logged in as the user indicated in the headers.

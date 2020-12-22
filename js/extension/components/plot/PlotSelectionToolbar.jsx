@@ -14,6 +14,7 @@ import ToolbarButton from '@mapstore/components/misc/toolbar/ToolbarButton';
 
 
 export default function PlotSelectionToolbar({
+    zoomToSelection = () => {},
     removePlots = () => {},
     onClick = () => { },
     selectedPlots = []
@@ -32,7 +33,7 @@ export default function PlotSelectionToolbar({
                 disabled: !atLeaseOneSelected,
                 glyph: "zoom-in",
                 tooltip: "Zoom", // localize
-                onClick: () => { alert("TODO"); }
+                onClick: zoomToSelection
             }, {
                 disabled: !atLeaseOneSelected,
                 glyph: "th-list",

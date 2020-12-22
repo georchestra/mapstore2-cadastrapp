@@ -95,7 +95,7 @@ export function selectedPlotIdsSelector(state) {
  */
 export function getCurrentPlotData(state) {
     const current = currentPlotsSelector(state);
-    return current?.data;
+    return current?.data ?? [];
 }
 export function getSelectedStyle() {
     return {
@@ -133,8 +133,8 @@ export function getCurrentPlotFeatures(state) {
 }
 export function getSelectedPlots(state) {
     const selectedIds = selectedPlotIdsSelector(state);
-    const plots = plotsSelector(state) ?? [];
-    return plots.filter(({ parcelle }) => selectedIds.includes(parcelle));
+    const data = getCurrentPlotData(state) ?? [];
+    return data.filter(({ parcelle }) => selectedIds.includes(parcelle));
 }
 export function getSelectedFeatures(state) {
     return getSelectedPlots(state).map(({feature}) => feature);

@@ -10,7 +10,8 @@ import {
     setActivePlotSelection,
     selectPlots,
     deselectPlots,
-    removePlots
+    removePlots,
+    zoomToSelection
 } from '../../actions/cadastrapp';
 
 import {
@@ -28,6 +29,7 @@ const PlotsSelection = connect((state) => ({
     onRowsSelected: selectPlots,
     onRowsDeselected: deselectPlots,
     removePlots: removePlots,
+    zoomToSelection: zoomToSelection,
     onTabDelete: () => removePlotSelection()
 })(PS);
 
