@@ -7,7 +7,9 @@ import {
     ADD_PLOTS,
     REMOVE_PLOTS,
     SET_ACTIVE_PLOT_SELECTION,
-    REMOVE_PLOT_SELECTION
+    REMOVE_PLOT_SELECTION,
+    SELECT_PLOTS,
+    DESELECT_PLOTS
 } from '../actions/cadastrapp';
 import { getCurrentPlotFeatures, getCadastrappVectorLayer } from '../selectors/cadastrapp';
 
@@ -18,7 +20,7 @@ import {
 
 
 export const syncLayerForPlots = (action$, {getState = () => {}})=>
-    action$.ofType(ADD_PLOTS, REMOVE_PLOTS, SET_ACTIVE_PLOT_SELECTION, REMOVE_PLOT_SELECTION )
+    action$.ofType(ADD_PLOTS, REMOVE_PLOTS, SET_ACTIVE_PLOT_SELECTION, REMOVE_PLOT_SELECTION, SELECT_PLOTS, DESELECT_PLOTS )
         .switchMap(() => {
             const features = getCurrentPlotFeatures(getState());
             const options = getCadastrappVectorLayer(getState());

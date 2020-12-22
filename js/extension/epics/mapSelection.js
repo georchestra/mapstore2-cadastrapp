@@ -1,5 +1,6 @@
 import Rx from 'rxjs';
 import { getParcelle } from '../api';
+import {head, sortBy} from 'lodash';
 
 
 import { SELECTION_TYPES } from '../constants';
@@ -13,11 +14,13 @@ import {
 import {
     TOGGLE_SELECTION,
     TEAR_DOWN,
-    addPlots
+    addPlots,
+    loading
 } from '../actions/cadastrapp';
 
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
+import { wrapStartStop } from '@mapstore/observables/epics';
 
 
 const CLEAN_ACTION = changeDrawingStatus("clean");
@@ -25,6 +28,15 @@ const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
     changeDrawingStatus("stop")];
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
+
+// this is a workaround that prevent duplicated parcelle coming from the back-end service.
+// it can be used to fiter features coming from WFS, getting data of the most recent lot.
+// Should have no effects with correct database.
+const workaroundDuplicatedParcelle = parcelleProperty => (v, index, array) => {
+    const sameParcelleElements = array.filter((vv) => vv?.properties?.[parcelleProperty] === v?.properties?.[parcelleProperty]);
+    const correctValue = head(sortBy(sameParcelleElements, 'lot').reverse());
+    return v?.properties?.lot === correctValue?.properties?.lot;
+};
 
 
 /**
@@ -68,21 +80,38 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
             const startDrawingAction = changeDrawingStatus('start', drawMethod(selectionType), 'cadastrapp', [], { stopAfterDrawing: true });
             return action$.ofType(END_DRAWING).flatMap(
                 ({ geometry }) => {
+                    const parcelleProperty = cadastreLayerIdParcelle(getState());
                     // query WFS
                     return createRequest(geometry, getState)
+                        .map( ({features = [], ...rest} = {}) => {
+                            return {
+                                ...rest,
+                                features: features.filter(workaroundDuplicatedParcelle(parcelleProperty)) // removes duplicates
+                            };
+                        })
                         .switchMap(({ features = []} = {}) => {
                             // retrieve all parcelles data from API
-                            return Rx.Observable.merge(
-                                ...features.map((feature) => {
-                                    const parcelle = feature?.properties[cadastreLayerIdParcelle(getState())];
-                                    return getParcelle({ parcelle })
-                                        // the API returns an array, in this case only the first is ok, and associate the feature to it.
-                                        .then(([p]) => ({...p, feature}));
-                                })
-                            ).map(parcelle => {
-                                return addPlots([parcelle]);
-                            });
-                        }).merge(
+                            return Rx.Observable.of(
+                                ...features
+                                    .map((feature) => {
+                                        const parcelle = feature?.properties[parcelleProperty];
+                                        return getParcelle({ parcelle })
+                                            // the API returns an array, in this case only the first is ok, and associate the feature to it.
+                                            .then(([p]) => ({...p, feature}));
+                                    })
+                            )
+                                .mergeAll(5)
+                                .map(parcelle => {
+                                    return addPlots([parcelle]);
+                                }).let(wrapStartStop(
+                                    [loading(true, "features")],
+                                    loading(false, "features")
+                                ))
+                                .merge(
+
+                                );
+                        })
+                        .merge(
                             Rx.Observable.of(startDrawingAction).delay(200) // reactivate drawing
                         );
                     // TODO: Re-activate the tool;

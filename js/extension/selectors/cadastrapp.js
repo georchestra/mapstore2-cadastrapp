@@ -97,8 +97,39 @@ export function getCurrentPlotData(state) {
     const current = currentPlotsSelector(state);
     return current?.data;
 }
+export function getSelectedStyle() {
+    return {
+        fillColor: "#81BEF7",
+        opacity: 0.6,
+        fillOpacity: 0.6,
+        color: "#111111", // stroke color
+        weight: 4
+    };
+}
+export function getUnselectedStyle() {
+    return {
+        fillColor: "#222111",
+        opacity: 0.4,
+        fillOpacity: 0.4,
+        color: "#111222", // stroke color
+        weight: 2
+    };
+}
+/**
+ * Gets th ecurrent features to plog.
+ * @param {object} state the application state
+ */
 export function getCurrentPlotFeatures(state) {
-    return getCurrentPlotData(state).map(({ feature }) => feature);
+    const selectedStyle = getSelectedStyle(state);
+    const unselectedStyle = getUnselectedStyle(state);
+    return getCurrentPlotData(state).map(({ feature, parcelle }) => {
+        const ids = selectedPlotIdsSelector(state);
+        const selected = ids.includes(parcelle);
+        return {
+            ...feature,
+            style: selected ? selectedStyle : unselectedStyle
+        };
+    });
 }
 export function getSelectedPlots(state) {
     const selectedIds = selectedPlotIdsSelector(state);
