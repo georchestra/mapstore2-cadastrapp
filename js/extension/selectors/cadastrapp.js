@@ -97,23 +97,15 @@ export function getCurrentPlotData(state) {
     const current = currentPlotsSelector(state);
     return current?.data ?? [];
 }
-export function getSelectedStyle() {
-    return {
-        fillColor: "#81BEF7",
-        opacity: 0.6,
-        fillOpacity: 0.6,
-        color: "#111111", // stroke color
-        weight: 4
-    };
+
+export function layerStylesSelector(state) {
+    return state.cadastrapp?.styles;
 }
-export function getUnselectedStyle() {
-    return {
-        fillColor: "#222111",
-        opacity: 0.4,
-        fillOpacity: 0.4,
-        color: "#111222", // stroke color
-        weight: 2
-    };
+export function getSelectedStyle(state) {
+    return layerStylesSelector(state)?.selected;
+}
+export function getUnselectedStyle(state) {
+    return layerStylesSelector(state)?.unselected;
 }
 /**
  * Gets th ecurrent features to plog.

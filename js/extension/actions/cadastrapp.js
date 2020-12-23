@@ -14,6 +14,19 @@ export const REMOVE_PLOT_SELECTION = "CADASTRAPP:REMOVE_PLOT_SELECTION";
 export const SELECT_PLOTS = "CADASTRAPP:SELECT_PLOTS";
 export const DESELECT_PLOTS = "CADASTRAPP:DESELECT_PLOTS";
 export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
+
+export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
+
+/**
+ * Set the style of highlight
+ * @param {string} styleType the type of the style, one of selected/unselected
+ * @param {object} value the style object ({color, fillColor, ...})
+ */
+export const setLayerStyle = (styleType, value) => ({
+    type: SET_LAYER_STYLE,
+    styleType,
+    value
+});
 /**
  * Triggered on cadastrapp activation
  */

@@ -12,8 +12,10 @@ import {
     SET_CONFIGURATION,
     TOGGLE_SELECTION,
     TOGGLE_SEARCH,
-    TEAR_DOWN
+    TEAR_DOWN,
+    SET_LAYER_STYLE
 } from '../actions/cadastrapp';
+
 
 /**
  * Toggles selection of one parcelle, if present
@@ -38,6 +40,26 @@ function toggleSelection(currentSelection, parcelle) {
 }
 
 const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
+
+const DEFAULT_STATE = {
+    plots: [],
+    styles: {
+        selected: {
+            fillColor: "#81BEF7",
+            opacity: 0.6,
+            fillOpacity: 0.6,
+            color: "#111111", // stroke color
+            weight: 4
+        },
+        unselected: {
+            fillColor: "#222111",
+            opacity: 0.4,
+            fillOpacity: 0.4,
+            color: "#111222", // stroke color
+            weight: 2
+        }
+    }
+};
 
 /**
  * Holds the state of cadastrapp.
@@ -77,9 +99,7 @@ const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
  * @param {object} state the application state
  * @param {object} action a redux action
  */
-export default function cadastrapp(state = {
-    plots: []
-}, action) {
+export default function cadastrapp(state = DEFAULT_STATE, action) {
     const type = action.type;
     switch (type) {
     case SET_CONFIGURATION:
@@ -155,12 +175,13 @@ export default function cadastrapp(state = {
         )(state);
     }
     case TEAR_DOWN: {
-        return {
-            plots: []
-        };
+        return DEFAULT_STATE;
     }
     case SET_ACTIVE_PLOT_SELECTION: {
         return set('activePlotSelection', action.active, state);
+    }
+    case SET_LAYER_STYLE: {
+        return set(`styles.${action.styleType}`, action.value, state);
     }
     default:
         return state;
