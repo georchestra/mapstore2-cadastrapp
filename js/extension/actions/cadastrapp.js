@@ -16,10 +16,11 @@ export const DESELECT_PLOTS = "CADASTRAPP:DESELECT_PLOTS";
 export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
 
 export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
+export const SET_STYLES = "CADASTRAPP:SET_STYLES";
 
 /**
  * Set the style of highlight
- * @param {string} styleType the type of the style, one of selected/unselected
+ * @param {string} styleType the type of the style, one of selected/default
  * @param {object} value the style object ({color, fillColor, ...})
  */
 export const setLayerStyle = (styleType, value) => ({
@@ -137,3 +138,15 @@ export const deselectPlots = (plots) => ({
 export const zoomToSelection = () => ({
     type: ZOOM_TO_SELECTION
 });
+
+
+import { DEFAULT_STYLES } from '../constants';
+
+/**
+ * Resets all the styles for feature highlight on map.
+ * @param {object} styles and object with `default` and `selected` entries for styling features on map.
+ */
+export const setStyles = (styles = DEFAULT_STYLES) => ({
+    type: SET_STYLES,
+    styles
+})

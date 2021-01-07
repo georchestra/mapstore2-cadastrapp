@@ -104,8 +104,8 @@ export function layerStylesSelector(state) {
 export function getSelectedStyle(state) {
     return layerStylesSelector(state)?.selected;
 }
-export function getUnselectedStyle(state) {
-    return layerStylesSelector(state)?.unselected;
+export function getDefaultStyle(state) {
+    return layerStylesSelector(state)?.default;
 }
 /**
  * Gets th ecurrent features to plog.
@@ -113,13 +113,13 @@ export function getUnselectedStyle(state) {
  */
 export function getCurrentPlotFeatures(state) {
     const selectedStyle = getSelectedStyle(state);
-    const unselectedStyle = getUnselectedStyle(state);
+    const defaultStyle = getDefaultStyle(state);
     return getCurrentPlotData(state).map(({ feature, parcelle }) => {
         const ids = selectedPlotIdsSelector(state);
         const selected = ids.includes(parcelle);
         return {
             ...feature,
-            style: selected ? selectedStyle : unselectedStyle
+            style: selected ? selectedStyle : defaultStyle
         };
     });
 }

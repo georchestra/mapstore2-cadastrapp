@@ -47,26 +47,6 @@ export default ({
             </div>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Stroke</ControlLabel>
-                </div>
-                <div className="form-col">
-                    <div className="mapstore-slider with-tooltip">
-                        <Slider
-                            tooltips
-                            onChange={([v]) => {
-                                updateStyle({
-                                    weight: parseFloat(v, 10)
-                                });
-                            }}
-                            start={style?.weight ?? 0}
-                            step={1}
-                            range={{min: 0, max: 10}}
-                        />
-                    </div>
-                </div>
-            </div>
-            <div className="item-row">
-                <div className="label-col">
                     <ControlLabel>Stroke Color</ControlLabel>
                 </div>
                 <div className="form-col">
@@ -83,6 +63,30 @@ export default ({
                         line={false}
                         text={<Glyphicon glyph="dropper" />}
                     />
+                </div>
+            </div>
+            <div className="item-row">
+                <div className="label-col">
+                    <ControlLabel>Stroke Width</ControlLabel>
+                </div>
+                <div className="form-col">
+                    <div className="mapstore-slider with-tooltip">
+                        <Slider
+                            tooltips
+                            onChange={([v]) => {
+                                updateStyle({
+                                    weight: parseFloat(v, 10)
+                                });
+                            }}
+                            format={{
+                                from: value => Math.round(value),
+                                to: value => Math.round(value) + " px"
+                            }}
+                            start={style?.weight ?? 0}
+                            step={1}
+                            range={{ min: 0, max: 10 }}
+                        />
+                    </div>
                 </div>
             </div>
         </>);

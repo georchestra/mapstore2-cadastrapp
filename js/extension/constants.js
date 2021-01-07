@@ -26,3 +26,20 @@ export const SEARCH_TOOLS = {
     OWNER: "OWNER",
     COOWNER: "COOWNER"
 };
+
+export const DEFAULT_STYLES = {
+    selected: {
+        fillColor: "#81BEF7",
+        opacity: 0.6,
+        fillOpacity: 0.6,
+        color: "#111111", // stroke color
+        weight: 4
+    },
+    "default": {
+        fillColor: "#222111",
+        opacity: 0.4,
+        fillOpacity: 0.4,
+        color: "#111222", // stroke color
+        weight: 2
+    }
+};

@@ -8,9 +8,10 @@ export default function PreferencesModal({
     isShown,
     onClose,
     setLayerStyle = () => {},
+    setStyles = () => {},
     styles = {
         selected: {},
-        unselected: {}
+        "default": {}
     }
 }) {
     return (
@@ -24,20 +25,20 @@ export default function PreferencesModal({
                 <Tabs defaultActiveKey={1} >
                     <Tab eventKey={1} title="Default">
                         <StyleEditor
-                            style={styles.selected}
+                            style={styles.default}
                             updateStyle={(updates) => {
-                                setLayerStyle('selected', {
-                                    ...styles.selected,
+                                setLayerStyle('default', {
+                                    ...styles.default,
                                     ...updates
                                 });
                             }} />
                     </Tab>
                     <Tab eventKey={2} title="Selected">
                         <StyleEditor
-                            style={styles.unselected}
+                            style={styles.selected}
                             updateStyle={(updates) => {
-                                setLayerStyle('unselected', {
-                                    ...styles.unselected,
+                                setLayerStyle('selected', {
+                                    ...styles.selected,
                                     ...updates
                                 });
                             }} />
@@ -47,7 +48,7 @@ export default function PreferencesModal({
                 </Tabs>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => {alert("TODO");}}>Set default style</Button>
+                <Button onClick={() => { setStyles();}}>Set default style</Button>
                 <Button onClick={() => { onClose(); }}>Close</Button>
             </Modal.Footer>
         </Modal>

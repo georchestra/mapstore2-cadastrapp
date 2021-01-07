@@ -13,9 +13,11 @@ import {
     TOGGLE_SELECTION,
     TOGGLE_SEARCH,
     TEAR_DOWN,
-    SET_LAYER_STYLE
+    SET_LAYER_STYLE,
+    SET_STYLES
 } from '../actions/cadastrapp';
 
+import {DEFAULT_STYLES} from '../constants';
 
 /**
  * Toggles selection of one parcelle, if present
@@ -43,22 +45,7 @@ const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
 
 const DEFAULT_STATE = {
     plots: [],
-    styles: {
-        selected: {
-            fillColor: "#81BEF7",
-            opacity: 0.6,
-            fillOpacity: 0.6,
-            color: "#111111", // stroke color
-            weight: 4
-        },
-        unselected: {
-            fillColor: "#222111",
-            opacity: 0.4,
-            fillOpacity: 0.4,
-            color: "#111222", // stroke color
-            weight: 2
-        }
-    }
+    styles: DEFAULT_STYLES
 };
 
 /**
@@ -182,6 +169,9 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     }
     case SET_LAYER_STYLE: {
         return set(`styles.${action.styleType}`, action.value, state);
+    }
+    case SET_STYLES: {
+        return set('styles', action.styles, state);
     }
     default:
         return state;
