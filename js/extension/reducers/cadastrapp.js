@@ -12,8 +12,12 @@ import {
     SET_CONFIGURATION,
     TOGGLE_SELECTION,
     TOGGLE_SEARCH,
-    TEAR_DOWN
+    TEAR_DOWN,
+    SET_LAYER_STYLE,
+    SET_STYLES
 } from '../actions/cadastrapp';
+
+import {LAYER_STYLES} from '../constants';
 
 /**
  * Toggles selection of one parcelle, if present
@@ -38,6 +42,11 @@ function toggleSelection(currentSelection, parcelle) {
 }
 
 const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
+
+const DEFAULT_STATE = {
+    plots: [],
+    styles: LAYER_STYLES
+};
 
 /**
  * Holds the state of cadastrapp.
@@ -77,9 +86,7 @@ const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
  * @param {object} state the application state
  * @param {object} action a redux action
  */
-export default function cadastrapp(state = {
-    plots: []
-}, action) {
+export default function cadastrapp(state = DEFAULT_STATE, action) {
     const type = action.type;
     switch (type) {
     case SET_CONFIGURATION:
@@ -155,12 +162,16 @@ export default function cadastrapp(state = {
         )(state);
     }
     case TEAR_DOWN: {
-        return {
-            plots: []
-        };
+        return DEFAULT_STATE;
     }
     case SET_ACTIVE_PLOT_SELECTION: {
         return set('activePlotSelection', action.active, state);
+    }
+    case SET_LAYER_STYLE: {
+        return set(`styles.${action.styleType}`, action.value, state);
+    }
+    case SET_STYLES: {
+        return set('styles', action.styles, state);
     }
     default:
         return state;

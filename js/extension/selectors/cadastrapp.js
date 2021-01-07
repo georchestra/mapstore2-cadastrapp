@@ -97,23 +97,15 @@ export function getCurrentPlotData(state) {
     const current = currentPlotsSelector(state);
     return current?.data ?? [];
 }
-export function getSelectedStyle() {
-    return {
-        fillColor: "#81BEF7",
-        opacity: 0.6,
-        fillOpacity: 0.6,
-        color: "#111111", // stroke color
-        weight: 4
-    };
+
+export function layerStylesSelector(state) {
+    return state.cadastrapp?.styles;
 }
-export function getUnselectedStyle() {
-    return {
-        fillColor: "#222111",
-        opacity: 0.4,
-        fillOpacity: 0.4,
-        color: "#111222", // stroke color
-        weight: 2
-    };
+export function getSelectedStyle(state) {
+    return layerStylesSelector(state)?.selected;
+}
+export function getDefaultStyle(state) {
+    return layerStylesSelector(state)?.default;
 }
 /**
  * Gets th ecurrent features to plog.
@@ -121,13 +113,13 @@ export function getUnselectedStyle() {
  */
 export function getCurrentPlotFeatures(state) {
     const selectedStyle = getSelectedStyle(state);
-    const unselectedStyle = getUnselectedStyle(state);
+    const defaultStyle = getDefaultStyle(state);
     return getCurrentPlotData(state).map(({ feature, parcelle }) => {
         const ids = selectedPlotIdsSelector(state);
         const selected = ids.includes(parcelle);
         return {
             ...feature,
-            style: selected ? selectedStyle : unselectedStyle
+            style: selected ? selectedStyle : defaultStyle
         };
     });
 }
