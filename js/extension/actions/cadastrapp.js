@@ -1,4 +1,4 @@
-
+import { LAYER_STYLES } from '../constants';
 
 export const SETUP = "CADASTRAPP:SETUP";
 export const TEAR_DOWN = "CADASTRAPP:TEAR_DOWN";
@@ -18,6 +18,7 @@ export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
 export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
 export const SET_STYLES = "CADASTRAPP:SET_STYLES";
 
+
 /**
  * Set the style of highlight
  * @param {string} styleType the type of the style, one of selected/default
@@ -28,6 +29,16 @@ export const setLayerStyle = (styleType, value) => ({
     styleType,
     value
 });
+
+/**
+ * Resets all the styles for feature highlight on map.
+ * @param {object} styles and object with `default` and `selected` entries for styling features on map.
+ */
+export const setLayerStyles = (styles = LAYER_STYLES) => ({
+    type: SET_STYLES,
+    styles
+});
+
 /**
  * Triggered on cadastrapp activation
  */
@@ -140,13 +151,3 @@ export const zoomToSelection = () => ({
 });
 
 
-import { DEFAULT_STYLES } from '../constants';
-
-/**
- * Resets all the styles for feature highlight on map.
- * @param {object} styles and object with `default` and `selected` entries for styling features on map.
- */
-export const setStyles = (styles = DEFAULT_STYLES) => ({
-    type: SET_STYLES,
-    styles
-})

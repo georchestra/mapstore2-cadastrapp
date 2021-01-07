@@ -109,7 +109,7 @@
         "ext:start": "webpack serve --progress --color --port 8082 --hot --inline --config build/extension/webpack.config.js",
         "ext:build": "rimraf ./dist && mkdirp ./dist && webpack --progress  --color --config build/extension/prod-webpack.config.js",
         "test": "karma start ./karma.conf.single-run.js",
-        "continuoustest": "karma start ./karma.conf.continuous-test.js",
+        "continuoustest": "karma start  --browsers Chrome ./karma.conf.continuous-test.js",
         "lint": "eslint js --ext .jsx,.js",
         "travis": "eslint js --ext .jsx,.js && karma start ./karma.conf.single-run.js --browsers FirefoxHeadless --reporters dots,junit,coverage,coveralls",
         "updateDevDeps": "node updateDevDependencies.js"

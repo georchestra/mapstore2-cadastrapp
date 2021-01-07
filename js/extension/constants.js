@@ -27,7 +27,7 @@ export const SEARCH_TOOLS = {
     COOWNER: "COOWNER"
 };
 
-export const DEFAULT_STYLES = {
+export const LAYER_STYLES = {
     selected: {
         fillColor: "#81BEF7",
         opacity: 0.6,

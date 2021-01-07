@@ -4,6 +4,8 @@ import cadastrapp from '../cadastrapp';
 
 import {
     setConfiguration,
+    setLayerStyle,
+    setLayerStyles,
     toggleSearchTool,
     toggleSelectionTool
 } from '../../actions/cadastrapp';
@@ -11,10 +13,12 @@ import {
 import {
     configurationSelector,
     currentSearchToolSelector,
-    currentSelectionToolSelector
- } from "../../selectors/cadastrapp";
+    currentSelectionToolSelector,
+    getDefaultStyle,
+    getSelectedStyle
+} from "../../selectors/cadastrapp";
 
-import { SELECTION_TYPES, SEARCH_TOOLS } from '../../constants';
+import { SELECTION_TYPES, SEARCH_TOOLS, LAYER_STYLES } from '../../constants';
 
 
 describe('reducer', () => {
@@ -37,4 +41,34 @@ describe('reducer', () => {
         const state2 = cadastrapp(state1, toggleSelectionTool(SELECTION_TYPES.POINT));
         expect(currentSelectionToolSelector({ cadastrapp: state2 })).toEqual(SELECTION_TYPES.POINT);
     });
+    describe('layer styles', () => {
+        const customStyle = {
+            fillColor: "#FFFFFF",
+            opacity: 1,
+            fillOpacity: 1,
+            color: "#FFFFFF", // stroke color
+            weight: 1
+        };
+        it('initial values', () => {
+            const state1 = cadastrapp(undefined, {type: "DUMMY_ACTION"});
+            expect(getSelectedStyle({ cadastrapp: state1 })).toEqual(LAYER_STYLES.selected);
+            expect(getDefaultStyle({ cadastrapp: state1 })).toEqual(LAYER_STYLES.default);
+        });
+        it('setLayerStyle default', () => {
+            const state1 = cadastrapp(undefined, setLayerStyle("default", customStyle));
+            expect(getDefaultStyle({ cadastrapp: state1 })).toEqual(customStyle);
+            expect(getSelectedStyle({ cadastrapp: state1 })).toEqual(LAYER_STYLES.selected);
+        });
+        it('setLayerStyle selected', () => {
+            const state1 = cadastrapp(undefined, setLayerStyle("default", customStyle));
+            expect(getDefaultStyle({ cadastrapp: state1 })).toEqual(customStyle);
+            expect(getSelectedStyle({ cadastrapp: state1 })).toEqual(LAYER_STYLES.selected);
+        });
+        it('setLayerStyles resets to default', () => {
+            const state1 = cadastrapp(undefined, setLayerStyle("default", customStyle));
+            const state2 = cadastrapp(state1, setLayerStyles());
+            expect(getSelectedStyle({ cadastrapp: state2 })).toEqual(LAYER_STYLES.selected);
+            expect(getDefaultStyle({ cadastrapp: state2 })).toEqual(LAYER_STYLES.default);        });
+    });
+
 });

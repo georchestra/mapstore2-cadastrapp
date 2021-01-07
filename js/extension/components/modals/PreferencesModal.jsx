@@ -8,7 +8,7 @@ export default function PreferencesModal({
     isShown,
     onClose,
     setLayerStyle = () => {},
-    setStyles = () => {},
+    setLayerStyles = () => {},
     styles = {
         selected: {},
         "default": {}
@@ -48,7 +48,7 @@ export default function PreferencesModal({
                 </Tabs>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={() => { setStyles();}}>Set default style</Button>
+                <Button onClick={() => { setLayerStyles();}}>Set default style</Button>
                 <Button onClick={() => { onClose(); }}>Close</Button>
             </Modal.Footer>
         </Modal>

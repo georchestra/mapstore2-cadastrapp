@@ -17,7 +17,7 @@ import {
     SET_STYLES
 } from '../actions/cadastrapp';
 
-import {DEFAULT_STYLES} from '../constants';
+import {LAYER_STYLES} from '../constants';
 
 /**
  * Toggles selection of one parcelle, if present
@@ -45,7 +45,7 @@ const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
 
 const DEFAULT_STATE = {
     plots: [],
-    styles: DEFAULT_STYLES
+    styles: LAYER_STYLES
 };
 
 /**
