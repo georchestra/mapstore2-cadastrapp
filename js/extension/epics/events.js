@@ -13,7 +13,7 @@ export function zoomToSelection(action$, store) {
     return action$.ofType(ZOOM_TO_SELECTION).switchMap(() => {
         const selectedFeatures = getSelectedFeatures(store.getState()) ?? [];
         const features = getCurrentPlotFeatures(store.getState()) ?? [];
-        const zoomToFeatures = selectedFeatures.length >= 0 ? selectedFeatures : features;
+        const zoomToFeatures = selectedFeatures.length > 0 ? selectedFeatures : features;
         if (zoomToFeatures.length >= 0) {
             return Rx.Observable.of(zoomToExtent(bbox({type: "FeatureCollection", features: zoomToFeatures}), "EPSG:4326"));
         }
