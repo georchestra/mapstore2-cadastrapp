@@ -1,27 +1,20 @@
 import React from 'react';
 import {
-    ButtonGroup,
-    Button,
-    Tooltip,
-    OverlayTrigger,
     MenuItem,
     DropdownButton,
     Glyphicon
 } from "react-bootstrap";
 
 import Toolbar from '@mapstore/components/misc/toolbar/Toolbar';
-import ToolbarButton from '@mapstore/components/misc/toolbar/ToolbarButton';
-
 
 export default function PlotSelectionToolbar({
+    currentData = [],
     zoomToSelection = () => {},
     removePlots = () => {},
-    onClick = () => { },
     selectedPlots = []
 }) {
-    const isOneSelected = selectedPlots.length === 1;
     const atLeaseOneSelected = selectedPlots.length > 0;
-
+    const isDataPresent = currentData.length > 0;
 
     return (
         <Toolbar
@@ -30,9 +23,9 @@ export default function PlotSelectionToolbar({
                 tooltipPosition: 'bottom'
             }}
             buttons={[{
-                disabled: !atLeaseOneSelected,
+                disabled: !isDataPresent,
                 glyph: "zoom-in",
-                tooltip: "Zoom", // localize
+                tooltip: atLeaseOneSelected ? "Zoom to selected" : "Zoom on list", // localize
                 onClick: zoomToSelection
             }, {
                 disabled: !atLeaseOneSelected,
@@ -45,12 +38,10 @@ export default function PlotSelectionToolbar({
                 tooltip: "Delete Selected Plots", // localize
                 onClick: () => { removePlots(selectedPlots); }
             }, {
-                disabled: !atLeaseOneSelected,
+                disabled: !isDataPresent,
                 glyph: "info-sign",
                 tooltip: "Information Form", // localize
-                onClick: () => { alert("TODO");
-            }
-
+                onClick: () => { alert("TODO");}
             }, {
                 renderButton:
                     (<DropdownButton
@@ -64,7 +55,7 @@ export default function PlotSelectionToolbar({
             }
             ]}
         />);
-        /*
+/*
         <ButtonGroup className="pull-right">
 
 
@@ -80,5 +71,5 @@ export default function PlotSelectionToolbar({
         </ButtonGroup>
 
     );
-    */
+*/
 }

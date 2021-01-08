@@ -4,7 +4,9 @@ import {
 } from '../constants';
 import { additionalLayersSelector } from '@mapstore/selectors/additionallayers';
 
-// import { getLayerFromId } from '@mapstore/selectors/layers';
+// **********************************************
+// CONFIGURATION
+// **********************************************
 
 /**
  * Gets the configuration loaded from cadastrapp API
@@ -38,6 +40,11 @@ export function getCadastrappVectorLayer(state) {
     const additionalLayers = additionalLayersSelector(state) ?? [];
     return additionalLayers.filter(({ id }) => id === CADASTRAPP_VECTOR_LAYER_ID)?.[0]?.options;
 }
+
+// **********************************************
+// TOOLS
+// **********************************************
+
 /**
  * gets the current active selection tool for map (id)
  * @param {object} state
@@ -52,19 +59,16 @@ export function currentSelectionToolSelector(state) { return state?.cadastrapp.s
  */
 export function currentSearchToolSelector(state) { return state?.cadastrapp.searchType; }
 
-/**
- * getst from the state the index of the current tab selected
- * @param {object} state
- * @returns {number} the index of the current tab
- */
-export function activeSelectionTabIndexSelectors(state) { return state?.cadastrapp.activePlotSelection || 0; }
 
+// **********************************************
+// PLOTS
+// **********************************************
 
 export function plotsSelector(state) {
     return state?.cadastrapp?.plots;
 }
 /**
- * Gets the data of plot selection from the state
+ * Gets the data of all plot selection from the state
  * @param {object} state
  */
 export function plotDataSelector(state) {
@@ -74,11 +78,25 @@ export function plotDataSelector(state) {
     }
     return selection.map(({data}) => data); // transform in array of array
 }
+// CURRENT TAB PLOTS
+
+/**
+ * gets from the state the index of the current tab selected
+ * @param {object} state
+ * @returns {number} the index of the current tab
+ */
+export function activeSelectionTabIndexSelectors(state) { return state?.cadastrapp.activePlotSelection || 0; }
+
+/**
+ * Selector of the current plots object (for the selected tab)
+ * @param {object} state
+ */
 export function currentPlotsSelector(state) {
     const plots = plotsSelector(state);
     const active = activeSelectionTabIndexSelectors(state);
     return plots[active];
 }
+
 /**
  * Get the curretn selected plots Ids
  * @param {object} state
@@ -98,6 +116,15 @@ export function getCurrentPlotData(state) {
     return current?.data ?? [];
 }
 
+export function getSelectedPlots(state) {
+    const selectedIds = selectedPlotIdsSelector(state);
+    const data = getCurrentPlotData(state) ?? [];
+    return data.filter(({ parcelle }) => selectedIds.includes(parcelle));
+}
+
+// **********************************************
+// LAYER AND STYLE
+// **********************************************
 export function layerStylesSelector(state) {
     return state.cadastrapp?.styles;
 }
@@ -123,11 +150,7 @@ export function getCurrentPlotFeatures(state) {
         };
     });
 }
-export function getSelectedPlots(state) {
-    const selectedIds = selectedPlotIdsSelector(state);
-    const data = getCurrentPlotData(state) ?? [];
-    return data.filter(({ parcelle }) => selectedIds.includes(parcelle));
-}
+
 export function getSelectedFeatures(state) {
-    return getSelectedPlots(state).map(({feature}) => feature);
+    return getSelectedPlots(state).map(({ feature }) => feature);
 }

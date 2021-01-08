@@ -17,10 +17,12 @@ import {
 import {
     activeSelectionTabIndexSelectors,
     plotDataSelector,
+    getCurrentPlotData,
     selectedPlotIdsSelector
 } from '../../selectors/cadastrapp';
 
 const PlotsSelection = connect((state) => ({
+    currentData: getCurrentPlotData(state),
     selectedPlots: selectedPlotIdsSelector(state),
     data: plotDataSelector(state)
 }), {

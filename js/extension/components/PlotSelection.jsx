@@ -1,5 +1,6 @@
 import React from 'react';
 import PlotsSelectionTable from './table/PlotsSelectionTable';
+
 import {
     Nav,
     Tab,
@@ -14,7 +15,9 @@ import {
     NavItem,
     Glyphicon
 } from "react-bootstrap";
+
 import PlotSelectionToolbar from './plot/PlotSelectionToolbar';
+import ConfirmButton from './misc/ConfirmButton';
 
 
 function PlotSelectionTabContent({
@@ -23,9 +26,13 @@ function PlotSelectionTabContent({
     onRowsDeselected,
     ...props
 }) {
+    // mountOnEnter, unmountOnExit are used to workaround some conflicts with click event on "select all" checkbox of the react-data-grid table.
+    // Without it the event on a second tab triggers the event of the first tab.
     return (
         <Col sm={12}>
-            <Tab.Content>
+            <Tab.Content
+                mountOnEnter
+                unmountOnExit>
                 {props.data.map((value, index) => (
                     <Tab.Pane eventKey={index}>
                         <PlotsSelectionTable
@@ -34,6 +41,9 @@ function PlotSelectionTabContent({
                             selectedKeys={selectedPlots}
                             data={props.data[index]}
                             tableIndex={index}/>
+                        <div>
+                            {props.data?.[index]?.length ?? 0} Items ({selectedPlots?.length ?? 0} Selected)
+                        </div>
                     </Tab.Pane>
                 ))}
             </Tab.Content>
@@ -52,22 +62,29 @@ function PlotSelectionTabActionButtons({onNewTab = () => {}, onTabDelete = () =>
                 </Button>
             </OverlayTrigger>
             <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Delete current Selection Tab"}</Tooltip>}>
-                <Button
+                <ConfirmButton
                     className="pull-right"
+                    confirmContent="Are you sure you want to delete the selected tab"
                     onClick={onTabDelete}>
                     <Glyphicon glyph="trash" />
-                </Button>
+                </ConfirmButton>
             </OverlayTrigger>
         </ButtonGroup>
     );
 }
 
-function PlotSelectionTabs({
+function PlotTabs({
     active,
     onTabChange,
     data,
     ...props
 }) {
+
+    const MAX_TABS = 3; // max number of tabs
+    let otherSelectionIndex = active + 1;
+    if (otherSelectionIndex < MAX_TABS) {
+        otherSelectionIndex = `${MAX_TABS}+`;
+    }
     return (
         <Tab.Container
             onSelect={onTabChange}
@@ -76,50 +93,24 @@ function PlotSelectionTabs({
             <Row className="clearfix">
                 <Col sm={12}>
                     <Nav bsStyle="tabs">
-                        {data.map((value, index) => (
-                            <NavItem eventKey={index}>
+                        {data.slice(0, data.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((value, index) => (
+                            <NavItem role="tab" eventKey={index}>
                                 {"Selection " + (index + 1).toString()}
                             </NavItem>
                         ))}
-                        <PlotSelectionTabActionButtons {...props} data={data}/>
+                        {data.length > MAX_TABS
+                            ? <NavDropdown title={"Selection " + otherSelectionIndex}>
+                                {data.slice(MAX_TABS - 1).map((value, index) => (
+                                    <MenuItem eventKey={index + MAX_TABS - 1}>
+                                        {"Selection " + (index + MAX_TABS).toString()}
+                                    </MenuItem>
+                                ))}
+                            </NavDropdown>
+                            : null}
+                        <PlotSelectionTabActionButtons {...props} data={data} />
                     </Nav>
                 </Col>
-                <PlotSelectionTabContent {...props} data={data}/>
-            </Row>
-        </Tab.Container>
-    );
-}
-
-function PlotSelectionTabsWithDropdown(props) {
-    let otherSelectionIndex = props.active + 1;
-    if (otherSelectionIndex < 3) {
-        otherSelectionIndex = "3+ ";
-    }
-    return (
-        <Tab.Container
-            onSelect={props.onTabChange}
-            activeKey={props.active}
-            defaultActiveKey={props.active}>
-            <Row className="clearfix">
-                <Col sm={12}>
-                    <Nav bsStyle="tabs">
-                        <NavItem eventKey={0}>
-                            Selection 1
-                        </NavItem>
-                        <NavItem eventKey={1}>
-                            Selection 2
-                        </NavItem>
-                        <NavDropdown title={"Selection " + otherSelectionIndex}>
-                            {props.data.slice(2).map((value, index) => (
-                                <MenuItem eventKey={index + 2}>
-                                    {"Selection " + (index + 2 + 1).toString()}
-                                </MenuItem>
-                            ))}
-                        </NavDropdown>
-                        <PlotSelectionTabActionButtons {...props}/>
-                    </Nav>
-                </Col>
-                <PlotSelectionTabContent {...props}/>
+                <PlotSelectionTabContent {...props} data={data} />
             </Row>
         </Tab.Container>
     );
@@ -128,13 +119,12 @@ function PlotSelectionTabsWithDropdown(props) {
 export default function PlotsSelection(props) {
 
     let className = props.data.length === 0 ? "collapse" : "plots-selection";
-    let TabComponent = props.data.length > 3 ? PlotSelectionTabsWithDropdown : PlotSelectionTabs;
 
     return (
         <div className={className}>
             <h3 className="pull-left">Plots Selection</h3>
             <PlotSelectionToolbar {...props}/>
-            <TabComponent {...props}/>
+            <PlotTabs {...props}/>
         </div>
     );
 }
