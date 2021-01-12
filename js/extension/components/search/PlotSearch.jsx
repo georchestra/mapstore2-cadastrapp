@@ -1,53 +1,42 @@
-import React from 'react';
-import { Tabs, Tab, Button, ControlLabel, FormControl, Glyphicon } from "react-bootstrap";
+import React, { useState } from 'react';
+import { set } from '@mapstore/utils/ImmutableUtils';
+import { SEARCH_TYPES } from '../../constants';
+import { isSearchValid } from '../../utils/validation';
+
+
+import { Tabs, Tab, Button, ButtonGroup, ControlLabel, FormControl, Glyphicon } from "react-bootstrap";
 import Select from 'react-select';
 
-import ReferencesList from '../lists/ReferencesList';
-import SearchButtons from './SearchButtons';
+import Reference from '../forms/Reference';
+import Identifier from '../forms/Identifier';
 
 
-export default function PlotsSearch(props) {
-    const unitOptions = [
-        { value: '--', label: '--' },
-        { value: 'bis', label: 'bis' },
-        { value: 'ter', label: 'ter' },
-        { value: 'quater', label: 'quater' },
-        { value: 'A', label: 'A' },
-        { value: 'B', label: 'B' },
-        { value: 'C', label: 'C' },
-        { value: 'D', label: 'D' },
-        { value: 'E', label: 'E' },
-        { value: 'F', label: 'F' },
-        { value: 'G', label: 'G' },
-        { value: 'H', label: 'H' }
-    ];
+
+export default function PlotsSearch({onSearch = () => {}}) {
+    const [currentTab, setCurrentTab] = useState('reference');
+    const [searchState, setSearchState] = useState({});
+    const setFormState = (eventKey, key, value) => {
+        const path = `['${eventKey}'].${key}`;
+        setSearchState(set(path, value, searchState));
+    };
+    const resetFormState = (eventKey) => {
+        setSearchState(set(eventKey, undefined, searchState));
+    }
 
     return (
         <div className="plots-search">
             <h3>Plots Search</h3>
             <Tabs
                 className="not-scrolled-tab"
-                defaultActiveKey={1}>
-                <Tab eventKey={1} title="Reference">
-                    <div className="item-row">
-                        <div className="label-col">
-                            <ControlLabel>Town, Municipality</ControlLabel>
-                        </div>
-                        <div className="form-col">
-                            <Select/>
-                            <div className="text-muted">ex. Rennes, Cesson-Sévigné</div>
-                        </div>
-                    </div>
-                    <div className="item-row">
-                        <div className="label-col">
-                            <ControlLabel>Reference(s)</ControlLabel>
-                        </div>
-                        <div className="form-col">
-                            <ReferencesList/>
-                        </div>
-                    </div>
+                onSelect={k => setCurrentTab(k)}
+                activeKey={currentTab}
+                defaultActiveKey={currentTab}>
+                <Tab eventKey={SEARCH_TYPES.REFERENCE} title="Reference">
+                    <Reference
+                        values={searchState?.[SEARCH_TYPES.REFERENCED] ?? {}}
+                        setValue={(key, value) => setFormState(SEARCH_TYPES.REFERENCE, key, value) }/>
                 </Tab>
-                <Tab eventKey={2} title="Cadastral Addr."
+                <Tab eventKey={SEARCH_TYPES.ADDRESS} title="Cadastral Addr."
                     style={{ height: 220 }}>
                     <div className="item-row">
                         <div className="label-col">
@@ -76,24 +65,18 @@ export default function PlotsSearch(props) {
                             <div className="pull-left">
                                 <Select
                                     menuPortalTarget={document.querySelector('body')}
-                                    style={{ marginLeft: 5, width: 100 }} options={unitOptions}/>
+                                    style={{ marginLeft: 5, width: 100 }} options={[{ value: '--', label: '--' }]}/>
                             </div>
                             <div style={{ "float": "left", marginLeft: 5, marginTop: 5 }} className="text-muted ">ex. 4 TER</div>
                         </div>
                     </div>
                 </Tab>
-                <Tab eventKey={3} title="Cadastral ID">
-                    <div className="item-row">
-                        <div className="label-col">
-                            <ControlLabel>Identifier</ControlLabel>
-                        </div>
-                        <div className="form-col">
-                            <FormControl type="text" bsSize="sm"/>
-                            <div className="text-muted">ex. 20148301032610C0012</div>
-                        </div>
-                    </div>
+                <Tab eventKey={SEARCH_TYPES.ID} title="Cadastral ID">
+                    <Identifier
+                        values={searchState?.[SEARCH_TYPES.ID] ?? {}}
+                        setValue={(key, value) => setFormState(SEARCH_TYPES.ID, key, value)} />
                 </Tab>
-                <Tab eventKey={4} title="Lot">
+                <Tab eventKey={SEARCH_TYPES.LOT} title="Lot">
                     <div className="item-row">
                         <div className="label-col">
                             <ControlLabel>Identifiers</ControlLabel>
@@ -135,7 +118,18 @@ export default function PlotsSearch(props) {
                     </div>
                 </Tab>
             </Tabs>
-            <SearchButtons {...props}/>
+            <ButtonGroup style={{ margin: "10px", "float": "right" }}>
+                <Button
+                    onClick={() => resetFormState(currentTab)}
+                >Clear</Button>
+                <Button
+                    disabled={!isSearchValid(currentTab, searchState[currentTab]) }
+                    bsStyle="primary"
+                    onClick={() => {
+                        onSearch(currentTab, searchState[currentTab]);
+                    }}
+                >Search</Button>
+            </ButtonGroup>
         </div>
     );
 }

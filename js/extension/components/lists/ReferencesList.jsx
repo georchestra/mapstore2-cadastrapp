@@ -1,36 +1,35 @@
-import React, { useState } from 'react';
-import { Button, FormControl, Glyphicon } from "react-bootstrap";
-export default function ReferencesList() {
-    let [items, setItems] = useState([["", ""]]);
+import React, { useState, useEffect } from 'react';
+import { getSection } from '../../api';
+import { validateReferences } from '../../utils/validation';
 
-    let handleDelete = (index) => {
-        return () => {
-            let i = items.slice();
-            i.splice(index, 1);
-            setItems(i);
-        };
-    };
+import { Button, Glyphicon } from "react-bootstrap";
+import ReferenceRow from './ReferenceRow';
 
-    let handleChange = (index, elementIndex) => {
-        return (e) => {
-            let i = items.slice();
-            i[index][elementIndex] = e.target.value;
-            setItems(i);
-        };
-    };
+export default function ReferencesList({ references = [], cgocommune, onAddReference, onRemoveReference, onSetValue }) {
 
-    let handleAdd = () => {
-        let i = items.slice();
-        i.push(["", ""]);
-        setItems(i);
-    };
-
+    const [sections, setSections] = useState();
+    useEffect(() => {
+        if (cgocommune) {
+            getSection(cgocommune).then(results => {
+                setSections(results);
+                onAddReference({});
+            });
+        }
+    }, [cgocommune]);
+    const validReferences = validateReferences(references);
     return (
         <>
             <div style={{ width: "100%", "float": "left" }}>
-
                 <Button
-                    onClick={handleAdd}
+                    disabled={
+                        !sections
+                        || !cgocommune
+                        || sections
+                            && cgocommune
+                            && references.length > 0
+                        && !validReferences
+                    }
+                    onClick={() => onAddReference({})}
                     className="pull-left">
                     <Glyphicon glyph="plus"/>
 
@@ -40,29 +39,15 @@ export default function ReferencesList() {
                     className="pull-left">Click to add a new reference</span>
             </div>
             <div style={{ width: "100%", height: "calc(50vh - 290px)", minHeight: 96, "overflowY": "auto" }}>
-                {items.map((v, index) => (
-                    <div style={{ widthh: "100%", "float": "left" }}>
-                        <FormControl
-                            value={v[0]}
-                            className="pull-left"
-                            style={{ width: 120, marginTop: 3, marginRight: 3 }}
-                            onChange={handleChange(index, 0)}
-                        />
-                        <FormControl
-                            value={v[1]}
-                            className="pull-left"
-                            style={{ width: 120, marginTop: 3, marginRight: 3 }}
-                            onChange={handleChange(index, 1)}
-                        />
-                        <Button
-                            style={{ marginTop: 3, marginRight: 3 }}
-                            className="pull-right"
-                            onClick={handleDelete(index)}
-                        >
-                            <Glyphicon glyph="trash"/>
-                        </Button>
-                    </div>
-                ))}
+                {
+                    sections && references.map((row, index) => {
+                        return (<ReferenceRow
+                            row={row}
+                            sections={sections}
+                            onRemove={() => onRemoveReference(index)}
+                            onSetValue={(column, value) => onSetValue(index, column, value)} />);
+                    })
+                }
             </div>
         </>
     );
