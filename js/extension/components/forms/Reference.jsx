@@ -2,6 +2,7 @@ import React from 'react';
 import {ControlLabel} from 'react-bootstrap';
 import ReferencesList from '../lists/ReferencesList';
 import MunicipalityCombo from './MunicipalityCombo';
+import Select from 'react-select';
 
 export default ({
     values = {},

@@ -98,7 +98,8 @@ export const toggleSearchTool = (searchType) => ({
  */
 export const addPlots = (plots, target) => ({
     type: ADD_PLOTS,
-    plots
+    plots,
+    target
 });
 
 /**
@@ -167,6 +168,11 @@ export const openLP = (parcelle) => ({
     parcelle
 });
 
+/**
+ * Perform a search event. The target is the plot selection to contain the results.
+ * @param {string} searchType one of SEARCH_TYPES
+ * @param {object} rawParams search parameters (depends on the search typ)
+ */
 export const search = (searchType, rawParams) => ({
     type: SEARCH,
     searchType,

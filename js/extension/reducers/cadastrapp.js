@@ -108,7 +108,7 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
         return set("searchType", searchType, state);
     }
     case ADD_PLOTS: {
-        const { plots, target } = action;
+        const { plots, target, activate = true } = action;
         const {activePlotSelection = 0 } = state;
         let targetPlotSelection = activePlotSelection;
         let newState = state;
@@ -117,14 +117,17 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
             // create
             if (targetIndex < 0) {
                 newState = set(`plots`, [...state.plots, { ...EMPTY_PLOT_SELECTION, ...target }], state);
-                targetPlotSelection = state.plots.length - 1;
+                targetPlotSelection = newState.plots.length - 1;
             } else {
                 newState = set(`plots[${targetIndex}]`, {...state.plots[targetIndex], ...target});
                 targetPlotSelection = targetIndex;
             }
         }
+        if (activate) {
+            newState = set(`activePlotSelection`, targetPlotSelection, newState);
+        }
         // get the current selection or create a new one if it not exists.
-        let currentSelection = state?.plots?.[targetPlotSelection] ?? EMPTY_PLOT_SELECTION;
+        let currentSelection = newState?.plots?.[targetPlotSelection] ?? EMPTY_PLOT_SELECTION;
         // add every plot received and toggle selection if exist
         plots.map(({ parcelle, ...other}) => {
             // if exists, toggle selection

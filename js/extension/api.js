@@ -46,7 +46,6 @@ export function getParcelle({
             ccopre,
             ccosec} }).then(({data}) => data);
 }
-
 /**
  * Call the API for getCommune
  * @param {object} params `libcom` (sub-string) or `cgocommune` code
@@ -79,3 +78,19 @@ export function getSection(cgocommune) {
 export function getDnuplaList({ cgocommune, ccopre, ccosec }) {
     return axios.get(`${baseURL}/services/getDnuplaList`, { params: { cgocommune, ccopre, ccosec } }).then(({ data }) => data);
 }
+
+export function getVoie({ cgocommune, dvoilib }) {
+    return axios.get(`${baseURL}/services/getVoie`, { params: { cgocommune, dvoilib  } }).then(({ data }) => data);
+}
+
+// draft - not used. Replaced with local parsing
+export function fromParcellesFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    };
+    return axios.post(`${baseURL}/services/fromParcellesFile`, formData, config).then(({ data }) => data?.data);
+};

@@ -77,13 +77,13 @@ function PlotTabs({
     active,
     onTabChange,
     data,
+    plots,
     ...props
 }) {
 
     const MAX_TABS = 3; // max number of tabs
-    let otherSelectionIndex = active + 1;
-    if (otherSelectionIndex < MAX_TABS) {
-        otherSelectionIndex = `${MAX_TABS}+`;
+    const getPlotTitle = (plot, index) => {
+        return plot?.title ?? ("Selection " + (index + 1).toString());
     }
     return (
         <Tab.Container
@@ -93,16 +93,16 @@ function PlotTabs({
             <Row className="clearfix">
                 <Col sm={12}>
                     <Nav bsStyle="tabs">
-                        {data.slice(0, data.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((value, index) => (
+                        {plots.slice(0, plots.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((plot, index) => (
                             <NavItem role="tab" eventKey={index}>
-                                {"Selection " + (index + 1).toString()}
+                                {getPlotTitle(plot, index)}
                             </NavItem>
                         ))}
-                        {data.length > MAX_TABS
-                            ? <NavDropdown title={"Selection " + otherSelectionIndex}>
-                                {data.slice(MAX_TABS - 1).map((value, index) => (
+                        {plots.length > MAX_TABS
+                            ? <NavDropdown title={active < MAX_TABS - 1 ? "More..." : getPlotTitle(plots[active], active)}>
+                                {plots.slice(MAX_TABS - 1).map((plot, index) => (
                                     <MenuItem eventKey={index + MAX_TABS - 1}>
-                                        {"Selection " + (index + MAX_TABS).toString()}
+                                        {getPlotTitle(plot, index + MAX_TABS - 1)}
                                     </MenuItem>
                                 ))}
                             </NavDropdown>

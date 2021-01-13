@@ -12,7 +12,7 @@ export default function ReferencesList({ references = [], cgocommune, onAddRefer
         if (cgocommune) {
             getSection(cgocommune).then(results => {
                 setSections(results);
-                onAddReference({});
+                onAddReference({}); // when commune is selected, first line of references is added by default
             });
         }
     }, [cgocommune]);
