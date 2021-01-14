@@ -1,6 +1,5 @@
 import Rx from 'rxjs';
 import { getParcelle } from '../api';
-import {head, sortBy} from 'lodash';
 
 
 import { SELECTION_TYPES } from '../constants';
@@ -10,17 +9,19 @@ import {
     changeDrawingStatus
 } from '@mapstore/actions/draw';
 
-
 import {
     TOGGLE_SELECTION,
     TEAR_DOWN,
     addPlots,
-    loading
+    loading,
+    openLP
 } from '../actions/cadastrapp';
 
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
 import { wrapStartStop } from '@mapstore/observables/epics';
+
+import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 
 
 const CLEAN_ACTION = changeDrawingStatus("clean");
@@ -28,16 +29,6 @@ const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
     changeDrawingStatus("stop")];
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
-
-// this is a workaround that prevent duplicated parcelle coming from the back-end service.
-// it can be used to fiter features coming from WFS, getting data of the most recent lot.
-// Should have no effects with correct database.
-const workaroundDuplicatedParcelle = parcelleProperty => (v, index, array) => {
-    const sameParcelleElements = array.filter((vv) => vv?.properties?.[parcelleProperty] === v?.properties?.[parcelleProperty]);
-    const correctValue = head(sortBy(sameParcelleElements, 'lot').reverse());
-    return v?.properties?.lot === correctValue?.properties?.lot;
-};
-
 
 /**
  * Extract the drawMethod for DrawSupport from the method
@@ -102,6 +93,9 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                             )
                                 .mergeAll(5)
                                 .map(parcelle => {
+                                    if (selectionType === SELECTION_TYPES.LANDED_PROPERTY) {
+                                        return openLP(parcelle);
+                                    }
                                     return addPlots([parcelle]);
                                 }).let(wrapStartStop(
                                     [loading(true, "features")],

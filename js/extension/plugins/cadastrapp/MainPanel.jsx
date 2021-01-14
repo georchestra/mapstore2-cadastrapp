@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-
-import MP from '../../components/MainPanel';
+import WelcomeMessage from '../../components/modals/Welcome';
+import SearchSection from './SearchSection';
 
 
 import {
@@ -13,12 +12,25 @@ import {
 
 import PlotsSelection from './PlotSelection';
 
-const MainPanel = (props) => {
+function MainPanel({
+    selectedSearchTool,
+    plotSelectionData
+}) {
+    return (
 
-    return (<MP {...props}>
-        <PlotsSelection />
-    </MP>);
+        <div className="right-side pull-left">
+            <WelcomeMessage
+                isShown={!selectedSearchTool}
+                data={plotSelectionData}
+            />
+            <SearchSection
+                selectedSearchTool={selectedSearchTool}
+            />
+            <PlotsSelection />
+        </div>
+    );
 }
+
 export default connect(state => ({
     plotSelectionData: plotDataSelector(state),
     activeSelectionTab: activeSelectionTabIndexSelectors(state),

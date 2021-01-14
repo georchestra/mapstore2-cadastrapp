@@ -1,36 +1,42 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
+import Coownership from '../../components/search/CoownershipSearch';
+import Owners from '../../components/search/OwnersSearch';
+import Plots from '../../components/search/PlotSearch';
 
-import CoownershipSearch from './CoownershipSearch';
-import OwnersSearch from './OwnersSearch';
-import PlotsSearch from './PlotSearch';
+import { search } from '../../actions/cadastrapp';
 
 import {
     SEARCH_TOOLS
 } from '../../constants';
+
+const PlotsSearch = connect(() => ({}), {
+    onSearch: search
+})(Plots);
+const OwnersSearch = connect(() => ({}), {
+
+})(Owners);
+const CoownershipSearch = connect(() => ({}), {
+
+})(Coownership);
 
 /**
  * Renders the search form,
  * depending on the search tool selected.
  */
 export default function SearchSection({
-    selectedSearchTool,
-    handlePlotsSearch,
-    handleOwnersSearch,
-    handleCoownershipSearch
+    selectedSearchTool
 }) {
     switch (selectedSearchTool) {
     case SEARCH_TOOLS.PLOT:
         return (<PlotsSearch
-            onSearch={handlePlotsSearch}
         />);
     case SEARCH_TOOLS.OWNER:
         return (<OwnersSearch
-            onSearch={handleOwnersSearch}
         />);
     case SEARCH_TOOLS.COOWNER:
         return (<CoownershipSearch
-            onSearch={handleCoownershipSearch}
         />);
 
     default:

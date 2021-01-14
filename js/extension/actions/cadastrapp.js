@@ -18,6 +18,9 @@ export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
 export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
 export const SET_STYLES = "CADASTRAPP:SET_STYLES";
 
+export const OPEN_LP = "CADASTRAPP:OPEN_LANDRY_PROPERTY";
+
+export const SEARCH = "CADASTRAPP:SEARCH";
 
 /**
  * Set the style of highlight
@@ -87,11 +90,16 @@ export const toggleSearchTool = (searchType) => ({
 /**
  * Insert the new plots in the current selection.
  * If they exist, they will be selected.
- * @props plots the parcelles to add.
+ * @prop {object[]} plots the parcelles to add
+ * @prop {object|number} [target] if present is used to determine the selection where to add the plots.
+ * - if object, it uses the 'id' property to determine the target. If not present, is created, otherwise overridden.
+ * - if number, is the index in the array.
+ * - if not present, it will add the plots to the current active tab.
  */
-export const addPlots = (plots) => ({
+export const addPlots = (plots, target) => ({
     type: ADD_PLOTS,
-    plots
+    plots,
+    target
 });
 
 /**
@@ -106,9 +114,11 @@ export const removePlots = (parcelles) => ({
 
 /**
  * Add a tab to the selections
+ * @param {object} plot initial data
  */
-export const addPlotSelection = () => ({
-    type: ADD_PLOT_SELECTION
+export const addPlotSelection = (plot) => ({
+    type: ADD_PLOT_SELECTION,
+    plot
 });
 /**
  * Select the current tab of the selection
@@ -150,4 +160,22 @@ export const zoomToSelection = () => ({
     type: ZOOM_TO_SELECTION
 });
 
+/**
+ * Opens landry property tab
+ */
+export const openLP = (parcelle) => ({
+    type: OPEN_LP,
+    parcelle
+});
+
+/**
+ * Perform a search event. The target is the plot selection to contain the results.
+ * @param {string} searchType one of SEARCH_TYPES
+ * @param {object} rawParams search parameters (depends on the search typ)
+ */
+export const search = (searchType, rawParams) => ({
+    type: SEARCH,
+    searchType,
+    rawParams
+});
 

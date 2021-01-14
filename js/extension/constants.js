@@ -43,3 +43,13 @@ export const LAYER_STYLES = {
         weight: 2
     }
 };
+/*
+ * SEARCH TYPES (plot search, more....)
+ */
+export const SEARCH_TYPES = {
+    REFERENCE: "reference",
+    ADDRESS: "address",
+    ID: "id",
+    LOT: "lot"
+};
+export const MIN_PARCELLE_ID_LENGTH = 14;

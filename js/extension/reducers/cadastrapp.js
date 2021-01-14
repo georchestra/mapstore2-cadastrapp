@@ -1,5 +1,5 @@
 import { set, arrayUpsert, compose} from '@mapstore/utils/ImmutableUtils';
-import { find, uniq } from 'lodash';
+import { find, uniq, isNil, isObject, findIndex } from 'lodash';
 import {
     LOADING,
     ADD_PLOTS,
@@ -108,10 +108,26 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
         return set("searchType", searchType, state);
     }
     case ADD_PLOTS: {
-        const { plots } = action;
+        const { plots, target, activate = true } = action;
         const {activePlotSelection = 0 } = state;
+        let targetPlotSelection = activePlotSelection;
+        let newState = state;
+        if (!isNil(target)) {
+            const targetIndex = isObject(target) ? findIndex(state.plots, {id: target.id}) : target;
+            // create
+            if (targetIndex < 0) {
+                newState = set(`plots`, [...state.plots, { ...EMPTY_PLOT_SELECTION, ...target }], state);
+                targetPlotSelection = newState.plots.length - 1;
+            } else {
+                newState = set(`plots[${targetIndex}]`, {...state.plots[targetIndex], ...target});
+                targetPlotSelection = targetIndex;
+            }
+        }
+        if (activate) {
+            newState = set(`activePlotSelection`, targetPlotSelection, newState);
+        }
         // get the current selection or create a new one if it not exists.
-        let currentSelection = state?.plots?.[activePlotSelection] ?? EMPTY_PLOT_SELECTION;
+        let currentSelection = newState?.plots?.[targetPlotSelection] ?? EMPTY_PLOT_SELECTION;
         // add every plot received and toggle selection if exist
         plots.map(({ parcelle, ...other}) => {
             // if exists, toggle selection
@@ -120,7 +136,7 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
             currentSelection = arrayUpsert(`data`, { parcelle, ...other }, {parcelle}, currentSelection);
         });
         // update with new values the state
-        return set(`plots[${activePlotSelection}]`, currentSelection, state);
+        return set(`plots[${targetPlotSelection}]`, currentSelection, newState);
     }
     case REMOVE_PLOTS: {
         const { parcelles = []} = action;
@@ -151,7 +167,8 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
         return set(`plots[${activePlotSelection}]`, currentSelection, state);
     }
     case ADD_PLOT_SELECTION: {
-        return set(`plots`, [...state.plots, EMPTY_PLOT_SELECTION], state);
+        const {plot = {}} = action;
+        return set(`plots`, [...state.plots, { ...EMPTY_PLOT_SELECTION, ...plot}], state);
     }
     case REMOVE_PLOT_SELECTION: {
         const active = action.active ?? state.activePlotSelection;

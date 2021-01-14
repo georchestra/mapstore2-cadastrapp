@@ -7,4 +7,7 @@ export { syncLayerForPlots } from './layerSync';
 // epics that implement map selection
 export { cadastrappMapSelection } from './mapSelection';
 
-export { zoomToSelection } from './events';
+export { cadastrappZoomToSelection, cadastrappOpenLP } from './events';
+
+export { cadastrappSearch } from './search';
+
