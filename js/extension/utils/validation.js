@@ -29,6 +29,10 @@ export function addressTabValid({ commune, road} = {}) {
 export function lotTabValid({parcelle, file} = {}) {
     return parcelle && validateParcelleList(parcelle) || file;
 }
+
+export function userTabValid({ proprietaire, commune} = {}) {
+    return proprietaire && commune; // proprietaire can be a string or an object.
+}
 export function isSearchValid(tab, data) {
     switch (tab) {
     case SEARCH_TYPES.REFERENCE:
@@ -39,6 +43,8 @@ export function isSearchValid(tab, data) {
         return lotTabValid(data);
     case SEARCH_TYPES.ADDRESS:
         return addressTabValid(data);
+    case SEARCH_TYPES.USER:
+        return userTabValid(data);
     default:
         return false;
     }

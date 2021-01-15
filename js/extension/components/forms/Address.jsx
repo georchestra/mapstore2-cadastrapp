@@ -60,7 +60,7 @@ export default function Address({values, setValue = () => {}}) {
                 <ControlLabel>Adress, Roads, Name or locality</ControlLabel>
             </div>
             <div className="form-col">
-                <RoadCombo disabled={!values?.commune} cgocommune={values?.commune?.cgocommune} onSelect={v => setValue('road', v)}/>
+                <RoadCombo value={values?.road} disabled={!values?.commune} cgocommune={values?.commune?.cgocommune} onSelect={v => setValue('road', v)}/>
                 <div className="text-muted">ex. Henri Freville or La morinaie</div>
             </div>
         </div>
