@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { set } from '@mapstore/utils/ImmutableUtils';
 import { SEARCH_TYPES } from '../../constants';
 import { isSearchValid } from '../../utils/validation';
 
@@ -10,17 +9,11 @@ import Reference from '../forms/Reference';
 import Address from '../forms/Address';
 import Identifier from '../forms/Identifier';
 import Lot from '../forms/Lot';
+import useFormState from '../../hooks/useFormState';
 
 export default function PlotsSearch({onSearch = () => {}}) {
     const [currentTab, setCurrentTab] = useState('reference');
-    const [searchState, setSearchState] = useState({});
-    const setFormState = (eventKey, key, value) => {
-        const path = `['${eventKey}'].${key}`;
-        setSearchState(set(path, value, searchState));
-    };
-    const resetFormState = (eventKey) => {
-        setSearchState(set(eventKey, undefined, searchState));
-    };
+    const [searchState, setFormState, resetFormState] = useFormState();
 
     return (
         <div className="plots-search">

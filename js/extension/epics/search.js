@@ -4,7 +4,7 @@ import {head, trim} from 'lodash';
 import { SEARCH_TYPES } from '../constants';
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
-import { getParcelle } from '../api';
+import { getParcelle, getParcelleByCompteCommunal, getProprietaire } from '../api/api';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 import { SEARCH, addPlots } from '../actions/cadastrapp';
@@ -77,6 +77,18 @@ function searchParcelles({ searchType, rawParams }) {
         const { dvoilib } = road;
         return Rx.Observable.defer(() => getParcelle({ dnvoiri, dindic, cgocommune, dvoilib }))
             .switchMap(parcelles => Rx.Observable.from(parcelles));
+    }
+    case SEARCH_TYPES.USER: {
+        const { commune, proprietaire, birthsearch } = rawParams;
+        // ddenom birthsearch=true
+        const { value: ddenom } = proprietaire;
+        const { cgocommune } = commune;
+        return Rx.Observable.defer(() => getProprietaire({ ddenom, birthsearch, cgocommune, details: 2}))
+            // generically N proprietaries (usually 1)
+            .switchMap(data =>
+                Rx.Observable.defer(() => getParcelleByCompteCommunal({ comptecommunal: data.map(({ comptecommunal }) => comptecommunal) }))
+                    .switchMap(parcelles => Rx.Observable.from(parcelles))
+            );
     }
     default:
         break;

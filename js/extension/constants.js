@@ -47,9 +47,12 @@ export const LAYER_STYLES = {
  * SEARCH TYPES (plot search, more....)
  */
 export const SEARCH_TYPES = {
+    // PLOT
     REFERENCE: "reference",
     ADDRESS: "address",
     ID: "id",
-    LOT: "lot"
+    LOT: "lot",
+    // OWNER
+    USER: 'user'
 };
 export const MIN_PARCELLE_ID_LENGTH = 14;

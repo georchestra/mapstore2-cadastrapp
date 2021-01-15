@@ -1,52 +1,33 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import Select from 'react-select';
 import { StrList } from '../lists/StrList';
+import { isString } from "lodash";
 
-import { Tabs, Tab, Button, ControlLabel, FormControl, Checkbox, Glyphicon } from "react-bootstrap";
+import { Tabs, Tab, Button, ButtonGroup, ControlLabel, FormControl, Glyphicon } from "react-bootstrap";
+import useFormState from '../../hooks/useFormState';
+import { SEARCH_TYPES } from '../../constants';
 
+import User from '../forms/User';
 
-import SearchButtons from './SearchButtons';
+import { isSearchValid } from '../../utils/validation';
+export default function OwnersSearch({onSearch = () => {}}) {
+    const [currentTab, setCurrentTab] = useState(SEARCH_TYPES.USER);
 
-export default function OwnersSearch(props) {
+    const [searchState, setFormState, resetFormState] = useFormState();
     return (
         <div className="owners-search">
             <h3>Owners Search</h3>
             <Tabs
+                onSelect={k => setCurrentTab(k)}
                 className="not-scrolled-tab"
-                defaultActiveKey={1} id="uncontrolled-tab-example">
+                activeKey={currentTab}
+                defaultActiveKey={SEARCH_TYPES.USER}>
                 <Tab
-
-                    eventKey={1} title="User or birthname">
-                    <div className="item-row">
-                        <div className="label-col">
-                            <ControlLabel>Town, Municipality</ControlLabel>
-                        </div>
-                        <div className="form-col">
-                            <Select/>
-                            <div className="text-muted">ex: Rennes, Cesson-Sevigne</div>
-                        </div>
-                    </div>
-                    <div className="item-row">
-                        <div className="label-col">
-                            <ControlLabel>Last name and first name</ControlLabel>
-                        </div>
-                        <div className="form-col">
-                            <Select/>
-                            <div className="text-muted">ex: Jeog Pierre</div>
-                        </div>
-                    </div>
-                    <div className="item-row">
-                        <div className="label-col">
-                            <ControlLabel/>
-                        </div>
-                        <div className="form-col">
-                            <Checkbox>
-                                Search by Birth name
-                            </Checkbox>
-                            <div className="text-muted">Echap to load query without completion</div>
-                        </div>
-                    </div>
+                    eventKey={SEARCH_TYPES.USER} title="User or birthname">
+                    <User
+                        values={searchState?.[SEARCH_TYPES.USER] ?? {}}
+                        setValue={(key, value) => setFormState(SEARCH_TYPES.USER, key, value)} />
                 </Tab>
                 <Tab eventKey={2} title="Owner Identifier">
                     <div className="item-row">
@@ -86,7 +67,24 @@ export default function OwnersSearch(props) {
                     </div>
                 </Tab>
             </Tabs>
-            <SearchButtons {...props}/>
+            <ButtonGroup style={{ margin: "10px", "float": "right" }}>
+                <Button
+                    onClick={() => resetFormState(currentTab)}
+                >Clear</Button>
+                <Button
+                    disabled={!isSearchValid(currentTab, searchState[currentTab])}
+                    bsStyle="primary"
+                    onClick={() => {
+                        // text search opens the owners tab
+                        if (currentTab === SEARCH_TYPES.USER && isString(searchState[SEARCH_TYPES.USER].proprietaire)) {
+                            alert("TODO: Search owners");
+                        } else {
+                            // plot search
+                            onSearch(currentTab, searchState[currentTab]);
+                        }
+                    }}
+                >Search</Button>
+            </ButtonGroup>
         </div>
     );
 }

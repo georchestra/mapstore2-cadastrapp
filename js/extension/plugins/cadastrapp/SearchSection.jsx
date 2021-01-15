@@ -15,10 +15,10 @@ const PlotsSearch = connect(() => ({}), {
     onSearch: search
 })(Plots);
 const OwnersSearch = connect(() => ({}), {
-
+    onSearch: search
 })(Owners);
 const CoownershipSearch = connect(() => ({}), {
-
+    onSearch: search
 })(Coownership);
 
 /**
