@@ -53,6 +53,7 @@ export const SEARCH_TYPES = {
     ID: "id",
     LOT: "lot",
     // OWNER
-    USER: 'user'
+    USER: 'user',
+    OWNER_ID: 'ownerId'
 };
 export const MIN_PARCELLE_ID_LENGTH = 14;

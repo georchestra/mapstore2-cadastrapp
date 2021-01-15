@@ -1,9 +1,27 @@
 import axios from '@mapstore/libs/ajax';
-import {castArray} from 'lodash';
+import { castArray, isArray } from 'lodash';
 let baseURL = '/cadastrapp';
 
 export function setBaseURL(url) {
     baseURL = url;
+}
+
+/**
+ * Utility function to support requests like GET `url.com/path?arg=value1&1arg=value2` or equivalent for POST in x-www-form-urlencoded.
+ * Axios by default create arguments like arg[]=value1,value2. when passing arrays to the params object. (See axios doc for details)
+ * This convert params object into URLSearchParams and append the parameters accordingly. If arrays, they will be appended with the same name.
+ * @param {object} args params for the request. If array, it append each element to the param list with the same name
+ */
+function toURLParams(args) {
+    const params = new URLSearchParams();
+    Object.keys(args)
+        .filter(k => !!args[k])
+        .forEach(k =>
+            isArray(args[k])
+                ? args[k].forEach(v => params.append(k, v))
+                : params.append(k, args[k])
+        );
+    return params;
 }
 
 /**
@@ -106,7 +124,9 @@ export function getVoie({ cgocommune, dvoilib }) {
  *  - `details=2`  `[{"comptecommunal":"123456*7890","app_nom_usage":"the name"}]`
  */
 export function getProprietaire({ cgocommune, ddenom, dnupro, birthsearch, details }) {
-    return axios.get(`${baseURL}/services/getProprietaire`, { params: { cgocommune, ddenom, dnupro, birthsearch, details } }).then(({ data }) => data);
+    const args = { cgocommune, ddenom, dnupro, birthsearch, details };
+    const params = toURLParams(args);
+    return axios.get(`${baseURL}/services/getProprietaire`, { params }).then(({ data }) => data);
 }
 
 

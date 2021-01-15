@@ -90,6 +90,16 @@ function searchParcelles({ searchType, rawParams }) {
                     .switchMap(parcelles => Rx.Observable.from(parcelles))
             );
     }
+    case SEARCH_TYPES.OWNER_ID: {
+        const { commune, dnupro } = rawParams;
+        const { cgocommune } = commune;
+        return Rx.Observable.defer(() => getProprietaire({ dnupro, cgocommune, details: 2 }))
+            // generically N proprietaries (usually 1)
+            .switchMap(data =>
+                Rx.Observable.defer(() => getParcelleByCompteCommunal({ comptecommunal: data.map(({ comptecommunal }) => comptecommunal) }))
+                    .switchMap(parcelles => Rx.Observable.from(parcelles))
+            );
+    }
     default:
         break;
     }

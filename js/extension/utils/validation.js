@@ -33,6 +33,14 @@ export function lotTabValid({parcelle, file} = {}) {
 export function userTabValid({ proprietaire, commune} = {}) {
     return proprietaire && commune; // proprietaire can be a string or an object.
 }
+
+/**
+ * Valid if it contains at least commune and a not empty string for owner id (dnupro)
+ */
+export function ownerIdTabValid({ commune, dnupro = []} = {}) {
+    return commune && dnupro.filter(v => v).length > 0;
+}
+
 export function isSearchValid(tab, data) {
     switch (tab) {
     case SEARCH_TYPES.REFERENCE:
@@ -45,6 +53,8 @@ export function isSearchValid(tab, data) {
         return addressTabValid(data);
     case SEARCH_TYPES.USER:
         return userTabValid(data);
+    case SEARCH_TYPES.OWNER_ID:
+        return ownerIdTabValid(data);
     default:
         return false;
     }
