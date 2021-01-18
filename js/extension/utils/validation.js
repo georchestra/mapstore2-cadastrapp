@@ -27,7 +27,7 @@ export function addressTabValid({ commune, road} = {}) {
  * @param {object} param0 parcelle or file atributes
  */
 export function lotTabValid({parcelle, file} = {}) {
-    return parcelle && validateParcelleList(parcelle) || file;
+    return parcelle && validateParcelleList(parcelle) || !!file;
 }
 
 export function userTabValid({ proprietaire, commune} = {}) {
@@ -39,6 +39,13 @@ export function userTabValid({ proprietaire, commune} = {}) {
  */
 export function ownerIdTabValid({ commune, dnupro = []} = {}) {
     return commune && dnupro.filter(v => v).length > 0;
+}
+
+/**
+ * The form requires the file to be present
+ */
+export function ownerLotTabValid({file} = {}) {
+    return !!file;
 }
 
 export function isSearchValid(tab, data) {
@@ -55,6 +62,8 @@ export function isSearchValid(tab, data) {
         return userTabValid(data);
     case SEARCH_TYPES.OWNER_ID:
         return ownerIdTabValid(data);
+    case SEARCH_TYPES.OWNER_LOT:
+        return ownerLotTabValid(data);
     default:
         return false;
     }

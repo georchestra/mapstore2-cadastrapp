@@ -10,12 +10,18 @@ import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 import { SEARCH, addPlots } from '../actions/cadastrapp';
 
 const DELIMITER_REGEX = /[\s\;\,\n]/;
+
+/**
+ * Reads specific files that contain the list of parcelle, or comptecomunal
+ * @returns {Promise} a promis that emits an array of strings.
+ * @param {file} file file to read
+ */
 function readCSV(file) {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();
         reader.onload = function() {
             const string = reader.result;
-            const parcelle = string.split(DELIMITER_REGEX).map(trim).filter(v => v).join(',');
+            const parcelle = string.split(DELIMITER_REGEX).map(trim).filter(v => v);
             resolve(parcelle);
         };
         reader.onerror = function () {
@@ -25,14 +31,28 @@ function readCSV(file) {
     });
 }
 
+function getTitle(searchType, rawParams) {
+    switch (searchType) {
+    case SEARCH_TYPES.REFERENCE:
+        return rawParams?.commune?.label;
+    case SEARCH_TYPES.ADDRESS:
+        return rawParams?.commune?.label;
+    case SEARCH_TYPES.LOT:
+        return "Lot";
+    case SEARCH_TYPES.ID:
+        return "Id(s)";
+    case SEARCH_TYPES.OWNER_ID:
+        return rawParams?.commune?.label;
+    default:
+        return "By file";
+
+    }
+}
 function targetFromSearch(searchType, rawParams) {
+    let title = getTitle(searchType, rawParams);
     return {
         id: uuid(),
-        title: searchType === SEARCH_TYPES.REFERENCE ? rawParams?.commune?.label
-            : searchType === SEARCH_TYPES.ADDRESS ? rawParams?.commune?.label
-                : searchType === SEARCH_TYPES.LOT ? "Lot"
-                    : searchType === SEARCH_TYPES.ID ? "Id(s)"
-                        : undefined
+        title
     };
 }
 
@@ -68,7 +88,7 @@ function searchParcelles({ searchType, rawParams }) {
     }
     case SEARCH_TYPES.LOT: {
         const {file, parcelle}  = rawParams;
-        return Rx.Observable.defer(() => file ? readCSV(file).then( pp => getParcelle({ parcelle: pp })) : getParcelle({parcelle}))
+        return Rx.Observable.defer(() => file ? readCSV(file).then( pp => getParcelle({ parcelle: pp.join(',') })) : getParcelle({parcelle}))
             .switchMap(parcelles => Rx.Observable.from(parcelles));
     }
     case SEARCH_TYPES.ADDRESS: {
@@ -99,6 +119,11 @@ function searchParcelles({ searchType, rawParams }) {
                 Rx.Observable.defer(() => getParcelleByCompteCommunal({ comptecommunal: data.map(({ comptecommunal }) => comptecommunal) }))
                     .switchMap(parcelles => Rx.Observable.from(parcelles))
             );
+    }
+    case SEARCH_TYPES.OWNER_LOT: {
+        const { file } = rawParams;
+        return Rx.Observable.defer(() => readCSV(file).then(comptecommunal => getParcelleByCompteCommunal({ comptecommunal })) )
+            .switchMap(parcelles => Rx.Observable.from(parcelles));
     }
     default:
         break;
