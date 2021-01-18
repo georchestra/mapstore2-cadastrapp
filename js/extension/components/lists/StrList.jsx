@@ -1,37 +1,14 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, FormControl, Glyphicon } from "react-bootstrap";
-export function StrList() {
-    let [items, setItems] = useState([""]);
-
-    let handleDelete = (index) => {
-        return () => {
-            let i = items.slice();
-            i.splice(index, 1);
-            setItems(i);
-        };
-    };
-
-    let handleChange = (index) => {
-        return (e) => {
-            let i = items.slice();
-            i[index] = e.target.value;
-            setItems(i);
-        };
-    };
-
-    let handleAdd = () => {
-        let i = items.slice();
-        i.push("");
-        setItems(i);
-    };
+export function StrList({items = [], onAdd, onRemove, onSetValue}) {
 
     return (
         <>
             <div style={{ width: "100%", "float": "left" }}>
 
                 <Button
-                    onClick={handleAdd}
+                    onClick={() => onAdd()}
                     className="pull-left">
                     <Glyphicon glyph="plus"/>
 
@@ -48,12 +25,12 @@ export function StrList() {
                             value={v}
                             className="pull-left"
                             style={{ width: 240, marginTop: 5, marginRight: 5 }}
-                            onChange={handleChange(index)}
+                            onChange={e => onSetValue(index, e.target.value)}
                         />
                         <Button
                             style={{ marginTop: 5, marginRight: 5 }}
                             className="pull-right"
-                            onClick={handleDelete(index)}
+                            onClick={() => onRemove(index)}
                         >
                             <Glyphicon glyph="trash"/>
                         </Button>
