@@ -49,7 +49,7 @@ export default function OwnersSearch({onSearch = () => {}}) {
                     bsStyle="primary"
                     onClick={() => {
                         // text search opens the owners tab
-                        if (currentTab === SEARCH_TYPES.USER && isString(searchState[SEARCH_TYPES.USER].proprietaire)) {
+                        if (currentTab === SEARCH_TYPES.USER && isString(searchState[SEARCH_TYPES.USER]?.proprietaire)) {
                             alert("TODO: Search owners");
                         } else {
                             // plot search

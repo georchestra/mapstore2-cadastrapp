@@ -4,10 +4,11 @@ import {head, trim} from 'lodash';
 import { SEARCH_TYPES } from '../constants';
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
-import { getParcelle, getParcelleByCompteCommunal, getProprietaire } from '../api/api';
+import { getCoProprietaireList, getParcelle, getParcelleByCompteCommunal, getProprietaire } from '../api/api';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 import { SEARCH, addPlots } from '../actions/cadastrapp';
+import { isValidParcelle } from '../utils/validation';
 
 const DELIMITER_REGEX = /[\s\;\,\n]/;
 
@@ -43,8 +44,10 @@ function getTitle(searchType, rawParams) {
         return "Id(s)";
     case SEARCH_TYPES.OWNER_ID:
         return rawParams?.commune?.label;
-    default:
+    case SEARCH_TYPES.OWNER_LOT:
         return "By file";
+    default:
+        return null;
 
     }
 }
@@ -123,6 +126,20 @@ function searchParcelles({ searchType, rawParams }) {
     case SEARCH_TYPES.OWNER_LOT: {
         const { file } = rawParams;
         return Rx.Observable.defer(() => readCSV(file).then(comptecommunal => getParcelleByCompteCommunal({ comptecommunal })) )
+            .switchMap(parcelles => Rx.Observable.from(parcelles));
+    }
+    case SEARCH_TYPES.COOWNER: {
+        const { commune, proprietaire = {}, parcelle, comptecommunal } = rawParams;
+        const { value: ddenom } = proprietaire;
+        const { cgocommune } = commune;
+        // if parcelle is defined, it looks like normal parcelleId search.
+        if (parcelle && isValidParcelle(parcelle)) {
+            return Rx.Observable.defer(() => getParcelle({ parcelle })).switchMap(parcelles => Rx.Observable.from(parcelles));
+        }
+        return Rx.Observable.defer(() => getCoProprietaireList({ cgocommune, ddenom, comptecommunal, details: 1 }))
+            .switchMap((proprietaireList = []) =>
+                getParcelleByCompteCommunal({ comptecommunal: proprietaireList.map(({ comptecommunal: cc }) => cc) }) // extract comptecommunal from CoProprietaireList
+            )
             .switchMap(parcelles => Rx.Observable.from(parcelles));
     }
     default:

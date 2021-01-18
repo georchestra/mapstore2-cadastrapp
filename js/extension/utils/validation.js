@@ -8,8 +8,11 @@ export function referenceTabValid({references = [], commune} = {}) {
     return commune && references.length > 0 && validateReferences(references);
 }
 
+export function isValidParcelle(parcelle) {
+    return parcelle.length >= MIN_PARCELLE_ID_LENGTH;
+}
 function validateParcelleList(parcelle = "" ) {
-    return parcelle.split(',').reduce((valid, value = "") => valid && value.length >= MIN_PARCELLE_ID_LENGTH, true);
+    return parcelle.split(',').reduce((valid, value = "") => valid && isValidParcelle(value), true);
 }
 /**
  * Is valid if every parcelle (Separated by comma) in the `parcelle` attribute of the object is valid. (min length)
@@ -48,6 +51,23 @@ export function ownerLotTabValid({file} = {}) {
     return !!file;
 }
 
+/**
+ * You need to select a city value and at least one other field
+ */
+export function isCoownerTabValid({
+    commune,
+    parcelle,
+    proprietaire,
+    comptecommunal
+} = {}) {
+    return commune && (
+        proprietaire
+        || parcelle && validateParcelleList(parcelle)
+        || comptecommunal
+    );
+
+}
+
 export function isSearchValid(tab, data) {
     switch (tab) {
     case SEARCH_TYPES.REFERENCE:
@@ -64,6 +84,8 @@ export function isSearchValid(tab, data) {
         return ownerIdTabValid(data);
     case SEARCH_TYPES.OWNER_LOT:
         return ownerLotTabValid(data);
+    case SEARCH_TYPES.COOWNER:
+        return isCoownerTabValid(data);
     default:
         return false;
     }
