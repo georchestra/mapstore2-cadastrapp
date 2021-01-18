@@ -129,15 +129,12 @@ export function getProprietaire({ cgocommune, ddenom, dnupro, birthsearch, detai
     return axios.get(`${baseURL}/services/getProprietaire`, { params }).then(({ data }) => data);
 }
 
-
-// draft - not used. Replaced with local parsing
-export function fromParcellesFile(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-    const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-    };
-    return axios.post(`${baseURL}/services/fromParcellesFile`, formData, config).then(({ data }) => data?.data);
+/**
+ * Get the Co proprietaire list from the passed parameter
+ * @param {params} param0 params
+ * @returns an array of proprietaire, depending on detail (as well as `getProprietaire`)
+ */
+export function getCoProprietaireList({ comptecommunal, cgocommune, ddenom, details }) {
+    const params = { comptecommunal, cgocommune, ddenom, details };
+    return axios.get(`${baseURL}/services/getCoProprietaireList`, {params}).then(({ data }) => data);
 }

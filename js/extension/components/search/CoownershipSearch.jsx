@@ -1,9 +1,18 @@
 import React from 'react';
-import { ControlLabel, FormControl } from "react-bootstrap";
+import { isString } from 'lodash';
+import { ControlLabel, FormControl, Button, ButtonGroup } from "react-bootstrap";
 
-import SearchButtons from './SearchButtons';
+import useFormState from '../../hooks/useFormState';
+import { SEARCH_TYPES } from '@js/extension/constants';
+import { isSearchValid } from '../../utils/validation';
 
-export default function CoownershipSearch(props) {
+import MunicipalityCombo from '../forms/MunicipalityCombo';
+import ProprietaireCombo from '../forms/ProprietaireCombo';
+
+export default function CoownershipSearch({ onSearch = () => { } }) {
+    const [searchState, setFormState, resetFormState] = useFormState();
+    const values = searchState[SEARCH_TYPES.COOWNER];
+    const setValue = (k, v) => setFormState(SEARCH_TYPES.COOWNER, k, v);
     return (
         <div className="coownership-search">
             <h3>Co-ownership Search</h3>
@@ -13,7 +22,7 @@ export default function CoownershipSearch(props) {
                         <ControlLabel>Town Municipality</ControlLabel>
                     </div>
                     <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
+                        <MunicipalityCombo value={values?.commune} onSelect={v => setValue('commune', v)} />
                         <div className="text-muted">ex: Rennes, Cesson-Sevigne</div>
                     </div>
                 </div>
@@ -23,7 +32,13 @@ export default function CoownershipSearch(props) {
                         <ControlLabel>Last name and First name</ControlLabel>
                     </div>
                     <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
+                        <ProprietaireCombo
+                            value={values?.proprietaire}
+                            disabled={!values?.commune}
+                            cgocommune={values?.commune?.cgocommune}
+                            onSelect={v => setValue('proprietaire', v)}
+                            onChange={v => setValue('proprietaire', v)}
+                        />
                         <div className="text-muted">ex: Jego Pierre</div>
                     </div>
                 </div>
@@ -33,7 +48,7 @@ export default function CoownershipSearch(props) {
                         <ControlLabel>Plot id</ControlLabel>
                     </div>
                     <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
+                        <FormControl value={values?.parcelle} onChange={e => setValue('parcelle', e.target.value)} type="text" bsSize="sm"/>
                         <div className="text-muted">ex: 20148301032610C0012</div>
                     </div>
                 </div>
@@ -43,12 +58,28 @@ export default function CoownershipSearch(props) {
                         <ControlLabel>Owner id</ControlLabel>
                     </div>
                     <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
+                        <FormControl value={values?.comptecommunal} onChange={e => setValue('comptecommunal', e.target.value)} type="text" bsSize="sm"/>
                         <div className="text-muted">ex. 350001+00160</div>
                     </div>
                 </div>
             </div>
-            <SearchButtons {...props}/>
+            <ButtonGroup style={{ margin: "10px", "float": "right" }}>
+                <Button
+                    onClick={() => resetFormState(SEARCH_TYPES.COOWNER)}
+                >Clear</Button>
+                <Button
+                    disabled={!isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
+                    bsStyle="primary"
+                    onClick={() => {
+                        if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire)) {
+                            alert("TODO: Search co owners");
+                        } else {
+                            // plot search
+                            onSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
+                        }
+                    }}
+                >Search</Button>
+            </ButtonGroup>
         </div>
     );
 }
