@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PS from '../../components/PlotSelection';
-import InformationFormModal from '../../components/Information';
+import Information from './Information';
 
 
 import {
@@ -11,7 +11,8 @@ import {
     selectPlots,
     deselectPlots,
     removePlots,
-    zoomToSelection
+    zoomToSelection,
+    loadInfo
 } from '../../actions/cadastrapp';
 
 import {
@@ -45,7 +46,9 @@ export default connect(
     state => ({
         plotSelectionData: plotDataSelector(state),
         activeSelectionTab: activeSelectionTabIndexSelectors(state),
-    })
+    }), {
+        loadInfo
+    }
 )(props => {
     const [showInfo, setShowInfo] = useState(false);
     const [expandedPanel, setExpandedPanel] = useState({});
@@ -61,7 +64,7 @@ export default connect(
     return (<>
         <PlotsSelection
             isShown
-            onInformationForm={() => setShowInfo(true)}
+            loadInfo={props.loadInfo}
             onZoom={() => { }}
             onClear={() => { }}
             onClick={() => { }} // on selection
@@ -70,15 +73,15 @@ export default connect(
             onRowClick={() => { }} // selection? remove?
             active={props.activeSelectionTab}
         />
-        {showInfo && <InformationFormModal
+        <Information
             expanded={expandedPanel}
             active={props.activeSelectionTab}
-            data={props.plotSelectionData}
+            data={props.informationData}
             isShown={showInfo}
             onBuildingRowClick={() => { }}
             onClose={() => setShowInfo(false)}
             onPanelExpand={handlePanelExpand}
-        />}
+        />
     </>);
 });
 

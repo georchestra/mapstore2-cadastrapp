@@ -4,7 +4,7 @@
 }
 
 .cadastrapp {
-  position: fixed;
+  position: absolute;
   background: #fff;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.16);
   overflow: hidden;
@@ -152,6 +152,10 @@
   width: 840px;
   max-width: none !important;
 }
+.cadastrapp-modal.cadastrapp-information-modal {
+  min-width: 85% !important;
+}
+.cadastrapp-information-modal
 .cadastrapp-modal .tab-content {
   border: solid 1px #ddd;
   border-top: none;
@@ -163,7 +167,7 @@
 .cadastrapp-modal .modal-footer {
   border: none;
 }
-.cadastrapp-modal .selected-panel {
+.cadastrapp-modal .information-panel-title.selected {
   background: #078aa3 !important;
   color: #fff !important;
 }

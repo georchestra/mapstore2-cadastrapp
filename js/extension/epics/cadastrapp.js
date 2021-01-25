@@ -11,3 +11,4 @@ export { cadastrappZoomToSelection, cadastrappOpenLP } from './events';
 
 export { cadastrappSearch } from './search';
 
+export { loadParcelleInformationData } from './information';

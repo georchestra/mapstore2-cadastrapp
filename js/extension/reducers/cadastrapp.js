@@ -14,7 +14,9 @@ import {
     TOGGLE_SEARCH,
     TEAR_DOWN,
     SET_LAYER_STYLE,
-    SET_STYLES
+    SET_STYLES,
+    INFORMATION_UPDATE,
+    INFORMATION_CLEAR
 } from '../actions/cadastrapp';
 
 import {LAYER_STYLES} from '../constants';
@@ -190,6 +192,17 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case SET_STYLES: {
         return set('styles', action.styles, state);
     }
+    case INFORMATION_UPDATE: {
+        return set(
+            `informationData["${action.parcelle}"]${action.path ? '.' + action.path : ''}`, action.data, state
+        );
+    }
+    case INFORMATION_CLEAR: {
+        return set(
+            `informationData`, undefined, state
+        )
+    }
+
     default:
         return state;
     }
