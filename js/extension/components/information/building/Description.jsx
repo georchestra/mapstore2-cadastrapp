@@ -32,7 +32,7 @@ function Article40({ detent, dsupdc, dnbniv, dnbppr, dnbpdc, dmatgmdesc, dmattod
             {dnbsam && dnbsam !== '00' ? <div>{dnbsam.replace(/^0+/, '')} salle(s) à manger</div> : null}
             {dnbcha && dnbcha !== '00' ? <div>{dnbcha.replace(/^0+/, '')} chambre(s)</div> : null}
             {dnbcu8 && dnbcu8 !== '00' ? <div>{dnbcu8.replace(/^0+/, '')} cuisine(s) de moins de 9m²</div> : null}
-            {dnbcu9 && dnbcu9 !== '00' ? <div>{dnbcu9.replace(/^0+/, '')} cuisine(s) d\'au moins de 9m²</div> : null}
+            {dnbcu9 && dnbcu9 !== '00' ? <div>{dnbcu9.replace(/^0+/, '')} cuisine(s) d'au moins de 9m²</div> : null}
             {dnbsea && dnbsea !== '00' ? <div>{dnbsea.replace(/^0+/, '')} salle(s) de bain</div> : null}
             {dnbann && dnbann !== '00' ? <div>{dnbann.replace(/^0+/, '')} annexe(s)</div> : null}
             <div className="habitationDetailsMenuTitle">Eléments de confort</div>
@@ -44,7 +44,7 @@ function Article40({ detent, dsupdc, dnbniv, dnbppr, dnbpdc, dmatgmdesc, dmattod
             {gelelc && gelelc === 'O'  ? <div>Electricité</div> : null}
             {ggazlc && ggazlc === 'O'  ? <div>Gaz</div> : null}
             {gchclc && gchclc === 'O'  ? <div>Chauffage central</div> : null}
-            {gteglc && gteglc === 'O'  ? <div>Tout à l\'égoût</div> : null}
+            {gteglc && gteglc === 'O'  ? <div>Tout à l'égoût</div> : null}
             {gesclc && gesclc === 'O'  ? <div>Escalier de service</div> : null}
             {gaslc && gaslc === 'O'    ? <div>Ascenseur</div> : null}
             {gvorlc && gvorlc === 'O'  ? <div>Vide-ordure</div> : null}
