@@ -22,10 +22,10 @@ export default function InformationContent({
     return (
         <Tabs defaultActiveKey={1} id="uncontrolled-tab-example" onSelect={() => /* refresh table column sizes */ setTimeout(() => {window.dispatchEvent(new Event('resize'));}, 500)}>
             <Tab eventKey={1} title="Plot">
-                <Plot parcelle={parcelle} fiuc={fiuc} {...additionalData}/>
+                <Plot isCNIL1={isCNIL1} isCNIL2={isCNIL2} parcelle={parcelle} fiuc={fiuc} {...additionalData}/>
             </Tab>
             {isCNIL1 || isCNIL2  ? <Tab eventKey={2} title="Owners">
-                <Owners owners={owners}/>
+                <Owners owners={owners} parcelle={parcelle} />
             </Tab> : undefined}
             {isCNIL1 || isCNIL2 ? <Tab eventKey={3} title="Co-Owners">
                 <CoOwners parcelle={parcelle}/>

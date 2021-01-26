@@ -125,7 +125,7 @@
   border-top: none;
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(50vh - 180px);
+  /*height: calc(50vh - 180px);*/
   min-height: 200px;
 }
 .cadastrapp .not-scrolled-tab .tab-content {
@@ -247,4 +247,23 @@
   top: 58px;
   right: 5px;
   z-index: 10000000;
+}
+
+/* information form */
+
+/* article 40 */
+.article40 .habitationDetailsMenuTitle, .article50 .profCategorie, .article60 .habitationDetailsMenuTitle {
+  font-style: italic;
+  background: lightblue;
+  padding: 5px;
+  margin: 5px 0 0 0;
+}
+.article40 > div, .article50 .profDetails, .article60 > div {
+  padding: 0 10px;
+}
+.article50 .profDetails {
+  text-align: right;
+}
+.article50 .profDetailsLabel {
+  float: left;
 }

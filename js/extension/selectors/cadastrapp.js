@@ -177,3 +177,11 @@ export function getSelectedFeatures(state) {
 export function getInformationItems(state) {
     return state?.cadastrapp?.informationData || {};
 }
+
+export function infoLoadingSelector(state) {
+    return state?.cadastrapp?.loadFlags?.info ?? {}
+}
+export function informationLoadingCountSelector(state) {
+    const loaders =  infoLoadingSelector(state);
+    return Object.keys(loaders).filter(k => loaders[k]).length ?? 0;
+}

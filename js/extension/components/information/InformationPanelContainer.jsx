@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { Panel, PanelGroup } from 'react-bootstrap';
 import useAccordionState from '../../hooks/useAccordionState';
 import InformationContent from './InformationContent';
+import Spinner from "react-spinkit";
 
-export default function InformationPanelContainer({ items = [], authLevel, additionalData = {}}) {
+
+export default function InformationPanelContainer({ items = [], authLevel, additionalData = {}, infoLoading = []}) {
     const [selectedPanel, togglePanel] = useAccordionState();
     const [firstToggle, setFirstToggle] = useState(false);
     // Open first result on startup.
@@ -18,7 +20,12 @@ export default function InformationPanelContainer({ items = [], authLevel, addit
         onSelect={i => togglePanel(i)}
     >{
             items.map((r, index) => {
-                let header = <div onClick={() => { togglePanel(index); }} className={`information-panel-title ${selectedPanel[index] ? 'selected' : 'unselected'}`}>{r.parcelle}</div>;
+                let header = (<div
+                    onClick={() => { togglePanel(index); }}
+                    className={`information-panel-title ${selectedPanel[index] ? 'selected' : 'unselected'}`}>
+                    {r.parcelle}
+                    {infoLoading[r?.parcelle] ? <div style={{ "float": "right" }}><Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /></div> : null}
+                </div>);
                 return (
                     <Panel
                         expanded={!!selectedPanel[index.toString()]}

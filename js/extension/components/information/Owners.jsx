@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 
 
-export default function Owners({ owners = []}) {
+export default function Owners({ owners = [], parcelle}) {
     const [expanded, setExpanded] = useState(false);
     const togglePanel = () => {
         setExpanded(!expanded);
@@ -28,7 +28,7 @@ export default function Owners({ owners = []}) {
                         Properties List
             </Button>
         </div>
-        <PropertiesRadio expanded={expanded} />
+        <PropertiesRadio parcelle={parcelle} expanded={expanded} data={owners} selected={selected} />
         <OwnersTable
             data={owners}
             selected={selected}

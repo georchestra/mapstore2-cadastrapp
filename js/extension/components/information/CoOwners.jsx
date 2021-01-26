@@ -15,6 +15,8 @@ export default function CoOwners({parcelle}) {
     const togglePanel = () => {
         setExpanded(!expanded);
     };
+    // handle table data.
+    const [data, setData] = useState([]);
     const [selected, setSelected] = useState([]);
     const onRowsSelected = (rows) => setSelected(selected.concat(rows.map(r => r.rowIdx)));
     const onRowsDeselected = (rows) => setSelected(selected.filter(i => rows.map(r => r.rowIdx).indexOf(i) === -1));
@@ -29,8 +31,10 @@ export default function CoOwners({parcelle}) {
                         Properties List
             </Button>
         </div>
-        <PropertiesRadio expanded={expanded} />
+        <PropertiesRadio parcelle={parcelle} expanded={expanded} data={data} selected={selected} />
         <CoOwnersTable
+            data={data}
+            setData={setData}
             setSelected={setSelected}
             loadData={({ start, limit }) => getCoProprietaire({start, limit, parcelle})}
             selected={selected}

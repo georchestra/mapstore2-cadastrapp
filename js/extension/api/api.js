@@ -246,13 +246,80 @@ export function getBatiments({ parcelle, dnubat }) {
     const params = { parcelle, dnubat };
     return axios.get(`${baseURL}/services/getBatiments`, { params }).then(({ data }) => data);
 }
-
-
-// DOWNLOAD
+/**
+ * GetHabitationDetails
+ * @param {string|number} invar
+ * @param {string|number} aneee
+annee: 2019} param0
+ */
+export function getHabitationDetails({ invar, annee }) {
+    const params = { invar, annee };
+    return axios.get(`${baseURL}/services/getHabitationDetails`, { params }).then(({ data }) => data);
+}
+// DOWNLOAD (INFORMATION)
 
 // e.g. https://georchestra.geo-solutions.it/cadastrapp/services/createBordereauParcellaire?parcelle=350238000AD0230&personaldata=0&basemapindex=0&fillcolor=81BEF7&opacity=0.51&strokecolor=111111&strokewidth=4
+/**
+ *
+ * @param {string} params.parcelle parcelle to print
+ * @param {string} params.personaldata 0 or 1, to include owners data (cnil1 or cnil2 only)
+ * @param {number} params.basemapindex id of the background to use. Valid values can be derived from configuration)
+ * @param {string} params.fillcolor hex of the fill color
+ * @param {string} params.opacity between 0 and 1. Opacity to use for map
+ * @param {string} params.strokecolor hex for the stroke color
+ * @param {string} params.strokewidth size in pixels of the width of the stroke.
+ *
+ */
 export function createBordereauParcellaire({ parcelle, personaldata, basemapindex, fillcolor, opacity, strokecolor, strokewidth}) {
     const params = { parcelle, personaldata, basemapindex, fillcolor, opacity, strokecolor, strokewidth };
     return axios.get(`${baseURL}/services/createBordereauParcellaire`, { params, responseType: 'arraybuffer' });
 }
+/**
+ * Download the Owners
+ * @param {string} params.compteCommunal code (or comma-separated list of compteCommunal codes)
+ * @param {string} [params.parcelleId] optional, if not present, will export all properties.
+ * @param {string} [params.exportType="on"] documented as present. Not explained anywhere else neither seems to be used. See: https://github.com/georchestra/cadastrapp/search?q=exportType
+ */
+export function createRelevePropriete({ compteCommunal, parcelleId, exportType = "on"}) {
+    const params = { compteCommunal, parcelleId, exportType };
+    return axios.get(`${baseURL}/services/createRelevePropriete`, { params, responseType: 'arraybuffer' });
+}
+/**
+ * Download the Owners as csv
+ * @param {string} params.compteCommunal code (or comma-separated list of compteCommunal codes)
+ * @param {string} [params.parcelleId] optional, if not present, will export all properties.
+ * @param {string} [params.exportType="on"] documented as present. Not explained anywhere else neither seems to be used. See: https://github.com/georchestra/cadastrapp/search?q=exportType
+ */
+export function createReleveProprieteAsCSV({ compteCommunal, parcelleId, exportType = "on" }) {
+    const params = { compteCommunal, parcelleId, exportType };
+    return axios.get(`${baseURL}/services/createReleveProprieteAsCSV`, { params, responseType: 'arraybuffer' });
+}
 
+
+/**
+ * Get Parcelle(s) from the getParcelle service.
+ * @param {string|string[]} params.comptecommunal array of comptecommunal to add
+ */
+export function exportLotsAsCSV({
+    parcelle,
+    dnubat
+}) {
+    const params = new URLSearchParams();
+    castArray(parcelle).forEach(v => params.append('parcelle', v));
+    castArray(dnubat).forEach(v => params.append('dnubat', v));
+    return axios.post(`${baseURL}/services/exportLotsAsCSV`, params, { responseType: 'arraybuffer' });
+}
+
+/**
+ * Get Parcelle(s) from the getParcelle service.
+ * @param {string|string[]} params.comptecommunal array of comptecommunal to add
+ */
+export function exportLotsAsPDF({
+    parcelle,
+    dnubat
+}) {
+    const params = new URLSearchParams();
+    castArray(parcelle).forEach(v => params.append('parcelle', v));
+    castArray(dnubat).forEach(v => params.append('dnubat', v));
+    return axios.post(`${baseURL}/services/exportLotsAsPDF`, params, { responseType: 'arraybuffer' });
+}

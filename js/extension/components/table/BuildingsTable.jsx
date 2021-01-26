@@ -63,14 +63,17 @@ function BuildingsTable({
         key: 'invar'
     }];
 
-    const rows = loading ? [] : data;
+    const rows = loading ? [] : data.map((row, i) => ({
+        originalIndex: i,
+        ...row
+    }));
     return (<ReactDataGrid
         emptyRowsView={() => <EmptyRowsView loading={loading} />}
         rowGetter={i => rows[i]}
         rowsCount={rows.length}
         minHeight={250}
         columns={columns}
-        onRowClick={onRowClick}
+        onRowClick={(i, row) => onRowsSelected([row])}
         onRowDoubleClick={onRowDoubleClick}
         rowSelection={{
             showCheckbox: false,
@@ -78,7 +81,10 @@ function BuildingsTable({
             onRowsSelected,
             onRowsDeselected,
             selectBy: {
-                indexes: selected
+                keys: {
+                    rowKey: 'originalIndex',
+                    values: selected
+                }
             }
         }}
     />);

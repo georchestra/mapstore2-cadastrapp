@@ -7,6 +7,7 @@ import { Table, Button, Glyphicon, FormGroup, Radio } from 'react-bootstrap';
 
 import { DropdownList } from 'react-widgets';
 import { downloadResponse } from '@js/extension/utils/download';
+import Spinner from "react-spinkit";
 
 const ListItem = ({ item = {} }) => (
     <span>
@@ -35,13 +36,16 @@ const toParams = (selectedStyle) => {
 };
 
 function PlotInformationRadio({
+    isCNIL1,
+    isCNIL2,
     baseMaps = [],
     parcelle,
     selectedStyle = {},
     isShown
 }) {
     const [baseMap, setBaseMap] = useState();
-    const [personalData, setPersonalData] = useState();
+    const [personalData, setPersonalData] = useState("0");
+    const [loading, setLoading] = useState(false);
     let className = isShown ? "" : "collapse";
     const {
         opacity,
@@ -56,15 +60,15 @@ function PlotInformationRadio({
             <div
                 style={{ width: "70%" }}
                 className="pull-left">
-                <FormGroup>
+                {isCNIL1 || isCNIL2 ? <FormGroup>
                     <b style={{ "float": "left", width: 150, marginRight: 15 }}>Owners Information: </b>
-                    <Radio name="personalData" inline checked={personalData === "0"} onChange={() => setPersonalData("0")} value="0">
+                    <Radio inline checked={personalData === "0"} onChange={() => setPersonalData("0")} value="0">
                         Without owner
                     </Radio>
-                    <Radio name="personalData" inline checked={personalData === "1"} onChange={() => setPersonalData("1")} value="1">
+                    <Radio inline checked={personalData === "1"} onChange={() => setPersonalData("1")} value="1">
                         With owner
                     </Radio>
-                </FormGroup>
+                </FormGroup> : null}
                 <FormGroup>
                     <b style={{ "float": "left", width: 150, marginRight: 15, width: 300 }}>Choose basemap:</b>
                     <div style={{ "float": "left" }}>
@@ -76,21 +80,36 @@ function PlotInformationRadio({
 
                 style={{ width: "30%" }}
                 className="pull-left">
-                <Button onClick={() => createBordereauParcellaire({
-                    fillcolor,
-                    opacity,
-                    strokecolor,
-                    strokewidth,
-                    parcelle,
-                    personaldata: personalData,
-                    basemapindex: 0 // TODO: get the list from config and sent the relative index
-                }).then(downloadResponse)}
-                className="pull-right">Cadastrapp.generate</Button>
+                <Button
+                    disabled={loading}
+                    onClick={() => {
+                        setLoading(true);
+                        createBordereauParcellaire({
+                            fillcolor,
+                            opacity,
+                            strokecolor,
+                            strokewidth,
+                            parcelle,
+                            personaldata: personalData,
+                            basemapindex: 0 // TODO: get the list from config and sent the relative index
+                        }).then((response) => {
+                            setLoading(false);
+                            downloadResponse(response);
+                        }).catch(() => {
+                            setLoading(false); // TODO: handle error
+                        });
+                    }}
+                    className="pull-right">
+                    {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
+                    Cadastrapp.generate
+                </Button>
             </div>
             <hr></hr>
         </div>);
 }
 export default function Plot({
+    isCNIL1,
+    isCNIL2,
     selectedStyle,
     parcelle,
     fiuc,
@@ -113,7 +132,7 @@ export default function Plot({
             Plot Information
             </Button>
         </div>
-        <PlotInformationRadio parcelle={parcelle} isShown={isPlotShown} baseMaps={baseMaps} onGeneratePlotInformation={onGeneratePlotInformation} selectedStyle={selectedStyle}/>
+        <PlotInformationRadio isCNIL1={isCNIL1} isCNIL2={isCNIL2} parcelle={parcelle} isShown={isPlotShown} baseMaps={baseMaps} onGeneratePlotInformation={onGeneratePlotInformation} selectedStyle={selectedStyle}/>
         <Table condensed>
             <thead>
                 <tr>

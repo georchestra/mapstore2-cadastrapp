@@ -5,6 +5,8 @@ import OwnersTable from './OwnersTable';
 
 
 function CoOwnersTable({
+    data = [],
+    setData = () => {},
     loadData = () => {},
     bsSize,
     selected = [],
@@ -15,7 +17,6 @@ function CoOwnersTable({
 ) {
     // pagination
     const pageSize = 25;
-    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(0);

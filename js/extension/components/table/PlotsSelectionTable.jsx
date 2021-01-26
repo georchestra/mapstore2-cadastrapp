@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 
 function PlotsSelectionTable({
+    onRowDoubleClick = () => {},
     onRowsSelected = () => { },
     onRowsDeselected = () => { },
     data,
@@ -43,6 +44,7 @@ function PlotsSelectionTable({
     // create mixed column for address
     const rows = data.map(v => ({ ...v, cadastralAddr: v.dnvoiri + " " + v.dvoilib }));
     return (<ReactDataGrid
+        onRowDoubleClick={onRowDoubleClick}
         rowGetter={i => rows[i]}
         rowsCount={rows.length}
         minHeight={250}

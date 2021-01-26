@@ -21,6 +21,7 @@ import ConfirmButton from './misc/ConfirmButton';
 
 
 function PlotSelectionTabContent({
+    loadInfo,
     selectedPlots,
     onRowsSelected,
     onRowsDeselected,
@@ -36,6 +37,7 @@ function PlotSelectionTabContent({
                 {props.data.map((value, index) => (
                     <Tab.Pane eventKey={index}>
                         <PlotsSelectionTable
+                            onRowDoubleClick={(i, row) => loadInfo([row.parcelle])}
                             onRowsSelected={onRowsSelected}
                             onRowsDeselected={onRowsDeselected}
                             selectedKeys={selectedPlots}
