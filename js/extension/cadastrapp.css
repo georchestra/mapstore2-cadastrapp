@@ -4,7 +4,7 @@
 }
 
 .cadastrapp {
-  position: fixed;
+  position: absolute;
   background: #fff;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.16);
   overflow: hidden;
@@ -125,7 +125,7 @@
   border-top: none;
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(50vh - 180px);
+  /*height: calc(50vh - 180px);*/
   min-height: 200px;
 }
 .cadastrapp .not-scrolled-tab .tab-content {
@@ -152,6 +152,10 @@
   width: 840px;
   max-width: none !important;
 }
+.cadastrapp-modal.cadastrapp-information-modal {
+  min-width: 85% !important;
+}
+.cadastrapp-information-modal
 .cadastrapp-modal .tab-content {
   border: solid 1px #ddd;
   border-top: none;
@@ -163,7 +167,7 @@
 .cadastrapp-modal .modal-footer {
   border: none;
 }
-.cadastrapp-modal .selected-panel {
+.cadastrapp-modal .information-panel-title.selected {
   background: #078aa3 !important;
   color: #fff !important;
 }
@@ -243,4 +247,23 @@
   top: 58px;
   right: 5px;
   z-index: 10000000;
+}
+
+/* information form */
+
+/* article 40 */
+.article40 .habitationDetailsMenuTitle, .article50 .profCategorie, .article60 .habitationDetailsMenuTitle {
+  font-style: italic;
+  background: lightblue;
+  padding: 5px;
+  margin: 5px 0 0 0;
+}
+.article40 > div, .article50 .profDetails, .article60 > div {
+  padding: 0 10px;
+}
+.article50 .profDetails {
+  text-align: right;
+}
+.article50 .profDetailsLabel {
+  float: left;
 }

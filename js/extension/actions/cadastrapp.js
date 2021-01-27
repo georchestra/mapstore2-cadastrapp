@@ -22,6 +22,10 @@ export const OPEN_LP = "CADASTRAPP:OPEN_LANDRY_PROPERTY";
 
 export const SEARCH = "CADASTRAPP:SEARCH";
 
+export const LOAD_INFO = "CADASTRAPP:LOAD_INFO";
+export const INFORMATION_UPDATE = "CADASTRAPP:INFORMATION_UPDATE";
+export const INFORMATION_CLEAR = "CADASTRAPP:INFORMATION_CLEAR";
+
 /**
  * Set the style of highlight
  * @param {string} styleType the type of the style, one of selected/default
@@ -177,5 +181,27 @@ export const search = (searchType, rawParams) => ({
     type: SEARCH,
     searchType,
     rawParams
+});
+
+// INFORMATION
+
+/**
+ * Triggers the load information form por the passed parcelles
+ * @param {string[]} parcelles loadInfo
+ */
+export const loadInfo = (parcelles) => ({
+    type: LOAD_INFO,
+    parcelles
+});
+
+export const updateInformation = (parcelle, path, data) => ({
+    type: INFORMATION_UPDATE,
+    parcelle,
+    path,
+    data
+});
+
+export const clearInformation = () => ({
+    type: INFORMATION_CLEAR
 });
 

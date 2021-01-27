@@ -9,6 +9,7 @@ import Toolbar from '@mapstore/components/misc/toolbar/Toolbar';
 
 export default function PlotSelectionToolbar({
     currentData = [],
+    loadInfo = () => {},
     zoomToSelection = () => {},
     removePlots = () => {},
     selectedPlots = []
@@ -41,7 +42,7 @@ export default function PlotSelectionToolbar({
                 disabled: !isDataPresent,
                 glyph: "info-sign",
                 tooltip: "Information Form", // localize
-                onClick: () => { alert("TODO");}
+                onClick: () => { loadInfo(selectedPlots);}
             }, {
                 renderButton:
                     (<DropdownButton

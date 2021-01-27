@@ -4,6 +4,9 @@ import {
 } from '../constants';
 import { additionalLayersSelector } from '@mapstore/selectors/additionallayers';
 
+import { getBaseMapsFromConfig } from '../utils/configuration';
+
+
 // **********************************************
 // CONFIGURATION
 // **********************************************
@@ -13,6 +16,12 @@ import { additionalLayersSelector } from '@mapstore/selectors/additionallayers';
  * @param {object} state
  */
 export function configurationSelector(state) { return state?.cadastrapp.configuration;}
+
+/**
+ * Get the base maps list to use for selection.
+ * @returns {array} an array of objects like: {index , title, thumbnail}. Index is the index to send to the pdf generation tool. title and thubnail have to be used for preview.
+ */
+export function baseMapsSelector(state) { return getBaseMapsFromConfig(configurationSelector(state));}
 
 /**
  * loads from the configuration the property name to use as id for parcelle.
@@ -39,6 +48,15 @@ export function getCadastrappLayer(state) {
 export function getCadastrappVectorLayer(state) {
     const additionalLayers = additionalLayersSelector(state) ?? [];
     return additionalLayers.filter(({ id }) => id === CADASTRAPP_VECTOR_LAYER_ID)?.[0]?.options;
+}
+// **********************************************
+// AUTH
+// **********************************************
+export function getAuthLevel() {
+    return {
+        isCNIL1: true, // TODO: get from auth state
+        isCNIL2: true // TODO: get from auth state
+    };
 }
 
 // **********************************************
@@ -98,7 +116,7 @@ export function currentPlotsSelector(state) {
 }
 
 /**
- * Get the curretn selected plots Ids
+ * Get the current selected plots Ids
  * @param {object} state
  * @return {string[]} the IDs of current selected items
  */
@@ -153,4 +171,17 @@ export function getCurrentPlotFeatures(state) {
 
 export function getSelectedFeatures(state) {
     return getSelectedPlots(state).map(({ feature }) => feature);
+}
+
+// Information
+export function getInformationItems(state) {
+    return state?.cadastrapp?.informationData || {};
+}
+
+export function infoLoadingSelector(state) {
+    return state?.cadastrapp?.loadFlags?.info ?? {}
+}
+export function informationLoadingCountSelector(state) {
+    const loaders =  infoLoadingSelector(state);
+    return Object.keys(loaders).filter(k => loaders[k]).length ?? 0;
 }

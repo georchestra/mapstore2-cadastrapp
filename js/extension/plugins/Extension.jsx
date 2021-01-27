@@ -5,8 +5,7 @@ import { toggleControl } from "@mapstore/actions/controls";
 import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
 import Main from './cadastrapp/Main';
-import css from 'raw-loader!../cadastrapp.css.txt';
-import withStyle from '../enhancers/withStyle';
+import '../cadastrapp.css';
 import init from '../enhancers/init';
 
 import { CONTROL_NAME } from '../constants';
@@ -25,7 +24,6 @@ const Cadastrapp = compose(
     }), {
         onClose: toggleControl.bind(null, CONTROL_NAME, null)
     }),
-    withStyle(css),
     // setup and teardown due to open/close
     compose(
         connect( () => ({}), {
