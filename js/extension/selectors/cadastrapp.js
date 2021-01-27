@@ -179,9 +179,29 @@ export function getInformationItems(state) {
 }
 
 export function infoLoadingSelector(state) {
-    return state?.cadastrapp?.loadFlags?.info ?? {}
+    return state?.cadastrapp?.loadFlags?.info ?? {};
 }
 export function informationLoadingCountSelector(state) {
-    const loaders =  infoLoadingSelector(state);
+    const loaders = infoLoadingSelector(state);
     return Object.keys(loaders).filter(k => loaders[k]).length ?? 0;
+}
+
+/**
+ * Get all features from all the plot selections.
+ * @param {object} state the application state
+ */
+export function getAllPlotFeatures(state) {
+    const selectedStyle = getSelectedStyle(state);
+    const defaultStyle = getDefaultStyle(state);
+    let featuresOfAllSelections = [];
+    plotDataSelector(state).forEach(data=>
+        data.forEach(({ feature, parcelle }) => {
+            const ids = selectedPlotIdsSelector(state);
+            const selected = ids.includes(parcelle);
+            featuresOfAllSelections.push({
+                ...feature,
+                style: selected ? selectedStyle : defaultStyle
+            });
+        }));
+    return featuresOfAllSelections;
 }

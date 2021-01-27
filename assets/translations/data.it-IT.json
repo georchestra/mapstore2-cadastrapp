@@ -2,7 +2,10 @@
     "locale": "it-IT",
     "messages": {
         "cadastrapp": {
-            "title": "Cadastrapp"
+            "title": "Cadastrapp",
+            "toolbar": {
+                "zoomTo": "Zoom sull'estensione dei risultati"
+            }
         }
     }
 }
