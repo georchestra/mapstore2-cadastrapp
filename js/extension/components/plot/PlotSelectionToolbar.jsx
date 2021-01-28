@@ -52,7 +52,7 @@ export default function PlotSelectionToolbar({
                     tooltip: "Delete Selected Plots", // localize
                     onClick: () => { removePlots(selectedPlots); }
                 }, {
-                    disabled: !isDataPresent,
+                    disabled: !atLeaseOneSelected,
                     glyph: "info-sign",
                     tooltip: "Information Form", // localize
                     onClick: () => { loadInfo(selectedPlots);}
@@ -64,7 +64,12 @@ export default function PlotSelectionToolbar({
                             <MenuItem onClick={() => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)}>Plot</MenuItem>
                             <MenuItem onClick={() => exportProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>Owners</MenuItem>
                             <MenuItem onClick={() => exportCoProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>Co-owners</MenuItem>
-                            <MenuItem disabled={!onlyOneSelected} onClick={() => { setShowBundleInformation(true); }}>Bundle</MenuItem>
+                            <MenuItem disabled={!onlyOneSelected} onClick={() => {
+                                // prevent click event when disabled
+                                if (onlyOneSelected) {
+                                    setShowBundleInformation(true);
+                                }
+                            }}>Bundle</MenuItem>
                         </DropdownButton>)
                 } : {
                     disabled: !isDataPresent,

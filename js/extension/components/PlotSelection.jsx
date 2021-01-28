@@ -27,12 +27,9 @@ function PlotSelectionTabContent({
     onRowsDeselected,
     ...props
 }) {
-    // mountOnEnter, unmountOnExit are used to workaround some conflicts with click event on "select all" checkbox of the react-data-grid table.
-    // Without it the event on a second tab triggers the event of the first tab.
     return (
         <Col sm={12}>
             <Tab.Content
-                mountOnEnter
                 unmountOnExit>
                 {props.data.map((value, index) => (
                     <Tab.Pane eventKey={index}>

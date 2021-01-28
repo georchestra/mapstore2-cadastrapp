@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDataGrid from 'react-data-grid';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 const DEFAULTS = {
     minWidth: 120,
     maxWidth: 300,
@@ -91,12 +92,22 @@ class MultilineHeaderTable extends React.Component {
         super(props);
         this.helper = new Helper(this.props.columns);
     }
+    componentDidMount() {
+        // Used to workaround some conflicts with click event on "select all" checkbox of the react-data-grid table.
+        // Without it the select all click event on a second table triggers the event on other tables (existing, with same id)
+        if (this.grid !== undefined && this.grid.selectAllCheckbox?.id === 'select-all-checkbox') {
+            const uniqueNumber = uuid.v4();
+            this.grid.selectAllCheckbox.id += `-${uniqueNumber}`;
+            this.grid.selectAllCheckbox.nextSibling.htmlFor += `-${uniqueNumber}`;
+        }
+    }
 
     render() {
         // create mixed column for address
         return (
             <div className="react-grid-multiline-header">
                 <ReactDataGrid
+                    ref={node => {this.grid = node; }}
                     headerRowHeight={this.helper.headerRowHeight}
                     columns={this.helper.columns}
                     {...this.props}
