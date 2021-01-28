@@ -60,6 +60,9 @@ export default function PropertiesRadio({
                             compteCommunal: data
                                 .filter((_, i) => selected.includes(i))
                                 .map(({ comptecommunal }) => comptecommunal)
+                                .filter(function onlyUnique(value, index, self) {
+                                    return self.indexOf(value) === index;
+                                })
                                 .join(',')
                         }).then((response) => {
                             setLoading(false);
