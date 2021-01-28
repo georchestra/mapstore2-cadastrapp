@@ -14,6 +14,7 @@ export const REMOVE_PLOT_SELECTION = "CADASTRAPP:REMOVE_PLOT_SELECTION";
 export const SELECT_PLOTS = "CADASTRAPP:SELECT_PLOTS";
 export const DESELECT_PLOTS = "CADASTRAPP:DESELECT_PLOTS";
 export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
+export const ZOOM_TO_RESULTS = "CADASTRAPP:ZOOM_TO_RESULTS";
 
 export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
 export const SET_STYLES = "CADASTRAPP:SET_STYLES";
@@ -205,3 +206,9 @@ export const clearInformation = () => ({
     type: INFORMATION_CLEAR
 });
 
+/**
+ * Zoom to all results/selections
+ */
+export const zoomToExtentAllResults = () => ({
+    type: ZOOM_TO_RESULTS
+});

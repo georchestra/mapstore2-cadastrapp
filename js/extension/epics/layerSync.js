@@ -11,9 +11,17 @@ import {
     SELECT_PLOTS,
     DESELECT_PLOTS,
     SET_LAYER_STYLE,
-    SET_STYLES
+    SET_STYLES,
+    ZOOM_TO_RESULTS
 } from '../actions/cadastrapp';
-import { getCurrentPlotFeatures, getCadastrappVectorLayer } from '../selectors/cadastrapp';
+import {
+    getCurrentPlotFeatures,
+    getCadastrappVectorLayer,
+    getAllPlotFeatures
+} from '../selectors/cadastrapp';
+
+import { zoomToExtent } from '@mapstore/actions/map';
+import bbox from '@turf/bbox';
 
 import {
     CADASTRAPP_VECTOR_LAYER_ID,
@@ -35,3 +43,20 @@ export const syncLayerForPlots = (action$, {getState = () => {}})=>
                         features
                     }));
         });
+
+export const zoomToExtentAllResultsEpic = (action$, {getState = () => {}})=>
+    action$.ofType(ZOOM_TO_RESULTS).switchMap(() => {
+        const features = getAllPlotFeatures(getState());
+        const options = getCadastrappVectorLayer(getState());
+        if (features.length) {
+            return Rx.Observable.of(
+                zoomToExtent(bbox({type: "FeatureCollection", features}), "EPSG:4326"),
+                updateAdditionalLayer(
+                    CADASTRAPP_VECTOR_LAYER_ID,
+                    CADASTRAPP_OWNER,
+                    "overlay", {...options, features}
+                )
+            );
+        }
+        return Rx.Observable.empty();
+    });
