@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     MenuItem,
     DropdownButton,
     Glyphicon
 } from "react-bootstrap";
+import {
+    exportParcellesAsCSV,
+    exportProprietaireByParcelles,
+    exportCoProprietaireByParcelles
+} from '../../api';
+
+import { downloadResponse } from '../../utils/download';
+
 
 import Toolbar from '@mapstore/components/misc/toolbar/Toolbar';
+import BundleInformationModal from './BundleInformationModal';
 
 export default function PlotSelectionToolbar({
+    authLevel = {},
     currentData = [],
     loadInfo = () => {},
     zoomToSelection = () => {},
@@ -15,47 +25,57 @@ export default function PlotSelectionToolbar({
     selectedPlots = []
 }) {
     const atLeaseOneSelected = selectedPlots.length > 0;
+    const onlyOneSelected = selectedPlots.length === 1;
     const isDataPresent = currentData.length > 0;
-
+    const { isCNIL1, isCNIL2 } = authLevel;
+    const [showBundleInformation, setShowBundleInformation] = useState(false);
     return (
-        <Toolbar
-            btnGroupProps={{className: "pull-right"}}
-            btnDefaultProps={{
-                tooltipPosition: 'bottom'
-            }}
-            buttons={[{
-                disabled: !isDataPresent,
-                glyph: "zoom-in",
-                tooltip: atLeaseOneSelected ? "Zoom to selected" : "Zoom on list", // localize
-                onClick: zoomToSelection
-            }, {
-                disabled: !atLeaseOneSelected,
-                glyph: "th-list",
-                tooltip: "Owned Unit Information", // localize
-                onClick: () => { alert("TODO"); }
-            }, {
-                disabled: !atLeaseOneSelected,
-                glyph: "trash",
-                tooltip: "Delete Selected Plots", // localize
-                onClick: () => { removePlots(selectedPlots); }
-            }, {
-                disabled: !isDataPresent,
-                glyph: "info-sign",
-                tooltip: "Information Form", // localize
-                onClick: () => { loadInfo(selectedPlots);}
-            }, {
-                renderButton:
-                    (<DropdownButton
-                        disabled={!atLeaseOneSelected}
-                        pullRight title={< Glyphicon glyph="export" />}>
-                        <MenuItem>Plot</MenuItem>
-                        <MenuItem>Owners</MenuItem>
-                        <MenuItem>Co-owners</MenuItem>
-                        <MenuItem>Bundle</MenuItem>
-                    </DropdownButton>)
-            }
-            ]}
-        />);
+        <>
+            <Toolbar
+                btnGroupProps={{className: "pull-right"}}
+                btnDefaultProps={{
+                    tooltipPosition: 'bottom'
+                }}
+                buttons={[{
+                    disabled: !isDataPresent,
+                    glyph: "zoom-in",
+                    tooltip: atLeaseOneSelected ? "Zoom to selected" : "Zoom on list", // localize
+                    onClick: zoomToSelection
+                }, {
+                    disabled: !atLeaseOneSelected,
+                    glyph: "th-list",
+                    tooltip: "Owned Unit Information", // localize
+                    onClick: () => { alert("TODO"); }
+                }, {
+                    disabled: !atLeaseOneSelected,
+                    glyph: "trash",
+                    tooltip: "Delete Selected Plots", // localize
+                    onClick: () => { removePlots(selectedPlots); }
+                }, {
+                    disabled: !isDataPresent,
+                    glyph: "info-sign",
+                    tooltip: "Information Form", // localize
+                    onClick: () => { loadInfo(selectedPlots);}
+                }, (isCNIL1, isCNIL2 ? {
+                    renderButton:
+                        (<DropdownButton
+                            disabled={!atLeaseOneSelected}
+                            pullRight title={< Glyphicon glyph="export" />}>
+                            <MenuItem onClick={() => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)}>Plot</MenuItem>
+                            <MenuItem onClick={() => exportProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>Owners</MenuItem>
+                            <MenuItem onClick={() => exportCoProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>Co-owners</MenuItem>
+                            <MenuItem disabled={!onlyOneSelected} onClick={() => { setShowBundleInformation(true); }}>Bundle</MenuItem>
+                        </DropdownButton>)
+                } : {
+                    disabled: !isDataPresent,
+                    glyph: "export",
+                    tooltip: "Export", // localize
+                    onClick: () => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)
+                })
+                ]}
+            />
+            <BundleInformationModal show={showBundleInformation} onClose={() => setShowBundleInformation(false)} parcelle={selectedPlots[0]} />
+        </>);
 /*
         <ButtonGroup className="pull-right">
 
