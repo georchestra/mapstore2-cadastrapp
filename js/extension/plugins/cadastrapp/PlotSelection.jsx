@@ -20,14 +20,16 @@ import {
     plotDataSelector,
     getCurrentPlotData,
     selectedPlotIdsSelector,
-    plotsSelector
+    plotsSelector,
+    getAuthLevel
 } from '../../selectors/cadastrapp';
 
 const PlotsSelection = connect((state) => ({
     currentData: getCurrentPlotData(state),
     selectedPlots: selectedPlotIdsSelector(state),
     data: plotDataSelector(state),
-    plots: plotsSelector(state)
+    plots: plotsSelector(state),
+    authLevel: getAuthLevel(state)
 
 }), {
     onNewTab: addPlotSelection,
