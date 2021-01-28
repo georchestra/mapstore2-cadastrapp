@@ -59,3 +59,5 @@ export const SEARCH_TYPES = {
     COOWNER: "coowner"
 };
 export const MIN_PARCELLE_ID_LENGTH = 14;
+
+export const DEFAULT_HELP_URL = 'https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur';

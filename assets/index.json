@@ -2,6 +2,9 @@
   "plugins": [
     {
       "name": "Cadastrapp",
+      "defaultConfig": {
+        "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur"
+      },
       "dependencies": [
         "BurgerMenu"
       ]

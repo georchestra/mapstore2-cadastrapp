@@ -8,13 +8,13 @@ import Preferences from './toolbar/Preferences';
 import HelpButton from './toolbar/Help';
 
 
-export default function MainToolbar() {
+export default function MainToolbar(props) {
     return (<div className="side-bar pull-left">
         <ZoomTo/>
         <SelectionTools/>
         <SearchTools/>
         <RequestLanding />
         <Preferences/>
-        <HelpButton/>
+        <HelpButton helpUrl={props?.helpUrl}/>
     </div>);
-};
+}

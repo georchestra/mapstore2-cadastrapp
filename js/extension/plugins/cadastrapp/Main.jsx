@@ -13,11 +13,11 @@ import { CONTROL_NAME } from '../../constants';
  */
 export default connect(state => ({
     enabled: state.controls && state.controls[CONTROL_NAME] && state.controls[CONTROL_NAME].enabled || false
-}))(function Main({ enabled }) {
+}))(function Main({ enabled, ...props }) {
     if (!enabled) return null;
     return (<div className="cadastrapp">
         <Header/>
-        <MainToolbar/>
+        <MainToolbar {...props}/>
         <MainPanel/>
     </div>);
 });
