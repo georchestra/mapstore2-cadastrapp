@@ -70,7 +70,7 @@ export default function PropertiesRadio({
                     }}
                     className="pull-right">
                     {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
-                    Cadastrapp.generate
+                    Export
                 </Button>
             </div>
             <hr></hr>

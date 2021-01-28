@@ -4,7 +4,8 @@
         "cadastrapp": {
             "title": "Cadastrapp",
             "toolbar": {
-                "zoomTo": "Zoom sull'estensione dei risultati"
+                "zoomTo": "Zoom sull'estensione dei risultati",
+                "help": "Aiuto"
             }
         }
     }
