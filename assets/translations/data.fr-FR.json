@@ -6,6 +6,26 @@
             "toolbar": {
                 "zoomTo": "Zoomer sur l'étendue des résultats",
                 "help": "Aidez-moi"
+            },
+            "popup": {
+                "parcelle": "Parcelle",
+                "town": "Ville",
+                "year": "Année",
+                "county": "Département",
+                "direction": "Direction",
+                "towninsee": "Code INSEE",
+                "prefix": "Prefixe",
+                "section": "Section",
+                "plot": "N° de plan",
+                "address": "Adresse",
+                "dgfip": "DGFiP",
+                "gis": "GIS",
+                "owner": "Propriétaire",
+                "landUnit": "Unité Foncière",
+                "municipalAccount": "Compte communal",
+                "nodata": "Aucune donnée à afficher",
+                "noaccess": "Accès aux données foncières non autorisé",
+                "error": "Impossible de récupérer les informations sur les bulles"
             }
         }
     }

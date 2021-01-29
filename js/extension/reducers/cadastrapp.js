@@ -16,7 +16,8 @@ import {
     SET_LAYER_STYLE,
     SET_STYLES,
     INFORMATION_UPDATE,
-    INFORMATION_CLEAR
+    INFORMATION_CLEAR,
+    SAVE_BUBBLE_INFO
 } from '../actions/cadastrapp';
 
 import {LAYER_STYLES} from '../constants';
@@ -200,9 +201,11 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case INFORMATION_CLEAR: {
         return set(
             `informationData`, undefined, state
-        )
+        );
     }
-
+    case SAVE_BUBBLE_INFO: {
+        return set('infoBulle', action.data, state);
+    }
     default:
         return state;
     }

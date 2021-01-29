@@ -6,6 +6,26 @@
             "toolbar": {
                 "zoomTo": "Zoom to results extent",
                 "help": "Help"
+            },
+            "popup": {
+                "parcelle": "Parcelle",
+                "town": "Town",
+                "year": "Year",
+                "county": "County",
+                "direction": "Direction",
+                "towninsee": "Town's INSEE",
+                "prefix": "Prefix",
+                "section": "Section",
+                "plot": "Plot",
+                "address": "Address",
+                "dgfip": "DGFiP",
+                "gis": "GIS",
+                "owner": "Owner",
+                "landUnit": "Land Unit",
+                "municipalAccount": "Municipal account",
+                "nodata": "No data to display",
+                "noaccess": "Unauthorised access to land information",
+                "error": "Unable to fetch bubble info"
             }
         }
     }

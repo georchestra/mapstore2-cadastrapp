@@ -323,3 +323,8 @@ export function exportLotsAsPDF({
     castArray(dnubat).forEach(v => params.append('dnubat', v));
     return axios.post(`${baseURL}/services/exportLotsAsPDF`, params, { responseType: 'arraybuffer' });
 }
+
+
+export function getInfoBulle(parcelle) {
+    return axios.get(`${baseURL}/services/getInfoBulle`, {params: {parcelle}}).then(({data}) => data);
+}

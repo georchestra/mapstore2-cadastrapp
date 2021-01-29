@@ -1,9 +1,10 @@
 import Rx from 'rxjs';
-import { getParcelle } from '../api';
-
+import isEmpty from 'lodash/isEmpty';
+import {getInfoBulle, getParcelle} from '../api';
+import uuid from 'uuid';
 
 import { SELECTION_TYPES } from '../constants';
-
+import { error } from '@mapstore/actions/notifications';
 import {
     END_DRAWING,
     changeDrawingStatus
@@ -14,20 +15,35 @@ import {
     TEAR_DOWN,
     addPlots,
     loading,
-    openLP
+    openLP,
+    saveBubbleInfo,
+    SHOW_POPUP,
+    showPopup
 } from '../actions/cadastrapp';
 
-import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
+import {
+    getCadastrappLayer,
+    cadastreLayerIdParcelle,
+    cadastrappEnabledSelector,
+    currentSelectionToolSelector
+} from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
 import { wrapStartStop } from '@mapstore/observables/epics';
+import { MOUSE_MOVE } from '@mapstore/actions/map';
+import { addPopup } from '@mapstore/actions/mapPopups';
+import { setMapTrigger } from '@mapstore/actions/mapInfo';
+import { getGeometry } from '../utils/common';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
+import PopupViewer from '../components/popup/PopupViewer';
 
 
 const CLEAN_ACTION = changeDrawingStatus("clean");
 const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
-    changeDrawingStatus("stop")];
+    changeDrawingStatus("stop"),
+    setMapTrigger('hover')
+];
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
 
 /**
@@ -62,6 +78,16 @@ function createRequest(geometry, getState) {
         }
     });
 }
+
+const getFeatures = (geometry, getState, parcelleProperty) => {
+    return createRequest(geometry, getState)
+        .map( ({features = [], ...rest} = {}) => {
+            return {
+                ...rest,
+                features: features.filter(workaroundDuplicatedParcelle(parcelleProperty)) // removes duplicates
+            };
+        });
+};
 /**
  * Handle map selection tools and events
  */
@@ -73,13 +99,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                 ({ geometry }) => {
                     const parcelleProperty = cadastreLayerIdParcelle(getState());
                     // query WFS
-                    return createRequest(geometry, getState)
-                        .map( ({features = [], ...rest} = {}) => {
-                            return {
-                                ...rest,
-                                features: features.filter(workaroundDuplicatedParcelle(parcelleProperty)) // removes duplicates
-                            };
-                        })
+                    return getFeatures(geometry, getState, parcelleProperty)
                         .switchMap(({ features = []} = {}) => {
                             // retrieve all parcelles data from API
                             return Rx.Observable.of(
@@ -110,6 +130,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                         );
                     // TODO: Re-activate the tool;
                 })
+                .merge(Rx.Observable.of(setMapTrigger('click'))) // Reset map's mouse event trigger type
                 .startWith(startDrawingAction)
                 .takeUntil(action$.ofType(TEAR_DOWN))
                 .concat(deactivate()); // on close, deactivate any draw session remaining
@@ -117,3 +138,56 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
         // if the selection type is not present, it means has been reset, so deactivate any drawing tool
         return deactivate();
     });
+
+/**
+ * Generates geometry data and fetches feature info obtained from mouse over event position on map
+ * @memberof epics.mapSelection
+ * @param {observable} action$ manages `MOUSE_MOVE`
+ * @return {observable}
+ */
+export const mouseMoveMapEventEpic = (action$, {getState}) =>
+    action$.ofType(MOUSE_MOVE)
+        .debounceTime(500)
+        .filter(()=> cadastrappEnabledSelector(getState()) && !currentSelectionToolSelector(getState()))
+        .switchMap(({position}) => {
+            const geometry = getGeometry(position);
+            const parcelleProperty = cadastreLayerIdParcelle(getState());
+            return getFeatures(geometry, getState, parcelleProperty)
+                .switchMap(({features = []})=> {
+                    if (isEmpty(features)) return Rx.Observable.empty();
+                    const [feature] = features;
+                    const parcelle = feature?.properties[parcelleProperty];
+                    return Rx.Observable.of(showPopup(parcelle, position));
+                })
+                .takeUntil(action$.ofType('MOUSE_OUT'));
+        });
+
+/**
+ * Adds a popup onto the map with popup viewer loaded with InfoBulle
+ * @memberof epics.mapSelection
+ * @param {observable} action$ manages `SHOW_POPUP`
+ * @return {observable}
+ */
+export const showPopupEpic = action$ =>
+    action$.ofType(SHOW_POPUP)
+        .switchMap(({parcelle, position})=>
+            Rx.Observable.defer(()=>getInfoBulle(parcelle))
+                .map(data=> saveBubbleInfo(data))
+                .merge(Rx.Observable.of(addPopup(uuid(), { component: PopupViewer,
+                    maxWidth: 600,
+                    position: {coordinates: position ? position.rawPos : []},
+                    autoPanMargin: 70,
+                    autoPan: true
+                }))).let(
+                    wrapStartStop(
+                        [loading(true, "popupLoading")],
+                        loading(false, "popupLoading"),
+                        () => {
+                            return Rx.Observable.of(
+                                error({ title: "Error", message: "cadastrapp.popup.error" }),
+                                loading(false, 'popupLoading')
+                            );
+                        }
+                    )
+                )
+        );

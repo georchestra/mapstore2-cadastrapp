@@ -6,6 +6,26 @@
             "toolbar": {
                 "zoomTo": "Zoom sull'estensione dei risultati",
                 "help": "Aiuto"
+            },
+            "popup": {
+                "parcelle": "Parcelle",
+                "town": "Città",
+                "year": "Anno",
+                "county": "Dipartimento",
+                "direction": "Direzione",
+                "towninsee": "Codice INSEE",
+                "prefix": "Prefisso",
+                "section": "Sezione",
+                "plot": "Numero del piano",
+                "address": "Indirizzo",
+                "dgfip": "DGFiP",
+                "gis": "GIS",
+                "owner": "Proprietario",
+                "landUnit": "Unità di terra",
+                "municipalAccount": "Conto comune",
+                "nodata": "Nessun dato da visualizzare",
+                "noaccess": "Accesso non autorizzato ai dati del terreno",
+                "error": "Impossibile recuperare le informazioni sul fumetto"
             }
         }
     }

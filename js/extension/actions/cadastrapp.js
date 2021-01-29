@@ -26,6 +26,8 @@ export const SEARCH = "CADASTRAPP:SEARCH";
 export const LOAD_INFO = "CADASTRAPP:LOAD_INFO";
 export const INFORMATION_UPDATE = "CADASTRAPP:INFORMATION_UPDATE";
 export const INFORMATION_CLEAR = "CADASTRAPP:INFORMATION_CLEAR";
+export const SAVE_BUBBLE_INFO = "CADASTRAPP:SAVE_BUBBLE_INFO";
+export const SHOW_POPUP = "CADASTRAPP:SHOW_POPUP";
 
 /**
  * Set the style of highlight
@@ -211,4 +213,18 @@ export const clearInformation = () => ({
  */
 export const zoomToExtentAllResults = () => ({
     type: ZOOM_TO_RESULTS
+});
+
+/**
+ * Save bulle info for Popup
+ */
+export const saveBubbleInfo = (data) => ({
+    type: SAVE_BUBBLE_INFO,
+    data
+});
+
+export const showPopup = (parcelle, position) => ({
+    type: SHOW_POPUP,
+    parcelle,
+    position
 });

@@ -17,6 +17,8 @@ import { getBaseMapsFromConfig } from '../utils/configuration';
  */
 export function configurationSelector(state) { return state?.cadastrapp.configuration;}
 
+export function cadastrappEnabledSelector(state) { return state?.controls?.cadastrapp?.enabled;}
+
 /**
  * Get the base maps list to use for selection.
  * @returns {array} an array of objects like: {index , title, thumbnail}. Index is the index to send to the pdf generation tool. title and thubnail have to be used for preview.
@@ -204,4 +206,11 @@ export function getAllPlotFeatures(state) {
             });
         }));
     return featuresOfAllSelections;
+}
+export function bulleInfoSelector(state) {
+    return state?.cadastrapp?.infoBulle ?? {};
+}
+
+export function loaderSelector(state) {
+    return state?.cadastrapp?.loading ?? {};
 }
