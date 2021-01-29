@@ -91,6 +91,9 @@ describe("setup Epics", () => {
                         break;
                     case TOGGLE_MAPINFO_STATE:
                         break;
+                    case SET_MAP_TRIGGER:
+                        expect(action.trigger).toBe('click');
+                        break;
                     default:
                         expect(false).toBe(true);
                     }

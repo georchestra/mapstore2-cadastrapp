@@ -32,7 +32,6 @@ import { wrapStartStop } from '@mapstore/observables/epics';
 import { MOUSE_MOVE } from '@mapstore/actions/map';
 import { addPopup } from '@mapstore/actions/mapPopups';
 import { setMapTrigger } from '@mapstore/actions/mapInfo';
-import { getGeometry } from '../utils/common';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 import PopupViewer from '../components/popup/PopupViewer';
@@ -88,6 +87,26 @@ const getFeatures = (geometry, getState, parcelleProperty) => {
             };
         });
 };
+
+/**
+ * Generate a simple point geometry using position data
+ * @param {object} point/position data from the map
+ * @return {{coordinates: [number, string], projection: string, type: string}|*} geometry of type Point
+ */
+const getGeometry = point => {
+    const geometry = point?.geometricFilter?.value?.geometry;
+    if (geometry) {
+        return geometry;
+    }
+    let lng = point.lng || point.latlng.lng;
+    let lngCorrected = lng - 360 * Math.floor(lng / 360 + 0.5);
+    return {
+        coordinates: [lngCorrected, point.lat || point.latlng.lat],
+        projection: "EPSG:4326",
+        type: "Point"
+    };
+};
+
 /**
  * Handle map selection tools and events
  */

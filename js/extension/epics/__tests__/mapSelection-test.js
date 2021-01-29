@@ -16,7 +16,7 @@ import { mouseMove } from "@mapstore/actions/map";
 import { ADD_MAP_POPUP } from "@mapstore/actions/mapPopups";
 import {LOADING, SAVE_BUBBLE_INFO, SHOW_POPUP, showPopup} from "@js/extension/actions/cadastrapp";
 
-describe("layerSync Epics", () => {
+describe("mapSelection Epics", () => {
     const state = {
         additionallayers: [
             {

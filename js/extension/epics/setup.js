@@ -102,5 +102,6 @@ export const cadastrappTearDown = (action$, {getState = ()=>{}}) =>
             toggleSelectionTool(),
             removeAdditionalLayer({id: CADASTRAPP_RASTER_LAYER_ID, owner: CADASTRAPP_OWNER}),
             removeAdditionalLayer({id: CADASTRAPP_VECTOR_LAYER_ID, owner: CADASTRAPP_OWNER}),
-            cleanPopups()
+            cleanPopups(),
+            setMapTrigger('click') // Reset map's mouse event trigger
         ]).concat([...(!get(getState(), "mapInfo.enabled") ? [toggleMapInfoState()] : [])]));

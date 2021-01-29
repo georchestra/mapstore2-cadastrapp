@@ -7,13 +7,15 @@ import Message from "@mapstore/components/I18N/Message";
 import Main from './cadastrapp/Main';
 import '../cadastrapp.css';
 import init from '../enhancers/init';
-import {compose} from '../utils/common';
 
 import { CONTROL_NAME } from '../constants';
 
 import {setUp, tearDown} from '../actions/cadastrapp';
 import cadastrapp from '../reducers/cadastrapp';
 import * as epics from '../epics/cadastrapp';
+
+const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
+
 
 const Cadastrapp = compose(
     connect((state) => ({
