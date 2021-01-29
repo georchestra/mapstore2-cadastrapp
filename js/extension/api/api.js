@@ -53,7 +53,9 @@ export function getParcelle({
     ccosec,
     dvoilib,
     dnvoiri,
-    dindic}) {
+    dindic,
+    unitefonciere
+}) {
     return axios.get(`${baseURL}/services/getParcelle`, {
         params: {
             parcelle,
@@ -63,7 +65,9 @@ export function getParcelle({
             dindic,
             dnupla,
             ccopre,
-            ccosec} }).then(({data}) => data);
+            ccosec,
+            unitefonciere
+        } }).then(({data}) => data);
 }
 /**
  * Get Parcelle(s) from the getParcelle service.
@@ -139,6 +143,27 @@ export function getCoProprietaireList({ comptecommunal, cgocommune, ddenom, deta
     const params = { comptecommunal, cgocommune, ddenom, details };
     return axios.get(`${baseURL}/services/getCoProprietaireList`, {params}).then(({ data }) => data);
 }
+
+// Unite Fonciere
+/**
+ * getInfoUniteFonciere
+ * @param {string} params.parcelle parcelle
+ * @returns object like:
+ * ```
+ * {
+ *   comptecommunal: "12345*2345"
+ *   dcntpa_sum: 1234
+ *   sigcal_sum: 1243
+ *   sigcalb_sum: 1234
+ *   uf: 1234
+ * }
+```
+ */
+export function getInfoUniteFonciere({ parcelle }) {
+    const params = { parcelle };
+    return axios.get(`${baseURL}/services/getInfoUniteFonciere`, { params }).then(({ data }) => data);
+}
+
 
 // Information Form
 /**
@@ -361,5 +386,6 @@ export function exportCoProprietaireByParcelles({
     params.append('parcelles', castArray(parcelles).join(','));
     return axios.post(`${baseURL}/services/exportCoProprietaireByParcelles`, params, { responseType: 'arraybuffer' });
 }
+
 
 

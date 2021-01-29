@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {find} from 'lodash';
 import {
     MenuItem,
     DropdownButton,
@@ -22,6 +23,7 @@ export default function PlotSelectionToolbar({
     loadInfo = () => {},
     zoomToSelection = () => {},
     removePlots = () => {},
+    showLandedPropertyInformation = () => {},
     selectedPlots = []
 }) {
     const atLeaseOneSelected = selectedPlots.length > 0;
@@ -42,10 +44,10 @@ export default function PlotSelectionToolbar({
                     tooltip: atLeaseOneSelected ? "Zoom to selected" : "Zoom on list", // localize
                     onClick: zoomToSelection
                 }, {
-                    disabled: !atLeaseOneSelected,
+                    disabled: !onlyOneSelected,
                     glyph: "th-list",
                     tooltip: "Owned Unit Information", // localize
-                    onClick: () => { alert("TODO"); }
+                    onClick: () => { showLandedPropertyInformation(find(currentData, {parcelle: selectedPlots[0]})); }
                 }, {
                     disabled: !atLeaseOneSelected,
                     glyph: "trash",

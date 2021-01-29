@@ -14,7 +14,7 @@ import {
     TEAR_DOWN,
     addPlots,
     loading,
-    openLP
+    showLandedPropertyInformation
 } from '../actions/cadastrapp';
 
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
@@ -94,7 +94,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                                 .mergeAll(5)
                                 .map(parcelle => {
                                     if (selectionType === SELECTION_TYPES.LANDED_PROPERTY) {
-                                        return openLP(parcelle);
+                                        return showLandedPropertyInformation(parcelle);
                                     }
                                     return addPlots([parcelle]);
                                 }).let(wrapStartStop(
