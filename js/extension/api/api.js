@@ -256,6 +256,7 @@ export function getHabitationDetails({ invar, annee }) {
     const params = { invar, annee };
     return axios.get(`${baseURL}/services/getHabitationDetails`, { params }).then(({ data }) => data);
 }
+
 // DOWNLOAD (INFORMATION)
 
 // e.g. https://georchestra.geo-solutions.it/cadastrapp/services/createBordereauParcellaire?parcelle=350238000AD0230&personaldata=0&basemapindex=0&fillcolor=81BEF7&opacity=0.51&strokecolor=111111&strokewidth=4
@@ -297,7 +298,7 @@ export function createReleveProprieteAsCSV({ compteCommunal, parcelleId, exportT
 
 
 /**
- * Get Parcelle(s) from the getParcelle service.
+ * Get Parcelle(s) from the getParcelle service. Used also in plot selection.
  * @param {string|string[]} params.comptecommunal array of comptecommunal to add
  */
 export function exportLotsAsCSV({
@@ -324,7 +325,47 @@ export function exportLotsAsPDF({
     return axios.post(`${baseURL}/services/exportLotsAsPDF`, params, { responseType: 'arraybuffer' });
 }
 
-
+/**
+ * Get bulle/popup info from the parcelle layer
+ * @param {string|string[]} params.parcelle parcelle id of the info requested
+ */
 export function getInfoBulle(parcelle) {
     return axios.get(`${baseURL}/services/getInfoBulle`, {params: {parcelle}}).then(({data}) => data);
+}
+
+// DOWNLOAD (PLOT SELECTION)
+/**
+ * Download parcelles as CSV
+ * @param {string|string[]} params.parcelles array or comma separated list of parcelles
+ */
+export function exportParcellesAsCSV({
+    parcelles
+}) {
+    const params = new URLSearchParams();
+    params.append('parcelles', castArray(parcelles).join(','));
+    return axios.post(`${baseURL}/services/exportParcellesAsCSV`, params, { responseType: 'arraybuffer' });
+}
+
+/**
+ * Download proprietaire as CSV
+ * @param {string|string[]} params.parcelles array or comma separated list of parcelles
+ */
+export function exportProprietaireByParcelles({
+    parcelles
+}) {
+    const params = new URLSearchParams();
+    params.append('parcelles', castArray(parcelles).join(','));
+    return axios.post(`${baseURL}/services/exportProprietaireByParcelles`, params, { responseType: 'arraybuffer' });
+}
+
+/**
+ * Download co-proprietaire as CSV
+ * @param {string|string[]} params.parcelles array or comma separated list of parcelles
+ */
+export function exportCoProprietaireByParcelles({
+    parcelles
+}) {
+    const params = new URLSearchParams();
+    params.append('parcelles', castArray(parcelles).join(','));
+    return axios.post(`${baseURL}/services/exportCoProprietaireByParcelles`, params, { responseType: 'arraybuffer' });
 }

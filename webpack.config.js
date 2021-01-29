@@ -33,5 +33,5 @@ const cfg = buildConfig(
 );
 // stream are needed here in code
 cfg.resolve.fallback = {timers: false};
-cfg.devtool = "eval-cheap-source-map";
+cfg.devtool = "eval-source-map";
 module.exports = cfg;
