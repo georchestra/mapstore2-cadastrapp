@@ -24,4 +24,17 @@ const plugins = [
         }
     })
 ];
-module.exports = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});
+// Temp fix to not fail for svg imports. TODO: wait for a fix on mapstore createExtensionWebpackConfig
+const fileLoader = {
+    test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+    use: [{
+        loader: 'file-loader',
+        options: {
+            name: "[name].[ext]"
+        }
+    }]
+};
+const {module: moduleObj, ...extensionConfig} = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});
+// change css rule to exclude css (already loaded from other depending libs in mapstore) --> return errors for leaflet
+const rules = moduleObj.rules;
+module.exports = { ...extensionConfig, module: { ...moduleObj, rules: [...rules, fileLoader] } };

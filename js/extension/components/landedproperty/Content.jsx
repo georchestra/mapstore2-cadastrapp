@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView from '@mapstore/components/widgets/widget/MapView';
+import MapView from './MapView';
 import { ResizableBox } from 'react-resizable';
 
 function getSufBatCalcPercentage(surfaceTotal, surfaceBatie) {

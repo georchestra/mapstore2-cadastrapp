@@ -89,7 +89,7 @@ export default function LandedPropertyInformationModal({
     }, [hooks, parcelle, zoomed]);
     return (<Modal
         style={{ maxHeight: "100%", overflowY: "auto", zIndex: 10000 }}
-        dialogClassName="cadastrapp-modal"
+        dialogClassName="cadastrapp-modal cadastrapp-landed-property-modal"
         show={show}
         onHide={onClose}>
         <Modal.Header closeButton>

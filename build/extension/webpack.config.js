@@ -16,5 +16,17 @@ const webpackConfig = createExtensionWebpackConfig({
         }
     }
 });
+// Temp fix to not fail for svg imports. TODO: wait for a fix on mapstore
+const fileLoader = {
+    test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+    use: [{
+        loader: 'file-loader',
+        options: {
+            name: "[name].[ext]"
+        }
+    }]
+};
+const { module: moduleObj, ...extensionConfig } = webpackConfig;
+const rules = moduleObj.rules;
 
-module.exports = webpackConfig;
+module.exports = { ...extensionConfig, module: { ...moduleObj, rules: [...rules, fileLoader] } };
