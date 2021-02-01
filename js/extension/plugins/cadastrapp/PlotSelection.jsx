@@ -12,7 +12,8 @@ import {
     deselectPlots,
     removePlots,
     zoomToSelection,
-    loadInfo
+    loadInfo,
+    showLandedPropertyInformation
 } from '../../actions/cadastrapp';
 
 import {
@@ -38,6 +39,7 @@ const PlotsSelection = connect((state) => ({
     onRowsDeselected: deselectPlots,
     removePlots: removePlots,
     zoomToSelection: zoomToSelection,
+    showLandedPropertyInformation,
     onTabDelete: () => removePlotSelection()
 })(PS);
 
@@ -67,12 +69,6 @@ export default connect(
         <PlotsSelection
             isShown
             loadInfo={props.loadInfo}
-            onZoom={() => { }}
-            onClear={() => { }}
-            onClick={() => { }} // on selection
-            onNewTab={() => { }}
-            onAllClick={() => { }} // on selection
-            onRowClick={() => { }} // selection? remove?
             active={props.activeSelectionTab}
         />
         <Information

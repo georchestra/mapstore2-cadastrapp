@@ -172,6 +172,10 @@ export function getCurrentPlotFeatures(state) {
 export function getSelectedFeatures(state) {
     return getSelectedPlots(state).map(({ feature }) => feature);
 }
+// Landed property
+export function landedPropertyParcelleSelector(state) {
+    return state?.cadastrapp?.landedProperty?.parcelle;
+}
 
 // Information
 export function getInformationItems(state) {

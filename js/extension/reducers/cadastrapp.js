@@ -15,6 +15,7 @@ import {
     TEAR_DOWN,
     SET_LAYER_STYLE,
     SET_STYLES,
+    SHOW_LANDED_PROPERTIES_INFORMATION,
     INFORMATION_UPDATE,
     INFORMATION_CLEAR
 } from '../actions/cadastrapp';
@@ -191,6 +192,9 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     }
     case SET_STYLES: {
         return set('styles', action.styles, state);
+    }
+    case SHOW_LANDED_PROPERTIES_INFORMATION: {
+        return set('landedProperty.parcelle', action.parcelle, state);
     }
     case INFORMATION_UPDATE: {
         return set(
