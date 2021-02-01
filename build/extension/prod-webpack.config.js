@@ -1,5 +1,6 @@
 
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const createExtensionWebpackConfig = require('../../MapStore2/build/createExtensionWebpackConfig');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -35,6 +36,16 @@ const fileLoader = {
     }]
 };
 const {module: moduleObj, ...extensionConfig} = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});
-// change css rule to exclude css (already loaded from other depending libs in mapstore) --> return errors for leaflet
-const rules = moduleObj.rules;
+// Temp fix to return errors for leaflet
+// TODO: wait for a fix on mapstore createExtensionWebpackConfig
+const rules = [{
+    ...moduleObj.rules[0], // css rule is the first
+    use: [{
+        loader: MiniCssExtractPlugin.loader, // replace prod loader first 'use' entry, adding the publicPath.
+        options: {
+            publicPath: '' // leaflet rises an error about public path, if missing.
+        }
+    }, ...moduleObj.rules[0].use.slice(1)]
+}, ...moduleObj.rules.slice(1)];
+
 module.exports = { ...extensionConfig, module: { ...moduleObj, rules: [...rules, fileLoader] } };
