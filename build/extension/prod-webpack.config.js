@@ -1,5 +1,6 @@
 
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const createExtensionWebpackConfig = require('../../MapStore2/build/createExtensionWebpackConfig');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -24,4 +25,27 @@ const plugins = [
         }
     })
 ];
-module.exports = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});
+// Temp fix to not fail for svg imports. TODO: wait for a fix on mapstore createExtensionWebpackConfig
+const fileLoader = {
+    test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+    use: [{
+        loader: 'file-loader',
+        options: {
+            name: "[name].[ext]"
+        }
+    }]
+};
+const {module: moduleObj, ...extensionConfig} = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});
+// Temp fix to return errors for leaflet
+// TODO: wait for a fix on mapstore createExtensionWebpackConfig
+const rules = [{
+    ...moduleObj.rules[0], // css rule is the first
+    use: [{
+        loader: MiniCssExtractPlugin.loader, // replace prod loader first 'use' entry, adding the publicPath.
+        options: {
+            publicPath: '' // leaflet rises an error about public path, if missing.
+        }
+    }, ...moduleObj.rules[0].use.slice(1)]
+}, ...moduleObj.rules.slice(1)];
+
+module.exports = { ...extensionConfig, module: { ...moduleObj, rules: [...rules, fileLoader] } };

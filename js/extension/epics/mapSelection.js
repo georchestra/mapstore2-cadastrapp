@@ -4,7 +4,7 @@ import isEqual from 'lodash/isEqual';
 import {getInfoBulle, getParcelle} from '../api';
 import uuid from 'uuid';
 
-import {SELECTION_TYPES, MOUSE_EVENT, CADASTRAPP_OWNER, CONTROL_NAME, DEFAULT_POPUP_PROPS} from '../constants';
+import {SELECTION_TYPES, MOUSE_EVENT, CONTROL_NAME, DEFAULT_POPUP_PROPS} from '../constants';
 import { error } from '@mapstore/actions/notifications';
 import {
     END_DRAWING,
@@ -16,10 +16,11 @@ import {
     TEAR_DOWN,
     addPlots,
     loading,
-    openLP,
     saveBubbleInfo,
     SHOW_POPUP,
-    showPopup, SAVE_BUBBLE_INFO
+    showPopup,
+    SAVE_BUBBLE_INFO,
+    showLandedPropertyInformation
 } from '../actions/cadastrapp';
 
 import {
@@ -135,7 +136,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                                 .mergeAll(5)
                                 .map(parcelle => {
                                     if (selectionType === SELECTION_TYPES.LANDED_PROPERTY) {
-                                        return openLP(parcelle);
+                                        return showLandedPropertyInformation(parcelle);
                                     }
                                     return addPlots([parcelle]);
                                 }).let(wrapStartStop(

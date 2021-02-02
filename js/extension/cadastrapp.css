@@ -152,7 +152,8 @@
   width: 840px;
   max-width: none !important;
 }
-.cadastrapp-modal.cadastrapp-information-modal {
+/* skip overrides in georchestra TODO: remove !important in favor of a more specific rule */
+.cadastrapp-modal.cadastrapp-information-modal, .cadastrapp-modal.cadastrapp-landed-property-modal {
   min-width: 85% !important;
 }
 .cadastrapp-information-modal

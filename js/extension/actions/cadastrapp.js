@@ -19,10 +19,9 @@ export const ZOOM_TO_RESULTS = "CADASTRAPP:ZOOM_TO_RESULTS";
 export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
 export const SET_STYLES = "CADASTRAPP:SET_STYLES";
 
-export const OPEN_LP = "CADASTRAPP:OPEN_LANDRY_PROPERTY";
-
 export const SEARCH = "CADASTRAPP:SEARCH";
 
+export const SHOW_LANDED_PROPERTIES_INFORMATION = "CADASTRAPP:SHOW_LANDED_PROPERTIES_INFORMATION";
 export const LOAD_INFO = "CADASTRAPP:LOAD_INFO";
 export const INFORMATION_UPDATE = "CADASTRAPP:INFORMATION_UPDATE";
 export const INFORMATION_CLEAR = "CADASTRAPP:INFORMATION_CLEAR";
@@ -168,13 +167,6 @@ export const zoomToSelection = () => ({
     type: ZOOM_TO_SELECTION
 });
 
-/**
- * Opens landry property tab
- */
-export const openLP = (parcelle) => ({
-    type: OPEN_LP,
-    parcelle
-});
 
 /**
  * Perform a search event. The target is the plot selection to contain the results.
@@ -185,6 +177,12 @@ export const search = (searchType, rawParams) => ({
     type: SEARCH,
     searchType,
     rawParams
+});
+
+// LANDED PROPERTY
+export const showLandedPropertyInformation = (parcelle) => ({
+    type: SHOW_LANDED_PROPERTIES_INFORMATION,
+    parcelle
 });
 
 // INFORMATION
