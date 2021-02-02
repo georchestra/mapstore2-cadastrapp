@@ -1,7 +1,7 @@
 {
   "plugins": [
     {
-      "name": "Cadastrapp1",
+      "name": "Cadastrapp",
       "defaultConfig": {
         "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
         "foncier": true,
