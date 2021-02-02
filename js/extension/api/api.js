@@ -329,8 +329,9 @@ export function exportLotsAsPDF({
  * Get bulle/popup info from the parcelle layer
  * @param {string|string[]} params.parcelle parcelle id of the info requested
  */
-export function getInfoBulle(parcelle) {
-    return axios.get(`${baseURL}/services/getInfoBulle`, {params: {parcelle}}).then(({data}) => data);
+export function getInfoBulle(parcelle, foncier = true) {
+    let params = {parcelle, ...(!foncier && {infouf: 0})};
+    return axios.get(`${baseURL}/services/getInfoBulle`, {params}).then(({data}) => data);
 }
 
 // DOWNLOAD (PLOT SELECTION)

@@ -281,7 +281,7 @@ td.info-popup-label {
   margin-top: 10px;
   color: blue;
 }
-.info-popup-header {
+th.info-popup-header {
   text-align: center;
   font-weight: 600;
   text-transform: uppercase;

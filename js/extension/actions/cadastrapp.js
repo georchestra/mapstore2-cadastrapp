@@ -52,8 +52,9 @@ export const setLayerStyles = (styles = LAYER_STYLES) => ({
 /**
  * Triggered on cadastrapp activation
  */
-export const setUp = () => ({
-    type: SETUP
+export const setUp = (cfg) => ({
+    type: SETUP,
+    cfg
 });
 
 export const loading = (value, name) => ({

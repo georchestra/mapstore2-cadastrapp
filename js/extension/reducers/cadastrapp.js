@@ -17,7 +17,7 @@ import {
     SET_STYLES,
     INFORMATION_UPDATE,
     INFORMATION_CLEAR,
-    SAVE_BUBBLE_INFO
+    SAVE_BUBBLE_INFO, SETUP
 } from '../actions/cadastrapp';
 
 import {LAYER_STYLES} from '../constants';
@@ -92,6 +92,8 @@ const DEFAULT_STATE = {
 export default function cadastrapp(state = DEFAULT_STATE, action) {
     const type = action.type;
     switch (type) {
+    case SETUP:
+        return set('pluginCfg', action.cfg, state);
     case SET_CONFIGURATION:
         return set('configuration', action.configuration, state);
     case LOADING: {

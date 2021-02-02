@@ -3,14 +3,16 @@ import Rx from 'rxjs';
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
 import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
-import { setMapTrigger, toggleMapInfoState } from '@mapstore/actions/mapInfo';
+import { toggleMapInfoState } from '@mapstore/actions/mapInfo';
+import { registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
 import { cleanPopups } from '@mapstore/actions/mapPopups';
 
 
 import {
     CADASTRAPP_RASTER_LAYER_ID,
     CADASTRAPP_VECTOR_LAYER_ID,
-    CADASTRAPP_OWNER
+    CADASTRAPP_OWNER,
+    MOUSE_EVENT, CONTROL_NAME
 } from '../constants';
 
 import { getConfiguration } from '../api';
@@ -75,9 +77,8 @@ export const cadastrappSetup = (action$, store) =>
                             name: "searchPoints",
                             visibility: true
                         }),
-                    setMapTrigger('hover') // Set map's mouse event trigger type
+                    registerEventListener(MOUSE_EVENT, CONTROL_NAME) // Set map's mouse event trigger type
                 ]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
-
             }) // TODO: add cadastrapp layer
         ).let(
             wrapStartStop(
@@ -103,5 +104,5 @@ export const cadastrappTearDown = (action$, {getState = ()=>{}}) =>
             removeAdditionalLayer({id: CADASTRAPP_RASTER_LAYER_ID, owner: CADASTRAPP_OWNER}),
             removeAdditionalLayer({id: CADASTRAPP_VECTOR_LAYER_ID, owner: CADASTRAPP_OWNER}),
             cleanPopups(),
-            setMapTrigger('click') // Reset map's mouse event trigger
+            unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME) // Reset map's mouse event trigger
         ]).concat([...(!get(getState(), "mapInfo.enabled") ? [toggleMapInfoState()] : [])]));

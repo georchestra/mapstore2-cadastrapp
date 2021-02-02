@@ -12,10 +12,16 @@ import {cadastrappSetup, cadastrappTearDown} from "@js/extension/epics/cadastrap
 import {LOADING, SET_CONFIGURATION, setUp, TOGGLE_SELECTION, tearDown} from "@js/extension/actions/cadastrapp";
 import {UPDATE_ADDITIONAL_LAYER, REMOVE_ADDITIONAL_LAYER} from "@mapstore/actions/additionallayers";
 import {CLEAN_MAP_POPUPS} from "@mapstore/actions/mapPopups";
-import {SET_MAP_TRIGGER, TOGGLE_MAPINFO_STATE} from "@mapstore/actions/mapInfo";
+import {TOGGLE_MAPINFO_STATE} from "@mapstore/actions/mapInfo";
+import {REGISTER_EVENT_LISTENER, UNREGISTER_EVENT_LISTENER} from "@mapstore/actions/map";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import {CADASTRAPP_OWNER, CADASTRAPP_RASTER_LAYER_ID, CADASTRAPP_VECTOR_LAYER_ID} from "@js/extension/constants";
+import {
+    CADASTRAPP_OWNER,
+    CADASTRAPP_RASTER_LAYER_ID,
+    CADASTRAPP_VECTOR_LAYER_ID, CONTROL_NAME,
+    MOUSE_EVENT
+} from "@js/extension/constants";
 
 describe("setup Epics", () => {
     let mockAxios;
@@ -53,8 +59,9 @@ describe("setup Epics", () => {
                         expect(action.actionType).toBe('overlay');
                         expect(action.options).toBeTruthy();
                         break;
-                    case SET_MAP_TRIGGER:
-                        expect(action.trigger).toBe('hover');
+                    case REGISTER_EVENT_LISTENER:
+                        expect(action.eventName).toBe(MOUSE_EVENT);
+                        expect(action.toolName).toBe(CONTROL_NAME);
                         break;
                     case TOGGLE_MAPINFO_STATE:
                         break;
@@ -91,8 +98,9 @@ describe("setup Epics", () => {
                         break;
                     case TOGGLE_MAPINFO_STATE:
                         break;
-                    case SET_MAP_TRIGGER:
-                        expect(action.trigger).toBe('click');
+                    case UNREGISTER_EVENT_LISTENER:
+                        expect(action.eventName).toBe(MOUSE_EVENT);
+                        expect(action.toolName).toBe(CONTROL_NAME);
                         break;
                     default:
                         expect(false).toBe(true);

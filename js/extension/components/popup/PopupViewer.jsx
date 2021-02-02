@@ -1,20 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { isEmpty, isNumber } from "lodash";
+import { isEmpty, isNumber, get } from "lodash";
 import Message from "@mapstore/components/I18N/Message";
 import loadingState from "@mapstore/components/misc/enhancers/loadingState";
 import {
     bulleInfoSelector,
     getAuthLevel,
-    loaderSelector
+    loaderSelector,
+    cadastrappPluginCfgSelector
 } from "@js/extension/selectors/cadastrapp";
 
 export default connect(state => ({
     loader: loaderSelector(state),
     infoBulle: bulleInfoSelector(state),
-    authLevel: getAuthLevel(state)
+    authLevel: getAuthLevel(state),
+    foncier: get(cadastrappPluginCfgSelector(state), 'foncier', true)
 }))(
-    loadingState(({ loader }) => loader)(({ infoBulle = {}, authLevel = {} }) => {
+    loadingState(({ loader }) => loader)(({ infoBulle = {}, authLevel = {}, foncier }) => {
         if (isEmpty(infoBulle)) {
             return (
                 <div className="popup-container">
@@ -144,7 +146,7 @@ export default connect(state => ({
                         </tbody>
                     </table>
                 </div>
-                {isAuthenticated || dcntpa_sum || sigcal_sum || comptecommunal ? (
+                {foncier ? (isAuthenticated || dcntpa_sum || sigcal_sum || comptecommunal) ? (
                     <div className="cadastrapp-unite-fonciere">
                         <table className="info-popup-table">
                             <thead>
@@ -184,7 +186,7 @@ export default connect(state => ({
                     </div>
                 ) : (
                     <Message msgId={"cadastrapp.popup.noaccess"} />
-                )}
+                ) : null}
             </div>
         );
     })

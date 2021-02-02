@@ -11,10 +11,10 @@ import axios from 'axios';
 import MockAdapter from "axios-mock-adapter";
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
 import {LAYER_STYLES} from "@js/extension/constants";
-import {mouseMoveMapEventEpic, showPopupEpic} from "../cadastrapp";
-import { mouseMove } from "@mapstore/actions/map";
-import { ADD_MAP_POPUP } from "@mapstore/actions/mapPopups";
-import {LOADING, SAVE_BUBBLE_INFO, SHOW_POPUP, showPopup} from "@js/extension/actions/cadastrapp";
+import {mouseMovePopupEpic, showPopupEpic} from "../cadastrapp";
+import { mouseMove, mouseOut } from "@mapstore/actions/map";
+import { ADD_MAP_POPUP, CLEAN_MAP_POPUPS } from "@mapstore/actions/mapPopups";
+import {LOADING, SAVE_BUBBLE_INFO, saveBubbleInfo, SHOW_POPUP, showPopup} from "@js/extension/actions/cadastrapp";
 
 describe("mapSelection Epics", () => {
     const state = {
@@ -61,7 +61,8 @@ describe("mapSelection Epics", () => {
         },
         styles: {},
         mapInfo: { enabled: false },
-        controls: {cadastrapp: {enabled: true}}
+        controls: {cadastrapp: {enabled: true}},
+        map: {present: {zoom: 15}}
     };
     let mockAxios;
     beforeEach(done => {
@@ -74,11 +75,11 @@ describe("mapSelection Epics", () => {
         setTimeout(done);
     });
 
-    it("mouseMoveMapEventEpic", done => {
+    it("mouseMovePopupEpic", done => {
         const features = [state.cadastrapp.plots[0].data[0].feature];
         mockAxios.onPost().reply(200, {features});
         testEpic(
-            mouseMoveMapEventEpic,
+            mouseMovePopupEpic,
             1,
             mouseMove({lat: 48.10, lng: -1.6}),
             actions => {
@@ -98,15 +99,36 @@ describe("mapSelection Epics", () => {
             state
         );
     });
+    it("mouseMovePopupEpic on empty features", done => {
+        mockAxios.onPost().reply(200, {});
+        testEpic(
+            mouseMovePopupEpic,
+            1,
+            mouseMove({lat: 48.10, lng: -1.6}),
+            actions => {
+                expect(actions.length).toBe(1);
+                actions.map(action=>{
+                    switch (action.type) {
+                    case CLEAN_MAP_POPUPS:
+                        break;
+                    default:
+                        expect(false).toBe(true);
+                    }
+                });
+                done();
+            },
+            state
+        );
+    });
     it("showPopupEpic", done => {
         const bulleInfo = {test: "Value"};
         mockAxios.onGet().reply(200, {bulleInfo});
         testEpic(
             showPopupEpic,
-            4,
+            3,
             showPopup('1234', {"lat": 48.1, "lng": -1.6}),
             actions => {
-                expect(actions.length).toBe(4);
+                expect(actions.length).toBe(3);
                 actions.map(action=>{
                     switch (action.type) {
                     case LOADING:
@@ -128,6 +150,40 @@ describe("mapSelection Epics", () => {
                 done();
             },
             state
+        );
+    });
+    it("showPopupEpic on mouse move", done => {
+        const bulleInfo = {test: "Value"};
+        mockAxios.onGet().reply(200, {bulleInfo});
+        testEpic(
+            showPopupEpic,
+            4,
+            [showPopup('1234', {"lat": 48.1, "lng": -1.6}), mouseMove({"lat": 50.1, "lng": -1.6})],
+            actions => {
+                expect(actions.length).toBe(4);
+                actions.map(action=>{
+                    switch (action.type) {
+                    case LOADING:
+                        expect(action.name).toEqual('popupLoading');
+                        break;
+                    case ADD_MAP_POPUP:
+                        expect(action.id).toBeTruthy();
+                        expect(action.popup).toBeTruthy();
+                        break;
+                    case SAVE_BUBBLE_INFO:
+                        expect(action.data).toBeTruthy();
+                        expect(action.data.bulleInfo).toBeTruthy();
+                        expect(action.data.bulleInfo).toEqual(bulleInfo);
+                        break;
+                    case CLEAN_MAP_POPUPS:
+                        break;
+                    default:
+                        expect(false).toBe(true);
+                    }
+                });
+                done();
+            },
+            {...state, mousePosition: {mouseOut: true}}
         );
     });
 });

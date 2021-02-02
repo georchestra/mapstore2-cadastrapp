@@ -1,9 +1,10 @@
 import Rx from 'rxjs';
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 import {getInfoBulle, getParcelle} from '../api';
 import uuid from 'uuid';
 
-import { SELECTION_TYPES } from '../constants';
+import {SELECTION_TYPES, MOUSE_EVENT, CADASTRAPP_OWNER, CONTROL_NAME, DEFAULT_POPUP_PROPS} from '../constants';
 import { error } from '@mapstore/actions/notifications';
 import {
     END_DRAWING,
@@ -18,20 +19,21 @@ import {
     openLP,
     saveBubbleInfo,
     SHOW_POPUP,
-    showPopup
+    showPopup, SAVE_BUBBLE_INFO
 } from '../actions/cadastrapp';
 
 import {
     getCadastrappLayer,
     cadastreLayerIdParcelle,
     cadastrappEnabledSelector,
-    currentSelectionToolSelector
+    currentSelectionToolSelector,
+    popupPluginCfgSelector, cadastrappPluginCfgSelector
 } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
 import { wrapStartStop } from '@mapstore/observables/epics';
-import { MOUSE_MOVE } from '@mapstore/actions/map';
-import { addPopup } from '@mapstore/actions/mapPopups';
-import { setMapTrigger } from '@mapstore/actions/mapInfo';
+import { MOUSE_MOVE, MOUSE_OUT, registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
+import { addPopup, cleanPopups } from '@mapstore/actions/mapPopups';
+import { mapSelector } from '@mapstore/selectors/map';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 import PopupViewer from '../components/popup/PopupViewer';
@@ -41,7 +43,7 @@ const CLEAN_ACTION = changeDrawingStatus("clean");
 const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
     changeDrawingStatus("stop"),
-    setMapTrigger('hover')
+    registerEventListener(MOUSE_EVENT, CONTROL_NAME)
 ];
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
 
@@ -149,7 +151,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                         );
                     // TODO: Re-activate the tool;
                 })
-                .merge(Rx.Observable.of(setMapTrigger('click'))) // Reset map's mouse event trigger type
+                .merge(Rx.Observable.of(unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME))) // Reset map's mouse event trigger type
                 .startWith(startDrawingAction)
                 .takeUntil(action$.ofType(TEAR_DOWN))
                 .concat(deactivate()); // on close, deactivate any draw session remaining
@@ -162,42 +164,58 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
  * Generates geometry data and fetches feature info obtained from mouse over event position on map
  * @memberof epics.mapSelection
  * @param {observable} action$ manages `MOUSE_MOVE`
+ * @param {object} store
  * @return {observable}
  */
-export const mouseMoveMapEventEpic = (action$, {getState}) =>
+export const mouseMovePopupEpic = (action$, {getState}) =>
     action$.ofType(MOUSE_MOVE)
-        .debounceTime(500)
-        .filter(()=> cadastrappEnabledSelector(getState()) && !currentSelectionToolSelector(getState()))
+        .debounceTime(popupPluginCfgSelector(getState())?.timeToShow || DEFAULT_POPUP_PROPS.TIMETOSHOW)
+        .filter(()=>
+            cadastrappEnabledSelector(getState()) // Cadastrapp enabled
+            && !currentSelectionToolSelector(getState())  // Drawing tool disabled
+            && mapSelector(getState()).zoom >= (popupPluginCfgSelector(getState())?.minZoom || DEFAULT_POPUP_PROPS.MINZOOM) // Within min accepted zoom
+        )
         .switchMap(({position}) => {
+            const state = getState();
             const geometry = getGeometry(position);
-            const parcelleProperty = cadastreLayerIdParcelle(getState());
+            const parcelleProperty = cadastreLayerIdParcelle(state);
+            const isMouseOut = state.mousePosition?.mouseOut || false;
+            if (isMouseOut) return Rx.Observable.of(cleanPopups());
             return getFeatures(geometry, getState, parcelleProperty)
                 .switchMap(({features = []})=> {
-                    if (isEmpty(features)) return Rx.Observable.empty();
+                    if (isEmpty(features)) return Rx.Observable.of(cleanPopups()); // Hide any existing popups
                     const [feature] = features;
                     const parcelle = feature?.properties[parcelleProperty];
                     return Rx.Observable.of(showPopup(parcelle, position));
-                })
-                .takeUntil(action$.ofType('MOUSE_OUT'));
+                });
         });
 
 /**
  * Adds a popup onto the map with popup viewer loaded with InfoBulle
  * @memberof epics.mapSelection
  * @param {observable} action$ manages `SHOW_POPUP`
+ * @param {object} store
  * @return {observable}
  */
-export const showPopupEpic = action$ =>
+export const showPopupEpic = (action$, {getState = () => {}}) =>
     action$.ofType(SHOW_POPUP)
-        .switchMap(({parcelle, position})=>
-            Rx.Observable.defer(()=>getInfoBulle(parcelle))
-                .map(data=> saveBubbleInfo(data))
+        .switchMap(({parcelle, position})=> {
+            return Rx.Observable.defer(()=>getInfoBulle(parcelle, cadastrappPluginCfgSelector(getState())?.foncier).then(data=> saveBubbleInfo(data)))
                 .merge(Rx.Observable.of(addPopup(uuid(), { component: PopupViewer,
                     maxWidth: 600,
                     position: {coordinates: position ? position.rawPos : []},
                     autoPanMargin: 70,
                     autoPan: true
-                }))).let(
+                })),
+                action$.ofType(MOUSE_MOVE, SAVE_BUBBLE_INFO)
+                    .switchMap((action)=>
+                        (action.type === MOUSE_MOVE && !isEqual(position, action?.position)) // When mouse move to a different position clear popup
+                            ? Rx.Observable.of(cleanPopups())
+                            : !isEmpty(action.data)
+                                ? Rx.Observable.of(loading(false, "popupLoading"))
+                                : Rx.Observable.empty()
+                    )
+                ).let(
                     wrapStartStop(
                         [loading(true, "popupLoading")],
                         loading(false, "popupLoading"),
@@ -208,5 +226,6 @@ export const showPopupEpic = action$ =>
                             );
                         }
                     )
-                )
-        );
+                ) // When mouse move out clear popup
+                .concat(action$.ofType(MOUSE_OUT).switchMap(()=> Rx.Observable.of(cleanPopups())));
+        });
