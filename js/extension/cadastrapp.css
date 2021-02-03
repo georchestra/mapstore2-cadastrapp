@@ -268,3 +268,29 @@
 .article50 .profDetailsLabel {
   float: left;
 }
+
+/* Popup Viewer */
+.popup-container {
+  padding: 10px;
+  border: 5px solid #afadad82
+}
+td.info-popup-label {
+  text-align: end;
+  font-weight: 600;
+}
+.cadastrapp-unite-fonciere {
+  margin-top: 10px;
+  color: blue;
+}
+th.info-popup-header {
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.info-popup-plot {
+  text-align:center;
+  font-style: italic;
+}
+.info-popup-table {
+  width: 100%;
+}

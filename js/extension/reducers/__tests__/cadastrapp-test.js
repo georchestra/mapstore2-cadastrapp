@@ -3,14 +3,17 @@ import expect from 'expect';
 import cadastrapp from '../cadastrapp';
 
 import {
+    saveBubbleInfo,
     setConfiguration,
     setLayerStyle,
-    setLayerStyles,
+    setLayerStyles, setUp,
     toggleSearchTool,
     toggleSelectionTool
 } from '../../actions/cadastrapp';
 
 import {
+    bulleInfoSelector,
+    cadastrappPluginCfgSelector,
     configurationSelector,
     currentSearchToolSelector,
     currentSelectionToolSelector,
@@ -41,6 +44,14 @@ describe('reducer', () => {
         const state2 = cadastrapp(state1, toggleSelectionTool(SELECTION_TYPES.POINT));
         expect(currentSelectionToolSelector({ cadastrapp: state2 })).toEqual(SELECTION_TYPES.POINT);
     });
+    it('setUp', () => {
+        const state1 = cadastrapp({}, setUp({test: 1}));
+        expect(cadastrappPluginCfgSelector({ cadastrapp: state1 })).toEqual({test: 1});
+    });
+    it('saveBubbleInfo', () => {
+        const state1 = cadastrapp({}, saveBubbleInfo({test: 1}));
+        expect(bulleInfoSelector({ cadastrapp: state1 })).toEqual({test: 1});
+    });
     describe('layer styles', () => {
         const customStyle = {
             fillColor: "#FFFFFF",
@@ -68,7 +79,8 @@ describe('reducer', () => {
             const state1 = cadastrapp(undefined, setLayerStyle("default", customStyle));
             const state2 = cadastrapp(state1, setLayerStyles());
             expect(getSelectedStyle({ cadastrapp: state2 })).toEqual(LAYER_STYLES.selected);
-            expect(getDefaultStyle({ cadastrapp: state2 })).toEqual(LAYER_STYLES.default);        });
+            expect(getDefaultStyle({ cadastrapp: state2 })).toEqual(LAYER_STYLES.default);
+        });
     });
 
 });

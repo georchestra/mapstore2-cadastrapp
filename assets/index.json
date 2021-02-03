@@ -3,7 +3,12 @@
     {
       "name": "Cadastrapp",
       "defaultConfig": {
-        "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur"
+        "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
+        "foncier": true,
+        "popup": {
+          "minZoom": 14,
+          "timeToShow": 1000
+        }
       },
       "dependencies": [
         "BurgerMenu"

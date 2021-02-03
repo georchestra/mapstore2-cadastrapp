@@ -61,3 +61,10 @@ export const SEARCH_TYPES = {
 export const MIN_PARCELLE_ID_LENGTH = 14;
 
 export const DEFAULT_HELP_URL = 'https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur';
+
+export const MOUSE_EVENT = 'mousemove';
+
+export const DEFAULT_POPUP_PROPS = {
+    MINZOOM: '14',
+    TIMETOSHOW: 1000
+};
