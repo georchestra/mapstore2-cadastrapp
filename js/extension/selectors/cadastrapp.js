@@ -155,7 +155,7 @@ export function getDefaultStyle(state) {
     return layerStylesSelector(state)?.default;
 }
 /**
- * Gets th ecurrent features to plog.
+ * Gets the current features to plot.
  * @param {object} state the application state
  */
 export function getCurrentPlotFeatures(state) {
@@ -174,6 +174,25 @@ export function getCurrentPlotFeatures(state) {
 export function getSelectedFeatures(state) {
     return getSelectedPlots(state).map(({ feature }) => feature);
 }
+// loading of plots
+export function plotSelectionLoadingSelector(state) {
+    return state?.cadastrapp?.loadFlags?.plotSelection;
+}
+// loading of search
+export function searchLoadingSelector(state) {
+    return state?.cadastrapp?.loadFlags?.search;
+}
+export function ownersModalStateSelector(state) {
+    return state?.cadastrapp?.owners || {};
+}
+// owners list
+export function ownersListOpenSelector(state) {
+    return ownersModalStateSelector(state)?.show;
+}
+export function ownersListResultsSelector(state) {
+    return ownersModalStateSelector(state)?.data;
+}
+
 // Landed property
 export function landedPropertyParcelleSelector(state) {
     return state?.cadastrapp?.landedProperty?.parcelle;
@@ -187,9 +206,9 @@ export function getInformationItems(state) {
 export function infoLoadingSelector(state) {
     return state?.cadastrapp?.loadFlags?.info ?? {};
 }
+
 export function informationLoadingCountSelector(state) {
-    const loaders = infoLoadingSelector(state);
-    return Object.keys(loaders).filter(k => loaders[k]).length ?? 0;
+    return infoLoadingSelector(state)?.count ?? 0;
 }
 
 /**
@@ -215,8 +234,8 @@ export function bulleInfoSelector(state) {
     return state?.cadastrapp?.infoBulle ?? {};
 }
 
-export function loaderSelector(state) {
-    return state?.cadastrapp?.loading ?? {};
+export function popupLoaderSelector(state) {
+    return state?.cadastrapp?.loadFlags?.popupLoading ?? {};
 }
 
 export function cadastrappPluginCfgSelector(state) {

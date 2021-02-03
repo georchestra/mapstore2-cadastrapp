@@ -1,25 +1,53 @@
 import React from 'react';
+import {branch, renderNothing} from 'recompose';
 import {connect} from 'react-redux';
+import {createSelector} from 'reselect';
+import { ownersListOpenSelector, ownersListResultsSelector, searchLoadingSelector } from '../../selectors/cadastrapp';
+
 
 import Coownership from '../../components/search/CoownershipSearch';
 import Owners from '../../components/search/OwnersSearch';
+import OwnersModal from '../../components/owners/Modal';
 import Plots from '../../components/search/PlotSearch';
 
-import { search } from '../../actions/cadastrapp';
+import { search, ownersSearch, clearOwners } from '../../actions/cadastrapp';
 
 import {
     SEARCH_TOOLS
 } from '../../constants';
 
-const PlotsSearch = connect(() => ({}), {
+const mapSearchLoadingToProps = createSelector(
+    searchLoadingSelector,
+    (loading) => ({ loading })
+);
+
+const PlotsSearch = connect(mapSearchLoadingToProps, {
     onSearch: search
 })(Plots);
-const OwnersSearch = connect(() => ({}), {
-    onSearch: search
+const OwnersSearch = connect(mapSearchLoadingToProps, {
+    onSearch: search,
+    onOwnersSearch: ownersSearch
 })(Owners);
-const CoownershipSearch = connect(() => ({}), {
-    onSearch: search
+
+const CoownershipSearch = connect(mapSearchLoadingToProps, {
+    onSearch: search,
+    onOwnersSearch: ownersSearch
 })(Coownership);
+
+const OwnersList = connect(createSelector(
+    ownersListOpenSelector,
+    ownersListResultsSelector,
+    (show, owners) => ({
+        show,
+        owners
+    })
+), {
+    onSearch: search,
+    onClose: () => clearOwners()
+})(
+    // not rendering the modal at all when show is false is useful to reset internal state on every load
+    branch(({ show }) => !show, renderNothing)(OwnersModal)
+);
 
 /**
  * Renders the search form,
@@ -33,11 +61,11 @@ export default function SearchSection({
         return (<PlotsSearch
         />);
     case SEARCH_TOOLS.OWNER:
-        return (<OwnersSearch
-        />);
+        return (<><OwnersSearch
+        /><OwnersList /></>);
     case SEARCH_TOOLS.COOWNER:
-        return (<CoownershipSearch
-        />);
+        return (<><CoownershipSearch
+        /><OwnersList /></>);
 
     default:
         return null;

@@ -6,12 +6,12 @@ import loadingState from "@mapstore/components/misc/enhancers/loadingState";
 import {
     bulleInfoSelector,
     getAuthLevel,
-    loaderSelector,
+    popupLoaderSelector,
     cadastrappPluginCfgSelector
 } from "@js/extension/selectors/cadastrapp";
 
 export default connect(state => ({
-    loader: loaderSelector(state),
+    loader: popupLoaderSelector(state),
     infoBulle: bulleInfoSelector(state),
     authLevel: getAuthLevel(state),
     foncier: get(cadastrappPluginCfgSelector(state), 'foncier', true)

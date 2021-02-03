@@ -23,8 +23,8 @@ export default function Buildings({
 
     // row selection
     const [selected, setSelected] = useState([]);
-    const onRowsSelected = (rows) => setSelected(rows.map(r => r.originalIndex));
-    const onRowsDeselected = (rows) => setSelected(selected.filter(i => rows.map(r => r.originalIndex).indexOf(i) === -1));
+    const onRowsSelected = (rows) => setSelected(rows.map(({row}) => row.originalIndex));
+    const onRowsDeselected = (rows) => setSelected(selected.filter(i => rows.map(({ row }) => row.originalIndex).indexOf(i) === -1));
 
     // load buildings for letter
     const [buildings, setBuildings] = useState([]);

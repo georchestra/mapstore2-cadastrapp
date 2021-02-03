@@ -396,3 +396,14 @@ export function exportCoProprietaireByParcelles({
     params.append('parcelles', castArray(parcelles).join(','));
     return axios.post(`${baseURL}/services/exportCoProprietaireByParcelles`, params, { responseType: 'arraybuffer' });
 }
+
+/**
+ * Utility function. Export as csv the passed data (array (rows), of array(columns)).
+ * @param {array[]} params.data rows, each row is an array of columns
+ */
+export function exportAsCsv({data}) {
+    const params = new URLSearchParams();
+    castArray(data).forEach(dd => params.append('data', castArray(dd).join(',')));
+    return axios.get(`${baseURL}/services/exportAsCsv`, {params}, { responseType: 'arraybuffer' });
+}
+

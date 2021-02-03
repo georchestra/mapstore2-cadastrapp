@@ -139,14 +139,9 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                                         return showLandedPropertyInformation(parcelle);
                                     }
                                     return addPlots([parcelle]);
-                                }).let(wrapStartStop(
-                                    [loading(true, "features")],
-                                    loading(false, "features")
-                                ))
-                                .merge(
-
-                                );
+                                });
                         })
+                        .let(wrapStartStop([loading(true, "plotSelection", "count")], loading(false, "plotSelection", "count")))
                         .merge(
                             Rx.Observable.of(startDrawingAction).delay(200) // reactivate drawing
                         );

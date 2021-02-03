@@ -21,6 +21,10 @@ export const SET_STYLES = "CADASTRAPP:SET_STYLES";
 
 export const SEARCH = "CADASTRAPP:SEARCH";
 
+export const OWNERS_SEARCH = "CADASTRAPP:OWNERS_SEARCH";
+export const SHOW_OWNERS = "CADASTRAPP:SHOW_OWNERS";
+export const CLEAR_OWNERS = "CADASTRAPP:CLEAR_OWNERS";
+
 export const SHOW_LANDED_PROPERTIES_INFORMATION = "CADASTRAPP:SHOW_LANDED_PROPERTIES_INFORMATION";
 export const LOAD_INFO = "CADASTRAPP:LOAD_INFO";
 export const INFORMATION_UPDATE = "CADASTRAPP:INFORMATION_UPDATE";
@@ -56,8 +60,15 @@ export const setUp = (cfg) => ({
     cfg
 });
 
-export const loading = (value, name) => ({
+/**
+ *
+ * @param {boolean} value true or false
+ * @param {string} name the name of the loader you want to turn on
+ * @param {string} [mode] optional. if 'count', the loading flags is incremented, decremented on true/false value.
+ */
+export const loading = (value, name, mode) => ({
     type: LOADING,
+    mode,
     value,
     name
 });
@@ -178,6 +189,30 @@ export const search = (searchType, rawParams) => ({
     searchType,
     rawParams
 });
+
+// OWNERS
+
+/**
+ * Toogle search of owners to display the list.
+ * @param {object} rawParams search parameters. Contains prope
+ * @param {string} searchType type of search (SEARCH_TYPES.USER or SEARCH_TYPES.COOWNER)
+ */
+export const ownersSearch = (searchType, rawParams) => ({
+    type: OWNERS_SEARCH,
+    searchType,
+    rawParams
+});
+/**
+ * Open the owners table to show.
+ * @param {object[]} owners results to show in the owners table
+ */
+export const showOwners = (owners) => ({
+    type: SHOW_OWNERS,
+    owners
+});
+export const clearOwners = () => ({
+    type: CLEAR_OWNERS
+})
 
 // LANDED PROPERTY
 export const showLandedPropertyInformation = (parcelle) => ({

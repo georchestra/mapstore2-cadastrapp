@@ -28,7 +28,7 @@ export default function Lot({ values = {}, setValue = () => {}}) {
             </div>
             <div className="form-col">
                 <FormControl componentClassName="textarea"
-                    type="text" bsSize="sm" value={values.parcelle} onChange={v => setParcelle(v.target.value)}/>
+                    type="text" bsSize="sm" value={values?.parcelle ?? ""} onChange={v => setParcelle(v.target.value)}/>
                 <div className="text-muted">ex. 20148301032610C0012, 20148301032610C0013, 20148301032610C0014</div>
             </div>
         </div>

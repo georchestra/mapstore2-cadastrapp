@@ -22,10 +22,13 @@ import {
     getCurrentPlotData,
     selectedPlotIdsSelector,
     plotsSelector,
-    getAuthLevel
+    getAuthLevel,
+    plotSelectionLoadingSelector,
+    informationLoadingCountSelector
 } from '../../selectors/cadastrapp';
 
 const PlotsSelection = connect((state) => ({
+    loading: plotSelectionLoadingSelector(state) || informationLoadingCountSelector(state),
     currentData: getCurrentPlotData(state),
     selectedPlots: selectedPlotIdsSelector(state),
     data: plotDataSelector(state),

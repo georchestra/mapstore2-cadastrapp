@@ -16,22 +16,22 @@ export function downloadFileGet(url, downloadOptions) {
         method: 'GET',
         responseType: 'blob' // important
     }).then(toDownload(downloadOptions));
-};
+}
 
-export function downloadResponse(response) {
+export function downloadResponse(response, { fileName = 'unknown' } = {}) {
     const blob = new Blob([response.data], { type: response.data.type });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     const contentDisposition = response.headers['content-disposition'];
-    let fileName = 'unknown';
+    let name = fileName;
     if (contentDisposition) {
         const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
         if (fileNameMatch.length > 2 && fileNameMatch[1]) {
-            fileName = fileNameMatch[1];
+            name = fileNameMatch[1];
         }
     }
-    link.setAttribute('download', fileName);
+    link.setAttribute('download', name);
     document.body.appendChild(link);
     link.click();
     link.remove();

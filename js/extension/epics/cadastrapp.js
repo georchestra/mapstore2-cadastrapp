@@ -9,6 +9,6 @@ export { cadastrappMapSelection, mouseMovePopupEpic, showPopupEpic } from './map
 
 export { cadastrappZoomToSelection } from './events';
 
-export { cadastrappSearch } from './search';
+export { cadastrappSearch, cadastrappOwnersSearch } from './search';
 
 export { loadParcelleInformationData } from './information';

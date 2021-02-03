@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+
 import { SEARCH_TYPES } from '../../constants';
 import { isSearchValid } from '../../utils/validation';
 
 
-import { Tabs, Tab, Button, ButtonGroup} from "react-bootstrap";
+import { Tabs, Tab} from "react-bootstrap";
 
 import Reference from '../forms/Reference';
 import Address from '../forms/Address';
 import Identifier from '../forms/Identifier';
 import Lot from '../forms/Lot';
 import useFormState from '../../hooks/useFormState';
+import SearchButtons from './SearchButtons';
 
-export default function PlotsSearch({onSearch = () => {}}) {
+export default function PlotsSearch({onSearch = () => {}, loading}) {
     const [currentTab, setCurrentTab] = useState('reference');
     const [searchState, setFormState, resetFormState] = useFormState();
 
@@ -45,18 +47,12 @@ export default function PlotsSearch({onSearch = () => {}}) {
                         setValue={(key, value) => setFormState(SEARCH_TYPES.LOT, key, value)} />
                 </Tab>
             </Tabs>
-            <ButtonGroup style={{ margin: "10px", "float": "right" }}>
-                <Button
-                    onClick={() => resetFormState(currentTab)}
-                >Clear</Button>
-                <Button
-                    disabled={!isSearchValid(currentTab, searchState[currentTab]) }
-                    bsStyle="primary"
-                    onClick={() => {
-                        onSearch(currentTab, searchState[currentTab]);
-                    }}
-                >Search</Button>
-            </ButtonGroup>
+            <SearchButtons
+                loading={loading}
+                valid={isSearchValid(currentTab, searchState[currentTab])}
+                onClear={() => resetFormState(currentTab)}
+                onSearch={() => onSearch(currentTab, searchState[currentTab])}
+            />
         </div>
     );
 }
