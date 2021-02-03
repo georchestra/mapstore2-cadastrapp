@@ -156,8 +156,11 @@
 .cadastrapp-modal.cadastrapp-information-modal {
   min-width: 85% !important;
 }
-div.cadastrapp-modal.cadastrapp-owners-modal {
-  min-width: 450px !important;
+div.cadastrapp-owners-modal .modal-dialog {
+  width: 85% !important;
+}
+div.cadastrapp-modal.cadastrapp-owners-modal .modal-content{
+  min-width: 850px !important;
 }
 div.cadastrapp-modal.cadastrapp-landed-property-modal {
   min-width: 850px !important;

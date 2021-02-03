@@ -29,6 +29,7 @@ export default function OwnersModal({
     const onRowsSelected = (rows) => setSelected(selected.concat(rows.map(r => r.rowIdx)));
     const onRowsDeselected = (rows) => setSelected(selected.filter(i => rows.map(r => r.rowIdx).indexOf(i) === -1));
     return (<Modal
+        className="cadastrapp-owners-modal"
         style={{ maxHeight: "100%", overflowY: "auto", zIndex: 10000 }}
         show={show}
         onHide={onClose}>
@@ -85,7 +86,7 @@ export default function OwnersModal({
                                 // in case all list have to be downloaded,
                                 // recreate the data to download
                                 const separator = response.data[response.data.indexOf(titles[1]) - 1];
-                                const data = [titles.join(separator), ...rows].join("\n");
+                                const data = [titles.join(separator), ...(rows.map(row => row.join(separator)))].join("\n");
                                 downloadResponse({
                                     ...response,
                                     data

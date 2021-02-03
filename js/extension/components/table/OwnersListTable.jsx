@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReactDataGrid from './MultilineHeaderTable';
+import ReactDataGrid from 'react-data-grid';
 import PropTypes from 'prop-types';
 import { EmptyRowsView } from './EmptyRowsView';
 
@@ -12,7 +12,6 @@ const columns = [{
     key: 'comptecommunal'
 }, {
     name: "Full name information",
-    width: 500,
     i18n: 'cadastrapp.result.owner.ddenom',
     resizable: true,
     key: 'app_nom_usage'
@@ -36,7 +35,7 @@ function OwnersTable({
         emptyRowsView={() => <EmptyRowsView loading={loading} />}
         rowGetter={i => rows[i]}
         rowsCount={rows.length}
-        minHeight={250}
+        minHeight={350}
         columns={columns}
         rowSelection={{
             showCheckbox: false,
