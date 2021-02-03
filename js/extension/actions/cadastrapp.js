@@ -29,6 +29,8 @@ export const SHOW_LANDED_PROPERTIES_INFORMATION = "CADASTRAPP:SHOW_LANDED_PROPER
 export const LOAD_INFO = "CADASTRAPP:LOAD_INFO";
 export const INFORMATION_UPDATE = "CADASTRAPP:INFORMATION_UPDATE";
 export const INFORMATION_CLEAR = "CADASTRAPP:INFORMATION_CLEAR";
+export const SAVE_BUBBLE_INFO = "CADASTRAPP:SAVE_BUBBLE_INFO";
+export const SHOW_POPUP = "CADASTRAPP:SHOW_POPUP";
 
 /**
  * Set the style of highlight
@@ -53,8 +55,9 @@ export const setLayerStyles = (styles = LAYER_STYLES) => ({
 /**
  * Triggered on cadastrapp activation
  */
-export const setUp = () => ({
-    type: SETUP
+export const setUp = (cfg) => ({
+    type: SETUP,
+    cfg
 });
 
 /**
@@ -244,4 +247,18 @@ export const clearInformation = () => ({
  */
 export const zoomToExtentAllResults = () => ({
     type: ZOOM_TO_RESULTS
+});
+
+/**
+ * Save bulle info for Popup
+ */
+export const saveBubbleInfo = (data) => ({
+    type: SAVE_BUBBLE_INFO,
+    data
+});
+
+export const showPopup = (parcelle, position) => ({
+    type: SHOW_POPUP,
+    parcelle,
+    position
 });

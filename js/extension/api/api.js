@@ -350,6 +350,16 @@ export function exportLotsAsPDF({
     return axios.post(`${baseURL}/services/exportLotsAsPDF`, params, { responseType: 'arraybuffer' });
 }
 
+/**
+ * Get bulle/popup info from the parcelle layer
+ * @param {object} parcelle parcelle id of the info requested
+ * @param {boolean} foncier config
+ */
+export function getInfoBulle(parcelle, foncier = true) {
+    let params = {parcelle, ...(!foncier && {infouf: 0})};
+    return axios.get(`${baseURL}/services/getInfoBulle`, {params}).then(({data}) => data);
+}
+
 // DOWNLOAD (PLOT SELECTION)
 /**
  * Download parcelles as CSV

@@ -19,7 +19,8 @@ import {
     CLEAR_OWNERS,
     SHOW_LANDED_PROPERTIES_INFORMATION,
     INFORMATION_UPDATE,
-    INFORMATION_CLEAR
+    INFORMATION_CLEAR,
+    SAVE_BUBBLE_INFO, SETUP
 } from '../actions/cadastrapp';
 
 import {LAYER_STYLES} from '../constants';
@@ -94,6 +95,8 @@ const DEFAULT_STATE = {
 export default function cadastrapp(state = DEFAULT_STATE, action) {
     const type = action.type;
     switch (type) {
+    case SETUP:
+        return set('pluginCfg', action.cfg, state);
     case SET_CONFIGURATION:
         return set('configuration', action.configuration, state);
     case LOADING: {
@@ -224,7 +227,9 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
             `informationData`, undefined, state
         );
     }
-
+    case SAVE_BUBBLE_INFO: {
+        return set('infoBulle', action.data, state);
+    }
     default:
         return state;
     }
