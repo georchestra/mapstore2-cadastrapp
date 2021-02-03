@@ -1,178 +1,242 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '@mapstore/components/misc/Modal';
+import Message from '@mapstore/components/I18N/Message';
 import Select from 'react-select';
+import Spinner from "react-spinkit";
+import { isEmpty, includes, get } from 'lodash';
 import { Button, ControlLabel, FormControl, Radio, FormGroup } from "react-bootstrap";
-
+import { checkRequestLimitation } from "../../api";
 import RequestObject from '../request/RequestObject';
+import {
+    DEFAULT_REQUEST_OBJ,
+    USER_TYPE_OPTIONS,
+    formulatePrintParams,
+    DEFAULT_MAX_REQUEST
+} from "@js/extension/utils/requestForm";
 
+export default function RequestFormModal({
+    onClose = () => {},
+    isShown = false,
+    authLevel = {},
+    maxRequest = DEFAULT_MAX_REQUEST,
+    ...props
+}) {
+    const [showReqByFields, setShowReqByFields] = useState(false);
+    const [showRequestObj, setShowRequestObj] = useState(false);
+    const [requestFormData, setRequestFormData] = useState(DEFAULT_REQUEST_OBJ);
+    const [printDisabled, setPrintDisabled] = useState(true);
+    const [availableRequest, setAvailableRequest] = useState(+maxRequest);
+    const [checkingLimit, setCheckingLimit] = useState(false);
 
-export default function RequestFormModal(props) {
+    useEffect(()=>{
+        const {type, lastname, cni} = requestFormData;
+        const isNotNormalUser = !isEmpty(type) && type !== "P3";  // P3 is normal user
+        const isValidNormalUser = !isEmpty(cni) && type === "P3";
 
-    const userTypeOptions = [
-        { value: '0', label: 'Administration' },
-        { value: '1', label: 'P1 - User with Rights' },
-        { value: '2', label: 'P2 - Representative' },
-        { value: '3', label: 'P3 - Normal user' }
-    ];
+        setShowReqByFields(isNotNormalUser || isValidNormalUser); // Show/hide request by fields
+        setShowRequestObj((isNotNormalUser && lastname.length > 2) || isValidNormalUser); // Show/hide request object fields
+    }, [requestFormData.cni, requestFormData.type, requestFormData.lastname]);
 
-    let [userType, setUserType] = useState("");
-    let [radioClass, setRadioClass] = useState("collapse");
-    let [requestClass, setRequestClass] = useState("collapse");
+    // Check request limit based cni and type
+    const checkRequestLimit = ({cni, type}) => {
+        setCheckingLimit(true);
+        // Check request limitation
+        checkRequestLimitation({cni, type}).then((data)=> {
+            if (data.user) {
+                // User the fetched user data to populate the request form field
+                setRequestFormData({
+                    ...requestFormData, ...data.user,
+                    firstname: data.user?.firstName || '',
+                    lastname: data.user?.lastName || '',
+                    codepostal: data.user?.codePostal || ''
+                });
+            }
+            // Set available requests from the response, else set max request from configuration
+            data.requestAvailable ? setAvailableRequest(+data.requestAvailable) : setAvailableRequest(+maxRequest);
+            setCheckingLimit(false);
+        }).catch(()=>{
+            setCheckingLimit(false);
+            props.onError({
+                title: "Error",
+                message: "cadastrapp.requestForm.availableReqError"
+            });
+        });
+    };
 
-    const handleLastNameChange = (e) => {
+    const [printRequest, setPrintRequest] = useState({});
 
-        if (e.target.value.length > 2) {
-            setRequestClass("item-row");
+    useEffect(() => {
+        // Generate print params from form data
+        setPrintRequest(formulatePrintParams(requestFormData));
+    }, [requestFormData]);
+
+    const onChange = (item) => {
+        let formObj;
+        if (item.value) {
+            formObj = {...DEFAULT_REQUEST_OBJ, type: item.value};
         } else {
-            setRequestClass("collapse");
+            const {name = '', value = ''} = item?.target || {};
+            formObj = {...requestFormData, [name]: includes(['askby', 'responseby'], name) ? +value : value};
+            name === "cni" && setCheckingLimit(true); // Set flag when checking for request limit
+        }
+        setRequestFormData(formObj);
+    };
+
+    const onBlur = ({target}) => {
+        const {name = '', value = ''} = target || {};
+        const trimmedValue = value.trim();
+        setRequestFormData({...requestFormData, [name]: trimmedValue});
+
+        // Check request Limit
+        if (name === "cni" && !isEmpty(requestFormData.type) && !isEmpty(trimmedValue) && trimmedValue.length > 2) {
+            checkRequestLimit(requestFormData); // Request for allowed requests
         }
     };
 
-    const handleChange = (item) => {
-        setUserType(item.value);
+    const onCloseForm = () => { onClose(); setRequestFormData(DEFAULT_REQUEST_OBJ); setAvailableRequest(DEFAULT_MAX_REQUEST);};
 
-        if (item.value === 3) {
-            setRadioClass("collapse");
-        } else {
-            setRadioClass("item-row");
+    const formFields = [
+        {
+            value: requestFormData.cni,
+            name: 'cni',
+            label: <Message msgId={"cadastrapp.requestForm.cni"}/>,
+            validation: requestFormData.type === 'P3' && isEmpty(requestFormData.cni) && "error"
+        },
+        {
+            value: requestFormData.lastname,
+            name: 'lastname',
+            label: <Message msgId={"cadastrapp.requestForm.lastName"}/>
+        },
+        {
+            value: requestFormData.firstname,
+            name: 'firstname',
+            label: <Message msgId={"cadastrapp.requestForm.firstName"}/>
+        },
+        {
+            value: requestFormData.adress,
+            name: 'adress',
+            label: <Message msgId={"cadastrapp.requestForm.roadNumber"}/>
+        },
+        {
+            value: requestFormData.codepostal,
+            name: 'codepostal',
+            label: <Message msgId={"cadastrapp.requestForm.zipCode"}/>
+        },
+        {
+            value: requestFormData.commune,
+            name: 'commune',
+            label: <Message msgId={"cadastrapp.requestForm.town"}/>
+        },
+        {
+            value: requestFormData.mail,
+            name: 'mail',
+            type: 'email',
+            label: <Message msgId={"cadastrapp.requestForm.mail"}/>
         }
+    ];
+
+    const radioButtonGroup = {
+        groupLabel: [
+            {label: <Message msgId={"cadastrapp.requestForm.askBy"}/>, name: 'askby' },
+            {label: <Message msgId={"cadastrapp.requestForm.responseBy"}/>, name: 'responseby'}
+        ],
+        groupField: [
+            <Message msgId={"cadastrapp.requestForm.counter"}/>,
+            <Message msgId={"cadastrapp.requestForm.mail"}/>,
+            <Message msgId={"cadastrapp.requestForm.email"}/>
+        ]
     };
 
     return (
         <Modal
             dialogClassName="cadastrapp-modal"
-            show={props.isShown} onHide={props.onClose}>
+            show={isShown} onHide={onCloseForm}>
             <Modal.Header closeButton>
-                <Modal.Title>Request on landholding trust</Modal.Title>
+                <Modal.Title><Message msgId={'cadastrapp.requestForm.title'}/></Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-
+            <Modal.Body style={{maxHeight: 500, overflowY: "auto"}}>
                 <div className="item-row">
                     <div className="label-col">
-                        <ControlLabel>Request User Type</ControlLabel>
+                        <ControlLabel><Message msgId={'cadastrapp.requestForm.requestType'}/></ControlLabel>
                     </div>
                     <div className="form-col">
-                        <Select value={userType} onChange={handleChange} options={userTypeOptions}/>
+                        <Select name="type" value={requestFormData.type} onChange={onChange} options={USER_TYPE_OPTIONS}/>
                     </div>
                 </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>CNI</ControlLabel>
+                {
+                    formFields.map(({label, name, value, type = "text", validation = null})=> (
+                        <div className="item-row">
+                            <FormGroup validationState={validation}>
+                                <div className="label-col">
+                                    <ControlLabel>{label}</ControlLabel>
+                                </div>
+                                <div className="form-col">
+                                    <FormControl
+                                        disabled={isEmpty(requestFormData.type) || (name !== "cni" && requestFormData.type === 'P3' && isEmpty(requestFormData.cni))}
+                                        value={value} name={name} onBlur={onBlur} onChange={onChange} type={type}
+                                        bsSize="sm"
+                                    />
+                                </div>
+                            </FormGroup>
+                        </div>
+                    ))
+                }
+                {
+                    showReqByFields && radioButtonGroup.groupLabel.map(({label, name})=> (
+                        <div className={"item-row"}>
+                            <div className="label-col">
+                                <ControlLabel>{label}</ControlLabel>
+                            </div>
+                            <div className="form-col">
+                                <FormGroup>
+                                    {radioButtonGroup.groupField.map((fieldLabel, index)=>
+                                        <Radio onChange={onChange} checked={requestFormData[name] === index + 1} value={index + 1}  name={name} inline>
+                                            {fieldLabel}
+                                        </Radio>)}
+                                </FormGroup>
+                            </div>
+                        </div>
+                    ))
+                }
+                <hr/>
+                {showRequestObj && !checkingLimit && <div className={"item-row"}>
+                    <div style={{width: '100%', "float": "left"}}>
+                        <ControlLabel><Message msgId={"cadastrapp.requestForm.requestObj"}/></ControlLabel>
                     </div>
-                    <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
-                    </div>
+                    <RequestObject
+                        allow={(authLevel.isCNIL2 || authLevel.isCNIL1)}
+                        requestFormData={requestFormData}
+                        setPrintDisabled={setPrintDisabled}
+                        setRequestFormData={setRequestFormData}
+                        setAvailableRequest={setAvailableRequest}
+                        availableRequest={availableRequest}
+                    />
                 </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>Last Name</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormControl onChange={handleLastNameChange} type="text" bsSize="sm"/>
-                    </div>
-                </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>First Name</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
-                    </div>
-                </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>Road Number</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
-                    </div>
-                </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>Zip Code</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
-                    </div>
-                </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>Town, Municipality</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
-                    </div>
-                </div>
-
-                <div className="item-row">
-                    <div className="label-col">
-                        <ControlLabel>Mail</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormControl type="text" bsSize="sm"/>
-                    </div>
-                </div>
-                <div className={radioClass}>
-                    <div className="label-col">
-                        <ControlLabel>Request ask by</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormGroup>
-                            <Radio name="radioGroup" inline>
-                                Guichet
-                            </Radio>{' '}
-                            <Radio name="radioGroup" inline>
-                                Courrier
-                            </Radio>{' '}
-                            <Radio name="radioGroup" inline>
-                                Mail
-                            </Radio>
-                        </FormGroup>
-                    </div>
-                </div>
-
-                <div className={radioClass}>
-                    <div className="label-col">
-                        <ControlLabel>Give document by</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                        <FormGroup>
-                            <Radio name="radioGroup" inline>
-                                Guichet
-                            </Radio>{' '}
-                            <Radio name="radioGroup" inline>
-                                Courrier
-                            </Radio>{' '}
-                            <Radio name="radioGroup" inline>
-                                Mail
-                            </Radio>
-                        </FormGroup>
-                    </div>
-                </div>
-                <hr></hr>
-                <div className={requestClass}>
-                    <div className="label-col">
-                        <ControlLabel>Request Object</ControlLabel>
-                    </div>
-                    <div className="form-col">
-                    </div>
-                </div>
-
-                <div className={requestClass}>
-                    <RequestObject/>
-                </div>
-
+                }
             </Modal.Body>
             <Modal.Footer>
-                <Button>Cancel Request</Button>
-                <Button>Print Request</Button>
-                <Button>Generate Documents</Button>
+                <Button onClick={onCloseForm}><Message msgId={'cadastrapp.requestForm.cancel'}/></Button>
+                <Button
+                    disabled={printDisabled}
+                    onClick={()=>props.onPrintPDF(printRequest)}
+                    className="print"
+                >
+                    {props.loading ? (
+                        <Spinner
+                            spinnerName="circle"
+                            noFadeIn
+                            overrideSpinnerClassName="spinner"
+                        />
+                    ) : null}
+                    <Message msgId={'cadastrapp.requestForm.print'}/>
+                </Button>
+                <Button
+                    disabled={get(props, 'allowDocument', true)}
+                    onClick={()=>props.onPrintPDF(null, 'Document')}
+                    className="print"
+                >
+                    <Message msgId={'cadastrapp.requestForm.genDocuments'}/>
+                </Button>
             </Modal.Footer>
         </Modal>);
 }

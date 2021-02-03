@@ -20,7 +20,10 @@ import {
     SHOW_LANDED_PROPERTIES_INFORMATION,
     INFORMATION_UPDATE,
     INFORMATION_CLEAR,
-    SAVE_BUBBLE_INFO, SETUP
+    SAVE_BUBBLE_INFO,
+    SETUP,
+    PRINT_SUCCESS,
+    PRINT_RESPONSE
 } from '../actions/cadastrapp';
 
 import {LAYER_STYLES} from '../constants';
@@ -230,6 +233,10 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case SAVE_BUBBLE_INFO: {
         return set('infoBulle', action.data, state);
     }
+    case PRINT_RESPONSE: {
+        return {...state, requestFormData: {...state.requestFormData, allowDocument: action.allowDocument, requestId: action.requestId}};
+    }
+
     default:
         return state;
     }

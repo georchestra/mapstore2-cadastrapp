@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { Button, Glyphicon } from "react-bootstrap";
+import isEmpty from "lodash/isEmpty";
 import { getDnuplaList } from '../../api';
 
-import { DropdownList } from 'react-widgets';
+import { DropdownList as DL } from 'react-widgets';
+import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
+const DropdownList = localizedProps('placeholder')(DL);
+
 /**
  * Row element for Reference(s) list in Reference plot search.
  * @prop {object} row the content. is an object of two "columns". "section" and "plot".
@@ -10,7 +14,8 @@ import { DropdownList } from 'react-widgets';
  * @prop {function} setValue handler to set the value for the current row. 2 arguments. (column, value); column should be "section" or "plot". Value is the object selected.
  * @prop {function} onRemove handler to remove the current row.
  */
-export default function ReferenceRow({ row = {}, sections, onSetValue = () => { }, onRemove }) {
+export default function ReferenceRow({ row = {}, sections, onSetValue = () => { }, onRemove, hideRemove = false,
+    containerStyle = {}, fieldStyle = {width: 120, marginTop: 5, marginRight: 5}, openSection = true}) {
     const [plots, setPlots] = useState();
     const [busy, setBusy] = useState();
     const [openPlot, setOpenPlot] = useState(false);
@@ -27,11 +32,13 @@ export default function ReferenceRow({ row = {}, sections, onSetValue = () => { 
             });
         }
     }, [section]);
-    return (<div style={{ width: "100%", "float": "left", display: "flex" }}>
+    return (<div style={{ width: "100%", "float": "left", display: "flex", ...containerStyle }}>
         <DropdownList
-            defaultOpen
-            style={{width: 120, marginTop: 5, marginRight: 5}}
+            open={openSection}
+            disabled={isEmpty(sections)}
+            style={fieldStyle}
             textField="ccosec"
+            placeholder={'cadastrapp.fields.section'}
             value={section}
             onChange={() => { }}
             onSelect={newSection => {
@@ -49,8 +56,9 @@ export default function ReferenceRow({ row = {}, sections, onSetValue = () => { 
             open={openPlot}
             busy={busy}
             disabled={!plots}
-            style={{ width: 120, marginTop: 5, marginRight: 5 }}
+            style={fieldStyle}
             value={plot}
+            placeholder={'cadastrapp.fields.plotNumber'}
             textField="dnupla"
             filter="contains"
             onSelect={v => {
@@ -58,12 +66,13 @@ export default function ReferenceRow({ row = {}, sections, onSetValue = () => { 
             }}
             data={plots}
         />
-        <Button
-            style={{ marginTop: 3, marginRight: 3 }}
+        {!hideRemove && <Button
+            style={{marginTop: 3, marginRight: 3}}
             className="pull-right"
             onClick={onRemove}
         >
-            <Glyphicon glyph="trash" />
+            <Glyphicon glyph="trash"/>
         </Button>
+        }
     </div>);
 }

@@ -26,6 +26,10 @@
                 "nodata": "Aucune donnée à afficher",
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
+            },
+            "requestForm": {
+                "propertyStatement": "Relevé de propriété",
+                "parcelSlip": "Bordereau parcellaire"
             }
         }
     }

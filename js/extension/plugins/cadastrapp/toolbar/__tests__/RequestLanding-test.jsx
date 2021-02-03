@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 
 import RequestLanding from '../RequestLanding';
+import {applyTestEnv} from "@js/extension/plugins/__tests__/testUtils";
+import cadastrapp from "@js/extension/reducers/cadastrapp";
 
 
 describe("RequestLanding", () => {
@@ -18,7 +20,8 @@ describe("RequestLanding", () => {
         setTimeout(done);
     });
     it('test it opens the window', () => {
-        ReactDOM.render(<RequestLanding />, document.getElementById('container'));
+        const [, Cmp] = applyTestEnv(RequestLanding, { reducers: {cadastrapp}});
+        ReactDOM.render(<Cmp />, document.getElementById('container'));
         const button = document.getElementsByTagName('button')[0];
         expect(button).toExist();
         expect(document.getElementsByClassName('cadastrapp-modal').length).toEqual(0);

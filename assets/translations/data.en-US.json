@@ -5,7 +5,8 @@
             "title": "Cadastrapp",
             "toolbar": {
                 "zoomTo": "Zoom to results extent",
-                "help": "Help"
+                "help": "Help",
+                "request": "Request"
             },
             "popup": {
                 "parcelle": "Parcelle",
@@ -26,6 +27,40 @@
                 "nodata": "No data to display",
                 "noaccess": "Unauthorised access to land information",
                 "error": "Unable to fetch bubble info"
+            },
+            "fields": {
+                "section": "Section",
+                "plotNumber": "Plot number"
+            },
+            "requestForm": {
+                "title": "Request on landholding trust",
+                "askBy": "Request ask by",
+                "requestBy": "Give document by",
+                "counter": "Counter",
+                "email": "Email",
+                "requestType": "Request User Type",
+                "requestObj": "Request Object",
+                "responseBy": "Give document by",
+                "cni" : "CNI",
+                "lastName": "Last Name",
+                "firstName": "First Name",
+                "roadNumber": "Road Number",
+                "zipCode": "Zip Code",
+                "town": "Town, Municipality",
+                "mail": "Mail",
+                "cancel": "Cancel Request",
+                "print": "Print Request",
+                "genDocuments": "Generate Documents",
+                "addMore": "Click to add more request object items",
+                "accountId": "Municipial account id",
+                "plotId": "Plot id",
+                "commune": "Commune",
+                "owner": "Owner",
+                "limit": "Max request limit reached",
+                "propertyStatement": "Property statement",
+                "parcelSlip": "Parcel slip",
+                "printError": "Unable to print request form data",
+                "availableReqError": "Unable to fetch available requests"
             }
         }
     }
