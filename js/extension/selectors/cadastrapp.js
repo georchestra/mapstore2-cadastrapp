@@ -234,8 +234,8 @@ export function bulleInfoSelector(state) {
     return state?.cadastrapp?.infoBulle ?? {};
 }
 
-export function loaderSelector(state) {
-    return state?.cadastrapp?.loading ?? {};
+export function popupLoaderSelector(state) {
+    return state?.cadastrapp?.loadFlags?.popupLoading ?? {};
 }
 
 export function cadastrappPluginCfgSelector(state) {
