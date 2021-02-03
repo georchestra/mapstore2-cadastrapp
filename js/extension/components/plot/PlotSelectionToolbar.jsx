@@ -83,21 +83,4 @@ export default function PlotSelectionToolbar({
             />
             <BundleInformationModal show={showBundleInformation} onClose={() => setShowBundleInformation(false)} parcelle={selectedPlots[0]} />
         </>);
-/*
-        <ButtonGroup className="pull-right">
-
-
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Information Form"}</Tooltip>}>
-                <Button
-                    {...(!isOneSelected ? { disabled: 'true' } : {})}
-                    onClick={() => { onClick("information-form"); }}
-                ><Glyphicon glyph="info-sign" /></Button>
-            </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Export"}</Tooltip>}>
-
-            </OverlayTrigger>
-        </ButtonGroup>
-
-    );
-*/
 }

@@ -26,13 +26,16 @@ export const loadParcelleInformationData = (action$, store) => {
                         Rx.Observable.defer(() => getBatimentsByParcelle({ parcelle: parcelle })).map(data => updateInformation(parcelle, 'letters', data)),
                         Rx.Observable.defer(() => getFic({ parcelle, onglet: 3 })).map(data => updateInformation(parcelle, 'fiscalSubDiv', data))
                     ]
-                    : [])
+                    : []),
             ).catch(() => {
                 Rx.Observable.of(loading(false, `info[${parcelle}]`), error({title: "error getting information", message: `error getting information for parcelle ${parcelle}`}));
             }).concat(Rx.Observable.defer(() => {
-                return Rx.Observable.of(loading(false, `info[${parcelle}]`),);
-            })).startWith(loading(true, `info[${parcelle}]`))
-        )
+                return Rx.Observable.of(
+                    loading(false, `info[${parcelle}]`), // finalize loading of the parcelle
+                    loading(false, `info.count`, 'count')); // decrement loading count
+            })).startWith(loading(true, `info[${parcelle}]`)) // initialize loading of the parcelle
+            , 2) // prevent too many requests to be queued. If the window is closed, only 2 parcelles will finish loading.
+            .startWith(loading(parcelles.length, `info.count`, 'count')) // initializes loading count
             .takeUntil(action$.ofType(INFORMATION_CLEAR)) // stop loading on close
             .concat(Rx.Observable.of(loading({}, `info`))); // clear loading object
     });

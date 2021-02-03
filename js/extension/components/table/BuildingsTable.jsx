@@ -73,7 +73,7 @@ function BuildingsTable({
         rowsCount={rows.length}
         minHeight={250}
         columns={columns}
-        onRowClick={(i, row) => onRowsSelected([row])}
+        onRowClick={(i, row) => onRowsSelected([{rowIdx: i, row}])}
         onRowDoubleClick={onRowDoubleClick}
         rowSelection={{
             showCheckbox: false,

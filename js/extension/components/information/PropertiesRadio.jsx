@@ -11,6 +11,7 @@ import { downloadResponse } from '@js/extension/utils/download';
 
 
 export default function PropertiesRadio({
+    showParcelle= true,
     expanded,
     parcelle,
     data = [],
@@ -18,7 +19,7 @@ export default function PropertiesRadio({
 }) {
 
     let className = expanded ? "" : "collapse";
-    const [useParcelle, setUseParcelle] = useState(true);
+    const [useParcelle, setUseParcelle] = useState(showParcelle);
     const [format, setFormat] = useState('pdf');
     const [loading, setLoading] = useState(false);
 
@@ -28,7 +29,7 @@ export default function PropertiesRadio({
             <div
                 style={{ width: "70%" }}
                 className="pull-left">
-                <FormGroup>
+                {showParcelle ? <FormGroup>
                     <b style={{ "float": "left", width: 150, marginRight: 15 }}>Data to extract: </b>
                     <Radio checked={useParcelle} value={"true"} onChange={() => setUseParcelle(true)} inline>
                         Only this plot
@@ -36,7 +37,7 @@ export default function PropertiesRadio({
                     <Radio checked={!useParcelle} value={"false"} onChange={() => setUseParcelle(false)} inline>
                         All Properties
                     </Radio>
-                </FormGroup>
+                </FormGroup> : null}
                 <FormGroup>
                     <b style={{ "float": "left", width: 150, marginRight: 15 }}>Choose output format:</b>
                     <Radio checked={format === 'pdf'} value="pdf" onChange={() => setFormat("pdf")} inline>

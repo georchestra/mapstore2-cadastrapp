@@ -1,5 +1,7 @@
 import React from 'react';
 import PlotsSelectionTable from './table/PlotsSelectionTable';
+import Spinner from "react-spinkit";
+
 
 import {
     Nav,
@@ -21,6 +23,7 @@ import ConfirmButton from './misc/ConfirmButton';
 
 
 function PlotSelectionTabContent({
+    loading,
     loadInfo,
     selectedPlots,
     onRowsSelected,
@@ -39,9 +42,10 @@ function PlotSelectionTabContent({
                             onRowsDeselected={onRowsDeselected}
                             selectedKeys={selectedPlots}
                             data={props.data[index]}
-                            tableIndex={index}/>
-                        <div>
-                            {props.data?.[index]?.length ?? 0} Items ({selectedPlots?.length ?? 0} Selected)
+                            tablloadingeIndex={index}/>
+                        <div style={{height: 25}}>
+                            <span style={{ "float": "right" }}>{props.data?.[index]?.length ?? 0} Items ({selectedPlots?.length ?? 0} Selected)</span>
+                            {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
                         </div>
                     </Tab.Pane>
                 ))}
@@ -83,7 +87,7 @@ function PlotTabs({
     const MAX_TABS = 3; // max number of tabs
     const getPlotTitle = (plot, index) => {
         return plot?.title ?? ("Selection " + (index + 1).toString());
-    }
+    };
     return (
         <Tab.Container
             onSelect={onTabChange}

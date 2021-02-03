@@ -69,7 +69,7 @@ export default function Address({values, setValue = () => {}}) {
                 <ControlLabel>Road Number</ControlLabel>
             </div>
             <div className="form-col">
-                <FormControl style={{ height: 34, width: 100, "float": "left" }} type="text" bsSize="sm" onChange={v => setValue('dnvoiri', v.target.value)}/>
+                <FormControl value={values?.dnvoiri ?? ""} style={{ height: 34, width: 100, "float": "left" }} type="text" bsSize="sm" onChange={v => setValue('dnvoiri', v.target.value)}/>
                 <div className="pull-left">
                     <DropdownList
                         style={{ width: 100, marginLeft: 5 }}

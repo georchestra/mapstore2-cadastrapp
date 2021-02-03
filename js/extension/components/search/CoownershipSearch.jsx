@@ -1,6 +1,6 @@
 import React from 'react';
 import { isString } from 'lodash';
-import { ControlLabel, FormControl, Button, ButtonGroup } from "react-bootstrap";
+import { ControlLabel, FormControl } from "react-bootstrap";
 
 import useFormState from '../../hooks/useFormState';
 import { SEARCH_TYPES } from '@js/extension/constants';
@@ -8,8 +8,10 @@ import { isSearchValid } from '../../utils/validation';
 
 import MunicipalityCombo from '../forms/MunicipalityCombo';
 import ProprietaireCombo from '../forms/ProprietaireCombo';
+import SearchButtons from './SearchButtons';
 
-export default function CoownershipSearch({ onSearch = () => { } }) {
+
+export default function CoownershipSearch({ loading, onSearch = () => { }, onOwnersSearch = () => {} }) {
     const [searchState, setFormState, resetFormState] = useFormState();
     const values = searchState[SEARCH_TYPES.COOWNER];
     const setValue = (k, v) => setFormState(SEARCH_TYPES.COOWNER, k, v);
@@ -48,7 +50,7 @@ export default function CoownershipSearch({ onSearch = () => { } }) {
                         <ControlLabel>Plot id</ControlLabel>
                     </div>
                     <div className="form-col">
-                        <FormControl value={values?.parcelle} onChange={e => setValue('parcelle', e.target.value)} type="text" bsSize="sm"/>
+                        <FormControl value={values?.parcelle ?? ""} onChange={e => setValue('parcelle', e.target.value)} type="text" bsSize="sm"/>
                         <div className="text-muted">ex: 20148301032610C0012</div>
                     </div>
                 </div>
@@ -58,28 +60,23 @@ export default function CoownershipSearch({ onSearch = () => { } }) {
                         <ControlLabel>Owner id</ControlLabel>
                     </div>
                     <div className="form-col">
-                        <FormControl value={values?.comptecommunal} onChange={e => setValue('comptecommunal', e.target.value)} type="text" bsSize="sm"/>
+                        <FormControl value={values?.comptecommunal ?? ""} onChange={e => setValue('comptecommunal', e.target.value)} type="text" bsSize="sm"/>
                         <div className="text-muted">ex. 350001+00160</div>
                     </div>
                 </div>
             </div>
-            <ButtonGroup style={{ margin: "10px", "float": "right" }}>
-                <Button
-                    onClick={() => resetFormState(SEARCH_TYPES.COOWNER)}
-                >Clear</Button>
-                <Button
-                    disabled={!isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
-                    bsStyle="primary"
-                    onClick={() => {
-                        if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire)) {
-                            alert("TODO: Search co owners");
-                        } else {
-                            // plot search
-                            onSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
-                        }
-                    }}
-                >Search</Button>
-            </ButtonGroup>
+            <SearchButtons
+                loading={loading}
+                valid={isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
+                onClear={() => resetFormState(SEARCH_TYPES.COOWNER)}
+                onSearch={() => {
+                    if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire && !values?.parcelle)) {
+                        onOwnersSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
+                    } else {
+                        // plot search
+                        onSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
+                    }
+                }}/>
         </div>
     );
 }

@@ -4,10 +4,12 @@ import {head, trim} from 'lodash';
 import { SEARCH_TYPES } from '../constants';
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
+import { wrapStartStop } from '@mapstore/observables/epics';
+
 import { getCoProprietaireList, getParcelle, getParcelleByCompteCommunal, getProprietaire } from '../api/api';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
-import { SEARCH, addPlots } from '../actions/cadastrapp';
+import { SEARCH, addPlots, OWNERS_SEARCH, showOwners, loading } from '../actions/cadastrapp';
 import { isValidParcelle } from '../utils/validation';
 
 const DELIMITER_REGEX = /[\s\;\,\n]/;
@@ -44,6 +46,8 @@ function getTitle(searchType, rawParams) {
         return "Id(s)";
     case SEARCH_TYPES.OWNER_ID:
         return rawParams?.commune?.label;
+    case SEARCH_TYPES.COMPTE_COMMUNAL:
+        return rawParams?.comptecommunal;
     case SEARCH_TYPES.OWNER_LOT:
         return "By file";
     default:
@@ -128,6 +132,12 @@ function searchParcelles({ searchType, rawParams }) {
         return Rx.Observable.defer(() => readCSV(file).then(comptecommunal => getParcelleByCompteCommunal({ comptecommunal })) )
             .switchMap(parcelles => Rx.Observable.from(parcelles));
     }
+    case SEARCH_TYPES.COMPTE_COMMUNAL: {
+        const { comptecommunal } = rawParams;
+
+        return Rx.Observable.defer(() => getParcelleByCompteCommunal({ comptecommunal }))
+            .switchMap(parcelles => Rx.Observable.from(parcelles));
+    }
     case SEARCH_TYPES.COOWNER: {
         const { commune, proprietaire = {}, parcelle, comptecommunal } = rawParams;
         const { value: ddenom } = proprietaire;
@@ -173,6 +183,26 @@ export function cadastrappSearch(action$, store) {
                     })
             )
             .reduce((acc, next) => [...acc, next], [])
-            .map(parcelles => addPlots(parcelles, target ?? targetFromSearch(searchType, rawParams)));
+            .map(parcelles => addPlots(parcelles, target ?? targetFromSearch(searchType, rawParams)))
+            .let(wrapStartStop(loading(true, 'search'), loading(false, 'search')))
+            .let(wrapStartStop(loading(true, "plotSelection", "count"), loading(false, "plotSelection", "count")));
+    });
+}
+
+/**
+ * Triggers a search of owners to show the list of results.
+ * @param {*} action$
+ */
+export function cadastrappOwnersSearch(action$) {
+    return action$.ofType(OWNERS_SEARCH).switchMap(({searchType, rawParams}) => {
+        const { commune, proprietaire, birthsearch, comptecommunal } = rawParams; // proprietaire in this case is a string
+        // ddenom birthsearch=true
+        const { cgocommune } = commune;
+        return Rx.Observable.defer(() => searchType === SEARCH_TYPES.USER
+            ? getProprietaire({ ddenom: proprietaire, birthsearch, cgocommune, details: 2 })
+            : getCoProprietaireList({ ddenom: proprietaire, cgocommune, comptecommunal, details: 1})
+        )
+            .switchMap( owners => Rx.Observable.of(showOwners(owners)))
+            .let(wrapStartStop(loading(true, 'search'), loading(false, 'search')));
     });
 }

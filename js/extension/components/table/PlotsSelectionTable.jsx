@@ -47,7 +47,7 @@ function PlotsSelectionTable({
         onRowDoubleClick={onRowDoubleClick}
         rowGetter={i => rows[i]}
         rowsCount={rows.length}
-        minHeight={250}
+        minHeight={230}
         columns={columns}
         rowSelection={{
             showCheckbox: true,

@@ -1,5 +1,5 @@
 import { set, arrayUpsert, compose} from '@mapstore/utils/ImmutableUtils';
-import { find, uniq, isNil, isObject, findIndex } from 'lodash';
+import { get, find, uniq, isNil, isObject, isNumber, findIndex } from 'lodash';
 import {
     LOADING,
     ADD_PLOTS,
@@ -15,6 +15,8 @@ import {
     TEAR_DOWN,
     SET_LAYER_STYLE,
     SET_STYLES,
+    SHOW_OWNERS,
+    CLEAR_OWNERS,
     SHOW_LANDED_PROPERTIES_INFORMATION,
     INFORMATION_UPDATE,
     INFORMATION_CLEAR
@@ -95,10 +97,17 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case SET_CONFIGURATION:
         return set('configuration', action.configuration, state);
     case LOADING: {
+        let newValue = action.value;
+        if (action.mode === 'count') {
+            const oldValue = get(state, `loadFlags.${action.name}`) ?? 0;
+            newValue = isNumber(newValue)
+                ? newValue // set with passed value if number
+                : newValue
+                    ? oldValue + 1 // increment if true
+                    : Math.max(oldValue - 1, 0); // decrement if false
+        }
         // anyway sets loading to true
-        return set(action.name === "loading" ? "loading" : `loadFlags.${action.name}`, action.value, set(
-            "loading", action.value, state
-        ));
+        return set(action.name === "loading" ? "loading" : `loadFlags.${action.name}`, newValue, state);
     }
     case TOGGLE_SELECTION: {
         const {selectionType} = action;
@@ -193,6 +202,15 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case SET_STYLES: {
         return set('styles', action.styles, state);
     }
+    case SHOW_OWNERS: {
+        return compose(
+            set('owners.data', action.owners),
+            set('owners.show', true)
+        )(state);
+    }
+    case CLEAR_OWNERS: {
+        return set('owners', undefined, state);
+    }
     case SHOW_LANDED_PROPERTIES_INFORMATION: {
         return set('landedProperty.parcelle', action.parcelle, state);
     }
@@ -204,7 +222,7 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case INFORMATION_CLEAR: {
         return set(
             `informationData`, undefined, state
-        )
+        );
     }
 
     default:

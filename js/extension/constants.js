@@ -56,7 +56,8 @@ export const SEARCH_TYPES = {
     USER: 'user',
     OWNER_ID: 'ownerId',
     OWNER_LOT: "ownerLot", // comptecommunal
-    COOWNER: "coowner"
+    COOWNER: "coowner",
+    COMPTE_COMMUNAL: 'compteCommunal' // from owners --> selection of row --> plots
 };
 export const MIN_PARCELLE_ID_LENGTH = 14;
 
