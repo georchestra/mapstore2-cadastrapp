@@ -153,14 +153,14 @@
   max-width: none !important;
 }
 /* skip overrides in georchestra TODO: remove !important in favor of a more specific rule */
-.cadastrapp-modal.cadastrapp-information-modal,  {
+.cadastrapp-modal.cadastrapp-information-modal {
   min-width: 85% !important;
 }
 div.cadastrapp-modal.cadastrapp-owners-modal {
-  min-width: 450px;
+  min-width: 450px !important;
 }
 div.cadastrapp-modal.cadastrapp-landed-property-modal {
-  min-width: 815px;
+  min-width: 850px !important;
 }
 .cadastrapp-information-modal
 .cadastrapp-modal .tab-content {
