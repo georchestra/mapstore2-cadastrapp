@@ -14,8 +14,15 @@ const DropdownList = localizedProps('placeholder')(DL);
  * @prop {function} setValue handler to set the value for the current row. 2 arguments. (column, value); column should be "section" or "plot". Value is the object selected.
  * @prop {function} onRemove handler to remove the current row.
  */
-export default function ReferenceRow({ row = {}, sections, onSetValue = () => { }, onRemove, hideRemove = false,
-    containerStyle = {}, fieldStyle = {width: 120, marginTop: 5, marginRight: 5}, openSection = true}) {
+export default function ReferenceRow({
+    row = {},
+    sections,
+    onSetValue = () => { },
+    onRemove,
+    hideRemove = false,
+    containerStyle = {},
+    fieldStyle = {width: 120, marginTop: 5, marginRight: 5}
+}) {
     const [plots, setPlots] = useState();
     const [busy, setBusy] = useState();
     const [openPlot, setOpenPlot] = useState(false);
@@ -34,7 +41,7 @@ export default function ReferenceRow({ row = {}, sections, onSetValue = () => { 
     }, [section]);
     return (<div style={{ width: "100%", "float": "left", display: "flex", ...containerStyle }}>
         <DropdownList
-            open={openSection}
+            defaultOpen
             disabled={isEmpty(sections)}
             style={fieldStyle}
             textField="ccosec"

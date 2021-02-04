@@ -3,10 +3,11 @@ import Modal from '@mapstore/components/misc/Modal';
 import Message from '@mapstore/components/I18N/Message';
 import Select from 'react-select';
 import Spinner from "react-spinkit";
-import { isEmpty, includes, get } from 'lodash';
+import { isEmpty, includes } from 'lodash';
 import { Button, ControlLabel, FormControl, Radio, FormGroup } from "react-bootstrap";
 import { checkRequestLimitation } from "../../api";
 import RequestObject from '../request/RequestObject';
+import { isValidEmail } from '@mapstore/utils/StringUtils';
 import {
     DEFAULT_REQUEST_OBJ,
     USER_TYPE_OPTIONS,
@@ -33,17 +34,16 @@ export default function RequestFormModal({
         const isNotNormalUser = !isEmpty(type) && type !== "P3";  // P3 is normal user
         const isValidNormalUser = !isEmpty(cni) && type === "P3";
 
-        setShowReqByFields(isNotNormalUser || isValidNormalUser); // Show/hide request by fields
+        setShowReqByFields(isNotNormalUser || isValidNormalUser); // Show/hide requestBy fields
         setShowRequestObj((isNotNormalUser && lastname.length > 2) || isValidNormalUser); // Show/hide request object fields
     }, [requestFormData.cni, requestFormData.type, requestFormData.lastname]);
 
-    // Check request limit based cni and type
+    // Check request limit based cni and type and set available request
     const checkRequestLimit = ({cni, type}) => {
         setCheckingLimit(true);
-        // Check request limitation
         checkRequestLimitation({cni, type}).then((data)=> {
             if (data.user) {
-                // User the fetched user data to populate the request form field
+                // Use the fetched user data to populate the request form field
                 setRequestFormData({
                     ...requestFormData, ...data.user,
                     firstname: data.user?.firstName || '',
@@ -55,11 +55,12 @@ export default function RequestFormModal({
             data.requestAvailable ? setAvailableRequest(+data.requestAvailable) : setAvailableRequest(+maxRequest);
             setCheckingLimit(false);
         }).catch(()=>{
-            setCheckingLimit(false);
+            setAvailableRequest(0);
             props.onError({
                 title: "Error",
                 message: "cadastrapp.requestForm.availableReqError"
             });
+            setCheckingLimit(false);
         });
     };
 
@@ -87,9 +88,9 @@ export default function RequestFormModal({
         const trimmedValue = value.trim();
         setRequestFormData({...requestFormData, [name]: trimmedValue});
 
-        // Check request Limit
+        // Trigger check request limit call
         if (name === "cni" && !isEmpty(requestFormData.type) && !isEmpty(trimmedValue) && trimmedValue.length > 2) {
-            checkRequestLimit(requestFormData); // Request for allowed requests
+            checkRequestLimit(requestFormData);
         }
     };
 
@@ -131,7 +132,8 @@ export default function RequestFormModal({
             value: requestFormData.mail,
             name: 'mail',
             type: 'email',
-            label: <Message msgId={"cadastrapp.requestForm.mail"}/>
+            label: <Message msgId={"cadastrapp.requestForm.mail"}/>,
+            validation: !isEmpty(requestFormData.mail) && !isValidEmail(requestFormData.mail) && "error"
         }
     ];
 
@@ -164,8 +166,8 @@ export default function RequestFormModal({
                     </div>
                 </div>
                 {
-                    formFields.map(({label, name, value, type = "text", validation = null})=> (
-                        <div className="item-row">
+                    formFields.map(({label, name, value, type = "text", validation = null}, index)=> (
+                        <div className="item-row" key={index}>
                             <FormGroup validationState={validation}>
                                 <div className="label-col">
                                     <ControlLabel>{label}</ControlLabel>
@@ -217,11 +219,11 @@ export default function RequestFormModal({
             <Modal.Footer>
                 <Button onClick={onCloseForm}><Message msgId={'cadastrapp.requestForm.cancel'}/></Button>
                 <Button
-                    disabled={printDisabled}
+                    disabled={!showRequestObj || checkingLimit || printDisabled}
                     onClick={()=>props.onPrintPDF(printRequest)}
                     className="print"
                 >
-                    {props.loading ? (
+                    {!props.allowDocument && props.loading ? (
                         <Spinner
                             spinnerName="circle"
                             noFadeIn
@@ -231,10 +233,17 @@ export default function RequestFormModal({
                     <Message msgId={'cadastrapp.requestForm.print'}/>
                 </Button>
                 <Button
-                    disabled={get(props, 'allowDocument', true)}
+                    disabled={!props.allowDocument}
                     onClick={()=>props.onPrintPDF(null, 'Document')}
                     className="print"
                 >
+                    {props.allowDocument && props.loading ? (
+                        <Spinner
+                            spinnerName="circle"
+                            noFadeIn
+                            overrideSpinnerClassName="spinner"
+                        />
+                    ) : null}
                     <Message msgId={'cadastrapp.requestForm.genDocuments'}/>
                 </Button>
             </Modal.Footer>

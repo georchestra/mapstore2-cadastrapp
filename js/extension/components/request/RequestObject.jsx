@@ -8,7 +8,7 @@ import uuid from 'uuid';
  * RequestObject component
  * @param {object} props Component props
  * @param {number} props.availableRequest contains number of available request allow for the user
- * @param {func} props.setAvailableRequest triggered when adding or deleting a request object
+ * @param {function} props.setAvailableRequest triggered when adding or deleting a request object
  */
 export default function RequestObject({availableRequest = 0, setAvailableRequest = () => {}, ...props}) {
     let randomId = uuid();
@@ -18,9 +18,9 @@ export default function RequestObject({availableRequest = 0, setAvailableRequest
     }
     let [requestObjects, setRequestObjects] = useState(item);
 
-    useEffect(()=>{
+    useEffect(() => {
         setAvailableRequest(availableRequest - Object.keys(requestObjects).length);
-    }, []);
+    }, [setAvailableRequest]);
 
     let handleAdd = () => {
         let r = { ...requestObjects };
@@ -54,8 +54,9 @@ export default function RequestObject({availableRequest = 0, setAvailableRequest
                 </small>
             </div>
             <div>
-                {Object.keys(requestObjects).map((v) => (
+                {Object.keys(requestObjects).map((v, index) => (
                     <RequestObjectItem
+                        key={index}
                         dataId={v}
                         value={requestObjects[v]}
                         onChange={handleChange}

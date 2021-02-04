@@ -12,7 +12,7 @@ import {DEFAULT_MAX_REQUEST} from "@js/extension/utils/requestForm";
  */
 
 const Modal = connect(state => ({
-    allowDocument: state.cadastrapp?.requestFormData?.allowDocument || {},
+    allowDocument: state.cadastrapp?.requestFormData?.allowDocument || false,
     maxRequest: state.cadastrapp?.configuration?.maxRequest || DEFAULT_MAX_REQUEST,
     loading: state.cadastrapp?.loadFlags?.printing || false,
     authLevel: getAuthLevel(state)

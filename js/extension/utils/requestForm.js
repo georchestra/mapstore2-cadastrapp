@@ -6,7 +6,7 @@ export const DEFAULT_REQUEST_OBJ = {
     lastname: '',
     firstname: '',
     adress: '',
-    cni: '',
+    cni: '', // Value triggers the check request limit of the user
     commune: '',
     codepostal: '',
     mail: '',

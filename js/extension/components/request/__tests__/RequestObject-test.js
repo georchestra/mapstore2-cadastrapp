@@ -8,9 +8,9 @@
 import React from 'react';
 import expect from 'expect';
 import ReactDOM from "react-dom";
-import RequestItemsCheckboxes from '../RequestItemsCheckboxes';
+import RequestObject from '../RequestObject';
 
-describe('RequestItemsCheckboxes', () => {
+describe('RequestObject', () => {
     beforeEach((done) => {
         document.body.innerHTML = '<div id="container"></div>';
         setTimeout(done);
@@ -22,13 +22,9 @@ describe('RequestItemsCheckboxes', () => {
         setTimeout(done);
     });
 
-    it('test render RequestItemsCheckboxes component', () => {
-        ReactDOM.render(<RequestItemsCheckboxes/>, document.getElementById("container"));
+    it('test render RequestObject component', () => {
+        ReactDOM.render(<RequestObject/>, document.getElementById("container"));
         const container = document.getElementById('container');
         expect(container).toBeTruthy();
-        const checkboxes = document.querySelectorAll("input[type='checkbox']");
-        expect(checkboxes.length).toBe(2);
-        expect(checkboxes[0].name).toBe('propStatement');
-        expect(checkboxes[1].name).toBe('parcelSlip');
     });
 });

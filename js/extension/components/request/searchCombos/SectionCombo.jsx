@@ -12,16 +12,14 @@ export default props => {
             });
         }
     }, [props.cgocommune]);
-    return (
-        <ReferenceRow
-            openSection={!isEmpty(sections)}
-            hideRemove
-            containerStyle={{ width: "unset" }}
-            fieldStyle={{ width: 120, marginBottom: 5, marginRight: 5 }}
-            sections={sections}
-            onSetValue={props.onSelect}
-            row={props.value}
-            {...props}
-        />
-    );
+
+    return !isEmpty(sections) && <ReferenceRow
+        hideRemove
+        containerStyle={{ width: "unset" }}
+        fieldStyle={{ width: 120, marginBottom: 5, marginRight: 5 }}
+        sections={sections}
+        onSetValue={props.onSelect}
+        row={props.value}
+        {...props}
+    />;
 };
