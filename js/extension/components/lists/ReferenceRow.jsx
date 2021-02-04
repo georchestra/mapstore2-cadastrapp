@@ -13,6 +13,9 @@ const DropdownList = localizedProps('placeholder')(DL);
  * @prop {object[]} sections sections to show in the section selector combo box.
  * @prop {function} setValue handler to set the value for the current row. 2 arguments. (column, value); column should be "section" or "plot". Value is the object selected.
  * @prop {function} onRemove handler to remove the current row.
+ * @prop {boolean} hideRemove flag to hide the remove button
+ * @prop {object} containerStyle additional style props for the container (if any)
+ * @prop {object} fieldStyle style props to override field styles
  */
 export default function ReferenceRow({
     row = {},

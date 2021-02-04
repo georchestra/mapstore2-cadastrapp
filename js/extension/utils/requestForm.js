@@ -29,6 +29,11 @@ export const USER_TYPE_OPTIONS = [
     { value: 'P3', label: 'P3 - Normal user' }
 ];
 
+/**
+ * Parse the request params object to string to be passed as params
+ * @param object
+ * @return {string}
+ */
 const generateParam = (object) => {
     let parameters = [];
     for (let property in object) {
@@ -43,8 +48,14 @@ const generateParam = (object) => {
     return parameters.join('&');
 };
 
+// Convert checkbox state to binary value
 const checkBoxToBinary = (checked) => checked ? 1 : 0;
 
+/**
+ * Formulate the print params of the request form data
+ * @param requestFormData
+ * @return {string}
+ */
 export const formulatePrintParams = (requestFormData) => {
     const {comptecommunaux, proprietaires, parcelleIds, parcelles, coproprietes, proprietaireLots, ...rest} = requestFormData;
     let printRequestTemp = {...rest};
