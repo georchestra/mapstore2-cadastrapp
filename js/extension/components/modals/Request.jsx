@@ -22,10 +22,14 @@ export default function RequestFormModal({
     maxRequest = DEFAULT_MAX_REQUEST,
     ...props
 }) {
+
+    // Auth level of the user
+    const isCNIL = authLevel.isCNIL2 || authLevel.isCNIL1;
+
     const [showReqByFields, setShowReqByFields] = useState(false);
     const [showRequestObj, setShowRequestObj] = useState(false);
     const [requestFormData, setRequestFormData] = useState(DEFAULT_REQUEST_OBJ);
-    const [printDisabled, setPrintDisabled] = useState(true);
+    const [inValidField, setInValidField] = useState(true);
     const [availableRequest, setAvailableRequest] = useState(+maxRequest);
     const [checkingLimit, setCheckingLimit] = useState(false);
 
@@ -35,7 +39,7 @@ export default function RequestFormModal({
         const isValidNormalUser = !isEmpty(cni) && type === "P3";
 
         setShowReqByFields(isNotNormalUser || isValidNormalUser); // Show/hide requestBy fields
-        setShowRequestObj((isNotNormalUser && lastname.length > 2) || isValidNormalUser); // Show/hide request object fields
+        setShowRequestObj((isNotNormalUser && !!lastname.length) || isValidNormalUser); // Show/hide request object fields
     }, [requestFormData.cni, requestFormData.type, requestFormData.lastname]);
 
     // Check request limit based cni and type and set available request
@@ -106,7 +110,8 @@ export default function RequestFormModal({
         {
             value: requestFormData.lastname,
             name: 'lastname',
-            label: <Message msgId={"cadastrapp.requestForm.lastName"}/>
+            label: <Message msgId={"cadastrapp.requestForm.lastName"}/>,
+            validation: !isEmpty(requestFormData.type) && requestFormData.type !== 'P3' && isEmpty(requestFormData.lastname) && "error"
         },
         {
             value: requestFormData.firstname,
@@ -206,9 +211,9 @@ export default function RequestFormModal({
                         <ControlLabel><Message msgId={"cadastrapp.requestForm.requestObj"}/></ControlLabel>
                     </div>
                     <RequestObject
-                        allow={(authLevel.isCNIL2 || authLevel.isCNIL1)}
+                        allow={isCNIL}
                         requestFormData={requestFormData}
-                        setPrintDisabled={setPrintDisabled}
+                        setInValidField={setInValidField}
                         setRequestFormData={setRequestFormData}
                         setAvailableRequest={setAvailableRequest}
                         availableRequest={availableRequest}
@@ -219,7 +224,7 @@ export default function RequestFormModal({
             <Modal.Footer>
                 <Button onClick={onCloseForm}><Message msgId={'cadastrapp.requestForm.cancel'}/></Button>
                 <Button
-                    disabled={!showRequestObj || checkingLimit || printDisabled}
+                    disabled={!showRequestObj || checkingLimit || inValidField || props.loading}
                     onClick={()=>props.onPrintPDF(printRequest)}
                     className="print"
                 >
@@ -233,7 +238,7 @@ export default function RequestFormModal({
                     <Message msgId={'cadastrapp.requestForm.print'}/>
                 </Button>
                 <Button
-                    disabled={!props.allowDocument}
+                    disabled={isCNIL ? !props.allowDocument : true}
                     onClick={()=>props.onPrintPDF(null, 'Document')}
                     className="print"
                 >

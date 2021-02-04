@@ -16,7 +16,8 @@ export default ({handleOnChange = () => {}, requestFormData = {}}) => {
                 className="pull-left"
                 style={{ marginLeft: 120 }}
                 onChange={handleOnChange}
-                value={requestFormData?.propStatement || false}
+                checked={requestFormData?.propStatement}
+                value={requestFormData?.propStatement}
                 name={"propStatement"}
             >
                 <Message msgId={'cadastrapp.requestForm.propertyStatement'} />
@@ -24,7 +25,7 @@ export default ({handleOnChange = () => {}, requestFormData = {}}) => {
             <Checkbox
                 style={{marginTop: 10, marginLeft: 10}}
                 onChange={handleOnChange}
-                value={requestFormData?.parcelSlip || false}
+                value={requestFormData?.parcelSlip}
                 name={"parcelSlip"}
             >
                 <Message msgId={'cadastrapp.requestForm.parcelSlip'} />

@@ -14,13 +14,13 @@ const FormControl = localizedProps('placeholder')(FC);
 /**
  * RequestObjectItem component
  * @param {object} props Component props
- * @param {func} props.setRequestFormData triggered when adding or updating request object's data
+ * @param {function} props.setRequestFormData triggered when adding or updating request object's data
  * @param {object} props.requestFormData contains request form data
  * @param {id} props.dataId key/index of the request object
  * @param {string} props.value contains current request option value
- * @param {func} props.onDelete triggered when adding or deleting a request object
- * @param {func} props.onChange triggered when changing a request object
- * @param {func} props.setPrintDisabled triggered when changing mandatory fields values
+ * @param {function} props.onDelete triggered when adding or deleting a request object
+ * @param {function} props.onChange triggered when changing a request object
+ * @param {function} props.setInValidField triggered when changing mandatory fields values
  * @param {bool} props.allow boolean variable to show restricted options
  */
 export default function RequestObjectItem({
@@ -30,7 +30,7 @@ export default function RequestObjectItem({
     value,
     onDelete = () => {},
     onChange = () => {},
-    setPrintDisabled = () => {},
+    setInValidField = () => {},
     allow = false
 }) {
     const requestOptions = [
@@ -44,7 +44,7 @@ export default function RequestObjectItem({
     ];
 
     const [fieldName, setFieldName] = useState('');
-    const [mandatoryFields, setMandatoryFields] = useState([]);
+    const [mandatoryFields, setMandatoryFields] = useState(0);
 
     const handleOnChange = ({target}) => {
         const {name, value: data} = target || {};
@@ -52,7 +52,9 @@ export default function RequestObjectItem({
             ...requestFormData[fieldName],
             [dataId]: {
                 ...requestFormData[fieldName][dataId],
-                [name]: data
+                ...(includes(['propStatement', 'parcelSlip'], name)
+                    ? {[name]: target.checked}
+                    : {[name]: data})
             }}
         });
     };
@@ -77,16 +79,18 @@ export default function RequestObjectItem({
 
     useEffect(()=>{
         const data = requestFormData?.[fieldName]?.[dataId] || [];
+        const fieldEquality = Object.keys(data).filter(k => !isEmpty(data[k]) && !includes(['propStatement', 'parcelSlip'], k));
+        const booleanFields = Object.keys(data).filter(k => data[k] === true);
         // Mandatory field validation
+        let inValid = true;
         if (!isEmpty(data) && !isEmpty(mandatoryFields)) {
-            setPrintDisabled(
-                !isEqual(
-                    Object.keys(data)
-                        .filter(k => !isEmpty(data[k]) && !includes(['propStatement', 'parcelSlip'], k)).sort(),
-                    mandatoryFields.sort()
-                )
-            );
+            if (isEqual(fieldEquality.sort(), mandatoryFields.sort())) {
+                if (booleanFields.length > 0) {
+                    inValid = false;
+                }
+            }
         }
+        setInValidField(inValid);
     }, [requestFormData]);
 
     function ownerId() {
@@ -303,10 +307,10 @@ export default function RequestObjectItem({
             <Button className="pull-right" onClick={handleDelete} style={{ margin: 4 }}>
                 <Glyphicon glyph="trash"/>
             </Button>
-            <RequestItemsCheckboxes
+            {!isEmpty(fieldName) && <RequestItemsCheckboxes
                 handleOnChange={handleOnChange}
                 requestFormData={requestFormData?.[fieldName]?.[dataId] || {}}
-            />
+            />}
         </div>
     );
 }
