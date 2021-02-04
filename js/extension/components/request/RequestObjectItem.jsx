@@ -177,7 +177,6 @@ export default function RequestObjectItem({
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.proprietaire?.value}
                         onSelect={v =>handleSelectChange("proprietaire", v)}
-                        onChange={v =>handleSelectChange("proprietaire", v)}
                     />
                 </div>
             </div>
@@ -202,7 +201,6 @@ export default function RequestObjectItem({
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.proprietaire?.value }
                         onSelect={v =>handleSelectChange("proprietaire", v)}
-                        onChange={v =>handleSelectChange("proprietaire", v)}
                     />
                 </div>
             </div>

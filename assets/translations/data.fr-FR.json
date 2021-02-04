@@ -27,9 +27,38 @@
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
             },
+            "fields": {
+                "section": "Section",
+                "plotNumber": "Numéro de parcelle"
+            },
             "requestForm": {
+                "title": "Demande de fiducie foncière",
+                "askBy": "Demande demander par",
+                "counter": "Compteur",
+                "email": "Email",
+                "requestType": "Demande de type d'utilisateur",
+                "requestObj": "Objet de la demande",
+                "responseBy": "Donner le document par",
+                "cni" : "CNI",
+                "lastName": "Nom de famille",
+                "firstName": "Prénom",
+                "roadNumber": "Numéro de route",
+                "zipCode": "Code postal",
+                "town": "Ville, Municipalité",
+                "mail": "Courrier",
+                "cancel": "Demande d'annulation",
+                "print": "Demande d'impression",
+                "genDocuments": "Générer des documents",
+                "addMore": "Cliquez pour ajouter plus de demandes",
+                "accountId": "Identifiant du compte municipal",
+                "plotId": "ID de parcelle",
+                "commune": "Commune",
+                "owner": "Propriétaire",
+                "limit": "Limite maximale de demandes atteinte",
                 "propertyStatement": "Relevé de propriété",
-                "parcelSlip": "Bordereau parcellaire"
+                "parcelSlip": "Bordereau parcellaire",
+                "printError": "Impossible d'imprimer les données du formulaire de demande",
+                "availableReqError": "Impossible de récupérer les demandes disponibles"
             }
         }
     }

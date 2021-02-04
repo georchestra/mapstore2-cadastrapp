@@ -35,7 +35,6 @@
             "requestForm": {
                 "title": "Request on landholding trust",
                 "askBy": "Request ask by",
-                "requestBy": "Give document by",
                 "counter": "Counter",
                 "email": "Email",
                 "requestType": "Request User Type",
