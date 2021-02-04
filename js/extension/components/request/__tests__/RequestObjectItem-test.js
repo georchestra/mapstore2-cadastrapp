@@ -36,7 +36,7 @@ describe('RequestObjectItem', () => {
         };
         const spyHandleDelete = expect.spyOn(actions, 'onDelete');
         const spySetRequestFormData = expect.spyOn(actions, 'setRequestFormData');
-        ReactDOM.render(<RequestObjectItem {...actions} dataId={1} requestFormData={{comptecommunaux: {1: "Test"}}}/>, document.getElementById("container"));
+        ReactDOM.render(<RequestObjectItem {...actions} value={"owner-id"} dataId={1} requestFormData={{comptecommunaux: {1: "Test"}}}/>, document.getElementById("container"));
         const container = document.getElementById('container');
         expect(container).toBeTruthy();
         const select = document.querySelector('.Select-control');
@@ -54,7 +54,7 @@ describe('RequestObjectItem', () => {
         expect(spyHandleDelete.calls[0].arguments[0]).toBe(1);
 
         expect(spySetRequestFormData).toHaveBeenCalled();
-        expect(spySetRequestFormData.calls[0].arguments[0]).toEqual({"comptecommunaux": {"1": "Test"}});
+        expect(spySetRequestFormData.calls[0].arguments[0]).toEqual({"comptecommunaux": {}}); // Deleted
 
         const checkboxes = document.querySelectorAll("input[type='checkbox']");
         expect(checkboxes.length).toBe(2);
