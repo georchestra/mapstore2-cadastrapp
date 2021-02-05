@@ -30,8 +30,8 @@ export default function Lot({ values = {}, setValue = () => { } }) {
             <DropZone
                 style={dropZoneStyle}
                 activeStyle={dropZoneActiveStyle}
-                accept="text/csv"
                 multiple={false}
+                accept={["text/csv", "text/plain", ".csv"]}
                 onDrop={onDrop}>
                 {fileName ? <span><Glyphicon glyph="remove" onClick={removeFile} /> {fileName} </span> : dropMessage}
             </DropZone>
