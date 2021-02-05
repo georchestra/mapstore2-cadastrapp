@@ -161,7 +161,7 @@ export default function RequestFormModal({
             <Modal.Header closeButton>
                 <Modal.Title><Message msgId={'cadastrapp.requestForm.title'}/></Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{maxHeight: 500, overflowY: "auto"}}>
+            <Modal.Body className="request-modal-body">
                 <div className="item-row">
                     <div className="label-col">
                         <ControlLabel><Message msgId={'cadastrapp.requestForm.requestType'}/></ControlLabel>
@@ -207,7 +207,7 @@ export default function RequestFormModal({
                 }
                 <hr/>
                 {showRequestObj && !checkingLimit && <div className={"item-row"}>
-                    <div style={{width: '100%', "float": "left"}}>
+                    <div className="request-obj-label">
                         <ControlLabel><Message msgId={"cadastrapp.requestForm.requestObj"}/></ControlLabel>
                     </div>
                     <RequestObject

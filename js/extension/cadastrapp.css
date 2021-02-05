@@ -302,6 +302,14 @@ th.info-popup-header {
 }
 
 /* Request form */
+.request-modal-body {
+  max-height: 500px;
+  overflow-y: visible;
+}
+.request-obj-label {
+  width: 100%;
+  float: left;
+}
 .request-obj-triple{
   width: 120px;
   float: left;
