@@ -70,6 +70,7 @@ export default connect(
     };
     return (<>
         <PlotsSelection
+            foncier={props.foncier}
             isShown
             loadInfo={props.loadInfo}
             active={props.activeSelectionTab}

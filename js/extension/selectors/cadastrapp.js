@@ -3,8 +3,10 @@ import {
     CADASTRAPP_VECTOR_LAYER_ID
 } from '../constants';
 import { additionalLayersSelector } from '@mapstore/selectors/additionallayers';
+import { userGroupSecuritySelector } from '@mapstore/selectors/security';
 
 import { getBaseMapsFromConfig } from '../utils/configuration';
+
 
 
 // **********************************************
@@ -54,10 +56,14 @@ export function getCadastrappVectorLayer(state) {
 // **********************************************
 // AUTH
 // **********************************************
-export function getAuthLevel() {
+// to emulate authentication use test_env and sec-roles header as : "ROLE_MAPSTORE_ADMIN;ROLE_EL_APPLIS_CAD_CNIL1" (; separator)
+export function getAuthLevel(state) {
+    const {cnil1RoleName, cnil2RoleName} = configurationSelector(state) ?? {};
+    const groups = userGroupSecuritySelector(state) ?? [];
+    const groupNames = groups.map(({ groupName }) => `ROLE_${groupName}`);
     return {
-        isCNIL1: true, // TODO: get from auth state
-        isCNIL2: true // TODO: get from auth state
+        isCNIL1: groupNames.includes(cnil1RoleName),
+        isCNIL2: groupNames.includes(cnil2RoleName)
     };
 }
 

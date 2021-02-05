@@ -119,7 +119,7 @@ function PlotTabs({
     );
 }
 
-export default function PlotsSelection(props) {
+export default function PlotSelection(props) {
 
     let className = props.data.length === 0 ? "collapse" : "plots-selection";
 

@@ -61,7 +61,7 @@ export default function PlotSelectionToolbar({
                     glyph: "info-sign",
                     tooltip: "Information Form", // localize
                     onClick: () => { loadInfo(selectedPlots);}
-                }, (isCNIL1, isCNIL2 ? {
+                }, ((isCNIL1 || isCNIL2) ? {
                     renderButton:
                         (<DropdownButton
                             disabled={!atLeaseOneSelected}
