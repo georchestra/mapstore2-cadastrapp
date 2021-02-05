@@ -7,8 +7,6 @@ It can be used also as a template to create new extensions for geOrchestra.
 
 ## Plugin configuration
 
-Basically, the Urbanisme plugin allows the user to query for the NRU and the ADS data on the parcelle layer and also to print the data onto a pdf
-
 ### Local config
 
 For example the plugin allows configuration of the following properties
