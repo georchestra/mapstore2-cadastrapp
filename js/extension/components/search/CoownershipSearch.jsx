@@ -70,7 +70,7 @@ export default function CoownershipSearch({ loading, onSearch = () => { }, onOwn
                 valid={isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
                 onClear={() => resetFormState(SEARCH_TYPES.COOWNER)}
                 onSearch={() => {
-                    if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire && !values?.parcelle)) {
+                    if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire) && !values?.parcelle) {
                         onOwnersSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
                     } else {
                         // plot search

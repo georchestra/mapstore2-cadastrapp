@@ -2,6 +2,8 @@
   "plugins": [
     {
       "name": "Cadastrapp",
+      "glyph": "th",
+      "docUrl":"https://github.com/georchestra/mapstore2-cadastrapp#plugin-configuration",
       "defaultConfig": {
         "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
         "foncier": true,

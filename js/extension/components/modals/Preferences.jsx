@@ -1,10 +1,11 @@
 import React from 'react';
-import Modal from '@mapstore/components/misc/Modal';
+import Dialog from '@mapstore/components/misc/Dialog';
+import Portal from '@mapstore/components/misc/Portal';
 import StyleEditor from '../style/StyleEditor';
 
-import { Tabs, Tab, Button } from "react-bootstrap";
+import { Tabs, Tab, Button, Glyphicon } from "react-bootstrap";
 
-export default function PreferencesModal({
+export default function PreferencesDialog({
     isShown,
     onClose,
     setLayerStyle = () => {},
@@ -14,14 +15,15 @@ export default function PreferencesModal({
         "default": {}
     }
 }) {
+    if (!isShown) {
+        return null;
+    }
     return (
-        <Modal
-            dialogClassName="cadastrapp-preferences-modal"
-            show={isShown} onHide={onClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Preferences</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+        <Portal><Dialog
+            className="cadastrapp-preferences-dialog"
+            show={isShown} >
+            <span role="header"><span>Preferences</span><button style={{ background: 'transparent', border: 'none', "float": "right" }}><Glyphicon glyph="1-close" onClick={() => onClose()} style={{  }} /></button></span>
+            <div role="body" style={{height: 200}}>
                 <Tabs defaultActiveKey={1} >
                     <Tab eventKey={1} title="Default">
                         <StyleEditor
@@ -46,11 +48,11 @@ export default function PreferencesModal({
                     </Tab>
 
                 </Tabs>
-            </Modal.Body>
-            <Modal.Footer>
+            </div>
+            <div role="footer">
                 <Button onClick={() => { setLayerStyles();}}>Set default style</Button>
                 <Button onClick={() => { onClose(); }}>Close</Button>
-            </Modal.Footer>
-        </Modal>
+            </div>
+        </Dialog></Portal>
     );
 }

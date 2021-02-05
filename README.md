@@ -5,6 +5,31 @@ It is based on https://github.com/geosolutions-it/MapStoreExtension with the cus
 
 It can be used also as a template to create new extensions for geOrchestra.
 
+## Plugin configuration
+
+Basically, the Urbanisme plugin allows the user to query for the NRU and the ADS data on the parcelle layer and also to print the data onto a pdf
+
+### Local config
+
+For example the plugin allows configuration of the following properties
+
+- *helpUrl* - Plugin specific help url for more details on the extension, used by the help button
+- *foncier* - activate/deactivate `foncier` functionalities
+- *popup* - settings for popup
+
+ ```javascript
+ {
+ "cfg": {
+    "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
+    "foncier": true,
+    "popup": {
+      "minZoom": 14,
+      "timeToShow": 1000
+    }
+  }
+ }
+ ```
+
 ## Quick Start
 
 Clone the repository with the --recursive option to automatically clone submodules.
