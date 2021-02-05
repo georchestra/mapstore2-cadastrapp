@@ -186,7 +186,11 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     }
     case ADD_PLOT_SELECTION: {
         const {plot = {}} = action;
-        return set(`plots`, [...state.plots, { ...EMPTY_PLOT_SELECTION, ...plot}], state);
+        const currentPlots = state?.plots ?? [];
+        return compose(
+            set(`plots`, [...currentPlots, { ...EMPTY_PLOT_SELECTION, ...plot}]),
+            set(`activePlotSelection`, state?.plots?.length ?? 0) // select the new tab
+        )(state);
     }
     case REMOVE_PLOT_SELECTION: {
         const active = action.active ?? state.activePlotSelection;

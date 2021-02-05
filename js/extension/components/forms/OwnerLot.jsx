@@ -2,7 +2,7 @@ import React from 'react';
 import DropZone from 'react-dropzone';
 import { ControlLabel, Glyphicon } from "react-bootstrap";
 
-const dropZoneStyle = { width: "100%", height: "auto", border: "dashed lightgrey" };
+const dropZoneStyle = { width: "100%", height: "auto", border: "dashed lightgrey", minHeight: 100, padding: 40 };
 const dropZoneActiveStyle = { background: "lightblue", ...dropZoneStyle };
 
 /**

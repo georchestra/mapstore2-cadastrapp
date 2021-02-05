@@ -5,6 +5,7 @@ import { SEARCH_TYPES } from '../constants';
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
 import { wrapStartStop } from '@mapstore/observables/epics';
+import { error } from '@mapstore/actions/notifications';
 
 import { getCoProprietaireList, getParcelle, getParcelleByCompteCommunal, getProprietaire } from '../api/api';
 
@@ -184,8 +185,11 @@ export function cadastrappSearch(action$, store) {
             )
             .reduce((acc, next) => [...acc, next], [])
             .map(parcelles => addPlots(parcelles, target ?? targetFromSearch(searchType, rawParams)))
-            .let(wrapStartStop(loading(true, 'search'), loading(false, 'search')))
-            .let(wrapStartStop(loading(true, "plotSelection", "count"), loading(false, "plotSelection", "count")));
+            .let(wrapStartStop(
+                [loading(true, "plotSelection", "count"), loading(true, 'search')],
+                [loading(false, "plotSelection", "count"),  loading(false, 'search')],
+                e => Rx.Observable.of(error({ title: "error during search", message: e.message ?? "unknown error"}))
+            ));
     });
 }
 
