@@ -26,6 +26,39 @@
                 "nodata": "Nessun dato da visualizzare",
                 "noaccess": "Accesso non autorizzato ai dati del terreno",
                 "error": "Impossibile recuperare le informazioni sul fumetto"
+            },
+            "fields": {
+                "section": "Sezione",
+                "plotNumber": "Numero di trama"
+            },
+            "requestForm": {
+                "title": "Richiesta sulla fiducia dei proprietari terrieri",
+                "askBy": "Richiedi chiedi a",
+                "counter": "Counter",
+                "email": "E-mail",
+                "requestType": "Richiedi tipo utente",
+                "requestObj": "Oggetto richiesta",
+                "responseBy": "Dai un documento di",
+                "cni" : "CNI",
+                "lastName": "Cognome",
+                "firstName": "Nome di battesimo",
+                "roadNumber": "Numero di strada",
+                "zipCode": "Codice postale",
+                "town": "Città, Comune",
+                "mail": "Mail",
+                "cancel": "Richiesta cancellata",
+                "print": "Richiesta di stampa",
+                "genDocuments": "Genera documenti",
+                "addMore": "Fare clic per aggiungere altre richieste",
+                "accountId": "ID account municipale",
+                "plotId": "Plot id",
+                "commune": "Comune",
+                "owner": "Proprietario",
+                "limit": "Limite massimo di richieste raggiunto",
+                "propertyStatement": "Dichiarazione di proprietà",
+                "parcelSlip": "Distinta del pacco",
+                "printError": "Impossibile stampare i dati del modulo di richiesta",
+                "availableReqError": "Impossibile recuperare le richieste disponibili"
             }
         }
     }

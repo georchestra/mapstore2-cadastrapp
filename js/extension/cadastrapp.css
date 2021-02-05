@@ -298,3 +298,23 @@ th.info-popup-header {
 .info-popup-table {
   width: 100%;
 }
+
+/* Request form */
+.request-modal-body {
+  max-height: 500px;
+  overflow-y: visible;
+}
+.request-obj-label {
+  width: 100%;
+  float: left;
+}
+.request-obj-triple{
+  width: 120px;
+  float: left;
+  margin: 4px
+}
+.request-obj-double{
+  width: 200px;
+  height: 34px;
+  margin: 4px
+}

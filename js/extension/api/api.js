@@ -407,3 +407,57 @@ export function exportAsCsv({data}) {
     return axios.get(`${baseURL}/services/exportAsCsv`, {params}, { responseType: 'arraybuffer' });
 }
 
+/**
+ * Get proprietaires by info parcelles
+ * @param commune
+ * @param section
+ * @param numero
+ * @param ddenom
+ * @return {*}
+ */
+export function getProprietairesByInfoParcelles({ commune, section, numero, ddenom}) {
+    const params = { commune, section, numero, ddenom};
+    return axios.get(`${baseURL}/services/getProprietairesByInfoParcelles`, { params }).then(({ data }) => data);
+}
+
+/**
+ * Print request form API
+ */
+
+/**
+ * Save the print request information
+ * @param printParams
+ * @return {*}
+ */
+export function saveInformationRequest(printParams) {
+    return axios.get(`${baseURL}/services/saveInformationRequest?${printParams}`).then(({ data }) => data);
+}
+
+/**
+ * Print PDF based on the request data
+ * @param requestid
+ * @return {*}
+ */
+export function printPDFRequest(requestid) {
+    return axios.get(`${baseURL}/services/printPDFRequest`, { params: {requestid}, responseType: 'arraybuffer'}).then(data => data);
+}
+
+/**
+ * Generate document based on the requested data
+ * @param requestid
+ * @return {*}
+ */
+export function createDemandeFromObj(requestid) {
+    return axios.get(`${baseURL}/services/createDemandeFromObj`, { params: {requestid}, responseType: 'arraybuffer'}).then(data => data);
+}
+
+/**
+ * Check the request limitation for the user type
+ * @param cni
+ * @param type
+ * @return {*}
+ */
+export function checkRequestLimitation({cni, type}) {
+    const params = {cni, type};
+    return axios.get(`${baseURL}/services/checkRequestLimitation`, { params }).then(({data}) => data);
+}

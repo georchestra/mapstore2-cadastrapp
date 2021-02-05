@@ -1,8 +1,9 @@
 import React, {useState, useEffect } from 'react';
 import { find, isObject } from 'lodash';
-import { Combobox } from 'react-widgets';
+import { Combobox as CB } from 'react-widgets';
 import { Glyphicon } from "react-bootstrap";
-
+import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
+const Combobox = localizedProps('placeholder')(CB);
 
 /**
  * A utility combo for search.
@@ -15,6 +16,10 @@ export default ({
     onChange = () => {},
     search = () => {},
     onSelect = () => {},
+    disabled = false,
+    hideRemove = false,
+    additionalStyle = {},
+    placeholder = "",
     ...props
 }) => {
     const [text, setText] = useState("");
@@ -29,9 +34,11 @@ export default ({
             });
         }
     }, [text]);
-    return (<div style={{position: "relative"}}>
+    return (<div style={{position: "relative", ...additionalStyle}}>
         <Combobox
             busy={busy}
+            disabled={disabled}
+            placeholder={placeholder}
             valueField={valueField}
             value={isObject(value) ? value[valueField] : value}
             onSelect={(v) => {
@@ -47,7 +54,7 @@ export default ({
             minLength={minLength}
             {...props}
         />
-        {text || value ? <Glyphicon glyph="remove"
+        {!hideRemove && (text || value) ? <Glyphicon glyph="remove"
             bsSize="xsmall"
             style={{
                 position: 'absolute',

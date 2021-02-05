@@ -12,9 +12,9 @@ import MockAdapter from "axios-mock-adapter";
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
 import {LAYER_STYLES} from "@js/extension/constants";
 import {mouseMovePopupEpic, showPopupEpic} from "../cadastrapp";
-import { mouseMove, mouseOut } from "@mapstore/actions/map";
+import { mouseMove } from "@mapstore/actions/map";
 import { ADD_MAP_POPUP, CLEAN_MAP_POPUPS } from "@mapstore/actions/mapPopups";
-import {LOADING, SAVE_BUBBLE_INFO, saveBubbleInfo, SHOW_POPUP, showPopup} from "@js/extension/actions/cadastrapp";
+import {LOADING, SAVE_BUBBLE_INFO, SHOW_POPUP, showPopup} from "@js/extension/actions/cadastrapp";
 
 describe("mapSelection Epics", () => {
     const state = {
@@ -43,7 +43,8 @@ describe("mapSelection Epics", () => {
                     features: [],
                     type: 'vector',
                     name: 'searchPoints',
-                    visibility: true
+                    visibility: true,
+                    url: ''
                 }
             }
         ],

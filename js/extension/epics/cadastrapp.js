@@ -12,3 +12,5 @@ export { cadastrappZoomToSelection } from './events';
 export { cadastrappSearch, cadastrappOwnersSearch } from './search';
 
 export { loadParcelleInformationData } from './information';
+
+export { saveInformationRequestEpic } from './requestForm';

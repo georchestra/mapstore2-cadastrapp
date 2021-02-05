@@ -31,6 +31,8 @@ export const INFORMATION_UPDATE = "CADASTRAPP:INFORMATION_UPDATE";
 export const INFORMATION_CLEAR = "CADASTRAPP:INFORMATION_CLEAR";
 export const SAVE_BUBBLE_INFO = "CADASTRAPP:SAVE_BUBBLE_INFO";
 export const SHOW_POPUP = "CADASTRAPP:SHOW_POPUP";
+export const PRINT_SUBMITTED = "CADASTRAPP:PRINT_SUBMITTED";
+export const PRINT_RESPONSE = "CADASTRAPP:PRINT_RESPONSE";
 
 /**
  * Set the style of highlight
@@ -261,4 +263,28 @@ export const showPopup = (parcelle, position) => ({
     type: SHOW_POPUP,
     parcelle,
     position
+});
+
+/**
+ * Print PDF based on the request form data
+ * @param printParams
+ * @param printType
+ * @return {{printType: string, printParams, type: string}}
+ */
+export const onPrintPDF = (printParams, printType = 'Print') => ({
+    type: PRINT_SUBMITTED,
+    printParams,
+    printType
+});
+
+/**
+ * Save print response of the request id and allow document to be printed
+ * @param requestId
+ * @param allowDocument
+ * @return {{allowDocument: boolean, requestId, type: string}}
+ */
+export const onPrintResponse = (requestId, allowDocument = true) => ({
+    type: PRINT_RESPONSE,
+    allowDocument,
+    requestId
 });

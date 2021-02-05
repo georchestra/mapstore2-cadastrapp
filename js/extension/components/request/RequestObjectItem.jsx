@@ -1,202 +1,316 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import cs from 'classnames';
+import { isEmpty, isEqual, includes } from 'lodash';
+import { Button, FormControl as FC, Glyphicon } from "react-bootstrap";
+import RequestItemsCheckboxes from "./RequestItemsCheckboxes";
+import MunicipalityCombo from "../forms/MunicipalityCombo";
+import SectionCombo from "./searchCombos/SectionCombo";
+import ProprietaireComboList from "./searchCombos/ProprietaireComboList";
+import ProprietaireCombo from "../forms/ProprietaireCombo";
+import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
+const FormControl = localizedProps('placeholder')(FC);
 
-import { Button, FormControl, Glyphicon } from "react-bootstrap";
-
-export default function RequestObjectItem(props) {
+/**
+ * RequestObjectItem component
+ * @param {object} props Component props
+ * @param {function} props.setRequestFormData triggered when adding or updating request object's data
+ * @param {object} props.requestFormData contains request form data
+ * @param {id} props.dataId key/index of the request object
+ * @param {string} props.value contains current request option value
+ * @param {function} props.onDelete triggered when adding or deleting a request object
+ * @param {function} props.onChange triggered when changing a request object
+ * @param {function} props.setInValidField triggered when changing mandatory fields values
+ * @param {bool} props.allow boolean variable to show restricted options
+ */
+export default function RequestObjectItem({
+    setRequestFormData = () => {},
+    requestFormData = {},
+    dataId,
+    value,
+    onDelete = () => {},
+    onChange = () => {},
+    setInValidField = () => {},
+    allow = false
+}) {
     const requestOptions = [
         { value: 'owner-id', label: 'Owner id' },
         { value: 'plot', label: 'Plot' },
         { value: 'co-owners', label: 'co-owners' },
         { value: 'plot-id', label: 'Plot id' },
-        { value: 'owner', label: 'Owner' },
-        { value: 'cadastrapp-demandei', label: 'cadastrapp.demandei' },
-        { value: 'lot-co-owners', label: 'Lot co-owners' }
+        { value: 'owner', label: 'Owner', style: {display: allow ? 'block' : 'none'} },
+        { value: 'cadastrapp-demandei', label: 'cadastrapp.demandei', style: {display: allow ? 'block' : 'none'} },
+        { value: 'lot-co-owners', label: 'Lot co-owners', style: {display: allow ? 'block' : 'none'} }
     ];
 
-    const sectionOptions = [
-        { value: '0', label: 'AZ' },
-        { value: '1', label: 'NE' }
-    ];
+    const [fieldName, setFieldName] = useState('');
+    const [mandatoryFields, setMandatoryFields] = useState(0);
 
-    const communeOptions = [
-        { value: '0', label: 'AZ' },
-        { value: '1', label: 'NE' }
-    ];
+    const handleOnChange = ({target}) => {
+        const {name, value: data} = target || {};
+        setRequestFormData({...requestFormData, [fieldName]: {
+            ...requestFormData[fieldName],
+            [dataId]: {
+                ...requestFormData[fieldName][dataId],
+                ...(includes(['propStatement', 'parcelSlip'], name)
+                    ? {[name]: target.checked}
+                    : {[name]: data})
+            }}
+        });
+    };
 
-    const noOptions = [
-        { value: '0', label: '0' },
-        { value: '1', label: '1' },
-        { value: '2', label: '2' }
-    ];
+    const handleSelectChange = (name, v) => {
+        let result;
+        if (name === "commune" && isEmpty(v)) {
+            result = { [dataId]: {} };
+            setRequestFormData({...requestFormData,
+                [fieldName]: { ...requestFormData[fieldName] }});
+        } else {
+            result = {
+                [dataId]: {
+                    ...requestFormData[fieldName][dataId],
+                    [name]: {...v}
+                }
+            };
+        }
+        setRequestFormData({...requestFormData,
+            [fieldName]: { ...requestFormData[fieldName], ...result}});
+    };
+
+    useEffect(()=>{
+        const data = requestFormData?.[fieldName]?.[dataId] || [];
+        const fieldEquality = Object.keys(data).filter(k => !isEmpty(data[k]) && !includes(['propStatement', 'parcelSlip'], k));
+        const booleanFields = Object.keys(data).filter(k => data[k] === true);
+        // Mandatory field validation
+        let inValid = true;
+        if (!isEmpty(data) && !isEmpty(mandatoryFields)) {
+            if (isEqual(fieldEquality.sort(), mandatoryFields.sort())) {
+                if (booleanFields.length > 0) {
+                    inValid = false;
+                }
+            }
+        }
+        setInValidField(inValid);
+    }, [requestFormData]);
 
     function ownerId() {
         return (
             <div>
                 <FormControl
                     className="pull-left"
-                    placeholder="Municipial account id"
+                    placeholder={"cadastrapp.requestForm.accountId"}
+                    name="accountId"
+                    value={requestFormData?.[fieldName]?.[dataId]?.accountId || ''}
                     style={{ height: 34, width: 248, margin: 4 }}
+                    onChange={handleOnChange}
                 />
             </div>
         );
     }
 
-    function plot() {
+    const plot = () => {
         return (
             <div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="commune"
-                        options={communeOptions}
+                <div style={{display: 'flex', "float": "left", margin: 4}}>
+                    <MunicipalityCombo
+                        placeholder={'cadastrapp.requestForm.commune'}
+                        additionalStyle={{width: 300, marginRight: 4}} value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
+                        onSelect={v =>handleSelectChange("commune", v)}
                     />
-
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="section"
-                        options={sectionOptions}/>
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="no"
-                        options={noOptions}/>
+                    <SectionCombo
+                        cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
+                        value={{section: requestFormData?.[fieldName]?.[dataId]?.section,
+                            plot: isEmpty(requestFormData?.[fieldName]?.[dataId]?.plot) ? null : requestFormData?.[fieldName]?.[dataId]?.plot}}
+                        onSelect={(c, v) =>handleSelectChange(c, v)}
+                    />
                 </div>
             </div>
         );
-    }
+    };
 
-    function coOwners() {
+    const coOwners = () => {
         return (
             <div style={{ width: "300" }}>
                 <FormControl
-                    className="pull-left"
-                    placeholder="Municipial account id"
-                    style={{ height: 34, width: 120, margin: 4 }}
+                    placeholder={'cadastrapp.requestForm.accountId'}
+                    name="accountId"
+                    value={requestFormData?.[fieldName]?.[dataId]?.accountId || ''}
+                    className={cs("pull-left", "request-obj-double")}
+                    onChange={handleOnChange}
                 />
                 <FormControl
-                    className="pull-left"
-                    placeholder="Plot id"
-                    style={{ height: 34, width: 120, margin: 4 }}
+                    placeholder={'cadastrapp.requestForm.plotId'}
+                    name={"plotId"}
+                    value={requestFormData?.[fieldName]?.[dataId]?.plotId || ''}
+                    className={cs("pull-left", "request-obj-double")}
+                    onChange={handleOnChange}
                 />
             </div>
         );
-    }
+    };
 
-    function plotId() {
+    const plotId = () => {
         return (
             <div>
                 <FormControl
-                    className="pull-left"
-                    placeholder="Municipial account id"
-                    style={{ height: 34, width: 120, margin: 4 }}
+                    placeholder={'cadastrapp.requestForm.accountId'}
+                    name="accountId"
+                    value={requestFormData?.[fieldName]?.[dataId]?.accountId || ''}
+                    className={cs("pull-left", "request-obj-double")}
+                    onChange={handleOnChange}
                 />
             </div>
         );
-    }
+    };
 
-    function owner() {
+    const owner = () => {
         return (
             <div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="commune"
-                        options={communeOptions}
+                <div style={{display: 'flex', "float": "left", margin: 4}}>
+                    <MunicipalityCombo
+                        placeholder={'cadastrapp.requestForm.commune'}
+                        additionalStyle={{width: 300, marginRight: 4}}
+                        value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
+                        onSelect={v =>handleSelectChange("commune", v)}
                     />
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="proprietaire"
-                        options={sectionOptions}/>
+                    <ProprietaireCombo
+                        placeholder={'cadastrapp.requestForm.owner'}
+                        disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.commune)}
+                        birthsearch
+                        cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
+                        additionalStyle={{width: 300, marginRight: 4}}
+                        value={requestFormData?.[fieldName]?.[dataId]?.proprietaire?.value}
+                        onSelect={v =>handleSelectChange("proprietaire", v)}
+                    />
                 </div>
             </div>
         );
-    }
+    };
 
-    function cadastrappDemandei() {
+    const cadastrappDemandei = () => {
         return (
             <div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="commune"
-                        options={communeOptions}
+                <div style={{display: 'flex', "float": "left", margin: 4}}>
+                    <MunicipalityCombo
+                        placeholder={'cadastrapp.requestForm.commune'}
+                        additionalStyle={{width: 300, marginRight: 4}}
+                        value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
+                        onSelect={v =>handleSelectChange("commune", v)}
                     />
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="proprietaire"
-                        options={sectionOptions}/>
+                    <ProprietaireCombo
+                        placeholder={'cadastrapp.requestForm.owner'}
+                        disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.commune)}
+                        birthsearch
+                        cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
+                        additionalStyle={{width: 300, marginRight: 4}}
+                        value={requestFormData?.[fieldName]?.[dataId]?.proprietaire?.value }
+                        onSelect={v =>handleSelectChange("proprietaire", v)}
+                    />
                 </div>
             </div>
         );
-    }
+    };
 
-    function lotCoOwners() {
+    const lotCoOwners = () => {
         return (
             <div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="commune"
-                        options={communeOptions}
+                <div style={{display: 'flex', margin: 4}}>
+                    <MunicipalityCombo
+                        placeholder={'cadastrapp.requestForm.commune'}
+                        additionalStyle={{marginRight: 4}}
+                        value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
+                        onSelect={v =>handleSelectChange("commune", v)}
                     />
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="section"
-                        options={sectionOptions}/>
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="no"
-                        options={noOptions}/>
-                </div>
-                <div style={{ width: 120, "float": "left", margin: 4 }}>
-                    <Select
-                        placeholder="proprietaire"
-                        options={sectionOptions}/>
+                    <SectionCombo
+                        cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
+                        value={{section: requestFormData?.[fieldName]?.[dataId]?.section,
+                            plot: isEmpty(requestFormData?.[fieldName]?.[dataId]?.plot) ? null : requestFormData?.[fieldName]?.[dataId]?.plot}}
+                        onSelect={(c, v) =>handleSelectChange(c, v)}/>
+
+                    <ProprietaireComboList
+                        placeholder={'cadastrapp.requestForm.owner'}
+                        disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.plot)}
+                        section={requestFormData?.[fieldName]?.[dataId]?.section?.ccosec}
+                        numero={requestFormData?.[fieldName]?.[dataId]?.section?.plot?.dnupla}
+                        commune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
+                        onSelect={v =>handleSelectChange("proprietaire", v)}
+                    />
                 </div>
             </div>
         );
-    }
+    };
 
-    let InputTemplate = () => <div></div>;
-    switch (props.value) {
-    case "owner-id": InputTemplate = ownerId; break;
-    case "plot": InputTemplate = plot; break;
-    case "co-owners": InputTemplate = coOwners; break;
-    case "plot-id": InputTemplate = plotId; break;
-    case "owner": InputTemplate = owner; break;
-    case "cadastrapp-demandei": InputTemplate = cadastrappDemandei; break;
-    case "lot-co-owners": InputTemplate = lotCoOwners; break;
-    default: break;
-    }
+    const inputTemplate = () => <div/>;
+    const [compRender, setCompRender] = useState(inputTemplate);
+
+    useEffect(()=>{
+        switch (value) {
+        case "owner-id":
+            setFieldName("comptecommunaux");
+            setMandatoryFields(["accountId"]);
+            setCompRender(ownerId);
+            break;
+        case "plot":
+            setFieldName("parcelles");
+            setMandatoryFields(["commune", "section", "plot"]);
+            setCompRender(plot);
+            break;
+        case "co-owners":
+            setFieldName("coproprietes");
+            setMandatoryFields(["accountId", "plotId"]);
+            setCompRender(coOwners);
+            break;
+        case "plot-id":
+            setFieldName("parcelleIds");
+            setMandatoryFields(["accountId"]);
+            setCompRender(plotId);
+            break;
+        case "owner":
+            setFieldName("proprietaires");
+            setMandatoryFields(["commune", "proprietaire"]);
+            setCompRender(owner);
+            break;
+        case "cadastrapp-demandei":
+            setFieldName("proprietaires");
+            setMandatoryFields(["commune", "proprietaire"]);
+            setCompRender(cadastrappDemandei);
+            break;
+        case "lot-co-owners":
+            setFieldName("proprietaireLots");
+            setMandatoryFields(["commune", "section", "numero", "proprietaire"]);
+            setCompRender(lotCoOwners);
+            break;
+        default: break;
+        }
+    }, [value, requestFormData, fieldName, allow, dataId]);
 
     let handleDelete = () => {
-        props.onDelete(props.dataId);
+        onDelete(dataId);
+        delete requestFormData?.[fieldName]?.[dataId];
+        setRequestFormData({...requestFormData});
     };
 
     const handleChange = (item) => {
-        props.onChange(props.dataId, item.value);
+        onChange(dataId, item.value);
     };
 
     return (
         <div className="pull-left" style={{ width: "100%" }}>
-            <div
-                style={{ width: 120, "float": "left", margin: 4 }}
-            >
+            <div className={"request-obj-triple"}>
                 <Select
                     options={requestOptions}
-                    value={props.value}
-                    onChange={handleChange}/>
-
+                    value={value}
+                    onChange={handleChange}
+                />
             </div>
-            <InputTemplate/>
-            <Button className="pull-right"
-                style={{ margin: 4 }}>
-                <Glyphicon
-                    glyph="trash"
-                    onClick={handleDelete}/>
+            {compRender}
+            <Button className="pull-right" onClick={handleDelete} style={{ margin: 4 }}>
+                <Glyphicon glyph="trash"/>
             </Button>
+            {!isEmpty(fieldName) && <RequestItemsCheckboxes
+                handleOnChange={handleOnChange}
+                requestFormData={requestFormData?.[fieldName]?.[dataId] || {}}
+            />}
         </div>
     );
 }
