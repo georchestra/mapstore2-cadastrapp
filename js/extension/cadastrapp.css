@@ -217,22 +217,17 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
   font-weight: bold;
   width: 100%;
 }
-.cadastrapp-preferences-modal {
+.cadastrapp-preferences-dialog {
+  background: #fff;
   width: 400px;
-  max-width: none !important;
 }
-.cadastrapp-preferences-modal .tab-content {
-  border: solid 1px #ddd;
-  border-top: none;
+.cadastrapp-preferences-dialog .tab-content {
   overflow: hidden;
 }
-.cadastrapp-preferences-modal .tab-pane {
+.cadastrapp-preferences-dialog .tab-pane {
   padding: 10px;
 }
-.cadastrapp-preferences-modal .modal-body {
-  overflow: hidden !important;
-  width: 400px !important;
-}
+
 .cadastrapp-information-modal .modal-body {
   max-height: 85vh !important;
   overflow-y: auto !important;

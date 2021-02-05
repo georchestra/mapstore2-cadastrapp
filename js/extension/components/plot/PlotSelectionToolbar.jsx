@@ -18,6 +18,7 @@ import Toolbar from '@mapstore/components/misc/toolbar/Toolbar';
 import BundleInformationModal from './BundleInformationModal';
 
 export default function PlotSelectionToolbar({
+    foncier,
     authLevel = {},
     currentData = [],
     loadInfo = () => {},
@@ -43,12 +44,14 @@ export default function PlotSelectionToolbar({
                     glyph: "zoom-in",
                     tooltip: atLeaseOneSelected ? "Zoom to selected" : "Zoom on list", // localize
                     onClick: zoomToSelection
-                }, {
-                    disabled: !onlyOneSelected,
-                    glyph: "th-list",
-                    tooltip: "Owned Unit Information", // localize
-                    onClick: () => { showLandedPropertyInformation(find(currentData, {parcelle: selectedPlots[0]})); }
-                }, {
+                }, ...(foncier
+                    ? [{
+                        disabled: !onlyOneSelected,
+                        glyph: "th-list",
+                        tooltip: "Owned Unit Information", // localize
+                        onClick: () => { showLandedPropertyInformation(find(currentData, {parcelle: selectedPlots[0]})); }
+                    }]
+                    : []), {
                     disabled: !atLeaseOneSelected,
                     glyph: "trash",
                     tooltip: "Delete Selected Plots", // localize

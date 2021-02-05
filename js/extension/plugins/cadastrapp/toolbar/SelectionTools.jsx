@@ -37,11 +37,13 @@ const BUTTONS_SETTINGS = {
  * Implement the selection tools.
  * They are mutually exclusive and allow to start a selection on map.
  */
-function SelectionTools({ currentTool, onClick = () => {} }) {
+function SelectionTools({ foncier = true, currentTool, onClick = () => {} }) {
 
     return <>
         {
-            Object.keys(SELECTION_TYPES).map(k => SELECTION_TYPES[k])
+            Object.keys(SELECTION_TYPES)
+                .filter(k => foncier ? true : k !== SELECTION_TYPES.LANDED_PROPERTY) // if foncier: false, do not show landed property button
+                .map(k => SELECTION_TYPES[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;
                     return (<TButton
