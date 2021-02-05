@@ -37,7 +37,7 @@ export default function Lot({ values = {}, setValue = () => { } }) {
             </DropZone>
             <div
                 style={{ width: "100%", "float": "left" }}
-                className="text-muted">This file must contains comptecommunal id list separate by space or coma</div>
+                className="text-muted">This file must contains comptecommunal id list separate by space or comma</div>
         </div>
     </div>);
 }
