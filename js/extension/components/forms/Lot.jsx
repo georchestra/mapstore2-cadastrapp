@@ -48,9 +48,9 @@ export default function Lot({ values = {}, setValue = () => {}}) {
             </div>
             <div className="form-col" style={{position: 'relative'}}>
                 <DropZone
+                    accept={["text/csv", "text/plain", ".csv"]}
                     style={dropZoneStyle}
                     activeStyle={dropZoneActiveStyle}
-                    accept="text/csv"
                     multiple={false}
                     onDrop={onDrop}>
                     {fileName ? <span><Glyphicon glyph="remove" onClick={removeFile} /> {fileName} </span> : dropMessage}
