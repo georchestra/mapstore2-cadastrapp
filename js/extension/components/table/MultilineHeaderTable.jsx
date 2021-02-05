@@ -3,8 +3,8 @@ import ReactDataGrid from 'react-data-grid';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
 const DEFAULTS = {
-    minWidth: 120,
-    maxWidth: 300,
+    minWidth: 40,
+    maxWidth: 500,
     hPaddingCell: 16,
     hPaddingSort: 22,
     vPaddingCell: 16,
