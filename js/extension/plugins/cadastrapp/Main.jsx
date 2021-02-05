@@ -21,7 +21,7 @@ export default connect(state => ({
     return (<div className="cadastrapp">
         <Header/>
         <MainToolbar {...props} />
-        <MainPanel />
+        <MainPanel {...props} />
         <LandedProperty />
     </div>);
 });

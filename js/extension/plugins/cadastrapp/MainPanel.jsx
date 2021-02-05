@@ -14,7 +14,8 @@ import PlotsSelection from './PlotSelection';
 
 function MainPanel({
     selectedSearchTool,
-    plotSelectionData
+    plotSelectionData,
+    foncier
 }) {
     return (
 
@@ -26,7 +27,7 @@ function MainPanel({
             <SearchSection
                 selectedSearchTool={selectedSearchTool}
             />
-            <PlotsSelection />
+            <PlotsSelection foncier={foncier}/>
         </div>
     );
 }

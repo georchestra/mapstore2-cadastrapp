@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEARCH_TOOLS } from '../../../constants';
 import { toggleSearchTool } from '../../../actions/cadastrapp';
-import { currentSearchToolSelector } from '../../../selectors/cadastrapp';
+import { currentSearchToolSelector, getAuthLevel } from '../../../selectors/cadastrapp';
 
 
 import TButton from './TButton';
@@ -35,10 +35,19 @@ const BUTTONS_SETTINGS = {
  * Implements Search tools buttons.
  * They are mutually exclusive and allow to select the needed search form.
  */
-function SearchTools({ currentTool, onClick = () => { } }) {
+function SearchTools({ authLevel = {}, currentTool, onClick = () => { } }) {
+    const { isCNIL1, isCNIL2 } = authLevel;
+
     return <>
         {
-            Object.keys(SEARCH_TOOLS).map(k => SEARCH_TOOLS[k])
+            Object.keys(SEARCH_TOOLS)
+                .filter(k => {
+                    if (isCNIL1 || isCNIL2) {
+                        return true;
+                    }
+                    return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
+                })
+                .map(k => SEARCH_TOOLS[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;
                     return (<TButton
@@ -52,7 +61,9 @@ function SearchTools({ currentTool, onClick = () => { } }) {
 }
 export default connect(
     (state) => ({
-        currentTool: currentSearchToolSelector(state)
+        currentTool: currentSearchToolSelector(state),
+        authLevel: getAuthLevel(state)
+
     }),
     {
         onClick: toggleSearchTool
