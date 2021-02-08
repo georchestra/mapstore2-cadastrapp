@@ -4,14 +4,15 @@ import { layerStylesSelector } from '../../../selectors/cadastrapp';
 
 import TButton from './TButton';// ["cog", "preferences", "Preferences"],
 import PreferencesDialog from '../../../components/modals/Preferences';
-import { setLayerStyle, setLayerStyles } from '../../../actions/cadastrapp';
+import { setLayerStyle, setLayerStyles, updateLayerStyle } from '../../../actions/cadastrapp';
 
 
 const Dialog = connect(state => ({
     styles: layerStylesSelector(state)
 }), {
     setLayerStyle,
-    setLayerStyles
+    setLayerStyles,
+    updateLayerStyle
 })(PreferencesDialog);
 /**
  * Implements Preferences button and modal.

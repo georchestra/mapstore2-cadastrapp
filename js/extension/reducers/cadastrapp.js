@@ -14,6 +14,7 @@ import {
     TOGGLE_SEARCH,
     TEAR_DOWN,
     SET_LAYER_STYLE,
+    UPDATE_LAYER_STYLE,
     SET_STYLES,
     SHOW_OWNERS,
     CLEAR_OWNERS,
@@ -22,7 +23,6 @@ import {
     INFORMATION_CLEAR,
     SAVE_BUBBLE_INFO,
     SETUP,
-    PRINT_SUCCESS,
     PRINT_RESPONSE
 } from '../actions/cadastrapp';
 
@@ -208,6 +208,9 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     }
     case SET_LAYER_STYLE: {
         return set(`styles.${action.styleType}`, action.value, state);
+    }
+    case UPDATE_LAYER_STYLE: {
+        return set(`styles.${action.styleType}`, {...(state?.styles?.[action.styleType] ?? {}), ...action.values}, state);
     }
     case SET_STYLES: {
         return set('styles', action.styles, state);

@@ -21,7 +21,7 @@ const styleToRgba = (color, opacity) => ({
 
 export default ({
     style = {},
-    updateStyle = () => {}
+    updateLayerStyle = () => {}
 }) => {
     return (
         <>
@@ -34,7 +34,7 @@ export default ({
                         onChangeColor={ ({r, g, b, a} = {}) => {
                             const fillColor = rgbToHex(r, g, b);
                             const fillOpacity = a;
-                            updateStyle({
+                            updateLayerStyle({
                                 fillColor,
                                 fillOpacity
                             });
@@ -54,7 +54,7 @@ export default ({
                         onChangeColor={({ r, g, b, a } = {}) => {
                             const color = rgbToHex(r, g, b);
                             const opacity = a;
-                            updateStyle({
+                            updateLayerStyle({
                                 color,
                                 opacity
                             });
@@ -74,7 +74,7 @@ export default ({
                         <Slider
                             tooltips
                             onChange={([v]) => {
-                                updateStyle({
+                                updateLayerStyle({
                                     weight: parseFloat(v, 10)
                                 });
                             }}
