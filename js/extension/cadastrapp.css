@@ -12,7 +12,7 @@
   right: 0;
   height: calc(100% - 30px);
   width: 660px;
-  z-index: 999999999;
+  z-index: 100000;
 }
 .cadastrapp .top {
   height: 52px;
@@ -158,6 +158,12 @@
 }
 div.cadastrapp-owners-modal .modal-dialog {
   width: 85% !important;
+}
+div.cadastrapp-preferences-dialog {
+  position: absolute;
+  top: 150px;
+  left: 150px;
+  z-index: 100001 !important;
 }
 div.cadastrapp-modal.cadastrapp-owners-modal .modal-content{
   min-width: 850px !important;

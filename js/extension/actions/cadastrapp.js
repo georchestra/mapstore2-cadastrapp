@@ -18,6 +18,8 @@ export const ZOOM_TO_SELECTION = "CADASTRAPP:ZOOM_TO_SELECTION";
 export const ZOOM_TO_RESULTS = "CADASTRAPP:ZOOM_TO_RESULTS";
 
 export const SET_LAYER_STYLE = "CADASTRAPP:SET_LAYER_STYLE";
+export const UPDATE_LAYER_STYLE = "CADASTRAPP:UPDATE_LAYER_STYLE";
+
 export const SET_STYLES = "CADASTRAPP:SET_STYLES";
 
 export const SEARCH = "CADASTRAPP:SEARCH";
@@ -44,6 +46,12 @@ export const setLayerStyle = (styleType, value) => ({
     type: SET_LAYER_STYLE,
     styleType,
     value
+});
+
+export const updateLayerStyle = (styleType, values) => ({
+    type: UPDATE_LAYER_STYLE,
+    styleType,
+    values
 });
 
 /**

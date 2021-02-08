@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from '@mapstore/components/misc/Dialog';
-import Portal from '@mapstore/components/misc/Portal';
+import {Portal} from 'react-overlays';
 import StyleEditor from '../style/StyleEditor';
 
 import { Tabs, Tab, Button, Glyphicon } from "react-bootstrap";
@@ -8,8 +8,8 @@ import { Tabs, Tab, Button, Glyphicon } from "react-bootstrap";
 export default function PreferencesDialog({
     isShown,
     onClose,
-    setLayerStyle = () => {},
     setLayerStyles = () => {},
+    updateLayerStyle = () => {},
     styles = {
         selected: {},
         "default": {}
@@ -18,8 +18,9 @@ export default function PreferencesDialog({
     if (!isShown) {
         return null;
     }
+
     return (
-        <Portal><Dialog
+        <Portal container={document.querySelector('#container #viewer') || document.body}><Dialog
             className="cadastrapp-preferences-dialog"
             show={isShown} >
             <span role="header"><span>Preferences</span><button style={{ background: 'transparent', border: 'none', "float": "right" }}><Glyphicon glyph="1-close" onClick={() => onClose()} style={{  }} /></button></span>
@@ -28,22 +29,12 @@ export default function PreferencesDialog({
                     <Tab eventKey={1} title="Default">
                         <StyleEditor
                             style={styles.default}
-                            updateStyle={(updates) => {
-                                setLayerStyle('default', {
-                                    ...styles.default,
-                                    ...updates
-                                });
-                            }} />
+                            updateLayerStyle={( ...args ) => updateLayerStyle('default', ...args)} />
                     </Tab>
                     <Tab eventKey={2} title="Selected">
                         <StyleEditor
                             style={styles.selected}
-                            updateStyle={(updates) => {
-                                setLayerStyle('selected', {
-                                    ...styles.selected,
-                                    ...updates
-                                });
-                            }} />
+                            updateLayerStyle={(...args) => updateLayerStyle('selected', ...args)} />
 
                     </Tab>
 
