@@ -45,7 +45,7 @@ const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
     changeDrawingStatus("stop"),
     registerEventListener(MOUSE_EVENT, CONTROL_NAME),
-    loading(0, "plotSelection")
+    loading(0, "plotSelection") // reset loading if stopped due to close
 ];
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
 

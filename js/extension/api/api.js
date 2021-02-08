@@ -128,8 +128,8 @@ export function getVoie({ cgocommune, dvoilib }) {
  *  - `details=1`  `[{"app_nom_usage": "...", "app_nom_naissance":"...","dlign3":"...","dlign4":"...","dlign5":"","dlign6":"","dldnss":"","jdatnss":"","ccodro_lib":"PROPRIETAIRE","comptecommunal":"123456"}]`
  *  - `details=2`  `[{"comptecommunal":"123456*7890","app_nom_usage":"the name"}]`
  */
-export function getProprietaire({ cgocommune, ddenom, dnupro, birthsearch, details }) {
-    const args = { cgocommune, ddenom, dnupro, birthsearch, details };
+export function getProprietaire({ cgocommune, ddenom, dnupro, birthsearch, details, comptecommunal }) {
+    const args = { cgocommune, ddenom, dnupro, birthsearch, details, comptecommunal };
     const params = toURLParams(args);
     return axios.get(`${baseURL}/services/getProprietaire`, { params }).then(({ data }) => data);
 }
