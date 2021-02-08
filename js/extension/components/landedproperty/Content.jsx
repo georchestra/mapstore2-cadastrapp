@@ -10,7 +10,7 @@ function getSufBatCalcPercentage(surfaceTotal, surfaceBatie) {
     return percent;
 }
 // NOTE: localization here was not present
-export default function Content({layers = [], map, proprietaire = [], info = {}, parcelleData = [], configuration = {}, hookRegister}) {
+export default function Content({layers = [], map, proprietaires = [], info = {}, parcelleData = [], configuration = {}, hookRegister}) {
     const { comptecommunal, dcntpa_sum, sigcal_sum, sigcalb_sum } = info;
     const { organisme, dateValiditeEDIGEO, dateValiditeMajic} = configuration;
     return (<div id="cadastrapp-landed-prop-print-page" className="cadastrapp-landed-prop-print-page">
@@ -29,8 +29,8 @@ export default function Content({layers = [], map, proprietaire = [], info = {},
             <br />
             <div id="informationgenerale">
                 <div className="proprieteaire">
-                    {comptecommunal ? <div className="propTitle">{proprietaire.length > 1 ? "Propriétaires" : "Propriétaire"}  ( {comptecommunal} )</div> : null}
-                    <div className="propList">{proprietaire.map(({ app_nom_usage: name }) => <div>{name}</div>)}</div>
+                    {comptecommunal ? <div className="propTitle">{proprietaires.length > 1 ? "Propriétaires" : "Propriétaire"}  ( {comptecommunal} )</div> : null}
+                    <div className="propList">{proprietaires.map(({ app_nom_usage: name }) => <div>{name}</div>)}</div>
                     <div className="datauflist">
                         {dcntpa_sum
                             ? <div className="datauf"><span className="dataufLabel">Contenance DGFIP de l'UF : </span>{((dcntpa_sum === null) ? 0 : dcntpa_sum.toLocaleString())} m²</div>

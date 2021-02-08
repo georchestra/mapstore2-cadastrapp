@@ -69,7 +69,9 @@ export default function LandedPropertyInformationModal({
                 }
                 const { comptecommunal, uf } = ufInfo;
                 setInfo(ufInfo);
-                getProprietaire({ details: 2, comptecommunal }).then(setProprietaires);
+                getProprietaire({ details: 2, comptecommunal })
+                    .then(result => setProprietaires(result))
+                    .catch((e) => {console.log(e)}); // TODO: notify error
                 getParcelle({ unitefonciere: uf }).then(setParcelleData);
             });
         }
