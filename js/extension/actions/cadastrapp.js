@@ -1,6 +1,7 @@
 import { LAYER_STYLES } from '../constants';
 
 export const SETUP = "CADASTRAPP:SETUP";
+export const SETUP_COMPLETED = "CADASTRAPP:SETUP_COMPLETED";
 export const TEAR_DOWN = "CADASTRAPP:TEAR_DOWN";
 export const LOADING = "CADASTRAPP:LOADING";
 export const SET_CONFIGURATION = "CADASTRAPP:SET_CONFIGURATION";
@@ -60,6 +61,13 @@ export const setLayerStyles = (styles = LAYER_STYLES) => ({
 export const setUp = (cfg) => ({
     type: SETUP,
     cfg
+});
+
+/**
+ * triggered when setup is completed
+ */
+export const setupCompleted = () => ({
+    type: SETUP_COMPLETED
 });
 
 /**

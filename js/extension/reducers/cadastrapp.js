@@ -201,7 +201,7 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
         )(state);
     }
     case TEAR_DOWN: {
-        return DEFAULT_STATE;
+        return state;
     }
     case SET_ACTIVE_PLOT_SELECTION: {
         return set('activePlotSelection', action.active, state);
