@@ -44,7 +44,8 @@ const CLEAN_ACTION = changeDrawingStatus("clean");
 const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
     changeDrawingStatus("stop"),
-    registerEventListener(MOUSE_EVENT, CONTROL_NAME)
+    registerEventListener(MOUSE_EVENT, CONTROL_NAME),
+    loading(0, "plotSelection")
 ];
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
 
