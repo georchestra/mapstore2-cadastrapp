@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Dialog from '@mapstore/components/misc/Dialog';
+import isEmpty from 'lodash/isEmpty';
 import {Portal} from 'react-overlays';
 import StyleEditor from '../style/StyleEditor';
 
 import { Tabs, Tab, Button, Glyphicon } from "react-bootstrap";
+import {LAYER_STYLES} from "@js/extension/constants";
 
 export default function PreferencesDialog({
     isShown,
@@ -13,8 +15,13 @@ export default function PreferencesDialog({
     styles = {
         selected: {},
         "default": {}
-    }
+    },
+    configStyles = {}
 }) {
+    useEffect(()=>{
+        setLayerStyles(isEmpty(configStyles) ? LAYER_STYLES : configStyles);
+    }, [setLayerStyles]);
+
     if (!isShown) {
         return null;
     }
