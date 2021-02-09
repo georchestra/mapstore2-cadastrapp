@@ -58,7 +58,7 @@ export const updateLayerStyle = (styleType, values) => ({
  * Resets all the styles for feature highlight on map.
  * @param {object} styles and object with `default` and `selected` entries for styling features on map.
  */
-export const setLayerStyles = (styles = LAYER_STYLES) => ({
+export const setLayerStyles = (styles) => ({
     type: SET_STYLES,
     styles
 });
@@ -230,7 +230,7 @@ export const showOwners = (owners) => ({
 });
 export const clearOwners = () => ({
     type: CLEAR_OWNERS
-})
+});
 
 // LANDED PROPERTY
 export const showLandedPropertyInformation = (parcelle) => ({

@@ -54,7 +54,7 @@ const EMPTY_PLOT_SELECTION = { data: [], selected: [] };
 
 const DEFAULT_STATE = {
     plots: [],
-    styles: LAYER_STYLES
+    styles: {}
 };
 
 /**

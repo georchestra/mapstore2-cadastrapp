@@ -18,13 +18,14 @@ const Dialog = connect(state => ({
  * Implements Preferences button and modal.
  * Allow to set-up preferences.
  */
-export default function Preferences() {
+export default function Preferences(props) {
     const [isPreferencesModalShown, setPreferencesModalShown] = useState(false);
     return <>
         <TButton glyph="cog" onClick={() => setPreferencesModalShown(true)} />
         <Dialog
             isShown={isPreferencesModalShown}
             onClose={() => setPreferencesModalShown(false)}
+            {...props}
         />
     </>;
 }

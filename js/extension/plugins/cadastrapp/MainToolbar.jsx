@@ -14,7 +14,7 @@ export default function MainToolbar(props) {
         <SelectionTools {...props}/>
         <SearchTools/>
         <RequestLanding />
-        <Preferences/>
+        <Preferences configStyles={props.styles}/>
         <HelpButton helpUrl={props?.helpUrl}/>
     </div>);
 }
