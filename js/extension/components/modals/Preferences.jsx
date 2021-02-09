@@ -18,8 +18,13 @@ export default function PreferencesDialog({
     },
     configStyles = {}
 }) {
-    useEffect(()=>{
+    const setDefaultStyles = () => {
         setLayerStyles(isEmpty(configStyles) ? LAYER_STYLES : configStyles);
+    };
+
+    useEffect(()=>{
+        const isStateStylesEmpty = isEmpty(styles) || (isEmpty(styles.selected) && isEmpty(styles.default));
+        isStateStylesEmpty && setDefaultStyles(); // Retain state styles (if any)
     }, [setLayerStyles]);
 
     if (!isShown) {
@@ -48,7 +53,7 @@ export default function PreferencesDialog({
                 </Tabs>
             </div>
             <div role="footer">
-                <Button onClick={() => { setLayerStyles();}}>Set default style</Button>
+                <Button onClick={setDefaultStyles}>Set default style</Button>
                 <Button onClick={() => { onClose(); }}>Close</Button>
             </div>
         </Dialog></Portal>

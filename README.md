@@ -14,6 +14,7 @@ For example the plugin allows configuration of the following properties
 - *helpUrl* - Plugin specific help url for more details on the extension, used by the help button
 - *foncier* - activate/deactivate `foncier` functionalities
 - *popup* - settings for popup
+- *styles* - styles for `Preferences`
 
  ```javascript
  {
@@ -23,6 +24,22 @@ For example the plugin allows configuration of the following properties
     "popup": {
       "minZoom": 14,
       "timeToShow": 1000
+    },
+    "styles": {
+      "selected": {
+        "fillColor": "#81BEF7",
+        "opacity": 0.6,
+        "fillOpacity": 0.6,
+        "color": "#111111",
+        "weight": 4
+      },
+      "default": {
+        "fillColor": "#222111",
+        "opacity": 0.4,
+        "fillOpacity": 0.4,
+        "color": "#111222",
+        "weight": 2
+      }
     }
   }
  }

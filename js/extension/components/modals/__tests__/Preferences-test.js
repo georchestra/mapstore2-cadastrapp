@@ -14,6 +14,11 @@ import Preferences from '../Preferences';
 import {LAYER_STYLES} from "@js/extension/constants";
 
 describe('Preferences', () => {
+    const styles = {
+        ...LAYER_STYLES,
+        "default": {...LAYER_STYLES.default, fillColor: "#000000"},
+        selected: {...LAYER_STYLES.selected, fillColor: "#FFFFFF"}
+    };
     beforeEach((done) => {
         document.body.innerHTML = '<div id="container"></div>';
         setTimeout(done);
@@ -39,20 +44,36 @@ describe('Preferences', () => {
         expect(tabs.length).toBe(2);
     });
 
-    it('test render Preferences on set styles', () => {
+    it('test render Preferences on set default styles', () => {
         const action = {
             setLayerStyles: () => {}
         };
         const spySetLayerStyles = expect.spyOn(action, "setLayerStyles");
-        ReactDOM.render(<Preferences isShown styles={LAYER_STYLES} {...action}/>, document.getElementById("container"));
+        ReactDOM.render(<Preferences isShown styles={styles} configStyles={LAYER_STYLES} {...action}/>, document.getElementById("container"));
         const container = document.getElementById('container');
         expect(container).toBeTruthy();
-        const button = document.querySelector('button');
-        expect(button).toBeTruthy();
-        TestUtils.Simulate.click(button);
+        const buttons = document.querySelectorAll('button');
+        expect(buttons).toBeTruthy();
+        expect(buttons.length).toBe(3);
+        TestUtils.Simulate.click(buttons[1]);
         expect(spySetLayerStyles).toHaveBeenCalled();
         const argument = spySetLayerStyles.calls[0].arguments[0];
         expect(argument.selected).toBeTruthy();
         expect(argument.default).toBeTruthy();
+        expect(argument).toEqual(LAYER_STYLES);
+    });
+
+    it('test render Preferences on close', () => {
+        const action = {
+            onClose: () => {}
+        };
+        const spyOnClose = expect.spyOn(action, "onClose");
+        ReactDOM.render(<Preferences isShown styles={styles} configStyles={LAYER_STYLES} {...action}/>, document.getElementById("container"));
+        const container = document.getElementById('container');
+        expect(container).toBeTruthy();
+        const buttons = document.querySelectorAll('button');
+        expect(buttons).toBeTruthy();
+        TestUtils.Simulate.click(buttons[2]);
+        expect(spyOnClose).toHaveBeenCalled();
     });
 });
