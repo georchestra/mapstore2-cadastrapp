@@ -148,7 +148,7 @@
   width: 60%;
   float: left;
 }
-.cadastrapp-modal {
+.cadastrapp-modal.modal-dialog {
   width: 840px;
   max-width: none !important;
 }
@@ -305,6 +305,11 @@ th.info-popup-header {
   width: 100%;
 }
 
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 /* Request form */
 .request-modal-body {
   max-height: 500px;
@@ -319,7 +324,7 @@ th.info-popup-header {
   float: left;
   margin: 4px
 }
-.request-obj-double{
+input.request-obj-double.form-control{
   width: 200px;
   height: 34px;
   margin: 4px
