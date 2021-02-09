@@ -10,6 +10,7 @@ import ProprietaireComboList from "./searchCombos/ProprietaireComboList";
 import ProprietaireCombo from "../forms/ProprietaireCombo";
 import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
 const FormControl = localizedProps('placeholder')(FC);
+const RequestSelect = localizedProps('options')(Select);
 
 /**
  * RequestObjectItem component
@@ -34,13 +35,13 @@ export default function RequestObjectItem({
     allow = false
 }) {
     const requestOptions = [
-        { value: 'owner-id', label: 'Owner id' },
-        { value: 'plot', label: 'Plot' },
-        { value: 'co-owners', label: 'co-owners' },
-        { value: 'plot-id', label: 'Plot id' },
-        { value: 'owner', label: 'Owner', style: {display: allow ? 'block' : 'none'} },
-        { value: 'cadastrapp-demandei', label: 'cadastrapp.demandei', style: {display: allow ? 'block' : 'none'} },
-        { value: 'lot-co-owners', label: 'Lot co-owners', style: {display: allow ? 'block' : 'none'} }
+        { value: 'owner-id', label: 'cadastrapp.requestForm.ownerId' },
+        { value: 'plot', label: 'cadastrapp.requestForm.plot' },
+        { value: 'co-owners', label: 'cadastrapp.requestForm.coOwner' },
+        { value: 'plot-id', label: 'cadastrapp.requestForm.plotId' },
+        { value: 'owner', label: 'cadastrapp.requestForm.owner', style: {display: allow ? 'block' : 'none'} },
+        { value: 'owner-birth-name', label: 'cadastrapp.requestForm.ownerBirthName', style: {display: allow ? 'block' : 'none'} },
+        { value: 'lot-co-owners', label: 'cadastrapp.requestForm.lotCoOwners', style: {display: allow ? 'block' : 'none'} }
     ];
 
     const [fieldName, setFieldName] = useState('');
@@ -270,7 +271,7 @@ export default function RequestObjectItem({
             setMandatoryFields(["commune", "proprietaire"]);
             setCompRender(owner);
             break;
-        case "cadastrapp-demandei":
+        case "owner-birth-name":
             setFieldName("proprietaires");
             setMandatoryFields(["commune", "proprietaire"]);
             setCompRender(cadastrappDemandei);
@@ -297,7 +298,7 @@ export default function RequestObjectItem({
     return (
         <div className="pull-left" style={{ width: "100%" }}>
             <div className={"request-obj-triple"}>
-                <Select
+                <RequestSelect
                     options={requestOptions}
                     value={value}
                     onChange={handleChange}
