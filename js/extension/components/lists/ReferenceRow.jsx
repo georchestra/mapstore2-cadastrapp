@@ -24,7 +24,8 @@ export default function ReferenceRow({
     onRemove,
     hideRemove = false,
     containerStyle = {},
-    fieldStyle = {width: 120, marginTop: 5, marginRight: 5}
+    fieldStyle = {width: 120, marginTop: 5, marginRight: 5},
+    dropUp = false
 }) {
     const [plots, setPlots] = useState();
     const [busy, setBusy] = useState();
@@ -44,6 +45,7 @@ export default function ReferenceRow({
     }, [section]);
     return (<div style={{ width: "100%", "float": "left", display: "flex", ...containerStyle }}>
         <DropdownList
+            dropUp={dropUp}
             defaultOpen
             disabled={isEmpty(sections)}
             style={fieldStyle}
@@ -62,6 +64,7 @@ export default function ReferenceRow({
             }))}
         />
         <DropdownList
+            dropUp={dropUp}
             onToggle={(v) => setOpenPlot(v)}
             open={openPlot}
             busy={busy}

@@ -20,6 +20,7 @@ export default ({
     hideRemove = false,
     additionalStyle = {},
     placeholder = "",
+    dropUp = false,
     ...props
 }) => {
     const [text, setText] = useState("");
@@ -36,6 +37,7 @@ export default ({
     }, [text]);
     return (<div style={{position: "relative", ...additionalStyle}}>
         <Combobox
+            dropUp={dropUp}
             busy={busy}
             disabled={disabled}
             placeholder={placeholder}

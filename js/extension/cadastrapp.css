@@ -313,7 +313,7 @@ th.info-popup-header {
 /* Request form */
 .request-modal-body {
   max-height: 500px;
-  overflow-y: visible;
+  overflow-y: auto;
 }
 .request-obj-label {
   width: 100%;
@@ -328,4 +328,8 @@ input.request-obj-double.form-control{
   width: 200px;
   height: 34px;
   margin: 4px
+}
+.drop-up .Select-menu-outer {
+  top: auto !important;;
+  bottom: 100%;
 }
