@@ -114,6 +114,7 @@ export default function RequestObjectItem({
             <div>
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
+                        dropUp
                         placeholder={'cadastrapp.requestForm.commune'}
                         additionalStyle={{width: 300, marginRight: 4}} value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
                         onSelect={v =>handleSelectChange("commune", v)}
@@ -169,6 +170,7 @@ export default function RequestObjectItem({
             <div>
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
+                        dropUp
                         placeholder={'cadastrapp.requestForm.commune'}
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
@@ -193,6 +195,7 @@ export default function RequestObjectItem({
             <div>
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
+                        dropUp
                         placeholder={'cadastrapp.requestForm.commune'}
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
@@ -217,6 +220,7 @@ export default function RequestObjectItem({
             <div>
                 <div style={{display: 'flex', margin: 4}}>
                     <MunicipalityCombo
+                        dropUp
                         placeholder={'cadastrapp.requestForm.commune'}
                         additionalStyle={{marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
@@ -299,6 +303,7 @@ export default function RequestObjectItem({
         <div className="pull-left" style={{ width: "100%" }}>
             <div className={"request-obj-triple"}>
                 <RequestSelect
+                    className={"drop-up"}
                     options={requestOptions}
                     value={value}
                     onChange={handleChange}

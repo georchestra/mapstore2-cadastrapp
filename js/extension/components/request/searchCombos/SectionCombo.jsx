@@ -14,6 +14,7 @@ export default props => {
     }, [props.cgocommune]);
 
     return !isEmpty(sections) && <ReferenceRow
+        dropUp
         hideRemove
         containerStyle={{ width: "unset" }}
         fieldStyle={{ width: 120, marginBottom: 5, marginRight: 5 }}
