@@ -16,50 +16,43 @@ function BuildingsTable({
         return null;
     }
     const columns = [{
-        i18n: 'cadastrapp.duc.batiment_niveau',
+        name: 'cadastrapp.duc.batiment_niveau',
         resizable: true,
-        name: "Level",
         key: 'dniv'
     }, {
-        i18n: 'cadastrapp.duc.door',
+        name: 'cadastrapp.duc.door',
         resizable: true,
-        name: "Door",
         key: 'dpor'
     }, {
-        i18n: 'cadastrapp.duc.type',
+        name: 'cadastrapp.duc.type',
         resizable: true,
-        name: 'Type',
         key: 'ccoaff_lib'
     }, {
-        i18n: 'cadastrapp.duc.annee_construction',
+        name: 'cadastrapp.duc.annee_construction',
         resizable: true,
-        width: 120,
-        name: "Construction date",
+        width: 170,
         key: 'jannat'
     }, {
-        i18n: 'cadastrapp.duc.revenu',
+        name: 'cadastrapp.duc.revenu',
         resizable: true,
-        name: "Rent",
         key: 'revcad'
     }, {
-        i18n: 'cadastrapp.duc.compte',
+        name: 'cadastrapp.duc.compte',
         resizable: true,
-        name: "Identifier",
         key: 'comptecommunal'
     }, {
-        i18n: 'cadastrapp.duc.nom_usage',
+        name: 'cadastrapp.duc.nom_usage',
         resizable: true,
-        name: "Usage name",
+        width: 150,
         key: 'app_nom_usage'
     }, {
-        i18n: 'cadastrapp.duc.nom_naissance',
+        name: 'cadastrapp.duc.nom_naissance',
         resizable: true,
-        name: "Birth name",
+        width: 150,
         key: 'app_nom_naissance'
     }, {
-        i18n: 'cadastrapp.duc.invar',
+        name: 'cadastrapp.duc.invar',
         resizable: true,
-        name: 'invar',
         key: 'invar'
     }];
 

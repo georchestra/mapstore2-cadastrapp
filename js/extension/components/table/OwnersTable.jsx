@@ -5,52 +5,44 @@ import PropTypes from 'prop-types';
 import { EmptyRowsView } from './EmptyRowsView';
 
 const columns = [{
-    i18n: 'cadastrapp.proprietaires.ccodro',
-    name: "Identifier",
+    name: 'cadastrapp.proprietaires.ccodro',
     resizable: true,
     width: 70,
     key: 'ccodro'
 }, {
-    i18n: 'cadastrapp.duc.compte',
-    name: "Identifier",
+    name: 'cadastrapp.duc.compte',
     width: 130,
     resizable: true,
     key: 'comptecommunal'
 }, {
-    name: "Last name",
     width: 200,
-    i18n: 'cadastrapp.duc.nom',
+    name: 'cadastrapp.duc.nom',
     resizable: true,
     key: 'app_nom_usage'
 }, {
     id: 'adresse',
-    name: "Address",
     width: 300,
-    i18n: 'cadastrapp.duc.adresse',
+    name: 'cadastrapp.duc.adresse',
     resizable: true,
     key: 'adresse'
 }, {
-    name: "Date of birth",
     width: 120,
-    i18n: 'cadastrapp.duc.datenaissance',
+    name: 'cadastrapp.duc.datenaissance',
     resizable: true,
     key: 'jdatnss'
 }, {
-    name: "Birth location",
     width: 120,
-    i18n: 'cadastrapp.duc.lieunaissance',
+    name: 'cadastrapp.duc.lieunaissance',
     resizable: true,
     key: 'dldnss'
 }, {
-    name: "Right code",
-    width: 120,
-    i18n: 'cadastrapp.duc.cco_lib',
+    width: 200,
+    name: 'cadastrapp.duc.cco_lib',
     resizable: true,
     key: 'ccodro_lib'
 }, {
-    name: "Legal form",
     width: 120,
-    i18n: 'cadastrapp.duc.dformjur',
+    name: 'cadastrapp.duc.dformjur',
     resizable: true,
     key: 'dformjur'
 }];

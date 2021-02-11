@@ -3,16 +3,16 @@ import ReactDataGrid from './MultilineHeaderTable';
 
 import { EmptyRowsView } from './EmptyRowsView';
 const columns = [{
-    name: "Lettre indicative",
+    name: "cadastrapp.duc.lettreindic",
     key: 'ccosub'
 }, {
-    name: "Contenance",
-    key: 'dcntsf' // contenance
+    name: "cadastrapp.duc.contenance",
+    key: 'dcntsf'
 }, {
-    name: "Nature de culture",
+    name: "cadastrapp.duc.terrain",
     key: 'nat_culture'
 }, {
-    name: "Revenu au 01/01",
+    name: "cadastrapp.duc.revenu_1",
     key: 'drcsub'
 }
 ];

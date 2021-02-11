@@ -7,32 +7,31 @@ const columns = [{
     key: 'cgocommune',
     sortable: true,
     width: 80,
-    name: "Town", // TODO: localize headers
+    name: "cadastrapp.parcelle.result.commune",
     resizable: true
 }, {
     key: "ccosec",
     width: 80,
     sortable: true,
-    name: "Section",
+    name: "cadastrapp.parcelle.result.ccosec",
     resizable: true
 }, {
     key: "cadastralAddr",  // "dnvoiri" + "dvoilib",
     sortable: true,
-    name: "Cadastrall Addr.",
+    name: "cadastrapp.parcelle.result.adresse",
     width: 100,
     resizable: true
 }, {
     key: "dnupla",
     width: 100,
     sortable: true,
-    name: "Plan Number",
+    name: "cadastrapp.parcelle.result.dnupla",
     resizable: true
-
 }, {
     key: "dcntpa",
     width: 98,
     sortable: true,
-    name: "Surface DGFIP in m²",
+    name: "cadastrapp.parcelle.result.surface",
     resizable: true
 }];
 function PlotsSelectionTable({

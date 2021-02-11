@@ -100,7 +100,11 @@
                 "references": "Référence(s)",
                 "result": {
                     "title": "Sélection de parcelles",
-                    "ccosec": "Section"
+                    "ccosec": "Section",
+                    "commune": "Commune",
+                    "adresse": "Adresse cadastrale",
+                    "dnupla": "N° de plan",
+                    "surface": "Contenance DGFiP en m²"
                 },
                 "file": {
                     "title": "Fichier",
@@ -229,6 +233,21 @@
                 "value": "Valeur"
             },
             "duc": {
+                "batiment_niveau": "Niveau",
+                "door": "Porte",
+                "type": "Type",
+                "annee_construction": "Année de construction",
+                "revenu": "Revenu",
+                "nom_usage": "Nom d'usage",
+                "nom_naissance": "Nom de naissance",
+                "invar": "Invar",
+                "nom": "Nom",
+                "adresse": "Adresse",
+                "lieunaissance": "Lieu de naissance",
+                "cco_lib": "Libellé - Code du droit réel",
+                "lettreindic": "Lettre indicative",
+                "terrain": "Nature de culture",
+                "revenu_1": "Revenu au 01-01",
                 "batiment_bundle": "Lots",
                 "batiment_date": "Date",
                 "batiment_descriptif": "Descriptif",
@@ -280,7 +299,9 @@
                     "rp": "Relevé de propriétés",
                     "show": {
                         "parcelle": "Voir les parcelles"
-                    }
+                    },
+                    "comptecommunal": "Compte communal",
+                    "ddenom": "Dénomination"
                 }
             },
             "uniteFonciere": "Unite foncière",

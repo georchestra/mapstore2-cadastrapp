@@ -100,7 +100,11 @@
                 "references": "Reference(s)",
                 "result": {
                     "title": "Plots selection",
-                    "ccosec": "Section"
+                    "ccosec": "Section",
+                    "commune": "Town",
+                    "adresse": "Cadastral address",
+                    "dnupla": "Plan number",
+                    "surface": "Surface DGFiP in m²"
                 },
                 "file": {
                     "title": "File",
@@ -229,6 +233,21 @@
                 "value": "Value"
             },
             "duc": {
+                "batiment_niveau": "Level",
+                "door": "Door",
+                "type": "Type",
+                "annee_construction": "Creation date",
+                "revenu": "Income",
+                "nom_usage": "Usage name",
+                "nom_naissance": "Birth name",
+                "invar": "Invar",
+                "nom": "Last name",
+                "adresse": "Address",
+                "lieunaissance": "Birth location",
+                "cco_lib": "Right code",
+                "lettreindic": "Index",
+                "terrain": "Cultivation type",
+                "revenu_1": "Revenu au 01-01",
                 "batiment_bundle": "Bundle",
                 "batiment_date": "Date",
                 "batiment_descriptif": "Description",
@@ -241,7 +260,7 @@
                 "denomination": "Designation",
                 "dependances": "outbuilding",
                 "designation": "Designation",
-                "dformjur": "legal form",
+                "dformjur": "Legal form",
                 "releve": {
                     "depropriete": "Properties list"
                 },
@@ -280,7 +299,9 @@
                     "rp": "Properties details",
                     "show": {
                         "parcelle": "See plot(s)"
-                    }
+                    },
+                    "comptecommunal": "Owner id",
+                    "ddenom": "Full name information"
                 }
             },
             "uniteFonciere": "Land Unit",
