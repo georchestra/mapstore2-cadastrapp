@@ -2,6 +2,7 @@ import React from 'react';
 import {ControlLabel} from 'react-bootstrap';
 import ReferencesList from '../lists/ReferencesList';
 import MunicipalityCombo from './MunicipalityCombo';
+import Message from '@mapstore/components/I18N/Message';
 
 export default ({
     values = {},
@@ -12,16 +13,16 @@ export default ({
         <>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Town, Municipality</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.parcelle.city'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <MunicipalityCombo value={values?.commune} onSelect={v => setValue('commune', v)} />
-                    <div className="text-muted">ex. Rennes, Cesson-Sévigné</div>
+                    <div className="text-muted"><Message msgId={'cadastrapp.parcelle.cityExample'}/></div>
                 </div>
             </div>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Reference(s)</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.parcelle.references'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <ReferencesList

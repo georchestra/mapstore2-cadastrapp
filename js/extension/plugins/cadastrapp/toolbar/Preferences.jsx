@@ -5,6 +5,8 @@ import { layerStylesSelector } from '../../../selectors/cadastrapp';
 import TButton from './TButton';// ["cog", "preferences", "Preferences"],
 import PreferencesDialog from '../../../components/modals/Preferences';
 import { setLayerStyle, setLayerStyles, updateLayerStyle } from '../../../actions/cadastrapp';
+import { Tooltip } from "react-bootstrap";
+import Message from "@mapstore/components/I18N/Message";
 
 
 const Dialog = connect(state => ({
@@ -21,7 +23,9 @@ const Dialog = connect(state => ({
 export default function Preferences(props) {
     const [isPreferencesModalShown, setPreferencesModalShown] = useState(false);
     return <>
-        <TButton glyph="cog" onClick={() => setPreferencesModalShown(true)} />
+        <TButton
+            tooltip={<Tooltip id={"preference"}><Message msgId={"cadastrapp.menu.preference"}/></Tooltip>}
+            glyph="cog" onClick={() => setPreferencesModalShown(true)} />
         <Dialog
             isShown={isPreferencesModalShown}
             onClose={() => setPreferencesModalShown(false)}

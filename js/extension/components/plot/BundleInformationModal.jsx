@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from "react-spinkit";
-
+import Message from '@mapstore/components/I18N/Message';
 import Modal from '@mapstore/components/misc/Modal';
 import { Button, FormGroup, Radio } from 'react-bootstrap';
 
@@ -10,7 +10,6 @@ import {
     exportLotsAsCSV
 } from '../../api';
 import { downloadResponse } from '../../utils/download';
-
 
 
 export default function BundleInformationModal({ show, parcelle, onClose }) {
@@ -37,19 +36,19 @@ export default function BundleInformationModal({ show, parcelle, onClose }) {
         show={show}
         onHide={onClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Bundle Information { parcelle }</Modal.Title>
+            <Modal.Title><Message msgId={'cadastrapp.lots.title'}/> { parcelle }</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <div>Please select one building</div>
+            <div><Message msgId={'cadastrapp.lots.batiments'}/></div>
             {letters.map(({ dnubat }) => <Button bsStyle={letter === dnubat ? "primary" : undefined} onClick={() => setLetter(dnubat)}>{dnubat}</Button>)}
         </Modal.Body>
         <FormGroup>
-            <b style={{ "float": "left", width: 150, marginRight: 15 }}>Choose output format:</b>
+            <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={'cadastrapp.lots.type.title'}/>:</b>
             <Radio checked={format === 'pdf'} value="pdf" onChange={() => setFormat("pdf")} inline>
-                Export as PDF
+                <Message msgId={'cadastrapp.lots.type.pdf'}/>
             </Radio>
             <Radio checked={format === 'csv'} value="csv" onChange={() => setFormat("csv")} inline>
-                Export as CSV
+                <Message msgId={'cadastrapp.lots.type.csv'}/>
             </Radio>
         </FormGroup>
         <Modal.Footer>

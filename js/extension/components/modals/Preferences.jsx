@@ -3,7 +3,7 @@ import Dialog from '@mapstore/components/misc/Dialog';
 import isEmpty from 'lodash/isEmpty';
 import {Portal} from 'react-overlays';
 import StyleEditor from '../style/StyleEditor';
-
+import Message from '@mapstore/components/I18N/Message';
 import { Tabs, Tab, Button, Glyphicon } from "react-bootstrap";
 import {LAYER_STYLES} from "@js/extension/constants";
 
@@ -35,15 +35,15 @@ export default function PreferencesDialog({
         <Portal container={document.querySelector('#container #viewer') || document.body}><Dialog
             className="cadastrapp-preferences-dialog"
             show={isShown} >
-            <span role="header"><span>Preferences</span><button style={{ background: 'transparent', border: 'none', "float": "right" }}><Glyphicon glyph="1-close" onClick={() => onClose()} style={{  }} /></button></span>
+            <span role="header"><span><Message msgId={'cadastrapp.preferences.title'}/></span><button style={{ background: 'transparent', border: 'none', "float": "right" }}><Glyphicon glyph="1-close" onClick={() => onClose()} style={{  }} /></button></span>
             <div role="body" style={{height: 200}}>
                 <Tabs defaultActiveKey={1} >
-                    <Tab eventKey={1} title="Default">
+                    <Tab eventKey={1} title={<Message msgId={'cadastrapp.preferences.default'}/>}>
                         <StyleEditor
                             style={styles.default}
                             updateLayerStyle={( ...args ) => updateLayerStyle('default', ...args)} />
                     </Tab>
-                    <Tab eventKey={2} title="Selected">
+                    <Tab eventKey={2} title={<Message msgId={'cadastrapp.preferences.selected'}/>}>
                         <StyleEditor
                             style={styles.selected}
                             updateLayerStyle={(...args) => updateLayerStyle('selected', ...args)} />
@@ -53,8 +53,8 @@ export default function PreferencesDialog({
                 </Tabs>
             </div>
             <div role="footer">
-                <Button onClick={setDefaultStyles}>Set default style</Button>
-                <Button onClick={() => { onClose(); }}>Close</Button>
+                <Button onClick={setDefaultStyles}><Message msgId={'cadastrapp.preferences.defaultStyle'}/></Button>
+                <Button onClick={() => { onClose(); }}><Message msgId={'cadastrapp.preferences.close'}/></Button>
             </div>
         </Dialog></Portal>
     );

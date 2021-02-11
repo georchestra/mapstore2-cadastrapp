@@ -1,7 +1,7 @@
 import React from 'react';
 import PlotsSelectionTable from './table/PlotsSelectionTable';
 import Spinner from "react-spinkit";
-
+import Message from '@mapstore/components/I18N/Message';
 
 import {
     Nav,
@@ -57,17 +57,17 @@ function PlotSelectionTabContent({
 function PlotSelectionTabActionButtons({onNewTab = () => {}, onTabDelete = () => {}}) {
     return (
         <ButtonGroup className="pull-right">
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Add a new Selection Tab"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.addTab'}/></Tooltip>}>
                 <Button
                     className="pull-right"
                     onClick={onNewTab}
                 ><span className="glyphicon glyphicon-plus"></span>
                 </Button>
             </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Delete current Selection Tab"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
                 <ConfirmButton
                     className="pull-right"
-                    confirmContent="Are you sure you want to delete the selected tab"
+                    confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
                     onClick={onTabDelete}>
                     <Glyphicon glyph="trash" />
                 </ConfirmButton>
@@ -125,7 +125,7 @@ export default function PlotSelection(props) {
 
     return (
         <div className={className}>
-            <h3 className="pull-left">Plots Selection</h3>
+            <h3 className="pull-left"><Message msgId={"cadastrapp.parcelle.result.title"}/></h3>
             <PlotSelectionToolbar {...props}/>
             <PlotTabs {...props}/>
         </div>

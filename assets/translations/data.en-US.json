@@ -3,68 +3,293 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
-            "toolbar": {
-                "zoomTo": "Zoom to results extent",
-                "help": "Help",
-                "request": "Request"
-            },
-            "popup": {
+            "selectTool": "Select desired tool in the left side toolbar to start",
+            "help": "Help",
+            "zoomTo": "Zoom to results extent",
+            "demande": "Request",
+            "sig": "GIS",
+            "contenancedgfip": "DGFiP",
+            "infobulle": {
                 "parcelle": "Parcelle",
-                "town": "Town",
-                "year": "Year",
-                "county": "County",
+                "commune": "Town",
+                "annee": "Year",
+                "departement": "County",
                 "direction": "Direction",
-                "towninsee": "Town's INSEE",
+                "inseecom": "Town's INSEE",
                 "prefix": "Prefix",
                 "section": "Section",
-                "plot": "Plot",
-                "address": "Address",
-                "dgfip": "DGFiP",
-                "gis": "GIS",
-                "owner": "Owner",
+                "nplan": "Plot",
+                "adresse": "Address",
+                "proprietaire": "Owner",
                 "landUnit": "Land Unit",
-                "municipalAccount": "Municipal account",
+                "ccomunal": "Municipal account",
                 "nodata": "No data to display",
                 "noaccess": "Unauthorised access to land information",
                 "error": "Unable to fetch bubble info"
             },
-            "fields": {
-                "section": "Section",
-                "plotNumber": "Plot number"
-            },
-            "requestForm": {
+            "commune": "Commune",
+            "demandeinformation": {
                 "title": "Request on landholding trust",
-                "askBy": "Request ask by",
+                "realise": "Request ask by",
                 "counter": "Counter",
                 "email": "Email",
-                "requestType": "Request User Type",
-                "requestObj": "Request Object",
-                "responseBy": "Give document by",
-                "cni" : "CNI",
-                "lastName": "Last Name",
-                "firstName": "First Name",
-                "roadNumber": "Road Number",
-                "zipCode": "Zip Code",
-                "town": "Town, Municipality",
+                "proprietaire": "Owner",
+                "type": {
+                    "demandeur": "Request user Type",
+                    "A": "Administration",
+                    "P1": "P1 - User with Rights",
+                    "P2": "P2 - Representative ",
+                    "P3": "P3 - Normal user"
+                },
+                "titre2": "Request Object",
+                "transmission": "Give document by",
+                "cni": "CNI",
+                "nom": "Last Name",
+                "prenom": "First Name",
+                "num_rue": "Road Number",
+                "code_postal": "Zip Code",
+                "commune": "Town, Municipality",
                 "mail": "Mail",
-                "cancel": "Cancel Request",
-                "print": "Print Request",
-                "genDocuments": "Generate Documents",
+                "annuler": "Cancel Request",
+                "imprimer": "Print Request",
+                "generate": {
+                    "document": "Generate Documents"
+                },
                 "addMore": "Click to add more request object items",
-                "accountId": "Municipial account id",
-                "plotId": "Plot id",
-                "commune": "Commune",
-                "owner": "Owner",
-                "ownerBirthName": "Owner birth name",
-                "ownerId": "Owner id",
-                "plot": "Plot",
-                "coOwner": "Co-owners",
-                "lotCoOwners": "Lot co-owners",
-                "limit": "Max request limit reached",
-                "propertyStatement": "Property statement",
-                "parcelSlip": "Parcel slip",
+                "idCompteCom": "Municipial account id",
+                "idParcelle": "Plot id",
+                "object": {
+                    "type": {
+                        "1": "Owner id",
+                        "2": "Plot",
+                        "3": "Co-owners",
+                        "4": "Owner",
+                        "5": "Plot id",
+                        "6": "Lot co-owners",
+                        "7": "Owner birth name"
+                    }
+                },
+                "comptecommunal": "Owner id",
+                "exceded":  {
+                    "maxNumber": "Maximum number of request is reached"
+                },
                 "printError": "Unable to print request form data",
                 "availableReqError": "Unable to fetch available requests"
+            },
+            "cadastre_tools": "Cadastre tools",
+            "create_line": "Select / Activate / Unselect plots which intersect a line",
+            "create_point": "Select / Activate / Unselect one plot by a simple click",
+            "create_polygon": "Select / Activate / Unselect plots which intersect a polygon",
+            "preferences": {
+                "default": "Default",
+                "defaultStyle": "Set default style",
+                "close": "Close",
+                "fillColor": "Fill color",
+                "opacity": "Opacity",
+                "selected": "Selected",
+                "strokeColor": "Stroke color",
+                "strokeWidth": "Stroke width",
+                "title": "Preferences"
+            },
+            "parcelle": {
+                "libcom": "Plot number",
+                "addMoreReference": "Click to add a new reference",
+                "tooltip": "Plot",
+                "city": "Town, Municipality",
+                "cityExample": "ex. Rennes, Lannion",
+                "references": "Reference(s)",
+                "result": {
+                    "title": "Plots selection",
+                    "ccosec": "Section"
+                },
+                "file": {
+                    "title": "File",
+                    "example": "Drag and drop the CSV file here or click to select",
+                    "explanation": "This file must contains comptecommunal id list separate by space or coma"
+                },
+                "lot": {
+                    "title": "Identifiers",
+                    "example": "ex. 8301032610C0012, 8301032610C0013, 8301032610C0014"
+                },
+                "ident": {
+                    "title": "Identifier",
+                    "example": "ex. 8301032610C0012",
+                    "control": "Cadastral identifier must be at least 15 chars for Arcopole model and 19 chars for Qgis model, if more than one identifier is given, they should be separed by space, comma or semi-colon"
+                },
+                "town": "Adress, roads name or locality",
+                "townExample": "ex. Henri Freville or La morinaie",
+                "street": "Road number",
+                "streetExample": "ex. 4 TER",
+                "title": "Plots research",
+                "tab1": "Reference",
+                "tab2": "Cadastral adress",
+                "tab3": "Cadastral identifier",
+                "tab4": "Lot"
+            },
+            "search": {
+                "addTab": "Add a new Selection Tab",
+                "deleteTab": "Delete current Selection Tab",
+                "confirmDeleteTab": "Are you sure you want to delete the selected tab",
+                "title": "Search",
+                "clear": "Clear",
+                "copropriete": {
+                    "title": "Co-ownership search",
+                    "comptecommunal": {
+                        "example": "ex. 350001+00160",
+                        "ident": "Owner id"
+                    },
+                    "parcelle": {
+                        "ident": "Plot id"
+                    }
+                }
+            },
+            "proprietaire": {
+                "file": {
+                    "explanation": "This file must contains comptecommunal id list separate by space or coma",
+                    "title": "File"
+                },
+                "tooltip": "Owner",
+                "title": "Owners search",
+                "tab1": "User or birth name",
+                "tab2": "Owner identifier",
+                "tab3": "By lot",
+                "city": "Town, municipality",
+                "cityExample": "ex. Rennes, Cesson-Sévigné",
+                "proprietaires": {
+                    "title": "Owner(s)",
+                    "addMoreProprietaire": "Click to add a new owner"
+                },
+                "search": {
+                    "birth": "Search by Birth name"
+                },
+                "name": {
+                    "title": "Last name and first name",
+                    "example": "ex. Jego pierre",
+                    "tooltip": "Echap to load query without completion"
+                }
+            },
+            "coProprietaire": {
+                "tooltip": "Co-owner"
+            },
+            "bordereauparcellaire": {
+                "title": "Plot information",
+                "basemap": "Choose baseMap",
+                "export": "Export",
+                "data": {
+                    "title": "Owners information",
+                    "with": "With owner information",
+                    "without": "Without owner information"
+                }
+            },
+            "proprietaires": {
+                "ccodro": "Identifier"
+            },
+            "lots": {
+                "title": "Bundle information",
+                "type": {
+                    "title": "Choose output format",
+                    "csv": "Export as CSV",
+                    "pdf": "Export as PDF"
+                },
+                "batiments": "Please select one building"
+            },
+            "relevepropriete": {
+                "data": "Data to extract",
+                "full": "All properties",
+                "partial": "Only this plot",
+                "title": "Properties list",
+                "export": "Export",
+                "type": {
+                    "title": "Choose output format",
+                    "csv": "Export as CSV",
+                    "pdf": "Export as PDF"
+                }
+            },
+            "selection": {
+                "proprietaires": {
+                    "export": {
+                        "list": "Export list as csv",
+                        "row": "Export row as csv"
+                    }
+                }
+            },
+            "ficu": {
+                "adresse": "Address",
+                "commune": "Town",
+                "batie": "Plot with building",
+                "contenancedgfip": "Size DGFiP in m²",
+                "contenancesig": "Size in m²",
+                "parcelle": "Plot",
+                "section": "Section",
+                "urbain": "Urban region",
+                "voie": "Voie (Code fantoir)",
+                "yes": "Yes",
+                "no": "No",
+                "description": "Description",
+                "value": "Value"
+            },
+            "duc": {
+                "batiment_bundle": "Bundle",
+                "batiment_date": "Date",
+                "batiment_descriptif": "Description",
+                "reference_parcelle": "Parent plot identifier",
+                "type_mutation": "Mutation type",
+                "compte": "Identifier",
+                "contenance": "Capacity",
+                "dateacte": "Date acte",
+                "datenaissance": "Date of birth",
+                "denomination": "Designation",
+                "dependances": "outbuilding",
+                "designation": "Designation",
+                "dformjur": "legal form",
+                "releve": {
+                    "depropriete": "Properties list"
+                },
+                "histomut": "Mutation history",
+                "parcelle": "Plot",
+                "propietaire": "Owners",
+                "copropietaire": "Co-Owners",
+                "subdiv": "Subdivisions fiscales",
+                "batiments": "Building(s)",
+                "bordereau": {
+                    "parcellaire": "Plot information"
+                }
+            },
+            "result": {
+                "csv": {
+                    "button": {
+                        "bundle": "Bundle",
+                        "coowner": "Co-owners",
+                        "owner": "Owners",
+                        "parcelles": "Plots"
+                    },
+                    "export": "Export selection"
+                },
+                "parcelle" : {
+                    "fiche": "Information form",
+                    "uf": "Land Unit Information",
+                    "delete": "Delete selected plots",
+                    "zoom": {
+                        "title": "Zoom",
+                        "list": "Zoom on list",
+                        "selection": "Zoom on selection"
+                    }
+                },
+                "owner": {
+                    "title": "Owner list results",
+                    "rp": "Properties details",
+                    "show": {
+                        "parcelle": "See plot(s)"
+                    }
+                }
+            },
+            "uniteFonciere": "Land Unit",
+            "menu": {
+                "tooltips": {
+                    "foncier": "Land Unit Information",
+                    "imprimer": "Print"
+                },
+                "preference": "Preference"
             }
         }
     }

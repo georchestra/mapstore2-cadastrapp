@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Button, FormControl, Glyphicon } from "react-bootstrap";
+import Message from '@mapstore/components/I18N/Message';
+
 export function StrList({items = [], onAdd, onRemove, onSetValue}) {
 
     return (
@@ -15,7 +17,7 @@ export function StrList({items = [], onAdd, onRemove, onSetValue}) {
                 </Button>
                 <span
                     style={{ marginLeft: 6, marginTop: 4 }}
-                    className="pull-left">Click to add a new owner
+                    className="pull-left"><Message msgId={'cadastrapp.proprietaire.proprietaires.addMoreProprietaire'}/>
                 </span>
             </div>
             <div style={{ width: "100%", height: "calc(50vh - 290px)", minHeight: 96, "overflowY": "auto" }}>

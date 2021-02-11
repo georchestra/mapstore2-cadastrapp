@@ -12,6 +12,7 @@ import {
 } from '../../selectors/cadastrapp';
 import { clearInformation } from '../../actions/cadastrapp';
 import Spinner from "react-spinkit";
+import Message from "@mapstore/components/I18N/Message";
 
 
 import InformationPanelContainer from '../../components/information/InformationPanelContainer';
@@ -23,7 +24,7 @@ function InformationModal({ items = [], onClose, authLevel, additionalData, load
         show={items.length > 0}
         onHide={onClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Information Form
+            <Modal.Title><Message msgId={"cadastrapp.result.parcelle.fiche"}/>
                 {loadingCount ? <span style={{ "float": "right", marginRight: 10 }}>({loadingCount} more)<Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /></span> : null}
             </Modal.Title>
         </Modal.Header>

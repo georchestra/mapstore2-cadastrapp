@@ -1,6 +1,6 @@
 import React from 'react';
 import Spinner from "react-spinkit";
-
+import Message from '@mapstore/components/I18N/Message';
 import { Button, ButtonGroup, Glyphicon } from "react-bootstrap";
 
 
@@ -11,11 +11,11 @@ export default function({
         {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
         <Button
             onClick={onClear}
-        >Clear</Button>
+        ><Message msgId={'cadastrapp.search.clear'}/> </Button>
         <Button
             disabled={loading || !valid}
             bsStyle="primary"
             onClick={onSearch}
-        ><Glyphicon glyph="search"/> Search</Button>
+        ><Glyphicon glyph="search"/> <Message msgId={'cadastrapp.search.title'}/></Button>
     </ButtonGroup>);
 }

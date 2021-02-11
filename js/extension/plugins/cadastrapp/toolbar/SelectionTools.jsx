@@ -2,8 +2,8 @@ import React from 'react';
 import { SELECTION_TYPES } from '../../../constants';
 import { toggleSelectionTool } from '../../../actions/cadastrapp';
 import { currentSelectionToolSelector } from '../../../selectors/cadastrapp';
-
-
+import { Tooltip } from "react-bootstrap";
+import Message from "@mapstore/components/I18N/Message";
 import TButton from './TButton';
 
 import {connect} from 'react-redux';
@@ -15,22 +15,27 @@ import {connect} from 'react-redux';
 // ["th-list", "unit-de-fonc", "Landed property information"]
 
  */
+const tooltip = (id, msgId) => <Tooltip id={"id"}><Message msgId={msgId}/></Tooltip>;
 const BUTTONS_SETTINGS = {
     [SELECTION_TYPES.POINT]: {
         key: SELECTION_TYPES.POINT,
-        glyph: "map-marker"
+        glyph: "map-marker",
+        tooltip: tooltip("point", "cadastrapp.create_point")
     },
     [SELECTION_TYPES.LINE_STRING]: {
         key: SELECTION_TYPES.LINE_STRING,
-        glyph: "polyline"
+        glyph: "polyline",
+        tooltip: tooltip("line", "cadastrapp.create_line")
     },
     [SELECTION_TYPES.POLYGON]: {
         key: SELECTION_TYPES.POLYGON,
-        glyph: "polygon"
+        glyph: "polygon",
+        tooltip: tooltip("polygon", "cadastrapp.create_polygon")
     },
     [SELECTION_TYPES.LANDED_PROPERTY]: {
         key: SELECTION_TYPES.LANDED_PROPERTY,
-        glyph: "th-list"
+        glyph: "th-list",
+        tooltip: tooltip("landProperty", "cadastrapp.menu.tooltips.foncier")
     }
 };
 /**

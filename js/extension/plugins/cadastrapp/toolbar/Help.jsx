@@ -19,11 +19,7 @@ import { DEFAULT_HELP_URL } from "@js/extension/constants";
 export default function HelpButton({ helpUrl = DEFAULT_HELP_URL }) {
     return (
         <TButton
-            tooltip={
-                <Tooltip id={"zoomTo"}>
-                    <Message msgId={"cadastrapp.toolbar.help"} />
-                </Tooltip>
-            }
+            tooltip={<Tooltip id={"help"}><Message msgId={"cadastrapp.help"}/></Tooltip>}
             glyph="question-sign"
             onClick={() => {
                 window.open(helpUrl, "_blank");

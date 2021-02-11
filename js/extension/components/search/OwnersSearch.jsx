@@ -5,7 +5,7 @@ import { isString } from "lodash";
 import { Tabs, Tab } from "react-bootstrap";
 import useFormState from '../../hooks/useFormState';
 import { SEARCH_TYPES } from '../../constants';
-
+import Message from '@mapstore/components/I18N/Message';
 import User from '../forms/User';
 import OwnerId from '../forms/OwnerId';
 import Lot from '../forms/OwnerLot';
@@ -19,24 +19,24 @@ export default function OwnersSearch({ loading, onSearch = () => { }, onOwnersSe
     const [searchState, setFormState, resetFormState] = useFormState();
     return (
         <div className="owners-search">
-            <h3>Owners Search</h3>
+            <h3><Message msgId={'cadastrapp.proprietaire.title'}/></h3>
             <Tabs
                 onSelect={k => setCurrentTab(k)}
                 className="not-scrolled-tab"
                 activeKey={currentTab}
                 defaultActiveKey={SEARCH_TYPES.USER}>
                 <Tab
-                    eventKey={SEARCH_TYPES.USER} title="User or birthname">
+                    eventKey={SEARCH_TYPES.USER} title={<Message msgId={'cadastrapp.proprietaire.tab1'}/>}>
                     <User
                         values={searchState?.[SEARCH_TYPES.USER] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.USER, key, value)} />
                 </Tab>
-                <Tab eventKey={SEARCH_TYPES.OWNER_ID} title="Owner Identifier">
+                <Tab eventKey={SEARCH_TYPES.OWNER_ID} title={<Message msgId={'cadastrapp.proprietaire.tab2'}/>}>
                     <OwnerId
                         values={searchState?.[SEARCH_TYPES.OWNER_ID] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.OWNER_ID, key, value)} />
                 </Tab>
-                <Tab eventKey={SEARCH_TYPES.OWNER_LOT} title="Lot">
+                <Tab eventKey={SEARCH_TYPES.OWNER_LOT} title={<Message msgId={'cadastrapp.proprietaire.tab3'}/>}>
                     <Lot
                         values={searchState?.[SEARCH_TYPES.OWNER_LOT] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.OWNER_LOT, key, value)} />

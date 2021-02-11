@@ -26,7 +26,7 @@ export default connect(
             onClick={zoomToResults}
             tooltip={
                 <Tooltip id={"zoomTo"}>
-                    <Message msgId={"cadastrapp.toolbar.zoomTo"} />
+                    <Message msgId={"cadastrapp.zoomTo"} />
                 </Tooltip>
             }
             glyph="resize-full"

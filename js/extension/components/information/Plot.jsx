@@ -53,24 +53,23 @@ function PlotInformationRadio({
         strokewidth,
         strokecolor
     } = toParams(selectedStyle);
-
     return (
         <div className={className}>
-            <hr></hr>
+            <hr/>
             <div
                 style={{ width: "70%" }}
                 className="pull-left">
                 {isCNIL1 || isCNIL2 ? <FormGroup>
-                    <b style={{ "float": "left", width: 150, marginRight: 15 }}>Owners Information: </b>
+                    <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={"cadastrapp.bordereauparcellaire.data.title"}/>: </b>
                     <Radio inline checked={personalData === "0"} onChange={() => setPersonalData("0")} value="0">
-                        Without owner
+                        <Message msgId={"cadastrapp.bordereauparcellaire.data.without"}/>
                     </Radio>
                     <Radio inline checked={personalData === "1"} onChange={() => setPersonalData("1")} value="1">
-                        With owner
+                        <Message msgId={"cadastrapp.bordereauparcellaire.data.with"}/>
                     </Radio>
                 </FormGroup> : null}
                 <FormGroup>
-                    <b style={{ "float": "left", width: 150, marginRight: 15, width: 300 }}>Choose basemap:</b>
+                    <b style={{ "float": "left", marginRight: 15, width: 300 }}><Message msgId={"cadastrapp.bordereauparcellaire.basemap"}/>:</b>
                     <div style={{ "float": "left" }}>
                         <DropdownList style={{width: 300}} value={baseMap} defaultValue={baseMaps[0]} onSelect={v => setBaseMap(v)} textField="title" data={baseMaps} itemComponent={ListItem} />
                     </div>
@@ -101,10 +100,10 @@ function PlotInformationRadio({
                     }}
                     className="pull-right">
                     {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
-                    Export
+                    <Message msgId={"cadastrapp.bordereauparcellaire.export"}/>
                 </Button>
             </div>
-            <hr></hr>
+            <hr/>
         </div>);
 }
 export default function Plot({
@@ -129,27 +128,27 @@ export default function Plot({
                 bsStyle={isPlotShown ? "primary" : "default"}
                 onClick={handlePlotClick}>
                 <Glyphicon style={{ marginRight: 4 }} glyph="1-pdf" />
-            Plot Information
+                <Message msgId={"cadastrapp.bordereauparcellaire.title"}/>
             </Button>
         </div>
         <PlotInformationRadio isCNIL1={isCNIL1} isCNIL2={isCNIL2} parcelle={parcelle} isShown={isPlotShown} baseMaps={baseMaps} onGeneratePlotInformation={onGeneratePlotInformation} selectedStyle={selectedStyle}/>
         <Table condensed>
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Valeur</th>
+                    <th><Message msgId={'cadastrapp.ficu.description'}/></th>
+                    <th><Message msgId={'cadastrapp.ficu.value'}/></th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Town</td><td>{ fiuc.libcom + ' (' + fiuc.cgocommune + ')' }</td></tr>
-                <tr><td>Section</td><td>{ fiuc.ccopre + fiuc.ccosec }</td></tr>
-                <tr><td>Plot</td><td>{ fiuc.dnupla }</td></tr>
-                <tr><td>Voie</td><td>{ fiuc.ccoriv }</td></tr>
-                <tr><td>Address</td><td>{ fiuc.dnvoiri + fiuc.dindic + ' ' + fiuc.cconvo + fiuc.dvoilib}</td></tr>
-                <tr><td>Size DGFIP in m2</td><td>{ fiuc?.dcntpa?.toLocaleString()}</td></tr>
-                <tr><td>Size in m2</td><td>{ fiuc?.surfc?.toLocaleString()}</td></tr>
-                <tr><td>Plot with building</td><td><Message msgId={fiuc.gparbat === '1' ? 'yes' : 'no'} /></td></tr>
-                <tr><td>Urban region</td><td><Message msgId={fiuc.gurbpa === 'U' ? 'yes' : 'no'} /></td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.adresse'}/></td><td>{ fiuc.libcom + ' (' + fiuc.cgocommune + ')' }</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.section'}/></td><td>{ fiuc.ccopre + fiuc.ccosec }</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.parcelle'}/></td><td>{ fiuc.dnupla }</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.voie'}/></td><td>{ fiuc.ccoriv }</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.adresse'}/></td><td>{ fiuc.dnvoiri + fiuc.dindic + ' ' + fiuc.cconvo + fiuc.dvoilib}</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.contenancedgfip'}/></td><td>{ fiuc?.dcntpa?.toLocaleString()}</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.contenancesig'}/></td><td>{ fiuc?.surfc?.toLocaleString()}</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.batie'}/></td><td><Message msgId={fiuc.gparbat === '1' ? 'cadastrapp.ficu.yes' : 'cadastrapp.ficu.no'} /></td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.urbain'}/></td><td><Message msgId={fiuc.gurbpa === 'U' ? 'cadastrapp.ficu.yes' : 'cadastrapp.ficu.no'} /></td></tr>
             </tbody>
         </Table>
     </>);

@@ -13,11 +13,14 @@ export default ({
     bsStyle,
     tooltip = <span></span>,
     ...props
-}) => (<OverlayTrigger placement="left" overlay={tooltip}>
-    <Button
-        {...props}
-        bsStyle={bsStyle || "primary"}
-        className="square-button">
-        <Glyphicon glyph={glyph} />
-    </Button>
-</OverlayTrigger>);
+}) => {
+    console.log(tooltip);
+    return (<OverlayTrigger placement="left" overlay={tooltip}>
+        <Button
+            {...props}
+            bsStyle={bsStyle || "primary"}
+            className="square-button">
+            <Glyphicon glyph={glyph} />
+        </Button>
+    </OverlayTrigger>);
+};

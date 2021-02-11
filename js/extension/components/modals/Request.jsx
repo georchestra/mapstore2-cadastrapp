@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '@mapstore/components/misc/Modal';
 import Message from '@mapstore/components/I18N/Message';
-import Select from 'react-select';
+import RS from 'react-select';
 import Spinner from "react-spinkit";
 import { isEmpty, includes } from 'lodash';
-import { Button, ControlLabel, FormControl, Radio, FormGroup } from "react-bootstrap";
+import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
+import { Button, ControlLabel, FormControl as FC, Radio, FormGroup } from "react-bootstrap";
 import { checkRequestLimitation } from "../../api";
 import RequestObject from '../request/RequestObject';
 import { isValidEmail } from '@mapstore/utils/StringUtils';
+const FormControl = localizedProps('placeholder')(FC);
+const Select = localizedProps('options')(RS);
 import {
     DEFAULT_REQUEST_OBJ,
-    USER_TYPE_OPTIONS,
     formulatePrintParams,
     DEFAULT_MAX_REQUEST
 } from "@js/extension/utils/requestForm";
@@ -25,6 +27,13 @@ export default function RequestFormModal({
 
     // Auth level of the user
     const isCNIL = authLevel.isCNIL2 || authLevel.isCNIL1;
+
+    const USER_TYPE_OPTIONS = [
+        { value: 'A', label: 'cadastrapp.demandeinformation.type.A'},
+        { value: 'P1', label: 'cadastrapp.demandeinformation.type.P1' },
+        { value: 'P2', label: 'cadastrapp.demandeinformation.type.P2' },
+        { value: 'P3', label: 'cadastrapp.demandeinformation.type.P3' }
+    ];
 
     const [showReqByFields, setShowReqByFields] = useState(false);
     const [showRequestObj, setShowRequestObj] = useState(false);
@@ -62,7 +71,7 @@ export default function RequestFormModal({
             setAvailableRequest(0);
             props.onError({
                 title: "Error",
-                message: "cadastrapp.requestForm.availableReqError"
+                message: "cadastrapp.demandeinformation.availableReqError"
             });
             setCheckingLimit(false);
         });
@@ -104,53 +113,53 @@ export default function RequestFormModal({
         {
             value: requestFormData.cni,
             name: 'cni',
-            label: <Message msgId={"cadastrapp.requestForm.cni"}/>,
+            label: <Message msgId={"cadastrapp.demandeinformation.cni"}/>,
             validation: requestFormData.type === 'P3' && isEmpty(requestFormData.cni) && "error"
         },
         {
             value: requestFormData.lastname,
             name: 'lastname',
-            label: <Message msgId={"cadastrapp.requestForm.lastName"}/>,
+            label: <Message msgId={"cadastrapp.demandeinformation.nom"}/>,
             validation: !isEmpty(requestFormData.type) && requestFormData.type !== 'P3' && isEmpty(requestFormData.lastname) && "error"
         },
         {
             value: requestFormData.firstname,
             name: 'firstname',
-            label: <Message msgId={"cadastrapp.requestForm.firstName"}/>
+            label: <Message msgId={"cadastrapp.demandeinformation.prenom"}/>
         },
         {
             value: requestFormData.adress,
             name: 'adress',
-            label: <Message msgId={"cadastrapp.requestForm.roadNumber"}/>
+            label: <Message msgId={"cadastrapp.demandeinformation.num_rue"}/>
         },
         {
             value: requestFormData.codepostal,
             name: 'codepostal',
-            label: <Message msgId={"cadastrapp.requestForm.zipCode"}/>
+            label: <Message msgId={"cadastrapp.demandeinformation.code_postal"}/>
         },
         {
             value: requestFormData.commune,
             name: 'commune',
-            label: <Message msgId={"cadastrapp.requestForm.town"}/>
+            label: <Message msgId={"cadastrapp.demandeinformation.commune"}/>
         },
         {
             value: requestFormData.mail,
             name: 'mail',
             type: 'email',
-            label: <Message msgId={"cadastrapp.requestForm.mail"}/>,
+            label: <Message msgId={"cadastrapp.demandeinformation.mail"}/>,
             validation: !isEmpty(requestFormData.mail) && !isValidEmail(requestFormData.mail) && "error"
         }
     ];
 
     const radioButtonGroup = {
         groupLabel: [
-            {label: <Message msgId={"cadastrapp.requestForm.askBy"}/>, name: 'askby' },
-            {label: <Message msgId={"cadastrapp.requestForm.responseBy"}/>, name: 'responseby'}
+            {label: <Message msgId={"cadastrapp.demandeinformation.realise"}/>, name: 'askby' },
+            {label: <Message msgId={"cadastrapp.demandeinformation.transmission"}/>, name: 'responseby'}
         ],
         groupField: [
-            <Message msgId={"cadastrapp.requestForm.counter"}/>,
-            <Message msgId={"cadastrapp.requestForm.mail"}/>,
-            <Message msgId={"cadastrapp.requestForm.email"}/>
+            <Message msgId={"cadastrapp.demandeinformation.counter"}/>,
+            <Message msgId={"cadastrapp.demandeinformation.mail"}/>,
+            <Message msgId={"cadastrapp.demandeinformation.email"}/>
         ]
     };
 
@@ -159,12 +168,12 @@ export default function RequestFormModal({
             dialogClassName="cadastrapp-modal"
             show={isShown} onHide={onCloseForm}>
             <Modal.Header closeButton>
-                <Modal.Title><Message msgId={'cadastrapp.requestForm.title'}/></Modal.Title>
+                <Modal.Title><Message msgId={'cadastrapp.demandeinformation.title'}/></Modal.Title>
             </Modal.Header>
             <Modal.Body className="request-modal-body">
                 <div className="item-row">
                     <div className="label-col">
-                        <ControlLabel><Message msgId={'cadastrapp.requestForm.requestType'}/></ControlLabel>
+                        <ControlLabel><Message msgId={'cadastrapp.demandeinformation.type.demandeur'}/></ControlLabel>
                     </div>
                     <div className="form-col">
                         <Select name="type" value={requestFormData.type} onChange={onChange} options={USER_TYPE_OPTIONS}/>
@@ -208,7 +217,7 @@ export default function RequestFormModal({
                 <hr/>
                 {showRequestObj && !checkingLimit && <div className={"item-row"}>
                     <div className="request-obj-label">
-                        <ControlLabel><Message msgId={"cadastrapp.requestForm.requestObj"}/></ControlLabel>
+                        <ControlLabel><Message msgId={"cadastrapp.demandeinformation.titre2"}/></ControlLabel>
                     </div>
                     <RequestObject
                         allow={isCNIL}
@@ -222,7 +231,7 @@ export default function RequestFormModal({
                 }
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={onCloseForm}><Message msgId={'cadastrapp.requestForm.cancel'}/></Button>
+                <Button onClick={onCloseForm}><Message msgId={'cadastrapp.demandeinformation.annuler'}/></Button>
                 <Button
                     disabled={!showRequestObj || checkingLimit || inValidField || props.loading}
                     onClick={()=>props.onPrintPDF(printRequest)}
@@ -235,7 +244,7 @@ export default function RequestFormModal({
                             overrideSpinnerClassName="spinner"
                         />
                     ) : null}
-                    <Message msgId={'cadastrapp.requestForm.print'}/>
+                    <Message msgId={'cadastrapp.demandeinformation.imprimer'}/>
                 </Button>
                 <Button
                     disabled={isCNIL ? !props.allowDocument : true}
@@ -249,7 +258,7 @@ export default function RequestFormModal({
                             overrideSpinnerClassName="spinner"
                         />
                     ) : null}
-                    <Message msgId={'cadastrapp.requestForm.genDocuments'}/>
+                    <Message msgId={'cadastrapp.demandeinformation.generate.document'}/>
                 </Button>
             </Modal.Footer>
         </Modal>);

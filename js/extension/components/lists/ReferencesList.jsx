@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getSection } from '../../api';
 import { validateReferences } from '../../utils/validation';
-
+import Message from '@mapstore/components/I18N/Message';
 import { Button, Glyphicon } from "react-bootstrap";
 import ReferenceRow from './ReferenceRow';
 
@@ -36,7 +36,7 @@ export default function ReferencesList({ references = [], cgocommune, onAddRefer
                 </Button>
                 <span
                     style={{ marginLeft: 6, marginTop: 4 }}
-                    className="pull-left">Click to add a new reference</span>
+                    className="pull-left"><Message msgId={'cadastrapp.parcelle.addMoreReference'}/></span>
             </div>
             <div style={{ width: "100%", height: "calc(50vh - 290px)", minHeight: 96, "overflowY": "visible" }}>
                 {

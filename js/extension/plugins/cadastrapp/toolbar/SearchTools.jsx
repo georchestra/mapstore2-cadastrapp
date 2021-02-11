@@ -3,10 +3,10 @@ import { SEARCH_TOOLS } from '../../../constants';
 import { toggleSearchTool } from '../../../actions/cadastrapp';
 import { currentSearchToolSelector, getAuthLevel } from '../../../selectors/cadastrapp';
 
-
 import TButton from './TButton';
-
 import { connect } from 'react-redux';
+import { Tooltip } from "react-bootstrap";
+import Message from "@mapstore/components/I18N/Message";
 
 /*
 ["zoom-to", "search-plots", "Plots Search"],
@@ -14,15 +14,19 @@ import { connect } from 'react-redux';
 ["user", "coownership", "Co-ownership data Search"],
 
  */
+const tooltip = (id, msgId) => <Tooltip id={"id"}><Message msgId={msgId}/></Tooltip>;
 const BUTTONS_SETTINGS = {
     [SEARCH_TOOLS.PLOT]: {
-        glyph: "search"
+        glyph: "search",
+        tooltip: tooltip("search", "cadastrapp.parcelle.tooltip")
     },
     [SEARCH_TOOLS.OWNER]: {
-        glyph: "user"
+        glyph: "user",
+        tooltip: tooltip("user", "cadastrapp.proprietaire.tooltip")
     },
     [SEARCH_TOOLS.COOWNER]: {
-        glyph: "1-group"
+        glyph: "1-group",
+        tooltip: tooltip("group", "cadastrapp.coProprietaire.tooltip")
     }
 };
 

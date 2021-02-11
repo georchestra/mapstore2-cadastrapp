@@ -5,13 +5,13 @@ import {
     FormGroup
 } from 'react-bootstrap';
 import Spinner from "react-spinkit";
-
+import Message from '@mapstore/components/I18N/Message';
 import { createRelevePropriete, createReleveProprieteAsCSV } from '../../api';
 import { downloadResponse } from '@js/extension/utils/download';
 
 
 export default function PropertiesRadio({
-    showParcelle= true,
+    showParcelle = true,
     expanded,
     parcelle,
     data = [],
@@ -25,26 +25,26 @@ export default function PropertiesRadio({
 
     return (
         <div className={className}>
-            <hr></hr>
+            <hr/>
             <div
                 style={{ width: "70%" }}
                 className="pull-left">
                 {showParcelle ? <FormGroup>
-                    <b style={{ "float": "left", width: 150, marginRight: 15 }}>Data to extract: </b>
+                    <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={"cadastrapp.relevepropriete.data"}/>: </b>
                     <Radio checked={useParcelle} value={"true"} onChange={() => setUseParcelle(true)} inline>
-                        Only this plot
+                        <Message msgId={"cadastrapp.relevepropriete.partial"}/>
                     </Radio>s
                     <Radio checked={!useParcelle} value={"false"} onChange={() => setUseParcelle(false)} inline>
-                        All Properties
+                        <Message msgId={"cadastrapp.relevepropriete.full"}/>
                     </Radio>
                 </FormGroup> : null}
                 <FormGroup>
-                    <b style={{ "float": "left", width: 150, marginRight: 15 }}>Choose output format:</b>
+                    <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={"cadastrapp.relevepropriete.type.title"}/>:</b>
                     <Radio checked={format === 'pdf'} value="pdf" onChange={() => setFormat("pdf")} inline>
-                        Export as PDF
+                        <Message msgId={"cadastrapp.relevepropriete.type.pdf"}/>
                     </Radio>
                     <Radio checked={format === 'csv'} value="csv" onChange={() => setFormat("csv")} inline>
-                        Export as CSV
+                        <Message msgId={"cadastrapp.relevepropriete.type.csv"}/>
                     </Radio>
                 </FormGroup>
             </div>
@@ -74,9 +74,9 @@ export default function PropertiesRadio({
                     }}
                     className="pull-right">
                     {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
-                    Export
+                    <Message msgId={"cadastrapp.relevepropriete.export"}/>
                 </Button>
             </div>
-            <hr></hr>
+            <hr/>
         </div>);
 }

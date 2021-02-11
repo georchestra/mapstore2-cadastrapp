@@ -12,7 +12,7 @@ import {
 } from '../../api';
 
 import { downloadResponse } from '../../utils/download';
-
+import Message from '@mapstore/components/I18N/Message';
 
 import Toolbar from '@mapstore/components/misc/toolbar/Toolbar';
 import BundleInformationModal from './BundleInformationModal';
@@ -42,44 +42,50 @@ export default function PlotSelectionToolbar({
                 buttons={[{
                     disabled: !isDataPresent,
                     glyph: "zoom-in",
-                    tooltip: atLeaseOneSelected ? "Zoom to selected" : "Zoom on list", // localize
+                    tooltipId: atLeaseOneSelected ? "cadastrapp.result.parcelle.zoom.selection" : "cadastrapp.result.parcelle.zoom.list",
                     onClick: zoomToSelection
                 }, ...(foncier
                     ? [{
                         disabled: !onlyOneSelected,
                         glyph: "th-list",
-                        tooltip: "Owned Unit Information", // localize
+                        tooltipId: "cadastrapp.result.parcelle.uf",
                         onClick: () => { showLandedPropertyInformation(find(currentData, {parcelle: selectedPlots[0]})); }
                     }]
                     : []), {
                     disabled: !atLeaseOneSelected,
                     glyph: "trash",
-                    tooltip: "Delete Selected Plots", // localize
+                    tooltipId: "cadastrapp.result.parcelle.delete",
                     onClick: () => { removePlots(selectedPlots); }
                 }, {
                     disabled: !atLeaseOneSelected,
                     glyph: "info-sign",
-                    tooltip: "Information Form", // localize
+                    tooltipId: "cadastrapp.result.parcelle.fiche",
                     onClick: () => { loadInfo(selectedPlots);}
                 }, ((isCNIL1 || isCNIL2) ? {
                     renderButton:
                         (<DropdownButton
                             disabled={!atLeaseOneSelected}
                             pullRight title={< Glyphicon glyph="export" />}>
-                            <MenuItem onClick={() => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)}>Plot</MenuItem>
-                            <MenuItem onClick={() => exportProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>Owners</MenuItem>
-                            <MenuItem onClick={() => exportCoProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>Co-owners</MenuItem>
+                            <MenuItem onClick={() => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)}>
+                                <Message msgId={"cadastrapp.result.csv.button.parcelles"} />
+                            </MenuItem>
+                            <MenuItem onClick={() => exportProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>
+                                <Message msgId={"cadastrapp.result.csv.button.owner"} />
+                            </MenuItem>
+                            <MenuItem onClick={() => exportCoProprietaireByParcelles({ parcelles: selectedPlots }).then(downloadResponse)}>
+                                <Message msgId={"cadastrapp.result.csv.button.coowner"} />
+                            </MenuItem>
                             <MenuItem disabled={!onlyOneSelected} onClick={() => {
                                 // prevent click event when disabled
                                 if (onlyOneSelected) {
                                     setShowBundleInformation(true);
                                 }
-                            }}>Bundle</MenuItem>
+                            }}><Message msgId={"cadastrapp.result.csv.button.bundle"} /></MenuItem>
                         </DropdownButton>)
                 } : {
                     disabled: !isDataPresent,
                     glyph: "export",
-                    tooltip: "Export", // localize
+                    tooltipId: "cadastrapp.result.csv.export",
                     onClick: () => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)
                 })
                 ]}

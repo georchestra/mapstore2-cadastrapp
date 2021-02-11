@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { SEARCH_TYPES } from '../../constants';
 import PropertiesRadio from '../information/PropertiesRadio';
 import { downloadResponse } from '../../utils/download';
-
-
-
 import '../../ficheUniteFonciere.css';
-
+import Message from '@mapstore/components/I18N/Message';
 
 import Modal from '@mapstore/components/misc/Modal';
 import OwnersListTable from '../table/OwnersListTable';
@@ -34,7 +31,7 @@ export default function OwnersModal({
         show={show}
         onHide={onClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Owners List result</Modal.Title>
+            <Modal.Title><Message msgId={'cadastrapp.owner.title'}/></Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: 700, overflow: "auto" }} >
             <div style={{ margin: 10 }}>
@@ -46,7 +43,7 @@ export default function OwnersModal({
                     }}
                 >
                     <Glyphicon style={{ marginRight: 4 }} glyph="1-pdf" />
-                    Properties details
+                    <Message msgId={'cadastrapp.owner.rp'}/>
                 </Button>
                 <PropertiesRadio showParcelle={false} expanded={expanded} data={owners} selected={selected} />
             </div>
@@ -67,7 +64,7 @@ export default function OwnersModal({
 
                 }}
             >
-                See plot(s)
+                <Message msgId={'cadastrapp.owner.show.parcelle'}/>
             </Button>
             <Button
                 disabled={loading || downloading}
@@ -98,7 +95,10 @@ export default function OwnersModal({
                         });
                 }}
             >
-                {oneSelected ? "Export row as csv" : "Export list as csv"}
+                {oneSelected
+                    ? <Message msgId={'cadastrapp.selection.proprietaires.export.row'}/>
+                    : <Message msgId={'cadastrapp.selection.proprietaires.export.list'}/>
+                }
             </Button>
         </Modal.Footer>
     </Modal>);

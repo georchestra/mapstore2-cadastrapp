@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ControlLabel, FormControl } from "react-bootstrap";
 import MunicipalityCombo from './MunicipalityCombo';
 import RoadCombo from './RoadCombo';
-
+import Message from '@mapstore/components/I18N/Message';
 import { DropdownList } from 'react-widgets';
+import isEmpty from 'lodash/isEmpty';
 
 
 const options = [{
@@ -45,28 +46,29 @@ const options = [{
 }];
 
 export default function Address({values, setValue = () => {}}) {
+    useEffect(()=> {isEmpty(values) && setValue('dindic', '');}, [values]);
     return (<>
         <div className="item-row">
             <div className="label-col">
-                <ControlLabel>Town, Municipality</ControlLabel>
+                <ControlLabel><Message msgId={'cadastrapp.parcelle.city'}/></ControlLabel>
             </div>
             <div className="form-col">
                 <MunicipalityCombo value={values?.commune} onSelect={v => setValue('commune', v)} />
-                <div className="text-muted">ex. Rennes, Cesson-Sévigné</div>
+                <div className="text-muted"><Message msgId={'cadastrapp.parcelle.cityExample'}/></div>
             </div>
         </div>
         <div className="item-row">
             <div className="label-col">
-                <ControlLabel>Adress, Roads, Name or locality</ControlLabel>
+                <ControlLabel><Message msgId={'cadastrapp.parcelle.town'}/></ControlLabel>
             </div>
             <div className="form-col">
                 <RoadCombo value={values?.road} disabled={!values?.commune} cgocommune={values?.commune?.cgocommune} onSelect={v => setValue('road', v)}/>
-                <div className="text-muted">ex. Henri Freville or La morinaie</div>
+                <div className="text-muted"><Message msgId={'cadastrapp.parcelle.townExample'}/></div>
             </div>
         </div>
         <div className="item-row">
             <div className="label-col">
-                <ControlLabel>Road Number</ControlLabel>
+                <ControlLabel><Message msgId={'cadastrapp.parcelle.street'}/></ControlLabel>
             </div>
             <div className="form-col">
                 <FormControl value={values?.dnvoiri ?? ""} style={{ height: 34, width: 100, "float": "left" }} type="text" bsSize="sm" onChange={v => setValue('dnvoiri', v.target.value)}/>
@@ -77,12 +79,12 @@ export default function Address({values, setValue = () => {}}) {
                         textField="label"
                         value={values?.dindic}
                         onSelect={(v) => {
-                            setValue('dindic', v.dindic);
+                            setValue('dindic', v.value);
                         }}
                         data={options}
                     />
                 </div>
-                <div style={{ "float": "left", marginLeft: 5, marginTop: 5 }} className="text-muted ">ex. 4 TER</div>
+                <div style={{ "float": "left", marginLeft: 5, marginTop: 5 }} className="text-muted "><Message msgId={'cadastrapp.parcelle.streetExample'}/></div>
             </div>
         </div>
     </>);

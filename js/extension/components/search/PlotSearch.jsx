@@ -5,7 +5,7 @@ import { isSearchValid } from '../../utils/validation';
 
 
 import { Tabs, Tab} from "react-bootstrap";
-
+import Message from '@mapstore/components/I18N/Message';
 import Reference from '../forms/Reference';
 import Address from '../forms/Address';
 import Identifier from '../forms/Identifier';
@@ -19,29 +19,29 @@ export default function PlotsSearch({onSearch = () => {}, loading}) {
 
     return (
         <div className="plots-search">
-            <h3>Plots Search</h3>
+            <h3><Message msgId={'cadastrapp.parcelle.title'}/></h3>
             <Tabs
                 className="not-scrolled-tab"
                 onSelect={k => setCurrentTab(k)}
                 activeKey={currentTab}
                 defaultActiveKey={currentTab}>
-                <Tab eventKey={SEARCH_TYPES.REFERENCE} title="Reference">
+                <Tab eventKey={SEARCH_TYPES.REFERENCE} title={<Message msgId={'cadastrapp.parcelle.tab1'}/>}>
                     <Reference
                         values={searchState?.[SEARCH_TYPES.REFERENCE] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.REFERENCE, key, value) }/>
                 </Tab>
-                <Tab eventKey={SEARCH_TYPES.ADDRESS} title="Cadastral Addr."
+                <Tab eventKey={SEARCH_TYPES.ADDRESS} title={<Message msgId={'cadastrapp.parcelle.tab2'}/>}
                     style={{ height: 220 }}>
                     <Address
                         values={searchState?.[SEARCH_TYPES.ADDRESS] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.ADDRESS, key, value)} />
                 </Tab>
-                <Tab eventKey={SEARCH_TYPES.ID} title="Cadastral ID">
+                <Tab eventKey={SEARCH_TYPES.ID} title={<Message msgId={'cadastrapp.parcelle.tab3'}/>}>
                     <Identifier
                         values={searchState?.[SEARCH_TYPES.ID] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.ID, key, value)} />
                 </Tab>
-                <Tab eventKey={SEARCH_TYPES.LOT} title="Lot">
+                <Tab eventKey={SEARCH_TYPES.LOT} title={<Message msgId={'cadastrapp.parcelle.tab4'}/>}>
                     <Lot
                         values={searchState?.[SEARCH_TYPES.LOT] ?? {}}
                         setValue={(key, value) => setFormState(SEARCH_TYPES.LOT, key, value)} />
