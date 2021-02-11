@@ -36,11 +36,8 @@ jobs:
     - name: "build"
       run: npm run ext:build
 
-    - name: "copy resulting zip"
-      run: mkdir -p scratch && cp dist/Cadastrapp.zip scratch/Cadastrapp-${{ github.sha }}.zip
-
     - name: "publish zip as artifact"
       uses: actions/upload-artifact@v1
       with:
-        name: Cadastrapp.zip
-        path: scratch/Cadastrapp-${{ github.sha }}.zip
+        name: Cadastrapp-${{ github.sha }}
+        path: dist/Cadastrapp.zip
