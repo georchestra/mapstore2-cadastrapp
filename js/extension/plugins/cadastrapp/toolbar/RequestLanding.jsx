@@ -6,6 +6,8 @@ import { error } from "@mapstore/actions/notifications";
 import { onPrintPDF } from "@js/extension/actions/cadastrapp";
 import {getAuthLevel} from "@js/extension/selectors/cadastrapp";
 import {DEFAULT_MAX_REQUEST} from "@js/extension/utils/requestForm";
+import { Tooltip } from "react-bootstrap";
+import Message from "@mapstore/components/I18N/Message";
 
 /**
  * Implement request landing form and Modal.
@@ -24,7 +26,9 @@ const Modal = connect(state => ({
 export default function RequestLanding() {
     const [isRequestFormShown, setRequestFormShow] = useState(false);
     return (<>
-        <TButton glyph="features-grid" onClick={() => { setRequestFormShow(true); }}/>
+        <TButton
+            tooltip={<Tooltip id={"request"}><Message msgId={"cadastrapp.demande"}/></Tooltip>}
+            glyph="features-grid" onClick={() => { setRequestFormShow(true); }}/>
         <Modal
             isShown={isRequestFormShown}
             onClose={() => setRequestFormShow(false)}

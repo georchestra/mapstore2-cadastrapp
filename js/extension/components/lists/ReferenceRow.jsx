@@ -50,7 +50,7 @@ export default function ReferenceRow({
             disabled={isEmpty(sections)}
             style={fieldStyle}
             textField="ccosec"
-            placeholder={'cadastrapp.fields.section'}
+            placeholder={'cadastrapp.parcelle.result.ccosec'}
             value={section}
             onChange={() => { }}
             onSelect={newSection => {
@@ -71,7 +71,7 @@ export default function ReferenceRow({
             disabled={!plots}
             style={fieldStyle}
             value={plot}
-            placeholder={'cadastrapp.fields.plotNumber'}
+            placeholder={'cadastrapp.parcelle.libcom'}
             textField="dnupla"
             filter="contains"
             onSelect={v => {

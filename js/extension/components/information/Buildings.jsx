@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
-
+import Message from '@mapstore/components/I18N/Message';
 import { getBatiments } from '../../api';
 import BuildingsButtons from './building/BuildingButtons';
 import BuildingsTable from '../table/BuildingsTable';
@@ -48,7 +48,7 @@ export default function Buildings({
 
     return (<>
         <div style={{ margin: 10 }}>
-            <span style={{ marginRight: 10 }}>Batiments:</span>
+            <span style={{ marginRight: 10 }}><Message msgId={'cadastrapp.duc.batiments'}/>:</span>
             {letters.map(({ dnubat }) => <Button bsStyle={letter === dnubat ? "primary" : undefined} onClick={() => setLetter(dnubat)}>{dnubat}</Button>)}
             <BuildingsButtons
                 setShowDescription={setShowDescription}

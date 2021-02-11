@@ -20,7 +20,7 @@ export default ({handleOnChange = () => {}, requestFormData = {}}) => {
                 value={requestFormData?.propStatement}
                 name={"propStatement"}
             >
-                <Message msgId={'cadastrapp.requestForm.propertyStatement'} />
+                <Message msgId={'cadastrapp.duc.releve.depropriete'} />
             </Checkbox>
             <Checkbox
                 style={{marginTop: 10, marginLeft: 10}}
@@ -28,7 +28,7 @@ export default ({handleOnChange = () => {}, requestFormData = {}}) => {
                 value={requestFormData?.parcelSlip}
                 name={"parcelSlip"}
             >
-                <Message msgId={'cadastrapp.requestForm.parcelSlip'} />
+                <Message msgId={'cadastrapp.duc.bordereau.parcellaire'} />
             </Checkbox>
         </div>
     );

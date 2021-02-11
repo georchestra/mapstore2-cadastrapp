@@ -9,7 +9,7 @@ import {
     Glyphicon
 } from "react-bootstrap";
 import Spinner from "react-spinkit";
-
+import Message from '@mapstore/components/I18N/Message';
 import PropertiesRadio from '../PropertiesRadio';
 import { exportLotsAsCSV, exportLotsAsPDF } from '../../../api';
 import { downloadResponse } from '../../../utils/download';
@@ -26,12 +26,12 @@ function BundleRadio({ show, dnubat, parcelle}) {
                 style={{ width: "70%" }}
                 className="pull-left">
                 <FormGroup>
-                    <b style={{ "float": "left", width: 150, marginRight: 15 }}>Choose output format:</b>
+                    <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={'cadastrapp.lots.type.title'}/>:</b>
                     <Radio checked={format === 'pdf'} value="pdf" onChange={() => setFormat("pdf")} inline>
-                        Export as PDF
+                        <Message msgId={'cadastrapp.lots.type.pdf'}/>
                     </Radio>
                     <Radio checked={format === 'csv'} value="csv" onChange={() => setFormat("csv")} inline>
-                        Export as CSV
+                        <Message msgId={'cadastrapp.lots.type.csv'}/>
                     </Radio>
                 </FormGroup>
             </div>
@@ -91,7 +91,7 @@ export default function BuildingsButtons({
 
     return (<>
         <ButtonGroup className="pull-right">
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Properties List"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.duc.releve.depropriete'}/></Tooltip>}>
                 <Button
                     disabled={selected.length === 0}
                     bsStyle={propertiesSelected ? "primary" : "default"}
@@ -99,14 +99,14 @@ export default function BuildingsButtons({
                     <Glyphicon glyph="th-list" />
                 </Button>
             </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Description"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.duc.batiment_descriptif'}/></Tooltip>}>
                 <Button
                     onClick={() => setShowDescription(true)}
                     disabled={selected.length === 0}>
                     <Glyphicon glyph="info-sign" />
                 </Button>
             </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip>{"Bundle"}</Tooltip>}>
+            <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.duc.batiment_bundle'}/></Tooltip>}>
                 <Button
                     bsStyle={bundleSelected ? "primary" : "default"}
                     onClick={onBundleClick}>

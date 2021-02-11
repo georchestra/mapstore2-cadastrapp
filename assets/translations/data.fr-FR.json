@@ -3,67 +3,314 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
-            "toolbar": {
-                "zoomTo": "Zoomer sur l'étendue des résultats",
-                "help": "Aidez-moi"
-            },
-            "popup": {
+            "selectTool": "Sélectionnez l'outil souhaité dans la barre d'outils de gauche pour commencer",
+            "help": "Aide",
+            "zoomTo": "Zoomer sur l'étendue des résultats",
+            "demande": "Demande",
+            "commune": "Commune",
+            "infobulle": {
                 "parcelle": "Parcelle",
-                "town": "Ville",
-                "year": "Année",
-                "county": "Département",
+                "commune": "Ville",
+                "annee": "Année",
+                "departement": "Département",
                 "direction": "Direction",
-                "towninsee": "Code INSEE",
-                "prefix": "Prefixe",
+                "inseecom": "Code INSEE",
+                "prefix": "Prefix",
                 "section": "Section",
-                "plot": "N° de plan",
-                "address": "Adresse",
-                "dgfip": "DGFiP",
-                "gis": "GIS",
-                "owner": "Propriétaire",
+                "nplan": "N° de plan",
+                "adresse": "Address",
+                "proprietaire": "Propriétaire",
                 "landUnit": "Unité Foncière",
-                "municipalAccount": "Compte communal",
+                "ccomunal": "Compte communal",
                 "nodata": "Aucune donnée à afficher",
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
             },
-            "fields": {
-                "section": "Section",
-                "plotNumber": "Numéro de parcelle"
-            },
-            "requestForm": {
-                "title": "Demande de fiducie foncière",
-                "askBy": "Demande demander par",
-                "counter": "Compteur",
-                "email": "Email",
-                "requestType": "Demande de type d'utilisateur",
-                "requestObj": "Objet de la demande",
-                "responseBy": "Donner le document par",
-                "cni" : "CNI",
-                "lastName": "Nom de famille",
-                "firstName": "Prénom",
-                "roadNumber": "Numéro de route",
-                "zipCode": "Code postal",
-                "town": "Ville, Municipalité",
-                "mail": "Courrier",
-                "cancel": "Demande d'annulation",
-                "print": "Demande d'impression",
-                "genDocuments": "Générer des documents",
+            "sig": "GIS",
+            "contenancedgfip": "DGFiP",
+            "demandeinformation": {
+                "title": "Request on landholding trust",
+                "realise": "Request ask by",
+                "counter": "au guichet",
+                "email": "par courriel",
+                "proprietaire": "Proprietaire",
+                "type": {
+                    "demandeur": "Type de demandeur",
+                    "A": "Administration",
+                    "P1": "Particulier détenteur des droits",
+                    "P2": "Particulier agissant en qualité de mandataire",
+                    "P3": "Particulier tiers"
+                },
+                "titre2": "Objet de la demande",
+                "transmission": "Transmission des documents",
+                "cni": "CNI",
+                "nom": "Nom",
+                "prenom": "Prénom",
+                "num_rue": "N° de voirie et rue",
+                "code_postal": "Code postal",
+                "commune": "Ville, Commune",
+                "mail": "par courrier",
+                "annuler": "Annuler la demande",
+                "imprimer": "Imprimer la demande",
+                "generate": {
+                    "document": "Generer les documents"
+                },
                 "addMore": "Cliquez pour ajouter plus de demandes",
-                "accountId": "Identifiant du compte municipal",
-                "plotId": "ID de parcelle",
-                "commune": "Commune",
-                "owner": "Propriétaire",
-                "ownerBirthName": "Proprio nom de naissance",
-                "ownerId": "Id propriétaire",
-                "plot": "Parcelle",
-                "coOwner": "Copropriétaires",
-                "lotCoOwners": "Copropriétaires de lots",
-                "limit": "Limite maximale de demandes atteinte",
-                "propertyStatement": "Relevé de propriété",
-                "parcelSlip": "Bordereau parcellaire",
+                "idCompteCom": "id compte communal",
+                "idParcelle": "id parcelle",
+                "object": {
+                    "type": {
+                        "1": "Compte communal",
+                        "2": "Parcelle",
+                        "3": "Co-propriété",
+                        "4": "Propriétaire",
+                        "5": "Identifiant parcellaire",
+                        "6": "Lot de copropriété",
+                        "7": "Proprio nom de naissance"
+                    }
+                },
+                "comptecommunal": "Compte communal",
+                "exceded":  {
+                    "maxNumber": "La limite de demande maximum est atteinte"
+                },
                 "printError": "Impossible d'imprimer les données du formulaire de demande",
                 "availableReqError": "Impossible de récupérer les demandes disponibles"
+            },
+            "cadastre_tools" : "Outils Cadastre",
+            "create_line": "Sélectionne / Active / Désélectionne une ou plusieurs parcelles par une ligne brisée",
+            "create_point": "Sélectionne / Active / Désélectionne une parcelle par un simple clic",
+            "create_polygon": "Sélectionne / Active / Désélectionne une ou plusieurs parcelles à l’intérieur d’un polygone",
+            "preferences": {
+                "default": "Liste",
+                "defaultStyle": "Reprendre le style par defaut",
+                "fillColor": "Remplissage",
+                "opacity": "Opacité",
+                "selected": "Sélection",
+                "strokeColor": "Contour",
+                "strokeWidth": "Epaisseur",
+                "title": "Préférences des styles",
+                "close": "Fermer"
+            },
+            "parcelle": {
+                "libcom": "Numéro de plan de la parcelle",
+                "addMoreReference": "Cliquez pour ajouter une nouvelle référence",
+                "tooltip": "Parcelle",
+                "city": "Ville, Commune",
+                "cityExample": "ex. Rennes, Cesson-Sévigné",
+                "references": "Référence(s)",
+                "result": {
+                    "title": "Sélection de parcelles",
+                    "ccosec": "Section",
+                    "commune": "Commune",
+                    "adresse": "Adresse cadastrale",
+                    "dnupla": "N° de plan",
+                    "surface": "Contenance DGFiP en m²"
+                },
+                "file": {
+                    "title": "Fichier",
+                    "example": "Faites glisser et déposez le fichier CSV ici ou cliquez pour sélectionner",
+                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Il ne s'agit pas d'une liste de dnupro mais bien de comptecommunal exemple : 63092I00020"
+                },
+                "lot": {
+                    "title": "Liste d'identifiants",
+                    "example": "ex. 8301032610C0012, 8301032610C0013, 8301032610C0014"
+                },
+                "ident": {
+                    "title": "Identifiant",
+                    "example": "ex. 8301032610C0012",
+                    "control": "L'id de parcelle doit contenir au moins 15 caractères pour le modèle arcopole et 19 pour le modèle qgis, si plusieurs ids de parcelle sont fournis il faut les séparer par un espace, une virgule ou un point virgule"
+                },
+                "town": "Nom de voie ou lieu-dit",
+                "townExample": "ex. Henri Fréville ou Mont-Romain",
+                "street": "n° / complément",
+                "streetExample": "ex. 4 TER",
+                "title": "Recherche des parcelles",
+                "tab1": "Référence",
+                "tab2": "Adresse cadastrale",
+                "tab3": "Identifiant cadastral",
+                "tab4": "Lot"
+            },
+            "search": {
+                "addTab": "Ajouter un nouvel onglet de sélection",
+                "deleteTab": "Supprimer l'onglet de sélection actuel",
+                "confirmDeleteTab": "Êtes-vous sûr de vouloir supprimer l'onglet sélectionné",
+                "title": "Rechercher",
+                "clear": "Effacer",
+                "copropriete": {
+                    "title": "Recherche de co-propriétés",
+                    "comptecommunal": {
+                        "example": "ex. 350001+00160",
+                        "ident": "Compte communal"
+                    },
+                    "parcelle": {
+                        "ident": "Identifiant de parcelle"
+                    }
+                }
+            },
+            "proprietaire": {
+                "file": {
+                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Il ne s'agit pas d'une liste de dnupro mais bien de comptecommunal exemple : 63092I00020 ",
+                    "title": "Fichier"
+                },
+                "tooltip": "Proprietaire",
+                "title": "Recherche de propriétaires",
+                "tab1": "Nom Usage ou Naissance",
+                "tab2": "Compte Propriétaire",
+                "tab3": "Par lot",
+                "city": "Ville, Commune",
+                "cityExample": "ex. Rennes, Cesson-Sévigné",
+                "proprietaires": {
+                    "title": "Propriétaire(s)",
+                    "addMoreProprietaire": "Cliquez pour ajouter un nouveau propriétaire"
+                },
+                "search": {
+                    "birth": "Rechercher par nom de naissance"
+                },
+                "name": {
+                    "title": "Nom et/ou prénom",
+                    "example": "ex. Jego pierre",
+                    "tooltip": "Appuyer sur echap pour ne pas tenir compte des propositions et lancer la recherche"
+                }
+            },
+            "coProprietaire": {
+                "tooltip": "Co-propriétaire"
+            },
+            "bordereauparcellaire": {
+                "title": "Bordereau Parcellaire",
+                "basemap": "Fond de plan",
+                "export": "Exportation",
+                "data": {
+                    "title": "Données propriétaires",
+                    "with": "Avec données nominatives",
+                    "without": "Sans données nominatives"
+                }
+            },
+            "proprietaires": {
+                "ccodro": "Code du droit réel"
+            },
+            "lots": {
+                "title": "Lots",
+                "type": {
+                    "title": "Choissiez un format de fichier",
+                    "csv": "CSV",
+                    "pdf": "PDF"
+                },
+                "batiments": "Choisissez un batiment"
+            },
+            "relevepropriete": {
+                "data": "Données à extraire",
+                "full": "Toutes les propriétés",
+                "partial": "Uniquement cette parcelle",
+                "title": "Relevé de propriété PDF",
+                "export": "Exportation",
+                "type": {
+                    "title": "Choissiez un format de fichier",
+                    "csv": "CSV",
+                    "pdf": "PDF"
+                }
+            },
+            "selection": {
+                "proprietaires": {
+                    "export": {
+                        "list": "Export Liste .csv",
+                        "row": "Export rangée .csv"
+                    }
+                }
+            },
+            "ficu": {
+                "adresse": "Adresse",
+                "commune": "Commune",
+                "batie": "Parcelle bâtie",
+                "contenancedgfip": "Contenance DGFiP en m²",
+                "contenancesig": "Surface calculée en m²",
+                "parcelle": "Parcelle",
+                "section": "Section",
+                "urbain": "Secteur urbain",
+                "voie": "Voie (Code fantoir)",
+                "yes": "Oui",
+                "no": "Non",
+                "description": "La description",
+                "value": "Valeur"
+            },
+            "duc": {
+                "batiment_niveau": "Niveau",
+                "door": "Porte",
+                "type": "Type",
+                "annee_construction": "Année de construction",
+                "revenu": "Revenu",
+                "nom_usage": "Nom d'usage",
+                "nom_naissance": "Nom de naissance",
+                "invar": "Invar",
+                "nom": "Nom",
+                "adresse": "Adresse",
+                "lieunaissance": "Lieu de naissance",
+                "cco_lib": "Libellé - Code du droit réel",
+                "lettreindic": "Lettre indicative",
+                "terrain": "Nature de culture",
+                "revenu_1": "Revenu au 01-01",
+                "batiment_bundle": "Lots",
+                "batiment_date": "Date",
+                "batiment_descriptif": "Descriptif",
+                "reference_parcelle": "Référence de la parcelle mère",
+                "type_mutation": "Type de mutation",
+                "compte": "Compte",
+                "contenance": "Contenance",
+                "dateacte": "Date acte",
+                "datenaissance": "Date de naissance",
+                "denomination": "Dénomination",
+                "dependances": "Dépendances",
+                "designation": "Designation",
+                "dformjur": "Forme juridique",
+                "releve": {
+                    "depropriete": "Relevé de propriété"
+                },
+                "histomut": "Historique de mutation",
+                "parcelle": "Parcelle",
+                "propietaire": "Propriétaire",
+                "copropietaire": "Co-propriétaire",
+                "subdiv": "Subdivisions fiscales",
+                "batiments": "Batiment(s)",
+                "bordereau": {
+                    "parcellaire": "Bordereau Parcellaire"
+                }
+            },
+            "result": {
+                "csv": {
+                    "button": {
+                        "bundle": "Lots",
+                        "coowner": "Co-propriétaires",
+                        "owner": "Propriétaires",
+                        "parcelles": "Parcelle"
+                    },
+                    "export": "Exporter sélection"
+                },
+                "parcelle" : {
+                    "fiche": "Fiche d'info parcelle(s)",
+                    "uf": "Fiche unité foncière",
+                    "delete": "Enlever parcelle(s)",
+                    "zoom": {
+                        "title": "Zoom",
+                        "list": "Zoom liste",
+                        "selection": "Zoom sélection"
+                    }
+                },
+                "owner": {
+                    "title": "Liste des propriétaires",
+                    "rp": "Relevé de propriétés",
+                    "show": {
+                        "parcelle": "Voir les parcelles"
+                    },
+                    "comptecommunal": "Compte communal",
+                    "ddenom": "Dénomination"
+                }
+            },
+            "uniteFonciere": "Unite foncière",
+            "menu": {
+                "tooltips": {
+                    "foncier": "Outil d'information foncière, une fois activée cliquez sur une parcelle pour voir l'unité foncière correspondante",
+                    "imprimer": "Imprimer"
+                },
+                "preference": "Préférences"
             }
         }
     }

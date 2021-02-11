@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import Message from '@mapstore/components/I18N/Message';
 
 export default function HistoryMutation({ fiucHistoryMutation = [] }) {
     if (fiucHistoryMutation.length === 0) {
@@ -8,9 +9,9 @@ export default function HistoryMutation({ fiucHistoryMutation = [] }) {
     return (<Table condensed>
         <thead>
             <tr>
-                <th>Date Acte</th>
-                <th>Reference de la parcelle mere</th>
-                <th>Type de mutation</th>
+                <th><Message msgId={'cadastrapp.duc.dateacte'}/></th>
+                <th><Message msgId={'cadastrapp.duc.reference_parcelle'}/></th>
+                <th><Message msgId={'cadastrapp.duc.type_mutation'}/></th>
             </tr>
         </thead>
         <tbody>

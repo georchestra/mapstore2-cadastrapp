@@ -5,14 +5,12 @@ import PropTypes from 'prop-types';
 import { EmptyRowsView } from './EmptyRowsView';
 
 const columns = [{
-    i18n: 'cadastrapp.result.owner.comptecommunal',
-    name: "Identifier",
+    name: 'cadastrapp.result.owner.comptecommunal',
     width: 130,
     resizable: true,
     key: 'comptecommunal'
 }, {
-    name: "Full name information",
-    i18n: 'cadastrapp.result.owner.ddenom',
+    name: 'cadastrapp.result.owner.ddenom',
     resizable: true,
     key: 'app_nom_usage'
 }];

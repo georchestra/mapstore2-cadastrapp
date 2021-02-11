@@ -22,13 +22,6 @@ export const DEFAULT_REQUEST_OBJ = {
 
 export const DEFAULT_MAX_REQUEST = 8;
 
-export const USER_TYPE_OPTIONS = [
-    { value: 'A', label: 'Administration' },
-    { value: 'P1', label: 'P1 - User with Rights' },
-    { value: 'P2', label: 'P2 - Representative' },
-    { value: 'P3', label: 'P3 - Normal user' }
-];
-
 /**
  * Parse the request params object to string to be passed as params
  * @param object

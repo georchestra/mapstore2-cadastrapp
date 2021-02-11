@@ -3,6 +3,7 @@ import ColorPicker from '@mapstore/components/style/ColorPicker';
 import { Glyphicon, ControlLabel } from "react-bootstrap";
 import Slider from '@mapstore/components/misc/Slider';
 import { rgbToHex, hexToRgb } from '../../../../MapStore2/web/client/utils/ColorUtils';
+import Message from '@mapstore/components/I18N/Message';
 
 /**
  * Converts color and opacity into an {r,g,b,a} object.
@@ -27,7 +28,7 @@ export default ({
         <>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Highlight Color</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.preferences.fillColor'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <ColorPicker
@@ -47,7 +48,7 @@ export default ({
             </div>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Stroke Color</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.preferences.strokeColor'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <ColorPicker
@@ -67,7 +68,7 @@ export default ({
             </div>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Stroke Width</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.preferences.strokeWidth'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <div className="mapstore-slider with-tooltip">
@@ -90,4 +91,4 @@ export default ({
                 </div>
             </div>
         </>);
-}
+};

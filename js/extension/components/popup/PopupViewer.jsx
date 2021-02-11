@@ -20,7 +20,7 @@ export default connect(state => ({
         if (isEmpty(infoBulle)) {
             return (
                 <div className="popup-container">
-                    <Message msgId={"cadastrapp.popup.nodata"} />
+                    <Message msgId={"cadastrapp.infobulle.nodata"} />
                 </div>
             );
         }
@@ -60,49 +60,49 @@ export default connect(state => ({
 
         const generalPopupData = [
             {
-                label: <Message msgId={"cadastrapp.popup.town"} />,
+                label: <Message msgId={"cadastrapp.infobulle.commune"} />,
                 value: libcom
             },
             {
-                label: <Message msgId={"cadastrapp.popup.year"} />,
+                label: <Message msgId={"cadastrapp.infoBuelle.annee"} />,
                 value: parcelle.substr(0, 4),
                 condition: segregate
             },
             {
-                label: <Message msgId={"cadastrapp.popup.county"} />,
+                label: <Message msgId={"cadastrapp.infobulle.departement"} />,
                 value: departement
             },
             {
-                label: <Message msgId={"cadastrapp.popup.direction"} />,
+                label: <Message msgId={"cadastrapp.infobulle.direction"} />,
                 value: codir,
                 condition: parseInt(codir, 10) !== 0
             },
             {
-                label: <Message msgId={"cadastrapp.popup.towninsee"} />,
+                label: <Message msgId={"cadastrapp.infobulle.inseecom"} />,
                 value: inseecom
             },
             {
-                label: <Message msgId={"cadastrapp.popup.prefix"} />,
+                label: <Message msgId={"cadastrapp.infobulle.prefix"} />,
                 value: ccopre
             },
             {
-                label: <Message msgId={"cadastrapp.popup.section"} />,
+                label: <Message msgId={"cadastrapp.infobulle.section"} />,
                 value: ccosec
             },
             {
-                label: <Message msgId={"cadastrapp.popup.plot"} />,
+                label: <Message msgId={"cadastrapp.infobulle.nplan"} />,
                 value: dnupla
             },
             {
-                label: <Message msgId={"cadastrapp.popup.address"} />,
+                label: <Message msgId={"cadastrapp.infobulle.adresse"} />,
                 value: address
             },
             {
-                label: <Message msgId={"cadastrapp.popup.dgfip"} />,
+                label: <Message msgId={"cadastrapp.contenancedgfip"} />,
                 value: isNumber(dcntpa) ? dcntpa.toLocaleString() + " m²" : ""
             },
             {
-                label: <Message msgId={"cadastrapp.popup.gis"} />,
+                label: <Message msgId={"cadastrapp.sig"} />,
                 value: isNumber(surfc) ? surfc.toLocaleString() + " m²" : ""
             }
         ];
@@ -113,7 +113,7 @@ export default connect(state => ({
                         <thead>
                             <tr>
                                 <th colSpan="2" className="info-popup-header">
-                                    <Message msgId={"cadastrapp.popup.parcelle"} />
+                                    <Message msgId={"cadastrapp.infobulle.parcelle"} />
                                 </th>
                             </tr>
                         </thead>
@@ -138,7 +138,7 @@ export default connect(state => ({
                                 proprietaires.map(({ app_nom_usage: owner }) => (
                                     <tr>
                                         <td className="info-popup-label">
-                                            <Message msgId={"cadastrapp.popup.owner"} /> :
+                                            <Message msgId={"cadastrapp.infobulle.proprietaire"} /> :
                                         </td>
                                         <td className="info-popup-value">&nbsp;{owner}</td>
                                     </tr>
@@ -152,7 +152,7 @@ export default connect(state => ({
                             <thead>
                                 <tr>
                                     <th colSpan="2" className="info-popup-header">
-                                        <Message msgId={"cadastrapp.popup.landUnit"} />
+                                        <Message msgId={"cadastrapp.infobulle.landUnit"} />
                                     </th>
                                 </tr>
                             </thead>
@@ -160,7 +160,7 @@ export default connect(state => ({
                                 {isAuthenticated && !isEmpty(comptecommunal) && (
                                     <tr>
                                         <td className="info-popup-label">
-                                            <Message msgId={"cadastrapp.popup.municipalAccount"} /> :
+                                            <Message msgId={"cadastrapp.infobulle.ccomunal"} /> :
                                         </td>
                                         <td className="info-popup-value">&nbsp;{comptecommunal}</td>
                                     </tr>
@@ -168,7 +168,7 @@ export default connect(state => ({
                                 {dcntpa_sum && (
                                     <tr>
                                         <td className="info-popup-label">
-                                            <Message msgId={"cadastrapp.popup.dgfip"} /> UF :
+                                            <Message msgId={"cadastrapp.contenancedgfip"} /> UF :
                                         </td>
                                         <td className="info-popup-value">&nbsp;{dcntpa_sum} m²</td>
                                     </tr>
@@ -176,7 +176,7 @@ export default connect(state => ({
                                 {sigcal_sum && (
                                     <tr>
                                         <td className="info-popup-label">
-                                            <Message msgId={"cadastrapp.popup.gis"} /> UF :
+                                            <Message msgId={"cadastrapp.sig"} /> UF :
                                         </td>
                                         <td className="info-popup-value">&nbsp;{sigcal_sum} m²</td>
                                     </tr>
@@ -185,7 +185,7 @@ export default connect(state => ({
                         </table>
                     </div>
                 ) : (
-                    <Message msgId={"cadastrapp.popup.noaccess"} />
+                    <Message msgId={"cadastrapp.infobulle.noaccess"} />
                 ) : null}
             </div>
         );

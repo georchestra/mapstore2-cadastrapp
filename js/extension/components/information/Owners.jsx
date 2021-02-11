@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import OwnersTable from '../table/OwnersTable';
 import PropertiesRadio from './PropertiesRadio';
-
+import Message from '@mapstore/components/I18N/Message';
 import {
     Button,
     Glyphicon
@@ -25,7 +25,7 @@ export default function Owners({ owners = [], parcelle}) {
                 onClick={togglePanel}
                 {...(!atLeastOneSelected ? { disabled: 'true' } : {})}>
                 <Glyphicon style={{ marginRight: 4 }} glyph="1-pdf" />
-                        Properties List
+                <Message msgId={"cadastrapp.duc.releve.depropriete"}/>
             </Button>
         </div>
         <PropertiesRadio parcelle={parcelle} expanded={expanded} data={owners} selected={selected} />

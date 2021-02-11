@@ -1,7 +1,7 @@
 import React from 'react';
 import MunicipalityCombo from './MunicipalityCombo';
 import ProprietaireCombo from './ProprietaireCombo';
-
+import Message from '@mapstore/components/I18N/Message';
 import { ControlLabel, Checkbox  } from "react-bootstrap";
 
 export default function User({values, setValue = () => {}}) {
@@ -9,16 +9,16 @@ export default function User({values, setValue = () => {}}) {
         <>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Town, Municipality</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.proprietaire.city'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <MunicipalityCombo value={values?.commune} onSelect={v => setValue('commune', v)} />
-                    <div className="text-muted">ex: Rennes, Cesson-Sevigne</div>
+                    <div className="text-muted"><Message msgId={'cadastrapp.proprietaire.cityExample'}/></div>
                 </div>
             </div>
             <div className="item-row">
                 <div className="label-col">
-                    <ControlLabel>Last name and first name</ControlLabel>
+                    <ControlLabel><Message msgId={'cadastrapp.proprietaire.name.title'}/></ControlLabel>
                 </div>
                 <div className="form-col">
                     <ProprietaireCombo
@@ -28,7 +28,7 @@ export default function User({values, setValue = () => {}}) {
                         onSelect={v => setValue('proprietaire', v)}
                         onChange={v => setValue('proprietaire', v)}
                     />
-                    <div className="text-muted">ex: Jeog Pierre</div>
+                    <div className="text-muted"><Message msgId={'cadastrapp.proprietaire.name.example'}/></div>
                 </div>
             </div>
             <div className="item-row">
@@ -39,11 +39,11 @@ export default function User({values, setValue = () => {}}) {
                     <Checkbox
                         value={values?.birthsearch}
                         onchange={v => {
-                            setValue('birthsearch', v.target.value)
+                            setValue('birthsearch', v.target.value);
                         }} >
-                        Search by Birth name
+                        <Message msgId={'cadastrapp.proprietaire.search.birth'}/>
                     </Checkbox>
-                    <div className="text-muted">Echap to load query without completion</div>
+                    <div className="text-muted"><Message msgId={'cadastrapp.proprietaire.name.tooltip'}/></div>
                 </div>
             </div>
         </>);

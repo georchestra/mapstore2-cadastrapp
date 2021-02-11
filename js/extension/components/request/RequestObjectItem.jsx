@@ -35,13 +35,13 @@ export default function RequestObjectItem({
     allow = false
 }) {
     const requestOptions = [
-        { value: 'owner-id', label: 'cadastrapp.requestForm.ownerId' },
-        { value: 'plot', label: 'cadastrapp.requestForm.plot' },
-        { value: 'co-owners', label: 'cadastrapp.requestForm.coOwner' },
-        { value: 'plot-id', label: 'cadastrapp.requestForm.plotId' },
-        { value: 'owner', label: 'cadastrapp.requestForm.owner', style: {display: allow ? 'block' : 'none'} },
-        { value: 'owner-birth-name', label: 'cadastrapp.requestForm.ownerBirthName', style: {display: allow ? 'block' : 'none'} },
-        { value: 'lot-co-owners', label: 'cadastrapp.requestForm.lotCoOwners', style: {display: allow ? 'block' : 'none'} }
+        { value: 'owner-id', label: 'cadastrapp.demandeinformation.object.type.1' },
+        { value: 'plot', label: 'cadastrapp.demandeinformation.object.type.2' },
+        { value: 'co-owners', label: 'cadastrapp.demandeinformation.object.type.3' },
+        { value: 'plot-id', label: 'cadastrapp.demandeinformation.object.type.5' },
+        { value: 'owner', label: 'cadastrapp.demandeinformation.object.type.4', style: {display: allow ? 'block' : 'none'} },
+        { value: 'owner-birth-name', label: 'cadastrapp.demandeinformation.object.type.7', style: {display: allow ? 'block' : 'none'} },
+        { value: 'lot-co-owners', label: 'cadastrapp.demandeinformation.object.type.6', style: {display: allow ? 'block' : 'none'} }
     ];
 
     const [fieldName, setFieldName] = useState('');
@@ -99,7 +99,7 @@ export default function RequestObjectItem({
             <div>
                 <FormControl
                     className="pull-left"
-                    placeholder={"cadastrapp.requestForm.accountId"}
+                    placeholder={"cadastrapp.demandeinformation.idCompteCom"}
                     name="accountId"
                     value={requestFormData?.[fieldName]?.[dataId]?.accountId || ''}
                     style={{ height: 34, width: 248, margin: 4 }}
@@ -115,7 +115,7 @@ export default function RequestObjectItem({
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
                         dropUp
-                        placeholder={'cadastrapp.requestForm.commune'}
+                        placeholder={'cadastrapp.commune'}
                         additionalStyle={{width: 300, marginRight: 4}} value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
                         onSelect={v =>handleSelectChange("commune", v)}
                     />
@@ -134,14 +134,14 @@ export default function RequestObjectItem({
         return (
             <div style={{ width: "300" }}>
                 <FormControl
-                    placeholder={'cadastrapp.requestForm.accountId'}
+                    placeholder={'cadastrapp.demandeinformation.idCompteCom'}
                     name="accountId"
                     value={requestFormData?.[fieldName]?.[dataId]?.accountId || ''}
                     className={cs("pull-left", "request-obj-double")}
                     onChange={handleOnChange}
                 />
                 <FormControl
-                    placeholder={'cadastrapp.requestForm.plotId'}
+                    placeholder={'cadastrapp.demandeinformation.idParcelle'}
                     name={"plotId"}
                     value={requestFormData?.[fieldName]?.[dataId]?.plotId || ''}
                     className={cs("pull-left", "request-obj-double")}
@@ -155,7 +155,7 @@ export default function RequestObjectItem({
         return (
             <div>
                 <FormControl
-                    placeholder={'cadastrapp.requestForm.accountId'}
+                    placeholder={'cadastrapp.demandeinformation.idCompteCom'}
                     name="accountId"
                     value={requestFormData?.[fieldName]?.[dataId]?.accountId || ''}
                     className={cs("pull-left", "request-obj-double")}
@@ -171,13 +171,13 @@ export default function RequestObjectItem({
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
                         dropUp
-                        placeholder={'cadastrapp.requestForm.commune'}
+                        placeholder={'cadastrapp.commune'}
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
                         onSelect={v =>handleSelectChange("commune", v)}
                     />
                     <ProprietaireCombo
-                        placeholder={'cadastrapp.requestForm.owner'}
+                        placeholder={'cadastrapp.demandeinformation.proprietaire'}
                         disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.commune)}
                         birthsearch
                         cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
@@ -196,13 +196,13 @@ export default function RequestObjectItem({
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
                         dropUp
-                        placeholder={'cadastrapp.requestForm.commune'}
+                        placeholder={'cadastrapp.commune'}
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
                         onSelect={v =>handleSelectChange("commune", v)}
                     />
                     <ProprietaireCombo
-                        placeholder={'cadastrapp.requestForm.owner'}
+                        placeholder={'cadastrapp.demandeinformation.proprietaire'}
                         disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.commune)}
                         birthsearch
                         cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
@@ -221,7 +221,7 @@ export default function RequestObjectItem({
                 <div style={{display: 'flex', margin: 4}}>
                     <MunicipalityCombo
                         dropUp
-                        placeholder={'cadastrapp.requestForm.commune'}
+                        placeholder={'cadastrapp.commune'}
                         additionalStyle={{marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.commune?.label}
                         onSelect={v =>handleSelectChange("commune", v)}
@@ -233,7 +233,7 @@ export default function RequestObjectItem({
                         onSelect={(c, v) =>handleSelectChange(c, v)}/>
 
                     <ProprietaireComboList
-                        placeholder={'cadastrapp.requestForm.owner'}
+                        placeholder={'cadastrapp.demandeinformation.proprietaire'}
                         disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.plot)}
                         section={requestFormData?.[fieldName]?.[dataId]?.section?.ccosec}
                         numero={requestFormData?.[fieldName]?.[dataId]?.section?.plot?.dnupla}

@@ -3,7 +3,7 @@ import Spinner from "react-spinkit";
 
 import '../../ficheUniteFonciere.css';
 import css from 'raw-loader!../../ficheUniteFonciere.css.txt';
-
+import Message from '@mapstore/components/I18N/Message';
 import bbox from '@turf/bbox';
 
 import Modal from '@mapstore/components/misc/Modal';
@@ -71,7 +71,7 @@ export default function LandedPropertyInformationModal({
                 setInfo(ufInfo);
                 getProprietaire({ details: 2, comptecommunal })
                     .then(result => setProprietaires(result))
-                    .catch((e) => {console.log(e)}); // TODO: notify error
+                    .catch((e) => {console.log(e);}); // TODO: notify error
                 getParcelle({ unitefonciere: uf }).then(setParcelleData);
             });
         }
@@ -95,7 +95,7 @@ export default function LandedPropertyInformationModal({
         show={show}
         onHide={onClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Landed Property</Modal.Title>
+            <Modal.Title><Message msgId={'cadastrapp.uniteFonciere'}/></Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: 700, overflow: "auto" }} >
             <Content
@@ -113,11 +113,10 @@ export default function LandedPropertyInformationModal({
                 disabled={loading}
                 bsStyle="primary"
                 onClick={() => {
-                    // TODO: print
                     printPageArea("cadastrapp-landed-prop-print-page");
                 }}
             >
-                {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}Print</Button>
+                {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}<Message msgId={'cadastrapp.menu.tooltips.imprimer'}/></Button>
         </Modal.Footer>
     </Modal>);
 }

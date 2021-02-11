@@ -1,7 +1,9 @@
 import React from 'react';
-import ReactDataGrid from 'react-data-grid';
+import RDG from 'react-data-grid';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
+import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
+const ReactDataGrid = localizedProps('columns', 'name')(RDG);
 const DEFAULTS = {
     minWidth: 40,
     maxWidth: 500,

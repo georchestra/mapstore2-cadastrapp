@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import { Button } from "react-bootstrap";
 import { toggleControl } from "@mapstore/actions/controls";
 import { CONTROL_NAME } from '../../constants';
+import Message from '@mapstore/components/I18N/Message';
 
 /**
  * Header of the Cadastrapp panel
  */
 function Header({onClose = () => {}}) {
     return (<div className="top">
-        <h4>Cadastrapp</h4>
+        <h4><Message msgId={'cadastrapp.cadastre_tools'}/></h4>
         <Button
             onClick={() => onClose()}
             bsStyle="primary"

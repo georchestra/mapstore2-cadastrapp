@@ -50,7 +50,7 @@ export default function RequestObject({availableRequest = 0, setAvailableRequest
                     <Glyphicon glyph="plus"/>
                 </Button>
                 <small style={{ marginTop: 5, marginRight: 10, ...(availableRequest <= 0 && {color: "red"}) }} className="pull-right">
-                    <Message msgId={availableRequest <= 0 ? 'cadastrapp.requestForm.limit' : 'cadastrapp.requestForm.addMore'}/>
+                    <Message msgId={availableRequest <= 0 ? 'cadastrapp.demandeinformation.exceded.maxNumber' : 'cadastrapp.demandeinformation.addMore'}/>
                 </small>
             </div>
             <div>
