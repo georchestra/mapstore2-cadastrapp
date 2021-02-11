@@ -100,6 +100,8 @@
                 "references": "Reference(s)",
                 "result": {
                     "title": "Plots selection",
+                    "items": "{number, plural, =0 {Item} =1 {Item} other {Items}}",
+                    "selected": "Selected",
                     "ccosec": "Section",
                     "commune": "Town",
                     "adresse": "Cadastral address",

@@ -100,6 +100,8 @@
                 "references": "Référence(s)",
                 "result": {
                     "title": "Sélection de parcelles",
+                    "items": "{number, plural, =0 {Objet} =1 {Objet} other {Objets}}",
+                    "selected": "Sélectionné",
                     "ccosec": "Section",
                     "commune": "Commune",
                     "adresse": "Adresse cadastrale",
@@ -109,7 +111,7 @@
                 "file": {
                     "title": "Fichier",
                     "example": "Faites glisser et déposez le fichier CSV ici ou cliquez pour sélectionner",
-                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Il ne s'agit pas d'une liste de dnupro mais bien de comptecommunal exemple : 63092I00020"
+                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Exemple: 63092l00020"
                 },
                 "lot": {
                     "title": "Liste d'identifiants",
@@ -149,7 +151,7 @@
             },
             "proprietaire": {
                 "file": {
-                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Il ne s'agit pas d'une liste de dnupro mais bien de comptecommunal exemple : 63092I00020 ",
+                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Exemple: 63092l00020",
                     "title": "Fichier"
                 },
                 "tooltip": "Proprietaire",

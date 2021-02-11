@@ -44,7 +44,10 @@ function PlotSelectionTabContent({
                             data={props.data[index]}
                             tablloadingeIndex={index}/>
                         <div style={{height: 25}}>
-                            <span style={{ "float": "right" }}>{props.data?.[index]?.length ?? 0} Items ({selectedPlots?.length ?? 0} Selected)</span>
+                            <span style={{ "float": "right" }}>
+                                {props.data?.[index]?.length ?? 0} <Message msgId="cadastrapp.parcelle.result.items" msgParams={{ number: props.data?.[index]?.length ?? 0 }} />&nbsp;
+                                ({selectedPlots?.length ?? 0} <Message msgId="cadastrapp.parcelle.result.selected" msgParams={{ number: selectedPlots?.length ?? 0}} />)
+                            </span>
                             {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
                         </div>
                     </Tab.Pane>

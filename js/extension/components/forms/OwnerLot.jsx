@@ -2,7 +2,7 @@ import React from 'react';
 import DropZone from 'react-dropzone';
 import { ControlLabel, Glyphicon } from "react-bootstrap";
 import Message from '@mapstore/components/I18N/Message';
-const dropZoneStyle = { width: "100%", height: "auto", border: "dashed lightgrey", minHeight: 100, padding: 40 };
+const dropZoneStyle = { width: "100%", height: "auto", border: "dashed lightgrey", minHeight: 100, padding: 30 };
 const dropZoneActiveStyle = { background: "lightblue", ...dropZoneStyle };
 
 /**
@@ -21,7 +21,6 @@ export default function Lot({ values = {}, setValue = () => { } }) {
         event.preventDefault();
     };
     const fileName = values.file?.name;
-    const dropMessage = "Drag and drop the CSV file here or click to select";
     return (<div className="item-row">
         <div className="label-col">
             <ControlLabel><Message msgId={'cadastrapp.proprietaire.file.title'}/></ControlLabel>
@@ -33,7 +32,7 @@ export default function Lot({ values = {}, setValue = () => { } }) {
                 multiple={false}
                 accept={["text/csv", "text/plain", ".csv"]}
                 onDrop={onDrop}>
-                {fileName ? <span><Glyphicon glyph="remove" onClick={removeFile} /> {fileName} </span> : dropMessage}
+                {fileName ? <span><Glyphicon glyph="remove" onClick={removeFile} /> {fileName} </span> : <Message msgId={'cadastrapp.parcelle.file.example'} />}
             </DropZone>
             <div
                 style={{ width: "100%", "float": "left" }}

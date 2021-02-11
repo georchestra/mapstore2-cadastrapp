@@ -2,7 +2,7 @@ import React from 'react';
 import DropZone from 'react-dropzone';
 import {  ControlLabel, FormControl, Glyphicon } from "react-bootstrap";
 import Message from '@mapstore/components/I18N/Message';
-const dropZoneStyle = { width: "100%", height: "auto", border: "dashed lightgrey", minHeight: 100, padding: 40 };
+const dropZoneStyle = { width: "100%", height: "auto", border: "dashed lightgrey", minHeight: 100, padding: 30 };
 const dropZoneActiveStyle = { background: "lightblue", ...dropZoneStyle };
 
 export default function Lot({ values = {}, setValue = () => {}}) {

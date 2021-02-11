@@ -1,9 +1,8 @@
 import React from 'react';
-import RDG from 'react-data-grid';
+import ReactDataGrid from 'react-data-grid';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
 import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
-const ReactDataGrid = localizedProps('columns', 'name')(RDG);
 const DEFAULTS = {
     minWidth: 40,
     maxWidth: 500,
@@ -121,4 +120,5 @@ class MultilineHeaderTable extends React.Component {
 MultilineHeaderTable.propTypes = {
     columns: PropTypes.array
 };
-export default MultilineHeaderTable;
+
+export default localizedProps('columns', 'name')(MultilineHeaderTable);
