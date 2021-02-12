@@ -7,16 +7,21 @@ It can be used also as a template to create new extensions for geOrchestra.
 
 ## Plugin configuration
 
+The extension can be installed using the context manager UI.
+Once the extension is installed, it can be added also to the default context by editing `localConfig.json` as usual, or added to a specific context, using the context editor user interface.
+
 ### Local config
 
-For example the plugin allows configuration of the following properties
+The plugin allows configuration of the following properties:
 
 - *helpUrl* - Plugin specific help url for more details on the extension, used by the help button
 - *foncier* - activate/deactivate `foncier` functionalities
 - *popup* - settings for popup
 - *styles* - styles for `Preferences`
 
- ```javascript
+example:
+
+ ```json
  {
  "cfg": {
     "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
