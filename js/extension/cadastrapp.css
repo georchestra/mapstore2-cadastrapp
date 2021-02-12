@@ -57,6 +57,7 @@
 .cadastrapp .right-side {
   height: 100%;
   width: calc(100% - 52px);
+  overflow: auto;
 }
 .cadastrapp .btn-selected {
   background: #fff;
@@ -92,8 +93,7 @@
 .cadastrapp .plots-selection {
   width: 100%;
   padding: 10px;
-  height: calc(50% - 52px);
-  overflow: auto;
+  min-height: 420px;
 }
 .cadastrapp .plots-selection .table-row {
   float: left;
