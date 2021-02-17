@@ -62,6 +62,7 @@ export const cadastrappSetup = (action$, store) =>
                 const {
                     cadastreWMSLayerName,
                     cadastreWMSURL,
+                    cadastreWFSLayerName,
                     cadastreWFSURL
                 } = configurationSelector(store.getState());
                 return Rx.Observable.from([
@@ -77,6 +78,7 @@ export const cadastrappSetup = (action$, store) =>
                             visibility: true,
                             search: {
                                 url: cadastreWFSURL,
+                                name: cadastreWFSLayerName,
                                 type: "wfs"
                             }
                         }, true),

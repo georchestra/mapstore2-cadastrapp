@@ -163,8 +163,8 @@ function getParcelleFeature({parcelle}, getState) { // note: extract `parcelle` 
     const parcelleProperty = cadastreLayerIdParcelle(getState());
     return getLayerJSONFeature(layer, {
         filterType: "OGC", // CQL doesn't support LineString yet
-        featureTypeName: layer.name,
-        typeName: layer.name, // the layer name is not used
+        featureTypeName: layer.search.name,
+        typeName: layer.search.name, // the layer name is not used
         ogcVersion: '1.1.0'
     }, {cqlFilter: `${parcelleProperty} = '${parcelle}'`});
 }
