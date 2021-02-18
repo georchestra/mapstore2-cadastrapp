@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PanelGroup, Panel} from 'react-bootstrap';
 import useAccordionState from '../../../hooks/useAccordionState';
+import Message from '@mapstore/components/I18N/Message';
 
 import Modal from '@mapstore/components/misc/Modal';
 import { getHabitationDetails } from '../../../api';
@@ -111,7 +112,7 @@ function PanelContainer({ article40 = [], article50 = [], article60 = [] }) {
         onSelect={i => togglePanel(i)}
     >{
             // example of no data : 350238000AD0055 --> Batiment T
-            items.length === 0 ? "No Data" : items.map((r, index) => {
+            items.length === 0 ? <Message msgId="cadastrapp.nodata" /> : items.map((r, index) => {
                 let header = <div onClick={() => { togglePanel(index); }} className={`information-panel-title ${selectedPanel[index] ? 'selected' : 'unselected'}`}><ArticleHeader {...r}/></div>;
                 return (
                     <Panel
@@ -158,7 +159,7 @@ export default function Description({dnubat: batiment, row, show, onClose}) {
             <Modal.Title>{" Batiment " + batiment + " - niveau " + niveau + " - porte " + porte}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {data ? <PanelContainer {...data} /> : loading ? "Loading..." : "No data"}
+            {data ? <PanelContainer {...data} /> : loading ? <Message msgId="cadastrapp.loading" /> : <Message msgId="cadastrapp.nodata" />}
         </Modal.Body>
     </Modal>);
 }
