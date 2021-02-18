@@ -167,7 +167,7 @@ export default function RequestObjectItem({
 
     const owner = () => {
         return (
-            <div>
+            <div key="owner">
                 <div style={{display: 'flex', "float": "left", margin: 4}}>
                     <MunicipalityCombo
                         dropUp
@@ -177,9 +177,10 @@ export default function RequestObjectItem({
                         onSelect={v =>handleSelectChange("commune", v)}
                     />
                     <ProprietaireCombo
+                        dropUp
                         placeholder={'cadastrapp.demandeinformation.proprietaire'}
                         disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.commune)}
-                        birthsearch
+                        birthsearch={false}
                         cgocommune={requestFormData?.[fieldName]?.[dataId]?.commune?.cgocommune}
                         additionalStyle={{width: 300, marginRight: 4}}
                         value={requestFormData?.[fieldName]?.[dataId]?.proprietaire?.value}
@@ -202,6 +203,7 @@ export default function RequestObjectItem({
                         onSelect={v =>handleSelectChange("commune", v)}
                     />
                     <ProprietaireCombo
+                        dropUp
                         placeholder={'cadastrapp.demandeinformation.proprietaire'}
                         disabled={isEmpty(requestFormData?.[fieldName]?.[dataId]?.commune)}
                         birthsearch

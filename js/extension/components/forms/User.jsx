@@ -22,6 +22,7 @@ export default function User({values, setValue = () => {}}) {
                 </div>
                 <div className="form-col">
                     <ProprietaireCombo
+                        birthsearch={values?.birthsearch ?? false}
                         value={values?.proprietaire}
                         disabled={!values?.commune}
                         cgocommune={values?.commune?.cgocommune}
@@ -38,8 +39,8 @@ export default function User({values, setValue = () => {}}) {
                 <div className="form-col">
                     <Checkbox
                         value={values?.birthsearch}
-                        onchange={v => {
-                            setValue('birthsearch', v.target.value);
+                        onChange={v => {
+                            setValue('birthsearch', v.target.checked);
                         }} >
                         <Message msgId={'cadastrapp.proprietaire.search.birth'}/>
                     </Checkbox>
