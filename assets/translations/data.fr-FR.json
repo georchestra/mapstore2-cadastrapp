@@ -18,7 +18,7 @@
                 "prefix": "Prefix",
                 "section": "Section",
                 "nplan": "N° de plan",
-                "adresse": "Address",
+                "adresse": "Adresse",
                 "proprietaire": "Propriétaire",
                 "landUnit": "Unité Foncière",
                 "ccomunal": "Compte communal",
@@ -29,8 +29,8 @@
             "sig": "GIS",
             "contenancedgfip": "DGFiP",
             "demandeinformation": {
-                "title": "Request on landholding trust",
-                "realise": "Request ask by",
+                "title": "Demande Informations Foncières",
+                "realise": "Demande réalisée",
                 "counter": "au guichet",
                 "email": "par courriel",
                 "proprietaire": "Proprietaire",
@@ -53,7 +53,7 @@
                 "annuler": "Annuler la demande",
                 "imprimer": "Imprimer la demande",
                 "generate": {
-                    "document": "Generer les documents"
+                    "document": "Générer les documents"
                 },
                 "addMore": "Cliquez pour ajouter plus de demandes",
                 "idCompteCom": "id compte communal",
@@ -135,7 +135,7 @@
             "search": {
                 "addTab": "Ajouter un nouvel onglet de sélection",
                 "deleteTab": "Supprimer l'onglet de sélection actuel",
-                "confirmDeleteTab": "Êtes-vous sûr de vouloir supprimer l'onglet sélectionné",
+                "confirmDeleteTab": "Êtes-vous sûr de vouloir supprimer l'onglet sélectionné ?",
                 "title": "Rechercher",
                 "clear": "Effacer",
                 "copropriete": {
@@ -154,9 +154,9 @@
                     "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Exemple: 63092l00020",
                     "title": "Fichier"
                 },
-                "tooltip": "Proprietaire",
+                "tooltip": "Propriétaire",
                 "title": "Recherche de propriétaires",
-                "tab1": "Nom Usage ou Naissance",
+                "tab1": "Nom d'usage ou de naissance",
                 "tab2": "Compte Propriétaire",
                 "tab3": "Par lot",
                 "city": "Ville, Commune",
@@ -180,7 +180,7 @@
             "bordereauparcellaire": {
                 "title": "Bordereau Parcellaire",
                 "basemap": "Fond de plan",
-                "export": "Exportation",
+                "export": "Exporter",
                 "data": {
                     "title": "Données propriétaires",
                     "with": "Avec données nominatives",
@@ -204,7 +204,7 @@
                 "full": "Toutes les propriétés",
                 "partial": "Uniquement cette parcelle",
                 "title": "Relevé de propriété PDF",
-                "export": "Exportation",
+                "export": "Exporter",
                 "type": {
                     "title": "Choissiez un format de fichier",
                     "csv": "CSV",
@@ -284,7 +284,7 @@
                         "owner": "Propriétaires",
                         "parcelles": "Parcelle"
                     },
-                    "export": "Exporter sélection"
+                    "export": "Exporter la sélection"
                 },
                 "parcelle" : {
                     "fiche": "Fiche d'info parcelle(s)",
@@ -309,7 +309,7 @@
             "uniteFonciere": "Unite foncière",
             "menu": {
                 "tooltips": {
-                    "foncier": "Outil d'information foncière, une fois activée cliquez sur une parcelle pour voir l'unité foncière correspondante",
+                    "foncier": "Outil d'information foncière, une fois activé cliquez sur une parcelle pour voir l'unité foncière correspondante",
                     "imprimer": "Imprimer"
                 },
                 "preference": "Préférences"
