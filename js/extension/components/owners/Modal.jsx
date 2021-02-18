@@ -35,7 +35,7 @@ export default function OwnersModal({
         show={show}
         onHide={onClose}>
         <Modal.Header closeButton>
-            <Modal.Title><Message msgId={'cadastrapp.owner.title'}/></Modal.Title>
+            <Modal.Title><Message msgId={'cadastrapp.result.owner.title'}/></Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: 700, overflow: "auto" }} >
             <div style={{ margin: 10 }}>
@@ -47,7 +47,7 @@ export default function OwnersModal({
                     }}
                 >
                     <Glyphicon style={{ marginRight: 4 }} glyph="1-pdf" />
-                    <Message msgId={'cadastrapp.owner.rp'}/>
+                    <Message msgId={'cadastrapp.result.owner.rp'}/>
                 </Button>
                 <PropertiesRadio showParcelle={false} expanded={expanded} data={owners} selected={selected} />
             </div>
@@ -68,7 +68,7 @@ export default function OwnersModal({
 
                 }}
             >
-                <Message msgId={'cadastrapp.owner.show.parcelle'}/>
+                <Message msgId={'cadastrapp.result.owner.show.parcelle'}/>
             </Button>
             <Button
                 disabled={loading || downloading}
