@@ -14,7 +14,6 @@ export default ({
     tooltip = <span></span>,
     ...props
 }) => {
-    console.log(tooltip);
     return (<OverlayTrigger placement="left" overlay={tooltip}>
         <Button
             {...props}
