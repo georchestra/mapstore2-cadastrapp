@@ -14,7 +14,11 @@ export default function Owners({ owners = [], parcelle}) {
         setExpanded(!expanded);
     };
     const [selected, setSelected] = useState([]);
-    const onRowClick = r => setSelected([r.rowIdx]);
+    const onRowClick = r =>  {
+        if (r?.rowIdx >= 0) { // prevent header click
+            setSelected([r.rowIdx]);
+        }
+    };
     const onRowsSelected = (rows) => setSelected(selected.concat(rows.map(r => r.rowIdx)));
     const onRowsDeselected = (rows) => setSelected(selected.filter(i => rows.map(r => r.rowIdx).indexOf(i) === -1));
     const atLeastOneSelected = selected.length > 0;
