@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ReactDataGrid from 'react-data-grid';
+import ReactDataGrid from './MultilineHeaderTable';
+
 import PropTypes from 'prop-types';
 import { EmptyRowsView } from './EmptyRowsView';
 
