@@ -22,7 +22,11 @@ export default function OwnersModal({
     const [selected, setSelected] = useState([]);
     const [expanded, setExpanded] = useState(false);
     const oneSelected = selected.length === 1;
-    const onRowClick = (i) => setSelected(selected.length === 1 && selected[0] === i ? [] : [i]); // toggle row selection
+    const onRowClick = (i) => {
+        if (i >= 0 ) { // prevent header click to toggle invalid selection
+            setSelected(selected.length === 1 && selected[0] === i ? [] : [i]); // toggle row selection
+        }
+    }
     const onRowsSelected = (rows) => setSelected(selected.concat(rows.map(r => r.rowIdx)));
     const onRowsDeselected = (rows) => setSelected(selected.filter(i => rows.map(r => r.rowIdx).indexOf(i) === -1));
     return (<Modal
