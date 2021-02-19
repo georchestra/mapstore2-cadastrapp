@@ -8,6 +8,8 @@
             "zoomTo": "Zoom to results extent",
             "demande": "Request",
             "sig": "GIS",
+            "loading": "Loading...",
+            "nodata": "No data to display",
             "contenancedgfip": "DGFiP",
             "infobulle": {
                 "parcelle": "Parcelle",
@@ -23,7 +25,6 @@
                 "proprietaire": "Owner",
                 "landUnit": "Land Unit",
                 "ccomunal": "Municipal account",
-                "nodata": "No data to display",
                 "noaccess": "Unauthorised access to land information",
                 "error": "Unable to fetch bubble info"
             },

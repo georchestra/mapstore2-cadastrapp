@@ -4,7 +4,7 @@ import Message from '@mapstore/components/I18N/Message';
 
 export default function HistoryMutation({ fiucHistoryMutation = [] }) {
     if (fiucHistoryMutation.length === 0) {
-        return "No Data";
+        return <Message msgId="cadastrapp.nodata" />;
     }
     return (<Table condensed>
         <thead>

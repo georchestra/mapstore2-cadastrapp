@@ -48,7 +48,7 @@ describe('PopupViewer', () => {
         expect(container).toBeTruthy();
         const popup = document.querySelector('.popup-container');
         expect(popup).toBeTruthy();
-        expect(popup.innerText).toBe('cadastrapp.popup.nodata');
+        expect(popup.innerText).toBe('cadastrapp.nodata');
     });
 
     it('test render PopupViewer with bulle info', () => {

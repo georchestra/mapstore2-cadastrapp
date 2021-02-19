@@ -20,7 +20,7 @@ export default connect(state => ({
         if (isEmpty(infoBulle)) {
             return (
                 <div className="popup-container">
-                    <Message msgId={"cadastrapp.infobulle.nodata"} />
+                    <Message msgId={"cadastrapp.nodata"} />
                 </div>
             );
         }

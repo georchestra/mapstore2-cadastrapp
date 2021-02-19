@@ -8,6 +8,8 @@
             "zoomTo": "Zoomer sur l'étendue des résultats",
             "demande": "Demande",
             "commune": "Commune",
+            "loading": "Chargement...",
+            "nodata": "Aucune donnée à afficher",
             "infobulle": {
                 "parcelle": "Parcelle",
                 "commune": "Ville",
@@ -22,7 +24,6 @@
                 "proprietaire": "Propriétaire",
                 "landUnit": "Unité Foncière",
                 "ccomunal": "Compte communal",
-                "nodata": "Aucune donnée à afficher",
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
             },
