@@ -49,6 +49,11 @@ describe("mapSelection Epics", () => {
             }
         ],
         cadastrapp: {
+            pluginCfg: {
+                popup: {
+                    timeToShow: 0
+                }
+            },
             configuration: {"cadastreLayerIdParcelle": "geo_parcelle"},
             selectionType: '',
             activePlotSelection: 1,

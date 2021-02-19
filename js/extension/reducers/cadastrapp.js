@@ -26,7 +26,6 @@ import {
     PRINT_RESPONSE
 } from '../actions/cadastrapp';
 
-import {LAYER_STYLES} from '../constants';
 
 /**
  * Toggles selection of one parcelle, if present

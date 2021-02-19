@@ -71,8 +71,8 @@ function createRequest(geometry, getState) {
     const layer = getCadastrappLayer(getState());
     return getLayerJSONFeature(layer, {
         filterType: "OGC", // CQL doesn't support LineString yet
-        featureTypeName: layer.search.name,
-        typeName: layer.search.name, // the layer name is not used
+        featureTypeName: layer?.search?.name ?? layer?.name,
+        typeName: layer?.search?.name ?? layer?.name, // the layer name is not used
         ogcVersion: '1.1.0',
         spatialField: {
             attribute: "geom", // TODO: get the geom attribute from config
