@@ -1,4 +1,3 @@
-import { LAYER_STYLES } from '../constants';
 
 export const SETUP = "CADASTRAPP:SETUP";
 export const SETUP_COMPLETED = "CADASTRAPP:SETUP_COMPLETED";

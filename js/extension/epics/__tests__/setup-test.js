@@ -9,7 +9,7 @@ import expect from "expect";
 import includes from 'lodash/includes';
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
 import {cadastrappSetup, cadastrappTearDown} from "@js/extension/epics/cadastrapp";
-import {LOADING, SET_CONFIGURATION, setUp, TOGGLE_SELECTION, tearDown} from "@js/extension/actions/cadastrapp";
+import { LOADING, SET_CONFIGURATION, setUp, SETUP_COMPLETED, TOGGLE_SELECTION, tearDown} from "@js/extension/actions/cadastrapp";
 import {UPDATE_ADDITIONAL_LAYER, REMOVE_ADDITIONAL_LAYER} from "@mapstore/actions/additionallayers";
 import {CLEAN_MAP_POPUPS} from "@mapstore/actions/mapPopups";
 import {TOGGLE_MAPINFO_STATE} from "@mapstore/actions/mapInfo";
@@ -64,6 +64,8 @@ describe("setup Epics", () => {
                         expect(action.toolName).toBe(CONTROL_NAME);
                         break;
                     case TOGGLE_MAPINFO_STATE:
+                        break;
+                    case SETUP_COMPLETED:
                         break;
                     default:
                         expect(false).toBe(true);
