@@ -15,6 +15,7 @@ Once the extension is installed, it can be added also to the default context by 
 The plugin allows configuration of the following properties:
 
 - *helpUrl* - Plugin specific help url for more details on the extension, used by the help button
+- *openOnLoad* - Auto open plugin the plugin on load
 - *foncier* - activate/deactivate `foncier` functionalities
 - *popup* - settings for popup
 - *styles* - styles for `Preferences`
@@ -25,6 +26,7 @@ example:
  {
  "cfg": {
     "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
+    "openOnLoad": false,
     "foncier": true,
     "popup": {
       "minZoom": 14,

@@ -5,6 +5,7 @@
       "glyph": "th",
       "docUrl":"https://github.com/georchestra/mapstore2-cadastrapp#plugin-configuration",
       "defaultConfig": {
+        "openOnLoad": false,
         "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
         "foncier": true,
         "popup": {
