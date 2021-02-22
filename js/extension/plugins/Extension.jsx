@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleControl } from "@mapstore/actions/controls";
+import { setControlProperty, toggleControl } from "@mapstore/actions/controls";
 
 import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
@@ -22,7 +22,8 @@ const Cadastrapp = compose(
         enabled: state.controls && state.controls[CONTROL_NAME] && state.controls[CONTROL_NAME].enabled || false,
         withButton: false
     }), {
-        onClose: toggleControl.bind(null, CONTROL_NAME, null)
+        open: () => toggleControl(CONTROL_NAME, "enabled", true),
+        onClose: () => toggleControl(CONTROL_NAME, "enabled", false)
     }),
     // setup and teardown due to open/close
     compose(
