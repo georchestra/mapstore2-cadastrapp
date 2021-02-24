@@ -23,7 +23,7 @@ function Article40({ detent, dsupdc, dnbniv, dnbppr, dnbpdc, dmatgmdesc, dmattod
     if ( detent !== null) {
         return (<div className="article40">
             <div className="habitationDetailsMenuTitle"> Caractéristiques générales </div>
-            {detent && detent !== '00' ? <div> Etat d'entretien &nbsp;:&nbsp;&nbsp; {detent} </div>: null}
+            {detent && detent !== '00' ? <div> État d'entretien &nbsp;:&nbsp;&nbsp; {detent} </div>: null}
             {dsupdc && dsupdc !== '00' ? <div> Surface habitable &nbsp;:&nbsp;&nbsp; {dsupdc} m²</div> : null}
             {dnbppr && dnbpdc && dnbpdc !== '00' ? <div> Nombre de pièces &nbsp;:&nbsp;&nbsp; {dnbpdc.replace(/^0+/, '')} dont {dnbppr.replace(/^0+/, '') } principales</div> : null}
             {dnbniv && dnbniv !== '00' ? <div> Nombre de niveaux &nbsp;:&nbsp;&nbsp;{dnbniv.replace(/^0+/, '')}</div> : null}
@@ -32,8 +32,8 @@ function Article40({ detent, dsupdc, dnbniv, dnbppr, dnbpdc, dmatgmdesc, dmattod
             <div className="habitationDetailsMenuTitle">Répartition des pièces</div>
             {dnbsam && dnbsam !== '00' ? <div>{dnbsam.replace(/^0+/, '')} salle(s) à manger</div> : null}
             {dnbcha && dnbcha !== '00' ? <div>{dnbcha.replace(/^0+/, '')} chambre(s)</div> : null}
-            {dnbcu8 && dnbcu8 !== '00' ? <div>{dnbcu8.replace(/^0+/, '')} cuisine(s) de moins de 9m²</div> : null}
-            {dnbcu9 && dnbcu9 !== '00' ? <div>{dnbcu9.replace(/^0+/, '')} cuisine(s) d'au moins de 9m²</div> : null}
+            {dnbcu8 && dnbcu8 !== '00' ? <div>{dnbcu8.replace(/^0+/, '')} cuisine(s) de moins de 9 m²</div> : null}
+            {dnbcu9 && dnbcu9 !== '00' ? <div>{dnbcu9.replace(/^0+/, '')} cuisine(s) d'au moins 9 m²</div> : null}
             {dnbsea && dnbsea !== '00' ? <div>{dnbsea.replace(/^0+/, '')} salle(s) de bain</div> : null}
             {dnbann && dnbann !== '00' ? <div>{dnbann.replace(/^0+/, '')} annexe(s)</div> : null}
             <div className="habitationDetailsMenuTitle">Eléments de confort</div>
@@ -42,7 +42,7 @@ function Article40({ detent, dsupdc, dnbniv, dnbppr, dnbpdc, dmatgmdesc, dmattod
             {dnbdou && dnbdou !== '00' ? <div>{dnbdou.replace(/^0+/, '')} douche(s)</div> : null}
             {dnbwc && dnbwc !== '00'   ? <div>{dnbwc.replace(/^0+/, '')} WC</div> : null}
             {geaulc && geaulc === 'O'  ? <div>Eau</div> : null}
-            {gelelc && gelelc === 'O'  ? <div>Electricité</div> : null}
+            {gelelc && gelelc === 'O'  ? <div>Électricité</div> : null}
             {ggazlc && ggazlc === 'O'  ? <div>Gaz</div> : null}
             {gchclc && gchclc === 'O'  ? <div>Chauffage central</div> : null}
             {gteglc && gteglc === 'O'  ? <div>Tout à l'égoût</div> : null}
@@ -76,8 +76,8 @@ function Article60({ cconad_lib, dsudep, dmatgmdesc, dmattodesc, dnbbai, dnbdou,
         {dnblav && dnblav !== '00' ? <div> {dnblav.replace(/^0+/, '')} Lavabo(s)</div> : null}
         {dnbwc && dnbwc !== '00' ? <div>{dnbwc.replace(/^0+/, '')} WC</div> : null}
         {geaulc && geaulc === '0' ? <div>Eau</div> : null}
-        {gelelc && gelelc === '0' ? <div>Electricité</div> : null}
-        {gchclc && gchclc === '0' ? <div>Chauffage centrale</div> : null}
+        {gelelc && gelelc === '0' ? <div>Électricité</div> : null}
+        {gchclc && gchclc === '0' ? <div>Chauffage central</div> : null}
     </div>);
 }
 
