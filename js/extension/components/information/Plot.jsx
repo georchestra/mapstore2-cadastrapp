@@ -144,7 +144,7 @@ export default function Plot({
                 <tr><td><Message msgId={'cadastrapp.ficu.section'}/></td><td>{ fiuc.ccopre + fiuc.ccosec }</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.parcelle'}/></td><td>{ fiuc.dnupla }</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.voie'}/></td><td>{ fiuc.ccoriv }</td></tr>
-                <tr><td><Message msgId={'cadastrapp.ficu.adresse'} /></td><td>{fiuc.dnvoiri + " " + fiuc.dindic + " " + fiuc.cconvo + " " + fiuc.dvoilib}</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.adresse'} /></td><td>{fiuc.dnvoiri + fiuc.dindic + " " + fiuc.cconvo + " " + fiuc.dvoilib}</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.contenancedgfip'}/></td><td>{ fiuc?.dcntpa?.toLocaleString()}</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.contenancesig'}/></td><td>{ fiuc?.surfc?.toLocaleString()}</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.batie'}/></td><td><Message msgId={fiuc.gparbat === '1' ? 'cadastrapp.ficu.yes' : 'cadastrapp.ficu.no'} /></td></tr>
