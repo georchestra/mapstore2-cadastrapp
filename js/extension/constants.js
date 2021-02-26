@@ -29,17 +29,17 @@ export const SEARCH_TOOLS = {
 
 export const LAYER_STYLES = {
     selected: {
-        fillColor: "#81BEF7",
+        fillColor: "#00FF18",
         opacity: 0.6,
         fillOpacity: 0.6,
-        color: "#111111", // stroke color
-        weight: 4
+        color: "#0112FF", // stroke color
+        weight: 2
     },
     "default": {
-        fillColor: "#222111",
+        fillColor: "#F78B97",
         opacity: 0.4,
         fillOpacity: 0.4,
-        color: "#111222", // stroke color
+        color: "#FF0000", // stroke color
         weight: 2
     }
 };
