@@ -82,6 +82,8 @@ function PlotInformationRadio({
                 <Button
                     disabled={loading}
                     onClick={() => {
+                        const idx = baseMaps.indexOf(baseMap);
+                        const baseMapIndex = idx >= 0 ? idx : 0;
                         setLoading(true);
                         createBordereauParcellaire({
                             fillcolor,
@@ -90,7 +92,7 @@ function PlotInformationRadio({
                             strokewidth,
                             parcelle,
                             personaldata: personalData,
-                            basemapindex: 0 // TODO: get the list from config and sent the relative index
+                            basemapindex: baseMapIndex
                         }).then((response) => {
                             setLoading(false);
                             downloadResponse(response);
