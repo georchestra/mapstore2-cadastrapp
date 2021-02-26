@@ -140,7 +140,7 @@ export default function Plot({
                 </tr>
             </thead>
             <tbody>
-                <tr><td><Message msgId={'cadastrapp.ficu.adresse'}/></td><td>{ fiuc.libcom + ' (' + fiuc.cgocommune + ')' }</td></tr>
+                <tr><td><Message msgId={'cadastrapp.ficu.commune'}/></td><td>{ fiuc.libcom + ' (' + fiuc.cgocommune + ')' }</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.section'}/></td><td>{ fiuc.ccopre + fiuc.ccosec }</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.parcelle'}/></td><td>{ fiuc.dnupla }</td></tr>
                 <tr><td><Message msgId={'cadastrapp.ficu.voie'}/></td><td>{ fiuc.ccoriv }</td></tr>
