@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getCoProprietaire } from '../../api';
+import Message from '@mapstore/components/I18N/Message';
 
 import CoOwnersTable from '../table/CoOwnersTable';
 import PropertiesRadio from './PropertiesRadio';
@@ -28,7 +29,7 @@ export default function CoOwners({parcelle}) {
                 onClick={togglePanel}
                 {...(!atLeastOneSelected ? { disabled: 'true' } : {})}>
                 <Glyphicon style={{ marginRight: 4 }} glyph="1-pdf" />
-                        Properties List
+                    <Message msgId={"cadastrapp.duc.releve.depropriete"} />
             </Button>
         </div>
         <PropertiesRadio parcelle={parcelle} expanded={expanded} data={data} selected={selected} />
