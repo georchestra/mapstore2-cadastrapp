@@ -26,6 +26,7 @@ import {
 import {
     getCadastrappLayer,
     cadastreLayerIdParcelle,
+    landedPropertyLayerSelector,
     cadastrappEnabledSelector,
     currentSelectionToolSelector,
     popupPluginCfgSelector, cadastrappPluginCfgSelector
@@ -67,8 +68,7 @@ function drawMethod(selection) {
     }
 }
 
-function createRequest(geometry, getState) {
-    const layer = getCadastrappLayer(getState());
+function createRequest(geometry, layer) {
     return getLayerJSONFeature(layer, {
         filterType: "OGC", // CQL doesn't support LineString yet
         featureTypeName: layer?.search?.name ?? layer?.name,
@@ -82,8 +82,9 @@ function createRequest(geometry, getState) {
     });
 }
 
-const getFeatures = (geometry, getState, parcelleProperty) => {
-    return createRequest(geometry, getState)
+const getCadastreFeatures = (geometry, getState, parcelleProperty) => {
+    const layer = getCadastrappLayer(getState());
+    return createRequest(geometry, layer)
         .map( ({features = [], ...rest} = {}) => {
             return {
                 ...rest,
@@ -91,6 +92,12 @@ const getFeatures = (geometry, getState, parcelleProperty) => {
             };
         });
 };
+
+const getUFFeatures = (geometry, getState) => {
+    const layer = landedPropertyLayerSelector(getState());
+    return createRequest(geometry, layer);
+};
+
 
 /**
  * Generate a simple point geometry using position data
@@ -122,7 +129,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                 ({ geometry }) => {
                     const parcelleProperty = cadastreLayerIdParcelle(getState());
                     // query WFS
-                    return getFeatures(geometry, getState, parcelleProperty)
+                    return getCadastreFeatures(geometry, getState, parcelleProperty)
                         .switchMap(({ features = []} = {}) => {
                             // retrieve all parcelles data from API
                             return Rx.Observable.of(
@@ -134,18 +141,34 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                                             .then(([p]) => ({...p, feature}));
                                     })
                             )
-                                .mergeAll(5)
-                                .map(parcelle => {
+                                .mergeAll(5) // this makes 5 request at time, so, when stopped, the pending requests are not performed.
+                                .filter(({parcelle}) => !!parcelle) // exclude no parcelle results
+                                .flatMap(parcelle => {
                                     if (selectionType === SELECTION_TYPES.LANDED_PROPERTY) {
-                                        return showLandedPropertyInformation(parcelle);
+                                        return Rx.Observable.defer(() => getUFFeatures(geometry, getState))
+                                            .catch( (e) => {
+                                                console.log("Error retrieving uf feature in map selection"); // eslint-disable-line no-console
+                                                console.log(e); // eslint-disable-line no-console
+                                                return Rx.Observable.of({
+                                                    features: []
+                                                });
+                                            })
+                                            .map(({ features: ff = [] }) => ff?.[0])
+                                            .map(feature => showLandedPropertyInformation({ ...parcelle, feature, ufFeature: !!feature}));
                                     }
-                                    return addPlots([parcelle]);
+                                    return Rx.Observable.of(addPlots([parcelle]));
                                 });
                         })
-                        .let(wrapStartStop([loading(true, "plotSelection", "count")], loading(false, "plotSelection", "count")))
+                        .catch(e => {
+                            console.log("Error in map selection"); // eslint-disable-line no-console
+                            console.log(e); // eslint-disable-line no-console
+                            return Rx.Observable.empty();
+                        })
+
                         .merge(
                             Rx.Observable.of(startDrawingAction).delay(200) // reactivate drawing
-                        );
+                        )
+                        .let(wrapStartStop([loading(true, "plotSelection", "count")], loading(false, "plotSelection", "count")));
                     // TODO: Re-activate the tool;
                 })
                 .merge(Rx.Observable.of(unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME))) // Reset map's mouse event trigger type
@@ -178,7 +201,7 @@ export const mouseMovePopupEpic = (action$, {getState}) =>
             const parcelleProperty = cadastreLayerIdParcelle(state);
             const isMouseOut = state.mousePosition?.mouseOut || false;
             if (isMouseOut) return Rx.Observable.of(cleanPopups());
-            return getFeatures(geometry, getState, parcelleProperty)
+            return getCadastreFeatures(geometry, getState, parcelleProperty)
                 .switchMap(({features = []})=> {
                     if (isEmpty(features)) return Rx.Observable.of(cleanPopups()); // Hide any existing popups
                     const [feature] = features;

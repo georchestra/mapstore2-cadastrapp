@@ -85,7 +85,9 @@ export default function LandedPropertyInformationModal({
         const hook = hooks.ZOOM_TO_EXTENT_HOOK;
         if (!zoomed && hook)  {
             const fBbox = bbox({ type: "FeatureCollection", features: parcelle?.feature ? [parcelle?.feature] : [] } );
-            hook(fBbox, { crs: "EPSG:4326"});
+            if (parcelle?.feature) {
+                hook(fBbox, { crs: "EPSG:4326"});
+            }
             setZoomed(true);
         }
     }, [hooks, parcelle, zoomed]);
