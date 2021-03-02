@@ -204,6 +204,24 @@ export function landedPropertyParcelleSelector(state) {
     return state?.cadastrapp?.landedProperty?.parcelle;
 }
 
+/**
+ * returns a layer in MapStore format using cadastrapp config
+ * to create it (`uFWFSLayerName`, `uFWFSURL`).
+ */
+export function landedPropertyLayerSelector(state) {
+    const { uFWFSLayerName, uFWFSURL} = configurationSelector(state);
+    return {
+        type: 'wfs',
+        name: uFWFSLayerName,
+        url: uFWFSURL,
+        search: {
+            type: 'wfs',
+            url: uFWFSURL,
+            name: uFWFSLayerName
+        }
+    };
+}
+
 // Information
 export function getInformationItems(state) {
     return state?.cadastrapp?.informationData || {};
