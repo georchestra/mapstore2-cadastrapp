@@ -3,7 +3,7 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
-            "selectTool": "Sélectionnez l'outil souhaité dans la barre d'outils de gauche pour commencer",
+            "selectTool": "Sélectionnez l'outil souhaité dans la barre d'outils de gauche pour commencer.",
             "help": "Aide",
             "zoomTo": "Zoomer sur l'étendue des résultats",
             "demande": "Demande",
@@ -17,12 +17,12 @@
                 "departement": "Département",
                 "direction": "Direction",
                 "inseecom": "Code INSEE",
-                "prefix": "Prefix",
+                "prefix": "Préfixe",
                 "section": "Section",
                 "nplan": "N° de plan",
                 "adresse": "Adresse",
                 "proprietaire": "Propriétaire",
-                "landUnit": "Unité Foncière",
+                "landUnit": "Unité foncière",
                 "ccomunal": "Compte communal",
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
@@ -34,7 +34,8 @@
                 "realise": "Demande réalisée",
                 "counter": "au guichet",
                 "email": "par courriel",
-                "proprietaire": "Proprietaire",
+                "mail": "par courrier",
+                "proprietaire": "Propriétaire",
                 "type": {
                     "demandeur": "Type de demandeur",
                     "A": "Administration",
@@ -50,7 +51,6 @@
                 "num_rue": "N° de voirie et rue",
                 "code_postal": "Code postal",
                 "commune": "Ville, Commune",
-                "mail": "par courrier",
                 "annuler": "Annuler la demande",
                 "imprimer": "Imprimer la demande",
                 "generate": {
@@ -72,23 +72,23 @@
                 },
                 "comptecommunal": "Compte communal",
                 "exceded":  {
-                    "maxNumber": "La limite de demande maximum est atteinte"
+                    "maxNumber": "La limite maximale de demandes est atteinte."
                 },
-                "printError": "Impossible d'imprimer les données du formulaire de demande",
-                "availableReqError": "Impossible de récupérer les demandes disponibles"
+                "printError": "Impossible d'imprimer les données du formulaire de demande.",
+                "availableReqError": "Impossible de récupérer les demandes disponibles."
             },
             "cadastre_tools" : "Outils Cadastre",
-            "create_line": "Sélectionne / Active / Désélectionne une ou plusieurs parcelles par une ligne brisée",
-            "create_point": "Sélectionne / Active / Désélectionne une parcelle par un simple clic",
-            "create_polygon": "Sélectionne / Active / Désélectionne une ou plusieurs parcelles à l’intérieur d’un polygone",
+            "create_point": "Sélectionner une parcelle par un simple clic",
+            "create_line": "Sélectionner des parcelles par une polyligne",
+            "create_polygon": "Sélectionnee des parcelles par un polygone",
             "preferences": {
                 "default": "Liste",
-                "defaultStyle": "Reprendre le style par defaut",
+                "defaultStyle": "Recharger le style par défaut",
                 "fillColor": "Remplissage",
                 "opacity": "Opacité",
                 "selected": "Sélection",
                 "strokeColor": "Contour",
-                "strokeWidth": "Epaisseur",
+                "strokeWidth": "Épaisseur",
                 "title": "Préférences des styles",
                 "close": "Fermer"
             },
@@ -111,8 +111,8 @@
                 },
                 "file": {
                     "title": "Fichier",
-                    "example": "Faites glisser et déposez le fichier CSV ici ou cliquez pour sélectionner",
-                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Exemple: 63092l00020"
+                    "example": "Déposez ici un fichier ou cliquez pour ouvrir une boîte de dialogue.",
+                    "explanation": "Ce fichier doit contenir une liste de références de parcelles sur plusieurs lignes ou bien séparées par des espaces, virgules ou point virgule."
                 },
                 "lot": {
                     "title": "Liste d'identifiants",
@@ -152,8 +152,9 @@
             },
             "proprietaire": {
                 "file": {
-                    "explanation": "Ce fichier doit contenir une liste de comptecommunal, sur une ou plusieurs lignes, séparés par des espaces, virgules ou point virgule. Exemple: 63092l00020",
                     "title": "Fichier"
+                    "example": "Déposez ici un fichier ou cliquez pour ouvrir une boîte de dialogue.",
+                    "explanation": "Ce fichier doit contenir une liste de comptes communaux sur plusieurs lignes ou bien séparées par des espaces, virgules ou point virgule."
                 },
                 "tooltip": "Propriétaire",
                 "title": "Recherche de propriétaires",
@@ -171,15 +172,15 @@
                 },
                 "name": {
                     "title": "Nom et/ou prénom",
-                    "example": "ex. Jego pierre",
-                    "tooltip": "Appuyer sur echap pour ne pas tenir compte des propositions et lancer la recherche"
+                    "example": "ex. lagadec",
+                    "tooltip": "Appuyer sur la touche Echap pour ne pas tenir compte des propositions et lancer la recherche"
                 }
             },
             "coProprietaire": {
                 "tooltip": "Co-propriétaire"
             },
             "bordereauparcellaire": {
-                "title": "Bordereau Parcellaire",
+                "title": "Bordereau parcellaire",
                 "basemap": "Fond de plan",
                 "export": "Exporter",
                 "data": {
@@ -198,7 +199,7 @@
                     "csv": "CSV",
                     "pdf": "PDF"
                 },
-                "batiments": "Choisissez un batiment"
+                "batiments": "Choisissez un bâtiment"
             },
             "relevepropriete": {
                 "data": "Données à extraire",
@@ -229,7 +230,7 @@
                 "parcelle": "Parcelle",
                 "section": "Section",
                 "urbain": "Secteur urbain",
-                "voie": "Voie (Code fantoir)",
+                "voie": "Voie (code FANTOIR)",
                 "yes": "Oui",
                 "no": "Non",
                 "description": "La description",
@@ -244,19 +245,19 @@
                 "nom_usage": "Nom d'usage",
                 "nom_naissance": "Nom de naissance",
                 "invar": "Invar",
-                "nom": "Nom",
+                "nom": "Nom d'usage",
                 "adresse": "Adresse",
                 "lieunaissance": "Lieu de naissance",
-                "cco_lib": "Libellé - Code du droit réel",
+                "cco_lib": "Droit réel",
                 "lettreindic": "Lettre indicative",
                 "terrain": "Nature de culture",
-                "revenu_1": "Revenu au 01-01",
+                "revenu_1": "Revenu au 1er janvier",
                 "batiment_bundle": "Lots",
                 "batiment_date": "Date",
                 "batiment_descriptif": "Descriptif",
                 "reference_parcelle": "Référence de la parcelle mère",
                 "type_mutation": "Type de mutation",
-                "compte": "Compte",
+                "compte": "Compte communal",
                 "contenance": "Contenance",
                 "dateacte": "Date acte",
                 "datenaissance": "Date de naissance",
@@ -271,8 +272,8 @@
                 "parcelle": "Parcelle",
                 "propietaire": "Propriétaire",
                 "copropietaire": "Co-propriétaire",
-                "subdiv": "Subdivisions fiscales",
-                "batiments": "Batiment(s)",
+                "subdiv": "Subdivision fiscale",
+                "batiments": "Bâtiment",
                 "bordereau": {
                     "parcellaire": "Bordereau Parcellaire"
                 }
