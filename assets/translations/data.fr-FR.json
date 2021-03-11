@@ -152,7 +152,7 @@
             },
             "proprietaire": {
                 "file": {
-                    "title": "Fichier"
+                    "title": "Fichier",
                     "example": "Déposez ici un fichier ou cliquez pour ouvrir une boîte de dialogue.",
                     "explanation": "Ce fichier doit contenir une liste de comptes communaux sur plusieurs lignes ou bien séparées par des espaces, virgules ou point virgule."
                 },
