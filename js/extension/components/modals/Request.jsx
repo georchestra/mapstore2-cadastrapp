@@ -65,7 +65,7 @@ export default function RequestFormModal({
                 });
             }
             // Set available requests from the response, else set max request from configuration
-            data.requestAvailable ? setAvailableRequest(+data.requestAvailable) : setAvailableRequest(+maxRequest);
+            data.requestAvailable || data.requestAvailable === 0 ? setAvailableRequest(+data.requestAvailable) : setAvailableRequest(+maxRequest);
             setCheckingLimit(false);
         }).catch(()=>{
             setAvailableRequest(0);
