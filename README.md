@@ -25,7 +25,7 @@ example:
  ```json
  {
  "cfg": {
-    "helpUrl": "https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur",
+    "helpUrl": "https://docs.georchestra.org/cadastrapp/",
     "openOnLoad": false,
     "foncier": true,
     "popup": {
