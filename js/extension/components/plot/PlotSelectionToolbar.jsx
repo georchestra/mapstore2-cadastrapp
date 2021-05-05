@@ -83,7 +83,7 @@ export default function PlotSelectionToolbar({
                             }}><Message msgId={"cadastrapp.result.csv.button.bundle"} /></MenuItem>
                         </DropdownButton>)
                 } : {
-                    disabled: !isDataPresent,
+                    disabled: !isDataPresent || !atLeaseOneSelected,
                     glyph: "export",
                     tooltipId: "cadastrapp.result.csv.export",
                     onClick: () => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)
