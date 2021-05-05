@@ -27,7 +27,7 @@ export default function PlotSelectionToolbar({
     showLandedPropertyInformation = () => {},
     selectedPlots = []
 }) {
-    const atLeaseOneSelected = selectedPlots.length > 0;
+    const atLeastOneSelected = selectedPlots.length > 0;
     const onlyOneSelected = selectedPlots.length === 1;
     const isDataPresent = currentData.length > 0;
     const { isCNIL1, isCNIL2 } = authLevel;
@@ -42,7 +42,7 @@ export default function PlotSelectionToolbar({
                 buttons={[{
                     disabled: !isDataPresent,
                     glyph: "zoom-in",
-                    tooltipId: atLeaseOneSelected ? "cadastrapp.result.parcelle.zoom.selection" : "cadastrapp.result.parcelle.zoom.list",
+                    tooltipId: atLeastOneSelected ? "cadastrapp.result.parcelle.zoom.selection" : "cadastrapp.result.parcelle.zoom.list",
                     onClick: zoomToSelection
                 }, ...(foncier
                     ? [{
@@ -52,19 +52,19 @@ export default function PlotSelectionToolbar({
                         onClick: () => { showLandedPropertyInformation(find(currentData, {parcelle: selectedPlots[0]})); }
                     }]
                     : []), {
-                    disabled: !atLeaseOneSelected,
+                    disabled: !atLeastOneSelected,
                     glyph: "trash",
                     tooltipId: "cadastrapp.result.parcelle.delete",
                     onClick: () => { removePlots(selectedPlots); }
                 }, {
-                    disabled: !atLeaseOneSelected,
+                    disabled: !atLeastOneSelected,
                     glyph: "info-sign",
                     tooltipId: "cadastrapp.result.parcelle.fiche",
                     onClick: () => { loadInfo(selectedPlots);}
                 }, ((isCNIL1 || isCNIL2) ? {
                     renderButton:
                         (<DropdownButton
-                            disabled={!atLeaseOneSelected}
+                            disabled={!atLeastOneSelected}
                             pullRight title={< Glyphicon glyph="export" />}>
                             <MenuItem onClick={() => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)}>
                                 <Message msgId={"cadastrapp.result.csv.button.parcelles"} />
@@ -83,7 +83,7 @@ export default function PlotSelectionToolbar({
                             }}><Message msgId={"cadastrapp.result.csv.button.bundle"} /></MenuItem>
                         </DropdownButton>)
                 } : {
-                    disabled: !isDataPresent || !atLeaseOneSelected,
+                    disabled: !isDataPresent || !atLeastOneSelected,
                     glyph: "export",
                     tooltipId: "cadastrapp.result.csv.export",
                     onClick: () => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)
