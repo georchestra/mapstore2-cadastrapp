@@ -1,9 +1,29 @@
 import React, {useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { find, isObject } from 'lodash';
 import { Combobox as CB } from 'react-widgets';
 import { Glyphicon } from "react-bootstrap";
 import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
-const Combobox = localizedProps('placeholder')(CB);
+import { getMessageById } from '../../../../MapStore2/web/client/utils/LocaleUtils';
+import {compose, getContext, mapProps} from 'recompose';
+
+
+const localizeMessages = compose(
+    getContext({
+        messages: PropTypes.object
+    }),
+    mapProps(({messages, ...props}) => ({
+        ...props,
+        messages: {
+            emptyList: getMessageById(messages, 'cadastrapp.nodata'),
+            emptyFilter: getMessageById(messages, 'cadastrapp.nodata')
+        }
+    })
+    )
+);
+const Combobox = localizedProps('placeholder')(localizeMessages(CB));
+
 
 /**
  * A utility combo for search.
