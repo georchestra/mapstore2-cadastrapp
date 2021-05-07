@@ -51,4 +51,14 @@ describe('configuration utils', () => {
             { title: 'Cadastre Noir et Blanc', index: '1', thumbnail: 'https://public.sig.rennesmetropole.fr/ressources/app/georchestra/cadastrapp/images/cadastre_nb.png' }
         ]);
     });
+    it("getBaseMapsFromConfig keeps order by key", () => {
+        const baseMaps = getBaseMapsFromConfig({
+            ...testConfiguration,
+            pdfbasemaptitles: [...testConfiguration.pdfbasemaptitles].reverse()
+        });
+        expect(baseMaps).toEqual([
+            { title: 'Cadastre', index: '0', thumbnail: 'https://public.sig.rennesmetropole.fr/ressources/app/georchestra/cadastrapp/images/cadastre.png' },
+            { title: 'Cadastre Noir et Blanc', index: '1', thumbnail: 'https://public.sig.rennesmetropole.fr/ressources/app/georchestra/cadastrapp/images/cadastre_nb.png' }
+        ]);
+    });
 });
