@@ -1,5 +1,5 @@
 
-import { head } from 'lodash';
+import { head, sortBy } from 'lodash';
 
 /**
  *
@@ -8,9 +8,9 @@ import { head } from 'lodash';
  */
 export function getBaseMapsFromConfig({ pdfbasemaptitles: titles, pdfbasemapthumbnails: previews} = {}) {
 
-    return (titles || []).map(({value, key}) => ({
+    return sortBy((titles || []).map(({value, key}) => ({
         title: value,
         index: key.split(".").reverse()[1], // need to take "0" from "pdf.baseMap.0.title" --> split --> reverse --> [title, 0, ...]. So I get the element at index 1 to get the number.
         thumbnail: head((previews || []).filter(({key: kk}) => kk.indexOf(key) === 0).map(({value: vv}) => vv))
-    }));
+    })), "index");
 }
