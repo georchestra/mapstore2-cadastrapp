@@ -24,7 +24,7 @@ export default function PlotSelectionToolbar({
     loadInfo = () => {},
     zoomToSelection = () => {},
     removePlots = () => {},
-    showLandedPropertyInformation = () => {},
+    showLandedPropertyInformationByParcelle = () => {},
     selectedPlots = []
 }) {
     const atLeastOneSelected = selectedPlots.length > 0;
@@ -49,7 +49,7 @@ export default function PlotSelectionToolbar({
                         disabled: !onlyOneSelected,
                         glyph: "th-list",
                         tooltipId: "cadastrapp.result.parcelle.uf",
-                        onClick: () => { showLandedPropertyInformation(find(currentData, {parcelle: selectedPlots[0]})); }
+                        onClick: () => { showLandedPropertyInformationByParcelle(find(currentData, {parcelle: selectedPlots[0]})); }
                     }]
                     : []), {
                     disabled: !atLeastOneSelected,

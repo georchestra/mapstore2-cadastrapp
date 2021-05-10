@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 import {getInfoBulle, getParcelle} from '../api';
 import uuid from 'uuid';
-
+import pointOnSurface from '@turf/point-on-surface';
 import {SELECTION_TYPES, MOUSE_EVENT, CONTROL_NAME, DEFAULT_POPUP_PROPS} from '../constants';
 import { error } from '@mapstore/actions/notifications';
 import {
@@ -20,7 +20,8 @@ import {
     SHOW_POPUP,
     showPopup,
     SAVE_BUBBLE_INFO,
-    showLandedPropertyInformation
+    showLandedPropertyInformation,
+    SHOW_LANDED_PROPERTIES_INFORMATION_BY_PARCELLE
 } from '../actions/cadastrapp';
 
 import {
@@ -179,6 +180,32 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
         // if the selection type is not present, it means has been reset, so deactivate any drawing tool
         return deactivate();
     });
+/**
+ * Retrieves the geometry of the ufFeature, when not present, and shows the LandedPropertyInformation with this data.
+ * The current implementation use a point on surface to query WFS, emulating the click event of the selection tool,
+ * as suggested here: https://github.com/georchestra/mapstore2-cadastrapp/issues/67#issuecomment-836237999
+ */
+export const showLandedPropertyByParcelle = (action$, {getState = () => {}}) => {
+    return action$.ofType(SHOW_LANDED_PROPERTIES_INFORMATION_BY_PARCELLE)
+        .filter(({parcelle}) => !!parcelle?.feature)
+        .switchMap(
+            ({parcelle}) => {
+                const {geometry} = pointOnSurface(parcelle?.feature) ?? {};
+                if (!geometry) {
+                    console.log("Error retrieving uf feature in map selection. No parcelle geometry to extract point for UF Layer intersection"); // eslint-disable-line no-console
+                    return Rx.Observable.of(showLandedPropertyInformation(parcelle));
+                }
+                return Rx.Observable.defer(() => getUFFeatures(geometry, getState))
+                    .catch( (e) => {
+                        console.log("Error retrieving uf feature in map selection"); // eslint-disable-line no-console
+                        console.log(e); // eslint-disable-line no-console
+                        return Rx.Observable.of(showLandedPropertyInformation(parcelle));
+                    })
+                    .map(({ features: ff = [] }) => ff?.[0])
+                    .map(feature => showLandedPropertyInformation({ ...parcelle, feature, ufFeature: !!feature}));
+            }
+        );
+};
 
 /**
  * Generates geometry data and fetches feature info obtained from mouse over event position on map
