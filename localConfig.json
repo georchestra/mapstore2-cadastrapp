@@ -282,7 +282,7 @@
         "desktop": ["Details", {
           "name": "Cadastrapp",
           "cfg": {
-            "helpUrl": "https://docs.georchestra.org/cadastrapp/guide_utilisateur/",
+            "helpUrl": "https://docs.georchestra.org/cadastrapp/latest/guide_utilisateur/",
             "foncier": true,
             "popup": {
               "minZoom": 14,
