@@ -11,6 +11,8 @@
             "loading": "Loading...",
             "nodata": "No data to display",
             "contenancedgfip": "DGFiP",
+            "dateValiditeEDIGEO": "Cadastral plan version",
+            "dateValiditeMajic": "Land data version",
             "infobulle": {
                 "parcelle": "Parcelle",
                 "commune": "Town",

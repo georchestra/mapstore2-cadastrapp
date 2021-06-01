@@ -1,4 +1,15 @@
 const path = require("path");
+const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
+const DefinePlugin = require("webpack/lib/DefinePlugin");
+
+const gitRevisionPlugin = new DefinePlugin({
+    '__COMMITHASH__': JSON.stringify(new GitRevisionPlugin({
+        commithashCommand: 'rev-parse HEAD'
+    }).commithash()),
+    '__REPOURL__': JSON.stringify(new GitRevisionPlugin({
+        branchCommand: 'remote get-url origin'
+    }).branch())
+});
 
 // common configuration between production and development for webpack
 module.exports = {
@@ -12,5 +23,6 @@ module.exports = {
     alias: {
         "@mapstore": path.resolve(__dirname, '..', '..', "MapStore2", "web", "client"),
         "@js": path.resolve(__dirname, '..', '..', "js")
-    }
+    },
+    gitRevisionPlugin
 };

@@ -5,6 +5,7 @@ const extractThemesPlugin = require('./MapStore2/build/themes.js').extractThemes
 const ModuleFederationPlugin = require('./MapStore2/build/moduleFederation').plugin;
 const buildConfig = require('./MapStore2/build/buildConfig');
 const proxyConfig = require('./proxyConfig');
+const { gitRevisionPlugin } = require('./build/extension/commons');
 
 
 const cfg = buildConfig(
@@ -20,7 +21,7 @@ const cfg = buildConfig(
         framework: path.join(__dirname, "MapStore2", "web", "client"),
         code: [path.join(__dirname, "js"), path.join(__dirname, "MapStore2", "web", "client")]
     },
-    [extractThemesPlugin, ModuleFederationPlugin],
+    [extractThemesPlugin, ModuleFederationPlugin, gitRevisionPlugin],
     false,
     "dist/",
     '.MapStoreExtension',

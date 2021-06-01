@@ -10,6 +10,8 @@
             "commune": "Commune",
             "loading": "Chargement...",
             "nodata": "Aucune donnée à afficher",
+            "dateValiditeEDIGEO": "Version du plan cadastral",
+            "dateValiditeMajic": "Version des données foncières",
             "infobulle": {
                 "parcelle": "Parcelle",
                 "commune": "Ville",

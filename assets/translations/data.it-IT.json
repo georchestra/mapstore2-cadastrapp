@@ -3,6 +3,8 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
+            "dateValiditeEDIGEO": "Versione planimetria catastale",
+            "dateValiditeMajic": "Versione dati terra Land",
             "toolbar": {
                 "zoomTo": "Zoom sull'estensione dei risultati",
                 "help": "Aiuto"

@@ -2,7 +2,7 @@
 const createExtensionWebpackConfig = require('../../MapStore2/build/createExtensionWebpackConfig');
 
 const { name } = require('../../config');
-const commons = require('./commons');
+const { gitRevisionPlugin, ...commons } = require('./commons');
 const webpackConfig = createExtensionWebpackConfig({
     prod: false,
     name,
@@ -14,7 +14,8 @@ const webpackConfig = createExtensionWebpackConfig({
             contentBase: './assets',
             contentBasePublicPath: '/extension/'
         }
-    }
+    },
+    plugins: [ gitRevisionPlugin ]
 });
 // Temp fix to not fail for svg imports. TODO: wait for a fix on mapstore
 const fileLoader = {
