@@ -96,7 +96,8 @@
         "webpack-bundle-size-analyzer": "2.0.2",
         "webpack-cli": "4.5.0",
         "webpack-dev-server": "3.11.0",
-        "zip-webpack-plugin": "^3.0.0"
+        "zip-webpack-plugin": "^3.0.0",
+        "git-revision-webpack-plugin": "5.0.0"
     },
     "dependencies": {
         "mapstore2": "file:MapStore2"

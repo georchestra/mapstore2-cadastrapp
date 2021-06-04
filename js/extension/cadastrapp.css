@@ -50,6 +50,27 @@
 }
 .cadastrapp .welcome-message {
   padding: 60px;
+  text-align: center;
+  position: relative;
+  height: 500px;
+}
+.cadastrapp .welcome-message-versions {
+  width: 60%;
+  margin: 80px auto;
+}
+.cadastrapp .welcome-message-versions tr td:first-child {
+  text-align: left;
+}
+.cadastrapp .welcome-message-versions tr td:last-child {
+  text-align: right;
+}
+.cadastrapp .welcome-message-build {
+  margin-left: 0;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .cadastrapp .table {
   margin-bottom: 5px;

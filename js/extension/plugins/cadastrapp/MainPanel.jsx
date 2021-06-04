@@ -15,7 +15,8 @@ import PlotsSelection from './PlotSelection';
 function MainPanel({
     selectedSearchTool,
     plotSelectionData,
-    foncier
+    foncier,
+    ...props
 }) {
     return (
 
@@ -23,6 +24,7 @@ function MainPanel({
             <WelcomeMessage
                 isShown={!selectedSearchTool}
                 data={plotSelectionData}
+                configuration={props.configuration}
             />
             <SearchSection
                 selectedSearchTool={selectedSearchTool}
