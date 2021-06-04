@@ -4,7 +4,7 @@
         "cadastrapp": {
             "title": "Cadastrapp",
             "dateValiditeEDIGEO": "Versione planimetria catastale",
-            "dateValiditeMajic": "Versione dati terra Land",
+            "dateValiditeMajic": "Versione dati terreno",
             "toolbar": {
                 "zoomTo": "Zoom sull'estensione dei risultati",
                 "help": "Aiuto"
