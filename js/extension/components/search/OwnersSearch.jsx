@@ -47,13 +47,7 @@ export default function OwnersSearch({ loading, onSearch = () => { }, onOwnersSe
                 valid={isSearchValid(currentTab, searchState[currentTab])}
                 onClear={() => resetFormState(currentTab)}
                 onSearch={() => {
-                    // text search opens the owners tab
-                    if (currentTab === SEARCH_TYPES.USER && isString(searchState[SEARCH_TYPES.USER]?.proprietaire)) {
-                        onOwnersSearch(SEARCH_TYPES.USER, searchState[currentTab]);
-                    } else {
-                        // plot search
-                        onSearch(currentTab, searchState[currentTab]);
-                    }
+                    onOwnersSearch(SEARCH_TYPES.USER, searchState[currentTab]);
                 }} />
         </div>
     );

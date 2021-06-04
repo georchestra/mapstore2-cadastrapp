@@ -1,6 +1,6 @@
 import Rx from 'rxjs';
 import uuid from 'uuid';
-import {head, trim} from 'lodash';
+import {head, trim, isString} from 'lodash';
 import { SEARCH_TYPES } from '../constants';
 import { getCadastrappLayer, cadastreLayerIdParcelle } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
@@ -10,7 +10,7 @@ import { error } from '@mapstore/actions/notifications';
 import { getCoProprietaireList, getParcelle, getParcelleByCompteCommunal, getProprietaire } from '../api/api';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
-import { SEARCH, addPlots, OWNERS_SEARCH, showOwners, loading } from '../actions/cadastrapp';
+import { SEARCH, addPlots, OWNERS_SEARCH, showOwners, loading, search } from '../actions/cadastrapp';
 import { isValidParcelle } from '../utils/validation';
 
 const DELIMITER_REGEX = /[\s\;\,\n]/;
@@ -202,11 +202,12 @@ export function cadastrappOwnersSearch(action$) {
         const { commune, proprietaire, birthsearch, comptecommunal } = rawParams; // proprietaire in this case is a string
         // ddenom birthsearch=true
         const { cgocommune } = commune;
+        const ddenom = isString(proprietaire) ? proprietaire : proprietaire?.value;
         return Rx.Observable.defer(() => searchType === SEARCH_TYPES.USER
-            ? getProprietaire({ ddenom: proprietaire, birthsearch, cgocommune, details: 2 })
+            ? getProprietaire({ ddenom, birthsearch, cgocommune, details: 2 })
             : getCoProprietaireList({ ddenom: proprietaire, cgocommune, comptecommunal, details: 1})
         )
-            .switchMap( owners => Rx.Observable.of(showOwners(owners)))
+            .switchMap( owners => Rx.Observable.of(owners.length > 1 ? showOwners(owners) : search(searchType, rawParams)))
             .let(wrapStartStop(loading(true, 'search'), loading(false, 'search')));
     });
 }
