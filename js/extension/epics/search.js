@@ -205,9 +205,14 @@ export function cadastrappOwnersSearch(action$) {
         const ddenom = isString(proprietaire) ? proprietaire : proprietaire?.value;
         return Rx.Observable.defer(() => searchType === SEARCH_TYPES.USER
             ? getProprietaire({ ddenom, birthsearch, cgocommune, details: 2 })
-            : getCoProprietaireList({ ddenom: proprietaire, cgocommune, comptecommunal, details: 1})
+            : getCoProprietaireList({ ddenom, cgocommune, comptecommunal, details: 1})
         )
-            .switchMap( owners => Rx.Observable.of(owners.length > 1 ? showOwners(owners) : search(searchType, rawParams)))
+            .switchMap( owners => Rx.Observable.of(
+                // if proprietaire was an object, a selection of the user occurred. So if owner is one, can perform search.
+                // Otherwise, always show the list of users to avoid ambiguity or to do textual search.
+                owners.length > 1 || isString(proprietaire)
+                    ? showOwners(owners)
+                    : search(searchType, rawParams)))
             .let(wrapStartStop(loading(true, 'search'), loading(false, 'search')));
     });
 }
