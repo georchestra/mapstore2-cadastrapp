@@ -36,10 +36,15 @@
   display: block;
 }
 .cadastrapp .side-bar {
-  width: 52px;
-  margin-top: 52px;
+  width: 46px;
+  margin-top: 0;
   height: 100%;
-  background: #eee;
+  background: #eee
+}
+.cadastrapp .side-bar .square-button  {
+  height: 46px;
+	width: 46px;
+	outline: 0;
 }
 .cadastrapp h3 {
   margin-top: 10px;
