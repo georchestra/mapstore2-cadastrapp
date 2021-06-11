@@ -79,7 +79,7 @@
                 "printError": "Impossible d'imprimer les données du formulaire de demande.",
                 "availableReqError": "Impossible de récupérer les demandes disponibles."
             },
-            "cadastre_tools" : "Outils Cadastre",
+            "cadastre_tools" : "Cadastrapp",
             "create_point": "Sélectionner une parcelle par un simple clic",
             "create_line": "Sélectionner des parcelles par une polyligne",
             "create_polygon": "Sélectionner des parcelles par un polygone",

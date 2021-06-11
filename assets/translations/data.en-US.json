@@ -79,7 +79,7 @@
                 "printError": "Unable to print request form data",
                 "availableReqError": "Unable to fetch available requests"
             },
-            "cadastre_tools": "Cadastre tools",
+            "cadastre_tools": "Cadastrapp",
             "create_line": "Select / Activate / Unselect plots which intersect a line",
             "create_point": "Select / Activate / Unselect one plot by a simple click",
             "create_polygon": "Select / Activate / Unselect plots which intersect a polygon",
