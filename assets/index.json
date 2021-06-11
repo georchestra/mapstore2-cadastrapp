@@ -6,7 +6,7 @@
       "docUrl":"https://github.com/georchestra/mapstore2-cadastrapp#plugin-configuration",
       "defaultConfig": {
         "openOnLoad": false,
-        "helpUrl": "https://docs.georchestra.org/cadastrapp/latest/",
+        "helpUrl": "https://docs.georchestra.org/cadastrapp/latest/guide_utilisateur/",
         "foncier": true,
         "popup": {
           "minZoom": 14,
