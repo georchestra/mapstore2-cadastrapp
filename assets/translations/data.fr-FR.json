@@ -313,7 +313,7 @@
             "uniteFonciere": "Unite foncière",
             "menu": {
                 "tooltips": {
-                    "foncier": "Outil d'information foncière, une fois activé cliquez sur une parcelle pour voir l'unité foncière correspondante",
+                    "foncier": "Cliquer sur une parcelle pour afficher l'unité foncière",
                     "imprimer": "Imprimer"
                 },
                 "preference": "Préférences"

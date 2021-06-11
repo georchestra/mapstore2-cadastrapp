@@ -312,7 +312,7 @@
             "uniteFonciere": "Land Unit",
             "menu": {
                 "tooltips": {
-                    "foncier": "Land Unit Information",
+                    "foncier": "Click on a parcel to display the land unit",
                     "imprimer": "Print"
                 },
                 "preference": "Preference"
