@@ -21,7 +21,7 @@
                 "inseecom": "Code INSEE",
                 "prefix": "Préfixe",
                 "section": "Section",
-                "nplan": "N° de plan",
+                "nplan": "Numéro",
                 "adresse": "Adresse",
                 "proprietaire": "Propriétaire",
                 "landUnit": "Unité foncière",
@@ -108,7 +108,7 @@
                     "ccosec": "Section",
                     "commune": "Commune",
                     "adresse": "Adresse cadastrale",
-                    "dnupla": "N° de plan",
+                    "dnupla": "Numéro",
                     "surface": "Contenance DGFiP en m²"
                 },
                 "file": {
