@@ -3,6 +3,7 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
+            "sig": "GIS",
             "selectTool": "Sélectionnez l'outil souhaité dans la barre d'outils de gauche pour commencer.",
             "help": "Aide",
             "zoomTo": "Zoomer sur l'étendue des résultats",
@@ -10,6 +11,7 @@
             "commune": "Commune",
             "loading": "Chargement...",
             "nodata": "Aucune donnée à afficher",
+            "contenancedgfip": "DGFiP",
             "dateValiditeEDIGEO": "Version du plan cadastral",
             "dateValiditeMajic": "Version des données foncières",
             "infobulle": {
@@ -29,8 +31,6 @@
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
             },
-            "sig": "GIS",
-            "contenancedgfip": "DGFiP",
             "demandeinformation": {
                 "title": "Demande d'information foncière",
                 "realise": "Demande réalisée",

@@ -3,11 +3,12 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
+            "sig": "GIS",
             "selectTool": "Select desired tool in the left side toolbar to start",
             "help": "Help",
             "zoomTo": "Zoom to results extent",
             "demande": "Land information request module",
-            "sig": "GIS",
+            "commune": "Commune",
             "loading": "Loading...",
             "nodata": "No data to display",
             "contenancedgfip": "DGFiP",
@@ -30,12 +31,12 @@
                 "noaccess": "Unauthorised access to land information",
                 "error": "Unable to fetch bubble info"
             },
-            "commune": "Commune",
             "demandeinformation": {
                 "title": "Land information request",
                 "realise": "Request ask by",
                 "counter": "Counter",
                 "email": "Email",
+                "mail": "Mail",
                 "proprietaire": "Owner",
                 "type": {
                     "demandeur": "Request user Type",
@@ -52,7 +53,6 @@
                 "num_rue": "Road Number",
                 "code_postal": "Zip Code",
                 "commune": "Town, Municipality",
-                "mail": "Mail",
                 "annuler": "Cancel Request",
                 "imprimer": "Print Request",
                 "generate": {
@@ -80,19 +80,19 @@
                 "availableReqError": "Unable to fetch available requests"
             },
             "cadastre_tools": "Cadastrapp",
-            "create_line": "Select / Activate / Unselect plots which intersect a line",
             "create_point": "Select / Activate / Unselect one plot by a simple click",
+            "create_line": "Select / Activate / Unselect plots which intersect a line",
             "create_polygon": "Select / Activate / Unselect plots which intersect a polygon",
             "preferences": {
                 "default": "Default",
                 "defaultStyle": "Set default style",
-                "close": "Close",
                 "fillColor": "Fill color",
                 "opacity": "Opacity",
                 "selected": "Selected",
                 "strokeColor": "Stroke color",
                 "strokeWidth": "Stroke width",
-                "title": "Preferences"
+                "title": "Preferences",
+                "close": "Close"
             },
             "parcelle": {
                 "libcom": "Plot number",
@@ -154,8 +154,9 @@
             },
             "proprietaire": {
                 "file": {
-                    "explanation": "This file must contains comptecommunal id list separate by space or coma",
-                    "title": "File"
+                    "title": "File",
+                    "example": "Déposez ici un fichier ou cliquez pour ouvrir une boîte de dialogue.",
+                    "explanation": "This file must contains comptecommunal id list separate by space or coma"
                 },
                 "tooltip": "Owner",
                 "title": "Owners search",
@@ -241,7 +242,7 @@
                 "batiment_niveau": "Level",
                 "door": "Door",
                 "type": "Type",
-                "annee_construction": "Creation date",
+                "annee_construction": "Contruction year",
                 "revenu": "Income",
                 "nom_usage": "Usage name",
                 "nom_naissance": "Birth name",
@@ -252,7 +253,7 @@
                 "cco_lib": "Right code",
                 "lettreindic": "Index",
                 "terrain": "Cultivation type",
-                "revenu_1": "Revenu au 01-01",
+                "revenu_1": "Income at 1st of january",
                 "batiment_bundle": "Bundle",
                 "batiment_date": "Date",
                 "batiment_descriptif": "Description",
@@ -260,10 +261,10 @@
                 "type_mutation": "Mutation type",
                 "compte": "Identifier",
                 "contenance": "Capacity",
-                "dateacte": "Date acte",
+                "dateacte": "Date of the deed",
                 "datenaissance": "Date of birth",
                 "denomination": "Designation",
-                "dependances": "outbuilding",
+                "dependances": "Outbuilding",
                 "designation": "Designation",
                 "dformjur": "Legal form",
                 "releve": {
