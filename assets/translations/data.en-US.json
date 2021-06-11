@@ -6,7 +6,7 @@
             "selectTool": "Select desired tool in the left side toolbar to start",
             "help": "Help",
             "zoomTo": "Zoom to results extent",
-            "demande": "Request",
+            "demande": "Land information request module",
             "sig": "GIS",
             "loading": "Loading...",
             "nodata": "No data to display",
@@ -32,7 +32,7 @@
             },
             "commune": "Commune",
             "demandeinformation": {
-                "title": "Request on landholding trust",
+                "title": "Land information request",
                 "realise": "Request ask by",
                 "counter": "Counter",
                 "email": "Email",

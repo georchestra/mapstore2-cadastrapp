@@ -3,6 +3,7 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
+            "demande": "Modulo sulla fiducia dei proprietari terrieri",
             "dateValiditeEDIGEO": "Versione planimetria catastale",
             "dateValiditeMajic": "Versione dati terreno",
             "toolbar": {

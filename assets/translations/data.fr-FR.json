@@ -6,7 +6,7 @@
             "selectTool": "Sélectionnez l'outil souhaité dans la barre d'outils de gauche pour commencer.",
             "help": "Aide",
             "zoomTo": "Zoomer sur l'étendue des résultats",
-            "demande": "Demande",
+            "demande": "Module des demandes d’information foncière",
             "commune": "Commune",
             "loading": "Chargement...",
             "nodata": "Aucune donnée à afficher",
@@ -32,7 +32,7 @@
             "sig": "GIS",
             "contenancedgfip": "DGFiP",
             "demandeinformation": {
-                "title": "Demande Informations Foncières",
+                "title": "Demande d'information foncière",
                 "realise": "Demande réalisée",
                 "counter": "au guichet",
                 "email": "par courriel",
