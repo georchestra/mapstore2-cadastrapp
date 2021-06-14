@@ -3,13 +3,15 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
+            "sig": "GIS",
             "selectTool": "Sélectionnez l'outil souhaité dans la barre d'outils de gauche pour commencer.",
             "help": "Aide",
             "zoomTo": "Zoomer sur l'étendue des résultats",
-            "demande": "Demande",
+            "demande": "Module des demandes d’information foncière",
             "commune": "Commune",
             "loading": "Chargement...",
             "nodata": "Aucune donnée à afficher",
+            "contenancedgfip": "DGFiP",
             "dateValiditeEDIGEO": "Version du plan cadastral",
             "dateValiditeMajic": "Version des données foncières",
             "infobulle": {
@@ -21,7 +23,7 @@
                 "inseecom": "Code INSEE",
                 "prefix": "Préfixe",
                 "section": "Section",
-                "nplan": "N° de plan",
+                "nplan": "Numéro",
                 "adresse": "Adresse",
                 "proprietaire": "Propriétaire",
                 "landUnit": "Unité foncière",
@@ -29,10 +31,8 @@
                 "noaccess": "Accès aux données foncières non autorisé",
                 "error": "Impossible de récupérer les informations sur les bulles"
             },
-            "sig": "GIS",
-            "contenancedgfip": "DGFiP",
             "demandeinformation": {
-                "title": "Demande Informations Foncières",
+                "title": "Demande d'information foncière",
                 "realise": "Demande réalisée",
                 "counter": "au guichet",
                 "email": "par courriel",
@@ -79,7 +79,7 @@
                 "printError": "Impossible d'imprimer les données du formulaire de demande.",
                 "availableReqError": "Impossible de récupérer les demandes disponibles."
             },
-            "cadastre_tools" : "Outils Cadastre",
+            "cadastre_tools" : "Cadastrapp",
             "create_point": "Sélectionner une parcelle par un simple clic",
             "create_line": "Sélectionner des parcelles par une polyligne",
             "create_polygon": "Sélectionner des parcelles par un polygone",
@@ -108,7 +108,7 @@
                     "ccosec": "Section",
                     "commune": "Commune",
                     "adresse": "Adresse cadastrale",
-                    "dnupla": "N° de plan",
+                    "dnupla": "Numéro",
                     "surface": "Contenance DGFiP en m²"
                 },
                 "file": {
@@ -313,7 +313,7 @@
             "uniteFonciere": "Unite foncière",
             "menu": {
                 "tooltips": {
-                    "foncier": "Outil d'information foncière, une fois activé cliquez sur une parcelle pour voir l'unité foncière correspondante",
+                    "foncier": "Cliquer sur une parcelle pour afficher l'unité foncière",
                     "imprimer": "Imprimer"
                 },
                 "preference": "Préférences"

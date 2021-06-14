@@ -3,6 +3,7 @@
     "messages": {
         "cadastrapp": {
             "title": "Cadastrapp",
+            "demande": "Modulo sulla fiducia dei proprietari terrieri",
             "dateValiditeEDIGEO": "Versione planimetria catastale",
             "dateValiditeMajic": "Versione dati terreno",
             "toolbar": {
@@ -18,7 +19,7 @@
                 "towninsee": "Codice INSEE",
                 "prefix": "Prefisso",
                 "section": "Sezione",
-                "plot": "Numero del piano",
+                "plot": "Numero",
                 "address": "Indirizzo",
                 "dgfip": "DGFiP",
                 "gis": "GIS",
@@ -66,6 +67,14 @@
                 "parcelSlip": "Distinta del pacco",
                 "printError": "Impossibile stampare i dati del modulo di richiesta",
                 "availableReqError": "Impossibile recuperare le richieste disponibili"
+            },
+            "uniteFonciere": "Unità di terra",
+            "menu": {
+                "tooltips": {
+                    "foncier": "Clicca su una parcella per visualizzare l'unità di terra",
+                    "imprimer": "Stampa"
+                },
+                "preference": "Preferenze"
             }
         }
     }
