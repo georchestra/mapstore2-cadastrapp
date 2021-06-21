@@ -16,16 +16,16 @@ const columns = [{
     name: "cadastrapp.parcelle.result.ccosec",
     resizable: true
 }, {
-    key: "cadastralAddr",  // "dnvoiri" + "dvoilib",
-    sortable: true,
-    name: "cadastrapp.parcelle.result.adresse",
-    width: 100,
-    resizable: true
-}, {
     key: "dnupla",
     width: 100,
     sortable: true,
     name: "cadastrapp.parcelle.result.dnupla",
+    resizable: true
+}, {
+    key: "cadastralAddr",  // "dnvoiri" + "dvoilib",
+    sortable: true,
+    name: "cadastrapp.parcelle.result.adresse",
+    width: 100,
     resizable: true
 }, {
     key: "dcntpa",
