@@ -3,7 +3,7 @@ import Rx from 'rxjs';
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
 import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
-import { toggleMapInfoState } from '@mapstore/actions/mapInfo';
+import { hideMapinfoMarker, toggleMapInfoState } from '@mapstore/actions/mapInfo';
 import { UPDATE_MAP_LAYOUT, updateMapLayout } from '../../../MapStore2/web/client/actions/maplayout';
 
 import { registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
@@ -94,7 +94,7 @@ export const cadastrappSetup = (action$, store) =>
                             visibility: true
                         }),
                     registerEventListener(MOUSE_EVENT, CONTROL_NAME) // Set map's mouse event trigger type
-                ]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
+                ]).concat([...(mapInfoEnabled ? [toggleMapInfoState(), hideMapinfoMarker()] : [])]);
             })
         )
             .concat(Rx.Observable.of(setupCompleted())) // required to sync the layer the first time (if closed/reopen)
