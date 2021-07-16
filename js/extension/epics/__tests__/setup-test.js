@@ -12,7 +12,7 @@ import {cadastrappSetup, cadastrappTearDown} from "@js/extension/epics/cadastrap
 import { LOADING, SET_CONFIGURATION, setUp, SETUP_COMPLETED, TOGGLE_SELECTION, tearDown} from "@js/extension/actions/cadastrapp";
 import {UPDATE_ADDITIONAL_LAYER, REMOVE_ADDITIONAL_LAYER} from "@mapstore/actions/additionallayers";
 import {CLEAN_MAP_POPUPS} from "@mapstore/actions/mapPopups";
-import {TOGGLE_MAPINFO_STATE} from "@mapstore/actions/mapInfo";
+import {TOGGLE_MAPINFO_STATE, HIDE_MAPINFO_MARKER} from "@mapstore/actions/mapInfo";
 import {REGISTER_EVENT_LISTENER, UNREGISTER_EVENT_LISTENER} from "@mapstore/actions/map";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
@@ -42,10 +42,10 @@ describe("setup Epics", () => {
         mockAxios.onGet().reply(200);
         testEpic(
             cadastrappSetup,
-            7,
+            8,
             setUp(),
             actions => {
-                expect(actions.length).toBe(7);
+                expect(actions.length).toBe(8);
                 actions.map(action=>{
                     switch (action.type) {
                     case LOADING:
@@ -64,6 +64,7 @@ describe("setup Epics", () => {
                         expect(action.toolName).toBe(CONTROL_NAME);
                         break;
                     case TOGGLE_MAPINFO_STATE:
+                    case HIDE_MAPINFO_MARKER:
                         break;
                     case SETUP_COMPLETED:
                         break;
@@ -84,10 +85,10 @@ describe("setup Epics", () => {
         };
         testEpic(
             cadastrappTearDown,
-            5,
+            6,
             tearDown(),
             actions => {
-                expect(actions.length).toBe(5);
+                expect(actions.length).toBe(6);
                 actions.map(action=>{
                     switch (action.type) {
                     case TOGGLE_SELECTION:
@@ -100,6 +101,7 @@ describe("setup Epics", () => {
                         break;
                     case TOGGLE_MAPINFO_STATE:
                         break;
+                    case HIDE_MAPINFO_MARKER:
                     case UNREGISTER_EVENT_LISTENER:
                         expect(action.eventName).toBe(MOUSE_EVENT);
                         expect(action.toolName).toBe(CONTROL_NAME);
