@@ -8,7 +8,6 @@ import { userGroupSecuritySelector } from '@mapstore/selectors/security';
 import { getBaseMapsFromConfig } from '../utils/configuration';
 
 
-
 // **********************************************
 // CONFIGURATION
 // **********************************************

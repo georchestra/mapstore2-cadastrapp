@@ -290,6 +290,9 @@
                     },
                     "export": "Export selection"
                 },
+                "pdf": {
+                    "export": "Export BP in batch"
+                },
                 "parcelle" : {
                     "fiche": "Information form",
                     "uf": "Land Unit Information",

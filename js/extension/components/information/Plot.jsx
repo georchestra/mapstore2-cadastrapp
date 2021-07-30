@@ -35,18 +35,20 @@ const toParams = (selectedStyle) => {
     };
 };
 
-function PlotInformationRadio({
+export function PlotInformationRadio({
     isCNIL1,
     isCNIL2,
     baseMaps = [],
     parcelle,
     selectedStyle = {},
-    isShown
+    isShown,
+    modalStyle
 }) {
     const [baseMap, setBaseMap] = useState();
     const [personalData, setPersonalData] = useState("0");
     const [loading, setLoading] = useState(false);
     let className = isShown ? "" : "collapse";
+    const hr = !modalStyle ? <hr/> : null;
     const {
         opacity,
         fillcolor,
@@ -54,13 +56,13 @@ function PlotInformationRadio({
         strokecolor
     } = toParams(selectedStyle);
     return (
-        <div className={className}>
-            <hr/>
+        <div {...modalStyle && {style: modalStyle}} className={className}>
+            {hr}
             <div
-                style={{ width: "70%" }}
+                style={{ width: modalStyle ? "100%" : "70%" }}
                 className="pull-left">
                 {isCNIL1 || isCNIL2 ? <FormGroup>
-                    <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={"cadastrapp.bordereauparcellaire.data.title"}/>: </b>
+                    <b className={'cadastrapp-formgroup-label'}><Message msgId={"cadastrapp.bordereauparcellaire.data.title"}/>: </b>
                     <Radio inline checked={personalData === "0"} onChange={() => setPersonalData("0")} value="0">
                         <Message msgId={"cadastrapp.bordereauparcellaire.data.without"}/>
                     </Radio>
@@ -69,7 +71,7 @@ function PlotInformationRadio({
                     </Radio>
                 </FormGroup> : null}
                 <FormGroup>
-                    <b style={{ "float": "left", marginRight: 15, width: 300 }}><Message msgId={"cadastrapp.bordereauparcellaire.basemap"}/>:</b>
+                    <b className={'cadastrapp-formgroup-label'}><Message msgId={"cadastrapp.bordereauparcellaire.basemap"}/>:</b>
                     <div style={{ "float": "left" }}>
                         <DropdownList style={{width: 300}} value={baseMap} defaultValue={baseMaps[0]} onSelect={v => setBaseMap(v)} textField="title" data={baseMaps} itemComponent={ListItem} />
                     </div>
@@ -77,7 +79,7 @@ function PlotInformationRadio({
             </div>
             <div
 
-                style={{ width: "30%" }}
+                style={{ width: modalStyle ? "100%" : "30%" }}
                 className="pull-left">
                 <Button
                     disabled={loading}
@@ -91,7 +93,7 @@ function PlotInformationRadio({
                             strokecolor,
                             strokewidth,
                             parcelle,
-                            personaldata: personalData,
+                            ...((isCNIL1 || isCNIL2) && {personaldata: personalData}),
                             basemapindex: baseMapIndex
                         }).then((response) => {
                             setLoading(false);
@@ -105,7 +107,7 @@ function PlotInformationRadio({
                     <Message msgId={"cadastrapp.bordereauparcellaire.export"}/>
                 </Button>
             </div>
-            <hr/>
+            {hr}
         </div>);
 }
 export default function Plot({
