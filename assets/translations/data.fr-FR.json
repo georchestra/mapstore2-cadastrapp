@@ -290,6 +290,9 @@
                     },
                     "export": "Exporter la sélection"
                 },
+                "pdf": {
+                    "export": "Exporter BP en batch"
+                },
                 "parcelle" : {
                     "fiche": "Fiche d'info parcelle(s)",
                     "uf": "Fiche unité foncière",

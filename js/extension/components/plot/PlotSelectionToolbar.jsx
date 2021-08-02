@@ -16,6 +16,7 @@ import Message from '@mapstore/components/I18N/Message';
 
 import Toolbar from '@mapstore/components/misc/toolbar/Toolbar';
 import BundleInformationModal from './BundleInformationModal';
+import ExportPlotsAsPDFModal from "./ExportPlotsAsPDFModal";
 
 export default function PlotSelectionToolbar({
     foncier,
@@ -32,6 +33,7 @@ export default function PlotSelectionToolbar({
     const isDataPresent = currentData.length > 0;
     const { isCNIL1, isCNIL2 } = authLevel;
     const [showBundleInformation, setShowBundleInformation] = useState(false);
+    const [exportPlotModal, setExportPlotModal] = useState(false);
     return (
         <>
             <Toolbar
@@ -81,15 +83,27 @@ export default function PlotSelectionToolbar({
                                     setShowBundleInformation(true);
                                 }
                             }}><Message msgId={"cadastrapp.result.csv.button.bundle"} /></MenuItem>
+                            <MenuItem onClick={() => setExportPlotModal(true)}>
+                                <Message msgId={"cadastrapp.result.pdf.export"} /></MenuItem>
                         </DropdownButton>)
                 } : {
-                    disabled: !isDataPresent || !atLeastOneSelected,
-                    glyph: "export",
-                    tooltipId: "cadastrapp.result.csv.export",
-                    onClick: () => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)
+                    renderButton: (
+                        <DropdownButton
+                            disabled={!isDataPresent || !atLeastOneSelected}
+                            pullRight title={< Glyphicon glyph="export" />}>
+                            <MenuItem
+                                onClick={() => exportParcellesAsCSV({ parcelles: selectedPlots }).then(downloadResponse)}>
+                                <Message msgId={"cadastrapp.result.csv.export"} />
+                            </MenuItem>
+                            <MenuItem onClick={() => setExportPlotModal(true)}>
+                                <Message msgId={"cadastrapp.result.pdf.export"} /></MenuItem>
+                        </DropdownButton>
+                    )
                 })
                 ]}
             />
             <BundleInformationModal show={showBundleInformation} onClose={() => setShowBundleInformation(false)} parcelle={selectedPlots[0]} />
+            <ExportPlotsAsPDFModal show={exportPlotModal} onClose={()=> setExportPlotModal(false) }
+                parcelle={selectedPlots} isCNIL1={isCNIL1} isCNIL2={isCNIL2}/>
         </>);
 }

@@ -359,3 +359,24 @@ input.request-obj-double.form-control{
   top: auto !important;;
   bottom: 100%;
 }
+.cadastrapp-export-modal {
+  min-width: 30%;
+  overflow-y: visible;
+}
+.cadastrapp-plots-selected {
+  float: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.cadastrapp-formgroup-label {
+  width: 150px;
+  float: left;
+  margin-right: 15px;
+}
+.cadastrapp-export-plots {
+  padding-right: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
