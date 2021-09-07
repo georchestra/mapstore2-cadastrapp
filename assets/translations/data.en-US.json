@@ -291,7 +291,7 @@
                     "export": "Export selection"
                 },
                 "pdf": {
-                    "export": "Export BP in batch"
+                    "export": "Export PI in batch"
                 },
                 "parcelle" : {
                     "fiche": "Information form",

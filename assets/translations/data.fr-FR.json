@@ -291,7 +291,7 @@
                     "export": "Exporter la sélection"
                 },
                 "pdf": {
-                    "export": "Exporter BP en batch"
+                    "export": "Exporter BP en lot"
                 },
                 "parcelle" : {
                     "fiche": "Fiche d'info parcelle(s)",
