@@ -61,7 +61,7 @@ export const SEARCH_TYPES = {
 };
 export const MIN_PARCELLE_ID_LENGTH = 14;
 
-export const DEFAULT_HELP_URL = 'https://github.com/georchestra/cadastrapp/wiki/Guide-Utilisateur';
+export const DEFAULT_HELP_URL = 'https://docs.georchestra.org/cadastrapp/latest/guide_utilisateur/';
 
 export const MOUSE_EVENT = 'mousemove';
 
