@@ -1,7 +1,7 @@
 {
-    "name": "MapStoreExtension",
+    "name": "CadastrappExtension",
     "version": "1.0.0",
-    "description": "Template project to create MapStore extensions",
+    "description": "Cadastrapp plugin for mapstore2",
     "main": "index.js",
     "eslintConfig": {
         "extends": [
