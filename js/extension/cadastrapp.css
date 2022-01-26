@@ -380,3 +380,7 @@ input.request-obj-double.form-control{
   overflow: hidden;
   white-space: nowrap;
 }
+
+.react-grid-Cell {
+  user-select: text;
+}
