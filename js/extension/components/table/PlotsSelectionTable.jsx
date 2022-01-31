@@ -46,7 +46,7 @@ function PlotsSelectionTable({
         return null;
     }
     // create mixed column for address
-    const processedRows = data.map(v => ({ ...v, cadastralAddr: v.dnvoiri + " " + v.dvoilib }));
+    const processedRows = data.map(v => ({ ...v, cadastralAddr: v.dnvoiri + " " + v.cconvo + " " + v.dvoilib }));
     const rows = (({sortColumn, sortDirection} = {}) => {
         if (sortDirection === "ASC") {
             return sortBy(processedRows, sortColumn);
