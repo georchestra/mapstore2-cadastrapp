@@ -90,11 +90,12 @@ export function getCommune({ libcom, cgocommune }) {
 }
 
 /**
- * Search commune by text. Min 3 chars for results
+ * Search commune by text.
+ * Min char is obtained from configuration of cadastrapp services
  * @param {string} text text to search
  */
 export function searchCommune(text) {
-    return getCommune({libcom: text});
+    return getCommune({[isNaN(text) ? "libcom" : "cgocommune"]: text});
 }
 
 /**

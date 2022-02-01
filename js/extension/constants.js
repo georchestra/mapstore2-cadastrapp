@@ -69,3 +69,5 @@ export const DEFAULT_POPUP_PROPS = {
     MINZOOM: '14',
     TIMETOSHOW: 1000
 };
+
+export const DEFAULT_MIN_CHAR_TO_SEARCH = 3;

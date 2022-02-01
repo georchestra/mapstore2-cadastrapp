@@ -1,6 +1,7 @@
 import {
     CADASTRAPP_RASTER_LAYER_ID,
-    CADASTRAPP_VECTOR_LAYER_ID
+    CADASTRAPP_VECTOR_LAYER_ID,
+    DEFAULT_MIN_CHAR_TO_SEARCH
 } from '../constants';
 import { additionalLayersSelector } from '@mapstore/selectors/additionallayers';
 import { userGroupSecuritySelector } from '@mapstore/selectors/security';
@@ -267,4 +268,9 @@ export function cadastrappPluginCfgSelector(state) {
 
 export function popupPluginCfgSelector(state) {
     return cadastrappPluginCfgSelector(state)?.popup ?? {};
+}
+
+export function minCharToSearchSelector(state) {
+    const { minNbCharForSearch } = configurationSelector(state) ?? {};
+    return minNbCharForSearch ?? DEFAULT_MIN_CHAR_TO_SEARCH;
 }

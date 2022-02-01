@@ -6,7 +6,6 @@ export default ({ commune, section, numero, ...props }) => {
     return (
         <SearchCombo
             dropUp
-            minLength={3}
             valueField="proprietaire"
             textField="label"
             search={ddenom =>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { find, isObject } from 'lodash';
 import { Combobox as CB } from 'react-widgets';
@@ -7,6 +8,7 @@ import { Glyphicon } from "react-bootstrap";
 import localizedProps from '@mapstore/components/misc/enhancers/localizedProps';
 import { getMessageById } from '../../../../MapStore2/web/client/utils/LocaleUtils';
 import {compose, getContext, mapProps} from 'recompose';
+import { minCharToSearchSelector } from "@js/extension/selectors/cadastrapp";
 
 
 const localizeMessages = compose(
@@ -29,7 +31,9 @@ const Combobox = localizedProps('placeholder')(localizeMessages(CB));
  * A utility combo for search.
  * @params search
  */
-export default ({
+export default connect(
+    state=>({ minCharToSearch: minCharToSearchSelector(state) })
+)(({
     value = {},
     valueField,
     minLength,
@@ -41,13 +45,15 @@ export default ({
     additionalStyle = {},
     placeholder = "",
     dropUp = false,
+    minCharToSearch,
     ...props
 }) => {
+    const _minLength = minLength ?? minCharToSearch;
     const [text, setText] = useState("");
     const [busy, setBusy] = useState(false);
     const [data, setData] = useState([]);
     useEffect( () => {
-        if (text.length >= minLength) {
+        if (text.length >= _minLength) {
             setBusy(true);
             search(text).then(results => {
                 setData(results);
@@ -73,7 +79,7 @@ export default ({
                 }
             }
             data={data}
-            minLength={minLength}
+            minLength={_minLength}
             {...props}
         />
         {!hideRemove && (text || value) ? <Glyphicon glyph="remove"
@@ -92,4 +98,4 @@ export default ({
                 onSelect(undefined);
             }}/> : null}
     </div>);
-};
+});
