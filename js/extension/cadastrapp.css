@@ -381,6 +381,6 @@ input.request-obj-double.form-control{
   white-space: nowrap;
 }
 
-.react-grid-Cell {
+.cadastrapp-modal .react-grid-Cell, .cadastrapp .react-grid-Grid .react-grid-Cell {
   user-select: text;
 }
