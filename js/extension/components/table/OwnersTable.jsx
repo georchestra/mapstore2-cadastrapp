@@ -60,7 +60,7 @@ function OwnersTable({
     }
 
     // create mixed column for address
-    const rows = loading ? [] : data.map(v => ({ ...v, cadastralAddr: v.dnvoiri + " " + v.dvoilib }));
+    const rows = loading ? [] : data.map(v => ({ ...v, cadastralAddr: v.dnvoiri + " " + v.cconvo + " " + v.dvoilib }));
     return (<ReactDataGrid
         onRowClick={onRowClick}
         emptyRowsView={() => <EmptyRowsView loading={loading} />}
