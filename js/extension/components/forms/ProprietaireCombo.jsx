@@ -4,7 +4,6 @@ import SearchCombo from './SearchCombo';
 
 export default ({ cgocommune, birthsearch = false, onSelect, ...props}) => {
     return (<SearchCombo
-        minLength={3}
         valueField="value"
         textField="label"
         onSelect={onSelect}

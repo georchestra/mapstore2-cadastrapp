@@ -4,7 +4,6 @@ import SearchCombo from './SearchCombo';
 
 export default (props) => {
     return (<SearchCombo
-        minLength={3}
         valueField="cgocommune"
         textField="label"
         search={
