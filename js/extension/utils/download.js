@@ -1,6 +1,4 @@
 import axios from '@mapstore/libs/ajax';
-import { findGeometryProperty } from '@mapstore/utils/ogc/WFS/base';
-
 
 export const toDownload = ({ fileName, mimeType }) => (response) => {
     const dataUrl = window.URL.createObjectURL(new Blob([response.data], { type: mimeType }));
