@@ -1,4 +1,5 @@
 import axios from '@mapstore/libs/ajax';
+import { findGeometryProperty } from '@mapstore/utils/ogc/WFS/base';
 
 
 export const toDownload = ({ fileName, mimeType }) => (response) => {
@@ -28,7 +29,7 @@ export function downloadResponse(response, { fileName = 'unknown' } = {}) {
     if (contentDisposition) {
         const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
         if (fileNameMatch.length > 2 && fileNameMatch[1]) {
-            name = fileNameMatch[1];
+            name = fileNameMatch[1].replace(/['"]/g, '');
         }
     }
     link.setAttribute('download', name);
