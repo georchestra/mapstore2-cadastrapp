@@ -1,6 +1,5 @@
 import axios from '@mapstore/libs/ajax';
 
-
 export const toDownload = ({ fileName, mimeType }) => (response) => {
     const dataUrl = window.URL.createObjectURL(new Blob([response.data], { type: mimeType }));
     const link = document.createElement('a');
@@ -28,7 +27,7 @@ export function downloadResponse(response, { fileName = 'unknown' } = {}) {
     if (contentDisposition) {
         const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
         if (fileNameMatch.length > 2 && fileNameMatch[1]) {
-            name = fileNameMatch[1];
+            name = fileNameMatch[1].replace(/['"]/g, '');
         }
     }
     link.setAttribute('download', name);
