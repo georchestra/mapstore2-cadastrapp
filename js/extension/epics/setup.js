@@ -4,7 +4,7 @@ import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
 import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
 import { hideMapinfoMarker, toggleMapInfoState } from '@mapstore/actions/mapInfo';
-import { UPDATE_MAP_LAYOUT, updateMapLayout } from '../../../MapStore2/web/client/actions/maplayout';
+import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
 
 import { registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
 import { cleanPopups } from '@mapstore/actions/mapPopups';
@@ -27,12 +27,16 @@ import {
     setConfiguration,
     setupCompleted,
     loading,
-    toggleSelectionTool
+    toggleSelectionTool, TOGGLE_SELECTION
 } from '../actions/cadastrapp';
 import { SET_CONTROL_PROPERTIES, setControlProperty } from '@mapstore/actions/controls';
+import {coordinateEditorEnabledSelector} from "../../../selectors/annotations";
+import {SET_CONTROL_PROPERTY, TOGGLE_CONTROL} from "../../../actions/controls";
+import {findIndex, keys} from "lodash";
 
 // size o
-const OFFSET = 660; // size of cadastrapp. Maybe parametrize. Now in css + this constant
+const OFFSET = 550; // size of cadastrapp. Maybe parametrize. Now in css + this constant
+const shutdownList = ['metadataexplorer', 'measure', 'details', 'mapcatalog', 'maptemplates', 'userExtensions', 'annotations'];
 
 /**
  * utility function to check if the cadastrapp panel is open
@@ -123,23 +127,46 @@ export const cadastrappMapLayout = (action$, store) =>
         })
         .map(({layout}) => {
             const action = updateMapLayout({
-                layout,
-                right: OFFSET,
+                ...layout,
+                right: OFFSET + (layout?.right ?? 0),
                 boundingMapRect: {
                     ...(layout.boundingMapRect || {}),
-                    right: OFFSET
+                    right: OFFSET + (layout?.boundingMapRect?.right ?? 0)
                 }
             });
             return { ...action, source: 'cadastrapp' }; // add an argument to avoid infinite loop.
         });
+
+export const cadastrappCloseAnnotationsOnOpen = (action$, store) =>
+    action$.ofType(TOGGLE_SELECTION)
+        .filter(({ selectionType }) => !!selectionType
+        )
+        .filter(() => coordinateEditorEnabledSelector(store.getState())
+        )
+        .map(() => {
+            return setControlProperty("annotations", "enabled", false);
+        });
+
 /**
- * Auto-closes cadastrapp when catalog is open
+ * Auto-closes cadastrapp when one of the shutdown-trigger tools is open
  */
 export const cadastrappAutoClose = (action$, store) =>
-    action$.ofType(SET_CONTROL_PROPERTIES)
+    action$.ofType(SET_CONTROL_PROPERTIES, SET_CONTROL_PROPERTY, TOGGLE_CONTROL)
         .filter(() => isCadastrappOpen(store))
-        .filter(({ control, properties }) => control === "metadataexplorer" && properties?.enabled) // open the catalog from TOC
-        .map( () => setControlProperty(CONTROL_NAME, "enabled", false));
+        .filter(({control, property, properties = [], type}) => {
+            const state = store.getState();
+            const controlState = state.controls[control].enabled;
+            switch (type) {
+                case SET_CONTROL_PROPERTY:
+                case TOGGLE_CONTROL:
+                    return (property === 'enabled' || !property) && controlState && shutdownList.includes(control);
+                default:
+                    return findIndex(keys(properties), prop => prop === 'enabled') > -1 && controlState && shutdownList.includes(control);
+            }
+        })
+        .map( () => {
+            return setControlProperty(CONTROL_NAME, "enabled", false);
+        });
 
 /**
  * Intercept cadastrapp close event.
