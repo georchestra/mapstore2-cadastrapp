@@ -29,9 +29,9 @@ import {
     loading,
     toggleSelectionTool, TOGGLE_SELECTION
 } from '../actions/cadastrapp';
-import { SET_CONTROL_PROPERTIES, setControlProperty } from '@mapstore/actions/controls';
-import {coordinateEditorEnabledSelector} from "../../../selectors/annotations";
-import {SET_CONTROL_PROPERTY, TOGGLE_CONTROL} from "../../../actions/controls";
+import { SET_CONTROL_PROPERTIES, setControlProperty,
+    SET_CONTROL_PROPERTY, TOGGLE_CONTROL } from '@mapstore/actions/controls';
+import {coordinateEditorEnabledSelector} from "@mapstore/selectors/annotations";
 import {findIndex, keys} from "lodash";
 
 // size o
@@ -157,11 +157,11 @@ export const cadastrappAutoClose = (action$, store) =>
             const state = store.getState();
             const controlState = state.controls[control].enabled;
             switch (type) {
-                case SET_CONTROL_PROPERTY:
-                case TOGGLE_CONTROL:
-                    return (property === 'enabled' || !property) && controlState && shutdownList.includes(control);
-                default:
-                    return findIndex(keys(properties), prop => prop === 'enabled') > -1 && controlState && shutdownList.includes(control);
+            case SET_CONTROL_PROPERTY:
+            case TOGGLE_CONTROL:
+                return (property === 'enabled' || !property) && controlState && shutdownList.includes(control);
+            default:
+                return findIndex(keys(properties), prop => prop === 'enabled') > -1 && controlState && shutdownList.includes(control);
             }
         })
         .map( () => {

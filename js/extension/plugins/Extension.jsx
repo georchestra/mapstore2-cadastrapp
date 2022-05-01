@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setControlProperty, toggleControl } from "@mapstore/actions/controls";
+import { toggleControl } from "@mapstore/actions/controls";
 
 import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
@@ -51,7 +51,7 @@ export default {
             icon: <Glyphicon glyph="th" />,
             doNotHide: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),
-            priority: 1
+            priority: 2
         },
         SidebarMenu: {
             name: "cadastrapp",
