@@ -131,8 +131,9 @@ export const cadastrappMapLayout = (action$, store) =>
                 right: OFFSET + (layout?.right ?? 0),
                 boundingMapRect: {
                     ...(layout.boundingMapRect || {}),
-                    right: OFFSET + (layout?.boundingMapRect?.right ?? 0)
-                }
+                    right: OFFSET + (layout?.boundingSidebarRect?.right ?? 0)
+                },
+                rightPanel: true
             });
             return { ...action, source: 'cadastrapp' }; // add an argument to avoid infinite loop.
         });
