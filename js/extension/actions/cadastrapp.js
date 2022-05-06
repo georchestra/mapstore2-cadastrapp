@@ -109,10 +109,12 @@ export const tearDown = () => ({
 /**
  * Toggles map selection in one of the modes available
  * @param {string} selectionType type of selection (constants.SELECTION_TYPES)
+ * @param {boolean} resetDraw should it reset draw status or not
  */
-export const toggleSelectionTool = (selectionType) => ({
+export const toggleSelectionTool = (selectionType, resetDraw = true) => ({
     type: TOGGLE_SELECTION,
-    selectionType
+    selectionType,
+    resetDraw
 });
 
 /**

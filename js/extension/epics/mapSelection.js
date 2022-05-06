@@ -34,7 +34,7 @@ import {
 } from '../selectors/cadastrapp';
 import { getLayerJSONFeature } from '@mapstore/observables/wfs';
 import { wrapStartStop } from '@mapstore/observables/epics';
-import { MOUSE_MOVE, MOUSE_OUT, registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
+import {MOUSE_MOVE, MOUSE_OUT, unRegisterEventListener} from '@mapstore/actions/map';
 import { addPopup, cleanPopups } from '@mapstore/actions/mapPopups';
 import { mapSelector } from '@mapstore/selectors/map';
 
@@ -46,10 +46,17 @@ const CLEAN_ACTION = changeDrawingStatus("clean");
 const DEACTIVATE_ACTIONS = [
     CLEAN_ACTION,
     changeDrawingStatus("stop"),
-    registerEventListener(MOUSE_EVENT, CONTROL_NAME),
+    unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME),
     loading(0, "plotSelection") // reset loading if stopped due to close
 ];
+export const ON_DRAW_DEACTIVATE_ACTIONS = [
+    unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME),
+    loading(0, "plotSelection") // reset loading if stopped due to close
+];
+
 const deactivate = () => Rx.Observable.from(DEACTIVATE_ACTIONS);
+
+export const deactivateOnAnotherDraw = () => Rx.Observable.from(ON_DRAW_DEACTIVATE_ACTIONS);
 
 /**
  * Extract the drawMethod for DrawSupport from the method
@@ -123,7 +130,7 @@ const getGeometry = point => {
  * Handle map selection tools and events
  */
 export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
-    action$.ofType(TOGGLE_SELECTION).switchMap(({selectionType}) => {
+    action$.ofType(TOGGLE_SELECTION).switchMap(({selectionType, resetDraw}) => {
         if (selectionType) {
             const startDrawingAction = changeDrawingStatus('start', drawMethod(selectionType), 'cadastrapp', [], { stopAfterDrawing: true });
             return action$.ofType(END_DRAWING).flatMap(
@@ -178,7 +185,7 @@ export const cadastrappMapSelection = (action$, {getState = () => {}}) =>
                 .concat(deactivate()); // on close, deactivate any draw session remaining
         }
         // if the selection type is not present, it means has been reset, so deactivate any drawing tool
-        return deactivate();
+        return !resetDraw ? deactivateOnAnotherDraw() : deactivate();
     });
 /**
  * Retrieves the geometry of the ufFeature, when not present, and shows the LandedPropertyInformation with this data.

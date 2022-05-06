@@ -60,6 +60,7 @@ export default {
             text: <Message msgId="cadastrapp.title"/>,
             doNotHide: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),
+            toggle: true,
             priority: 1,
             position: 1000
         }
