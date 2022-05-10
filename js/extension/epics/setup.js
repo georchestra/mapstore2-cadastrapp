@@ -155,15 +155,17 @@ export const cadastrappCloseAnnotationsOnToolToggledOn = (action$, store) =>
         });
 
 /**
- * Auto-closes cadastrapp when one of the shutdown-trigger tools is open
+ * Auto-closes cadastrapp when one of the shutdown-trigger tools is open or when Feature editor is open
  */
 export const cadastrappAutoClose = (action$, store) =>
-    action$.ofType(SET_CONTROL_PROPERTIES, SET_CONTROL_PROPERTY, TOGGLE_CONTROL)
+    action$.ofType(SET_CONTROL_PROPERTIES, SET_CONTROL_PROPERTY, TOGGLE_CONTROL, OPEN_FEATURE_GRID)
         .filter(() => isCadastrappOpen(store))
         .filter(({control, property, properties = [], type}) => {
             const state = store.getState();
-            const controlState = state.controls[control].enabled;
+            const controlState = state.controls[control]?.enabled;
             switch (type) {
+            case OPEN_FEATURE_GRID:
+                return true;
             case SET_CONTROL_PROPERTY:
             case TOGGLE_CONTROL:
                 return (property === 'enabled' || !property) && controlState && shutdownList.includes(control);
@@ -173,15 +175,6 @@ export const cadastrappAutoClose = (action$, store) =>
         })
         .map( () => {
             return setControlProperty(CONTROL_NAME, "enabled", false);
-        });
-
-export const closeCadastrappOnFeatureGridOpen = (action$) =>
-    action$.ofType(OPEN_FEATURE_GRID)
-        .switchMap( () => {
-            let actions = [
-                setControlProperty('cadastrapp', 'enabled', false)
-            ];
-            return Rx.Observable.from(actions);
         });
 
 export const toggleCadastrapToolOnAnnotationsDrawing = (action$, store) =>
