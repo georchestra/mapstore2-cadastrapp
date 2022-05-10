@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setControlProperty, toggleControl } from "@mapstore/actions/controls";
+import { toggleControl } from "@mapstore/actions/controls";
 
 import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
@@ -13,6 +13,7 @@ import { CONTROL_NAME } from '../constants';
 import {setUp, tearDown} from '../actions/cadastrapp';
 import cadastrapp from '../reducers/cadastrapp';
 import * as epics from '../epics/cadastrapp';
+import {mapLayoutValuesSelector} from "@js/extension/selectors/maplayout";
 
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
@@ -20,6 +21,8 @@ const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(
 const Cadastrapp = compose(
     connect((state) => ({
         enabled: state.controls && state.controls[CONTROL_NAME] && state.controls[CONTROL_NAME].enabled || false,
+        dockStyle: mapLayoutValuesSelector(state, { right: true, height: true}, true),
+        dockWidth: 550,
         withButton: false
     }), {
         open: () => toggleControl(CONTROL_NAME, "enabled", true),
@@ -48,7 +51,18 @@ export default {
             icon: <Glyphicon glyph="th" />,
             doNotHide: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),
-            priority: 1
+            priority: 2
+        },
+        SidebarMenu: {
+            name: "cadastrapp",
+            icon: <Glyphicon glyph="th" />,
+            tooltip: "cadastrapp.title",
+            text: <Message msgId="cadastrapp.title"/>,
+            doNotHide: true,
+            action: toggleControl.bind(null, CONTROL_NAME, null),
+            toggle: true,
+            priority: 1,
+            position: 1000
         }
     }
 };

@@ -8,6 +8,9 @@ import Header from './Header';
 import { CONTROL_NAME } from '../../constants';
 import LandedProperty from './LandedProperty';
 import {configurationSelector} from "@js/extension/selectors/cadastrapp";
+import DockPanel from "@mapstore/components/misc/panels/DockPanel";
+import ContainerDimensions from "react-container-dimensions";
+import DockContainer from "@js/extension/components/misc/panels/DockContainer";
 
 /**
  * Main Container of Cadastrapp.
@@ -16,14 +19,31 @@ import {configurationSelector} from "@js/extension/selectors/cadastrapp";
 export default connect(state => ({
     enabled: state.controls && state.controls[CONTROL_NAME] && state.controls[CONTROL_NAME].enabled || false,
     configuration: configurationSelector(state)
-}))(function Main({ enabled, ...props }) {
+}))(function Main({ enabled, dockStyle, dockWidth, ...props }) {
     if (!enabled) {
         return null;
     }
-    return (<div className="cadastrapp">
-        <Header/>
-        <MainToolbar {...props} />
-        <MainPanel {...props} />
-        <LandedProperty />
-    </div>);
+    return (
+        <DockContainer
+            dockStyle={dockStyle}
+            id="cadastrapp-container"
+            style={{pointerEvents: 'none'}}
+        >
+            <ContainerDimensions>
+                {({ width }) => (<DockPanel
+                    open
+                    size={dockWidth / width > 1 ? width : dockWidth}
+                    position="right"
+                    bsStyle="primary"
+                    style={dockStyle}>
+                    <div className="cadastrapp">
+                        <Header/>
+                        <MainToolbar {...props} />
+                        <MainPanel {...props} />
+                        <LandedProperty />
+                    </div>
+                </DockPanel>)}
+            </ContainerDimensions>
+        </DockContainer>
+    );
 });

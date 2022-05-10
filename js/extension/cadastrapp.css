@@ -10,8 +10,8 @@
   overflow: hidden;
   top: 0;
   right: 0;
-  height: calc(100% - 30px);
-  width: 660px;
+  height: 100%;
+  width: 100%;
   z-index: 1000;
 }
 .cadastrapp .top {
