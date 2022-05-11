@@ -3,7 +3,7 @@ import {
     loading,
     PRINT_SUBMITTED,
     onPrintResponse
-} from "@js/extension/actions/cadastrapp";
+} from "@mapstore/ext/cadastrapp/actions/cadastrapp";
 import isEmpty from "lodash/isEmpty";
 import { wrapStartStop } from "@mapstore/observables/epics";
 import { error } from "@mapstore/actions/notifications";
@@ -11,8 +11,8 @@ import {
     createDemandeFromObj,
     printPDFRequest,
     saveInformationRequest
-} from "@js/extension/api";
-import {downloadResponse} from "@js/extension/utils/download";
+} from "@mapstore/ext/cadastrapp/api";
+import {downloadResponse} from "@mapstore/ext/cadastrapp/utils/download";
 
 /**
  * Epic to print request data and generate documents based on requested data

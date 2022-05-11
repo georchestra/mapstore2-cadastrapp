@@ -8,8 +8,8 @@
 import expect from "expect";
 import includes from 'lodash/includes';
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
-import {cadastrappSetup, cadastrappTearDown} from "@js/extension/epics/cadastrapp";
-import { LOADING, SET_CONFIGURATION, setUp, SETUP_COMPLETED, TOGGLE_SELECTION, tearDown} from "@js/extension/actions/cadastrapp";
+import {cadastrappSetup, cadastrappTearDown} from "@mapstore/ext/cadastrapp/epics/cadastrapp";
+import { LOADING, SET_CONFIGURATION, setUp, SETUP_COMPLETED, TOGGLE_SELECTION, tearDown} from "@mapstore/ext/cadastrapp/actions/cadastrapp";
 import {UPDATE_ADDITIONAL_LAYER, REMOVE_ADDITIONAL_LAYER} from "@mapstore/actions/additionallayers";
 import {CLEAN_MAP_POPUPS} from "@mapstore/actions/mapPopups";
 import {TOGGLE_MAPINFO_STATE, HIDE_MAPINFO_MARKER} from "@mapstore/actions/mapInfo";
@@ -21,7 +21,7 @@ import {
     CADASTRAPP_RASTER_LAYER_ID,
     CADASTRAPP_VECTOR_LAYER_ID, CONTROL_NAME,
     MOUSE_EVENT
-} from "@js/extension/constants";
+} from "@mapstore/ext/cadastrapp/constants";
 
 describe("setup Epics", () => {
     let mockAxios;

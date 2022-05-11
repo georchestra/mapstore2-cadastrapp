@@ -3,7 +3,7 @@ import Rx from 'rxjs';
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
 import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
-import { hideMapinfoMarker, toggleMapInfoState } from '@mapstore/actions/mapInfo';
+import { hideMapinfoMarker, toggleMapInfoState, purgeMapInfoResults } from '@mapstore/actions/mapInfo';
 import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
 
 import { registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
@@ -35,7 +35,7 @@ import {
     setControlProperty
 } from '@mapstore/actions/controls';
 import {closeFeatureGrid, OPEN_FEATURE_GRID} from "@mapstore/actions/featuregrid";
-import {resetCoordEditor, START_DRAWING} from "@mapstore/actions/annotations";
+import {START_DRAWING} from "@mapstore/actions/annotations";
 import {configurationSelector, currentSelectionToolSelector} from '../selectors/cadastrapp';
 import {isFeatureGridOpen} from "@mapstore/selectors/featuregrid";
 import {coordinateEditorEnabledSelector} from "@mapstore/selectors/annotations";
@@ -43,7 +43,8 @@ import {CHANGE_DRAWING_STATUS} from "@mapstore/actions/draw";
 
 // size o
 const OFFSET = 550; // size of cadastrapp. Maybe parametrize. Now in css + this constant
-const shutdownList = ['metadataexplorer', 'measure', 'details', 'mapcatalog', 'maptemplates', 'userExtensions', 'FeatureEditor'];
+const shutdownList = ['metadataexplorer', 'details', 'mapcatalog', 'maptemplates', 'userExtensions', 'FeatureEditor'];
+const toggleOffList = ['measure', "street-view"];
 
 /**
  * utility function to check if the cadastrapp panel is open
@@ -151,7 +152,7 @@ export const cadastrappCloseAnnotationsOnToolToggledOn = (action$, store) =>
         .filter(({ selectionType }) => !!selectionType && coordinateEditorEnabledSelector(store.getState())
         )
         .map(() => {
-            return resetCoordEditor();
+            return purgeMapInfoResults();
         });
 
 /**
@@ -183,7 +184,7 @@ export const toggleCadastrapToolOnAnnotationsDrawing = (action$, store) =>
             const currentSelectionTool = currentSelectionToolSelector(store.getState());
             switch (type) {
             case CHANGE_DRAWING_STATUS:
-                return !!currentSelectionTool && status === 'drawOrEdit' && owner === 'annotations';
+                return !!currentSelectionTool && ((status === 'drawOrEdit' && owner === 'annotations') || (status === 'start' && owner === 'queryform'));
             case START_DRAWING:
             default:
                 return !!currentSelectionTool;
@@ -195,6 +196,51 @@ export const toggleCadastrapToolOnAnnotationsDrawing = (action$, store) =>
             ];
             return Rx.Observable.from(actions);
         });
+
+
+export const toggleCadastrapToolOnPluginActivated = (action$, store) =>
+    action$.ofType(SET_CONTROL_PROPERTIES, SET_CONTROL_PROPERTY, TOGGLE_CONTROL)
+        .filter(() => isCadastrappOpen(store))
+        .filter(({control, property, properties = [], type}) => {
+            const state = store.getState();
+            const controlState = state.controls[control]?.enabled;
+            switch (type) {
+            case SET_CONTROL_PROPERTY:
+            case TOGGLE_CONTROL:
+                return (property === 'enabled' || !property) && controlState && toggleOffList.includes(control);
+            default:
+                return findIndex(keys(properties), prop => prop === 'enabled') > -1 && controlState && toggleOffList.includes(control);
+            }
+        })
+        .map( () => toggleSelectionTool(null, false));
+
+
+export const toogleToolOnCadastrappToolActivated = (action$, store) =>
+    action$.ofType(TOGGLE_SELECTION).switchMap(({selectionType}) => {
+        if (selectionType) {
+            const actions = [];
+            const state = store.getState();
+            toggleOffList.forEach((controlName) => {
+                const enabled = get(state, ['controls', controlName, 'enabled'], false);
+                enabled && actions.push(setControlProperty(controlName, 'enabled', null));
+            });
+            return Rx.Observable.from(actions);
+        }
+        // if the selection type is not present, it means has been reset, so deactivate any drawing tool
+        return Rx.Observable.empty();
+    });
+
+export const toggleUrbanismeToolOffOnCadastrappToolActivated = (action$) =>
+    action$.ofType(TOGGLE_SELECTION).switchMap(({selectionType}) => {
+        if (selectionType) {
+            return Rx.Observable.from([{
+                type: "URBANISME:TOGGLE_TOOL",
+                activeTool: null
+            }]);
+        }
+        // if the selection type is not present, it means has been reset, so deactivate any drawing tool
+        return Rx.Observable.empty();
+    });
 
 /**
  * Intercept cadastrapp close event.
