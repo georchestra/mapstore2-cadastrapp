@@ -10,8 +10,8 @@ import expect from "expect";
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
 import MockAdapter from 'axios-mock-adapter';
 import axios from '@mapstore/libs/ajax';
-import { saveInformationRequestEpic } from "@mapstore/ext/cadastrapp/epics/cadastrapp";
-import {LOADING, onPrintPDF, PRINT_RESPONSE} from "@mapstore/ext/cadastrapp/actions/cadastrapp";
+import { saveInformationRequestEpic } from "@js/extension/epics/cadastrapp";
+import {LOADING, onPrintPDF, PRINT_RESPONSE} from "@js/extension/actions/cadastrapp";
 
 describe("saveInformationRequest Epics", () => {
     let mockAxios;

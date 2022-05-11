@@ -11,8 +11,8 @@ import { ZOOM_TO_EXTENT } from "@mapstore/actions/map";
 import { UPDATE_ADDITIONAL_LAYER } from "@mapstore/actions/additionallayers";
 import { zoomToExtentAllResults } from "../../actions/cadastrapp";
 import { zoomToExtentAllResultsEpic } from "../../epics/layerSync";
-import {CADASTRAPP_OWNER, CADASTRAPP_VECTOR_LAYER_ID, LAYER_STYLES} from "@mapstore/ext/cadastrapp/constants";
-import {getAllPlotFeatures} from "@mapstore/ext/cadastrapp/selectors/cadastrapp";
+import {CADASTRAPP_OWNER, CADASTRAPP_VECTOR_LAYER_ID, LAYER_STYLES} from "@js/extension/constants";
+import {getAllPlotFeatures} from "@js/extension/selectors/cadastrapp";
 
 describe("layerSync Epics", () => {
     const state = {

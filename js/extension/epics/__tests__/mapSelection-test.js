@@ -10,11 +10,11 @@ import expect from "expect";
 import axios from 'axios';
 import MockAdapter from "axios-mock-adapter";
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
-import {LAYER_STYLES} from "@mapstore/ext/cadastrapp/constants";
+import {LAYER_STYLES} from "@js/extension/constants";
 import {mouseMovePopupEpic, showPopupEpic} from "../cadastrapp";
 import { mouseMove } from "@mapstore/actions/map";
 import { ADD_MAP_POPUP, CLEAN_MAP_POPUPS } from "@mapstore/actions/mapPopups";
-import {LOADING, SAVE_BUBBLE_INFO, SHOW_POPUP, showPopup} from "@mapstore/ext/cadastrapp/actions/cadastrapp";
+import {LOADING, SAVE_BUBBLE_INFO, SHOW_POPUP, showPopup} from "@js/extension/actions/cadastrapp";
 
 describe("mapSelection Epics", () => {
     const state = {
