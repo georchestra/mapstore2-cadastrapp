@@ -99,12 +99,6 @@ export const setConfiguration = (configuration) => ({
     type: SET_CONFIGURATION,
     configuration
 });
-/**
- * Triggered when cadastrapp is closed
- */
-export const tearDown = () => ({
-    type: TEAR_DOWN
-});
 
 /**
  * Toggles map selection in one of the modes available

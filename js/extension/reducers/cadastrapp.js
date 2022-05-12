@@ -12,7 +12,6 @@ import {
     SET_CONFIGURATION,
     TOGGLE_SELECTION,
     TOGGLE_SEARCH,
-    TEAR_DOWN,
     SET_LAYER_STYLE,
     UPDATE_LAYER_STYLE,
     SET_STYLES,
@@ -198,9 +197,6 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
             set(`plots`, newPlots),
             set(`activePlotSelection`, Math.max(state.activePlotSelection - 1, 0))
         )(state);
-    }
-    case TEAR_DOWN: {
-        return state;
     }
     case SET_ACTIVE_PLOT_SELECTION: {
         return set('activePlotSelection', action.active, state);

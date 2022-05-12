@@ -10,7 +10,7 @@ import init from '../enhancers/init';
 
 import { CONTROL_NAME } from '../constants';
 
-import {setUp, tearDown} from '../actions/cadastrapp';
+import {setUp} from '../actions/cadastrapp';
 import cadastrapp from '../reducers/cadastrapp';
 import * as epics from '../epics/cadastrapp';
 import {mapLayoutValuesSelector} from "@js/extension/selectors/maplayout";
@@ -31,8 +31,7 @@ const Cadastrapp = compose(
     // setup and teardown due to open/close
     compose(
         connect( () => ({}), {
-            setUp,
-            tearDown
+            setUp
         }),
         init()
     )

@@ -22,7 +22,6 @@ import {findIndex, keys, get} from "lodash";
 
 import {
     SETUP,
-    TEAR_DOWN,
     setConfiguration,
     setupCompleted,
     loading,
@@ -246,14 +245,17 @@ export const toggleUrbanismeToolOffOnCadastrappToolActivated = (action$) =>
  * Intercept cadastrapp close event.
  * - Removes the cadastre layer from the map
  */
-export const cadastrappTearDown = (action$, {getState = ()=>{}}) =>
-    action$.ofType(TEAR_DOWN).switchMap(() => {
-        const cadastrappIsDrawOwner = get(getState(), 'draw.drawOwner', false) === 'cadastrapp';
-        return Rx.Observable.from([
-            toggleSelectionTool(null, cadastrappIsDrawOwner),
-            removeAdditionalLayer({id: CADASTRAPP_RASTER_LAYER_ID, owner: CADASTRAPP_OWNER}),
-            removeAdditionalLayer({id: CADASTRAPP_VECTOR_LAYER_ID, owner: CADASTRAPP_OWNER}),
-            cleanPopups(),
-            unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME) // Reset map's mouse event trigger
-        ]).concat([...(!get(getState(), "mapInfo.enabled") ? [toggleMapInfoState()] : [])]);
-    });
+export const cadastrappTearDown = (action$, store) =>
+    action$.ofType(SET_CONTROL_PROPERTIES, SET_CONTROL_PROPERTY, TOGGLE_CONTROL)
+        .filter(({ control }) => control === CONTROL_NAME && !isCadastrappOpen(store))
+        .switchMap(() => {
+            const state = store.getState();
+            const cadastrappIsDrawOwner = get(state, 'draw.drawOwner', false) === 'cadastrapp';
+            return Rx.Observable.from([
+                toggleSelectionTool(null, cadastrappIsDrawOwner),
+                removeAdditionalLayer({id: CADASTRAPP_RASTER_LAYER_ID, owner: CADASTRAPP_OWNER}),
+                removeAdditionalLayer({id: CADASTRAPP_VECTOR_LAYER_ID, owner: CADASTRAPP_OWNER}),
+                cleanPopups(),
+                unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME) // Reset map's mouse event trigger
+            ]).concat([...(!get(state, "mapInfo.enabled") ? [toggleMapInfoState()] : [])]);
+        });
