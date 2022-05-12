@@ -136,7 +136,7 @@ export const cadastrappMapLayout = (action$, store) =>
         .map(({layout}) => {
             const action = updateMapLayout({
                 ...layout,
-                right: OFFSET + (layout?.right ?? 0),
+                right: OFFSET + (layout?.boundingSidebarRect?.right ?? 0),
                 boundingMapRect: {
                     ...(layout.boundingMapRect || {}),
                     right: OFFSET + (layout?.boundingSidebarRect?.right ?? 0)
