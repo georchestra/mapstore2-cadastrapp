@@ -5,7 +5,6 @@ import { EmptyRowsView } from './EmptyRowsView';
 
 function BuildingsTable({
     loading,
-    onRowClick = () => {},
     onRowDoubleClick = () => { },
     onRowsSelected = () => { },
     onRowsDeselected = () => { },

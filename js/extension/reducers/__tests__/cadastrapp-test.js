@@ -6,7 +6,7 @@ import {
     saveBubbleInfo,
     setConfiguration,
     setLayerStyle,
-    setLayerStyles, setUp,
+    setUp,
     toggleSearchTool,
     toggleSelectionTool
 } from '../../actions/cadastrapp';
@@ -17,11 +17,10 @@ import {
     configurationSelector,
     currentSearchToolSelector,
     currentSelectionToolSelector,
-    getDefaultStyle,
-    getSelectedStyle
+    getDefaultStyle
 } from "../../selectors/cadastrapp";
 
-import { SELECTION_TYPES, SEARCH_TOOLS, LAYER_STYLES } from '../../constants';
+import { SELECTION_TYPES, SEARCH_TOOLS } from '../../constants';
 
 
 describe('reducer', () => {

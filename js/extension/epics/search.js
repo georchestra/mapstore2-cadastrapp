@@ -28,7 +28,7 @@ function readCSV(file) {
             const parcelle = string.split(DELIMITER_REGEX).map(trim).filter(v => v);
             resolve(parcelle);
         };
-        reader.onerror = function () {
+        reader.onerror = function() {
             reject(reader.error.name);
         };
         reader.readAsText(file);

@@ -10,7 +10,7 @@ const DEFAULTS = {
     hPaddingSort: 22,
     vPaddingCell: 16,
     lineHeight: 16 * 1.5,
-    font: '700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    font: '700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 };
 const H_PADDING_CORRECTION = 4;
 
@@ -40,8 +40,7 @@ class Helper {
                 }
                 lines[currentLine + 1] = (lines[currentLine].substring(lines[currentLine].lastIndexOf(' ') + 1) + ' ' + lines[currentLine + 1]).trim();
                 lines[currentLine] = lines[currentLine].substring(0, lines[currentLine].lastIndexOf(' '));
-            }
-            else {
+            } else {
                 currentLine += 1;
             }
         } while (lines.some(line => this._getLineWidth(line) > columnContentWidth));

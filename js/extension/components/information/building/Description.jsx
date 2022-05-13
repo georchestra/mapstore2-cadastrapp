@@ -23,7 +23,7 @@ function Article40({ detent, dsupdc, dnbniv, dnbppr, dnbpdc, dmatgmdesc, dmattod
     if ( detent !== null) {
         return (<div className="article40">
             <div className="habitationDetailsMenuTitle"> Caractéristiques générales </div>
-            {detent && detent !== '00' ? <div> État d'entretien &nbsp;:&nbsp;&nbsp; {detent} </div>: null}
+            {detent && detent !== '00' ? <div> État d'entretien &nbsp;:&nbsp;&nbsp; {detent} </div> : null}
             {dsupdc && dsupdc !== '00' ? <div> Surface habitable &nbsp;:&nbsp;&nbsp; {dsupdc} m²</div> : null}
             {dnbppr && dnbpdc && dnbpdc !== '00' ? <div> Nombre de pièces &nbsp;:&nbsp;&nbsp; {dnbpdc.replace(/^0+/, '')} dont {dnbppr.replace(/^0+/, '') } principales</div> : null}
             {dnbniv && dnbniv !== '00' ? <div> Nombre de niveaux &nbsp;:&nbsp;&nbsp;{dnbniv.replace(/^0+/, '')}</div> : null}
@@ -148,7 +148,7 @@ export default function Description({dnubat: batiment, row, show, onClose}) {
     if (!row) {
         return null;
     }
-    const { dniv: niveau, dpor: porte, annee, invar } = row;
+    const { dniv: niveau, dpor: porte } = row;
     // selectedBatiment, selectedRecordsArray.data.dniv, selectedRecordsArray.data.dpor, selectedRecordsArray.data.annee, selectedRecordsArray.data.invar
     return (<Modal
         style={{ maxHeight: "100%", overflowY: "auto", zIndex: 10000 }}

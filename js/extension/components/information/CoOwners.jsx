@@ -29,7 +29,7 @@ export default function CoOwners({parcelle}) {
                 onClick={togglePanel}
                 {...(!atLeastOneSelected ? { disabled: 'true' } : {})}>
                 <Glyphicon style={{ marginRight: 4 }} glyph="1-pdf" />
-                    <Message msgId={"cadastrapp.duc.releve.depropriete"} />
+                <Message msgId={"cadastrapp.duc.releve.depropriete"} />
             </Button>
         </div>
         <PropertiesRadio parcelle={parcelle} expanded={expanded} data={data} selected={selected} />
