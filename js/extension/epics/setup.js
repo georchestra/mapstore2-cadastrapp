@@ -7,7 +7,7 @@ import {
     hideMapinfoMarker, toggleMapInfoState,
     closeIdentify, TOGGLE_MAPINFO_STATE, changeMapInfoState
 } from '@mapstore/actions/mapInfo';
-import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
+import {UPDATE_MAP_LAYOUT, updateDockPanelsList, updateMapLayout} from '@mapstore/actions/maplayout';
 
 import { registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
 import { cleanPopups } from '@mapstore/actions/mapPopups';
@@ -37,7 +37,7 @@ import {
 } from '@mapstore/actions/controls';
 import { mapInfoDisabledSelector } from '@mapstore/selectors/mapInfo';
 import {configurationSelector, currentSelectionToolSelector} from '../selectors/cadastrapp';
-import {shutdownToolOnAnotherToolDrawing} from "../utils/workarounds";
+import {shutdownToolOnAnotherToolDrawing} from "@mapstore/utils/ControlUtils";
 
 const OFFSET = 550; // size of cadastrapp. Maybe parametrize. Now in css + this constant
 
@@ -62,12 +62,7 @@ export const cadastrappSetup = (action$, store) =>
             .switchMap(data => {
                 return Rx.Observable.of(setConfiguration(data));
             })
-            .startWith({
-                type: 'MAP_LAYOUT:UPDATE_DOCK_PANELS',
-                name: 'cadastrapp',
-                action: 'add',
-                location: 'right'
-            });
+            .startWith(updateDockPanelsList(CONTROL_NAME, 'add', 'right'));
         return initStream$.concat(
             Rx.Observable.defer(() => {
                 // here the configuration has been loaded
@@ -211,12 +206,7 @@ export const cadastrappTearDown = (action$, store) =>
             const state = store.getState();
             const cadastrappIsDrawOwner = get(state, 'draw.drawOwner', false) === 'cadastrapp';
             return Rx.Observable.from([
-                {
-                    type: 'MAP_LAYOUT:UPDATE_DOCK_PANELS',
-                    name: 'cadastrapp',
-                    action: 'remove',
-                    location: 'right'
-                },
+                updateDockPanelsList(CONTROL_NAME, 'remove', 'right'),
                 toggleSelectionTool(null, cadastrappIsDrawOwner),
                 removeAdditionalLayer({id: CADASTRAPP_RASTER_LAYER_ID, owner: CADASTRAPP_OWNER}),
                 removeAdditionalLayer({id: CADASTRAPP_VECTOR_LAYER_ID, owner: CADASTRAPP_OWNER}),
