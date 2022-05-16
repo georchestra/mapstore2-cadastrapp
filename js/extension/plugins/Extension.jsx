@@ -5,17 +5,17 @@ import { toggleControl } from "@mapstore/actions/controls";
 import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
 import Main from './cadastrapp/Main';
-import '../cadastrapp.css';
 import init from '../enhancers/init';
-
 import { CONTROL_NAME } from '../constants';
 
 import {setUp} from '../actions/cadastrapp';
+
 import cadastrapp from '../reducers/cadastrapp';
 import * as epics from '../epics/cadastrapp';
 import {mapLayoutValuesSelector} from "@js/extension/selectors/maplayout";
-
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
+
+import '../cadastrapp.less';
 
 
 const Cadastrapp = compose(

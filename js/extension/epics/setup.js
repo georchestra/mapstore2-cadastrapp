@@ -3,8 +3,10 @@ import Rx from 'rxjs';
 import { wrapStartStop } from '@mapstore/observables/epics';
 import { error } from '@mapstore/actions/notifications';
 import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
-import { hideMapinfoMarker, toggleMapInfoState,
-    closeIdentify, TOGGLE_MAPINFO_STATE} from '@mapstore/actions/mapInfo';
+import {
+    hideMapinfoMarker, toggleMapInfoState,
+    closeIdentify, TOGGLE_MAPINFO_STATE, changeMapInfoState
+} from '@mapstore/actions/mapInfo';
 import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
 
 import { registerEventListener, unRegisterEventListener } from '@mapstore/actions/map';
@@ -66,7 +68,6 @@ export const cadastrappSetup = (action$, store) =>
                 action: 'add',
                 location: 'right'
             });
-        const mapInfoEnabled = get(store.getState(), "mapInfo.enabled");
         return initStream$.concat(
             Rx.Observable.defer(() => {
                 // here the configuration has been loaded
@@ -104,8 +105,9 @@ export const cadastrappSetup = (action$, store) =>
                             name: "searchPoints",
                             visibility: true
                         }),
-                    registerEventListener(MOUSE_EVENT, CONTROL_NAME) // Set map's mouse event trigger type
-                ]).concat([...(mapInfoEnabled ? [toggleMapInfoState(), hideMapinfoMarker()] : [])]);
+                    registerEventListener(MOUSE_EVENT, CONTROL_NAME), // Set map's mouse event trigger type
+                    ...(get(store.getState(), "mapInfo.enabled") ? [toggleMapInfoState(), hideMapinfoMarker()] : [])
+                ]);
             })
         )
             .concat(Rx.Observable.of(setupCompleted())) // required to sync the layer the first time (if closed/reopen)
@@ -172,7 +174,7 @@ export const toggleMapInfoOnActiveTool = (action$, {getState}) =>
             return currentSelectionToolSelector(state) && !mapInfoDisabledSelector(state);
         })
         .switchMap(() => {
-            return Rx.Observable.of(toggleMapInfoState());
+            return Rx.Observable.of(changeMapInfoState(false));
         });
 
 
