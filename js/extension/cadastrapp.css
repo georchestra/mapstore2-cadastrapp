@@ -1,5 +1,3 @@
-@import "../MapStore2/web/client/themes/default/variables";
-
 /* support for multiline headers */
 .react-grid-multiline-header .react-grid-HeaderCell {
   white-space: normal !important;
@@ -38,14 +36,14 @@
   display: block;
 }
 .cadastrapp .side-bar {
-  width: @square-btn-size;
+  width: 40px;
   margin-top: 0;
   height: 100%;
   background: #eee;
 }
 .cadastrapp .side-bar .square-button  {
-  height: @square-btn-size;
-  width: @square-btn-size;
+  height: 40px;
+  width: 40px;
   outline: 0;
 }
 .cadastrapp h3 {

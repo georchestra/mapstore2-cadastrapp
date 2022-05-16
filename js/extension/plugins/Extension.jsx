@@ -15,7 +15,7 @@ import * as epics from '../epics/cadastrapp';
 import {mapLayoutValuesSelector} from "@js/extension/selectors/maplayout";
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
-import '../cadastrapp.less';
+import '../cadastrapp.css';
 
 
 const Cadastrapp = compose(
