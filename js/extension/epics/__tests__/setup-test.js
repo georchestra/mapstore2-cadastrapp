@@ -9,7 +9,7 @@ import expect from "expect";
 import includes from 'lodash/includes';
 import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
 import {cadastrappSetup, cadastrappTearDown} from "@js/extension/epics/cadastrapp";
-import { LOADING, SET_CONFIGURATION, setUp, SETUP_COMPLETED, TOGGLE_SELECTION, tearDown} from "@js/extension/actions/cadastrapp";
+import { LOADING, SET_CONFIGURATION, setUp, SETUP_COMPLETED, TOGGLE_SELECTION} from "@js/extension/actions/cadastrapp";
 import {UPDATE_ADDITIONAL_LAYER, REMOVE_ADDITIONAL_LAYER} from "@mapstore/actions/additionallayers";
 import {CLEAN_MAP_POPUPS} from "@mapstore/actions/mapPopups";
 import {TOGGLE_MAPINFO_STATE, HIDE_MAPINFO_MARKER} from "@mapstore/actions/mapInfo";
@@ -22,6 +22,8 @@ import {
     CADASTRAPP_VECTOR_LAYER_ID, CONTROL_NAME,
     MOUSE_EVENT
 } from "@js/extension/constants";
+import {UPDATE_DOCK_PANELS} from "@mapstore/actions/maplayout";
+import {setControlProperty} from "@mapstore/actions/controls";
 
 describe("setup Epics", () => {
     let mockAxios;
@@ -42,14 +44,17 @@ describe("setup Epics", () => {
         mockAxios.onGet().reply(200);
         testEpic(
             cadastrappSetup,
-            8,
+            9,
             setUp(),
             actions => {
-                expect(actions.length).toBe(8);
+                expect(actions.length).toBe(9);
                 actions.map(action=>{
                     switch (action.type) {
                     case LOADING:
                         expect(action.name).toBe('configuration');
+                        break;
+                    case UPDATE_DOCK_PANELS:
+                        expect(action.name).toBe(CONTROL_NAME);
                         break;
                     case SET_CONFIGURATION:
                         break;
@@ -85,10 +90,10 @@ describe("setup Epics", () => {
         };
         testEpic(
             cadastrappTearDown,
-            6,
-            tearDown(),
+            7,
+            setControlProperty(CONTROL_NAME, 'enabled', false),
             actions => {
-                expect(actions.length).toBe(6);
+                expect(actions.length).toBe(7);
                 actions.map(action=>{
                     switch (action.type) {
                     case TOGGLE_SELECTION:
@@ -96,6 +101,10 @@ describe("setup Epics", () => {
                     case REMOVE_ADDITIONAL_LAYER:
                         expect(includes([CADASTRAPP_VECTOR_LAYER_ID, CADASTRAPP_RASTER_LAYER_ID], action.id)).toBe(true);
                         expect(action.owner).toBe(CADASTRAPP_OWNER);
+                        break;
+                    case UPDATE_DOCK_PANELS:
+                        expect(action.name).toBe(CONTROL_NAME);
+                        expect(action.action).toBe('remove');
                         break;
                     case CLEAN_MAP_POPUPS:
                         break;
