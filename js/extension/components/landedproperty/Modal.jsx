@@ -71,6 +71,7 @@ export default function LandedPropertyInformationModal({
                 setInfo(ufInfo);
                 getProprietaire({ details: 2, comptecommunal })
                     .then(result => setProprietaires(result))
+                    // eslint-disable-next-line no-console
                     .catch((e) => {console.log(e);}); // TODO: notify error
                 getParcelle({ unitefonciere: uf }).then(setParcelleData);
             });

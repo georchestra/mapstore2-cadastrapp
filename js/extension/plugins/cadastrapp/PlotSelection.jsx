@@ -52,7 +52,7 @@ const PlotsSelection = connect((state) => ({
 export default connect(
     state => ({
         plotSelectionData: plotDataSelector(state),
-        activeSelectionTab: activeSelectionTabIndexSelectors(state),
+        activeSelectionTab: activeSelectionTabIndexSelectors(state)
     }), {
         loadInfo
     }

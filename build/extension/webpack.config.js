@@ -2,7 +2,7 @@
 const createExtensionWebpackConfig = require('../../MapStore2/build/createExtensionWebpackConfig');
 
 const { name } = require('../../config');
-const { gitRevisionPlugin, ...commons } = require('./commons');
+const { gitRevisionPlugin, plugins: commonsPlugins, ...commons } = require('./commons');
 const webpackConfig = createExtensionWebpackConfig({
     prod: false,
     name,
@@ -10,12 +10,12 @@ const webpackConfig = createExtensionWebpackConfig({
     overrides: {
         // serve translations (and index.json)
         devServer: {
-            publicPath: "/extension/",
+            publicPath: "/extensions/",
             contentBase: './assets',
-            contentBasePublicPath: '/extension/'
+            contentBasePublicPath: '/extensions/'
         }
     },
-    plugins: [ gitRevisionPlugin ]
+    plugins: [ gitRevisionPlugin, ...commonsPlugins ]
 });
 // Temp fix to not fail for svg imports. TODO: wait for a fix on mapstore
 const fileLoader = {

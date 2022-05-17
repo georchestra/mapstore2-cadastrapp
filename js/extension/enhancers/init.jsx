@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-export default () => (Component) => ({ setUp = () => { }, tearDown = () => { }, openOnLoad, open, ...props }) => {
+export default () => (Component) => ({ setUp = () => { }, openOnLoad, open, ...props }) => {
     // auto open effect
     useEffect(() => {
         let timeout;
@@ -25,7 +25,6 @@ export default () => (Component) => ({ setUp = () => { }, tearDown = () => { }, 
         if (props.enabled) {
             setUp(props?.pluginCfg);
         }
-        return () => tearDown();
     }, [props.enabled]);
     return <Component {...props} />;
 };

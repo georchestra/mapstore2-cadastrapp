@@ -14,4 +14,4 @@ export default () => {
         setSearchState(set(eventKey, undefined, searchState));
     };
     return [searchState, setFormState, resetFormState];
-}
+};

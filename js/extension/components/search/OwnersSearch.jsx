@@ -1,6 +1,5 @@
 
 import React, {useState} from 'react';
-import { isString } from "lodash";
 
 import { Tabs, Tab } from "react-bootstrap";
 import useFormState from '../../hooks/useFormState';
@@ -13,7 +12,7 @@ import SearchButtons from './SearchButtons';
 
 
 import { isSearchValid } from '../../utils/validation';
-export default function OwnersSearch({ loading, onSearch = () => { }, onOwnersSearch = () => {}}) {
+export default function OwnersSearch({ loading, onOwnersSearch = () => {}}) {
     const [currentTab, setCurrentTab] = useState(SEARCH_TYPES.USER);
 
     const [searchState, setFormState, resetFormState] = useFormState();

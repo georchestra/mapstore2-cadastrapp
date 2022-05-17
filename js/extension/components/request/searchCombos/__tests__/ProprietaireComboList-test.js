@@ -8,14 +8,19 @@
 import React from 'react';
 import expect from 'expect';
 import ReactDOM from "react-dom";
+import { Provider } from 'react-redux';
 import ProprietaireComboList from '../ProprietaireComboList';
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import TestUtils from 'react-dom/test-utils';
+import configureMockStore from "redux-mock-store";
+const mockStore = configureMockStore();
 
 describe('ProprietaireComboList', () => {
+    let store;
     let mockAxios;
     beforeEach((done) => {
+        store = mockStore();
         mockAxios = new MockAdapter(axios);
         document.body.innerHTML = '<div id="container"></div>';
         setTimeout(done);
@@ -29,14 +34,28 @@ describe('ProprietaireComboList', () => {
     });
 
     it('test render ProprietaireComboList component', () => {
-        ReactDOM.render(<ProprietaireComboList/>, document.getElementById("container"));
+        store = mockStore({
+            cadastrapp: {
+                configuration: {
+                    minNbCharForSearch: 2
+                }
+            }
+        });
+        ReactDOM.render(<Provider store={store}><ProprietaireComboList/></Provider>, document.getElementById("container"));
         const container = document.getElementById('container');
         expect(container).toBeTruthy();
     });
 
     it('test value search from combobox', () => {
+        store = mockStore({
+            cadastrapp: {
+                configuration: {
+                    minNbCharForSearch: 2
+                }
+            }
+        });
         mockAxios.onGet().reply(200, [{label: "test", value: "1"}]);
-        ReactDOM.render(<ProprietaireComboList />, document.getElementById("container"));
+        ReactDOM.render(<Provider store={store}><ProprietaireComboList/></Provider>, document.getElementById("container"));
         const container = document.getElementById('container');
         expect(container).toBeTruthy();
         const dropDown = document.querySelectorAll('[role="combobox"]');

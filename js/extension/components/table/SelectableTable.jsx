@@ -24,7 +24,7 @@ export default function SelectableTable(props) {
                         onCheckClick={() => { }}
                         selected={r[r.length - 1]}/>
                 </div>
-                {Object.keys(r).filter(k => k!== "feature").map(k => r[k]).map((cell, i) => {
+                {Object.keys(r).filter(k => k !== "feature").map(k => r[k]).map((cell, i) => {
                     let w = props.widths[i] + "%";
                     return (
                         <div style={{ width: w }} className="cell">{cell}</div>
