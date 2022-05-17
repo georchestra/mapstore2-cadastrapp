@@ -2,6 +2,8 @@ import React from 'react';
 import MapView from './MapView';
 import { ResizableBox } from 'react-resizable';
 
+/* eslint-disable camelcase */
+
 function getSufBatCalcPercentage(surfaceTotal, surfaceBatie) {
     var percent = 0;
     if (surfaceTotal && surfaceBatie && surfaceTotal !== 0 && surfaceBatie !== 0) {

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { PanelGroup, Panel} from 'react-bootstrap';
-import useAccordionState from '../../../hooks/useAccordionState';
+import useAccordionState from '@js/extension/hooks/useAccordionState';
 import Message from '@mapstore/components/I18N/Message';
-
 import Modal from '@mapstore/components/misc/Modal';
-import { getHabitationDetails } from '../../../api';
+import { getHabitationDetails } from '@js/extension/api';
+
+/* eslint-disable camelcase */
+
 function ArticleHeader({ articleType, dnudes, ccocac }) {
     switch (articleType) {
     case "article40":

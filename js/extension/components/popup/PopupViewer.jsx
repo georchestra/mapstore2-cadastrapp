@@ -10,6 +10,8 @@ import {
     cadastrappPluginCfgSelector
 } from "@js/extension/selectors/cadastrapp";
 
+/* eslint-disable camelcase */
+
 export default connect(state => ({
     loader: popupLoaderSelector(state),
     infoBulle: bulleInfoSelector(state),
