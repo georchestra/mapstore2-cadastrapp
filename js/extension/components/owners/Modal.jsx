@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { SEARCH_TYPES } from '../../constants';
-import PropertiesRadio from '../information/PropertiesRadio';
-import { downloadResponse } from '../../utils/download';
-import '../../ficheUniteFonciere.css';
+import { SEARCH_TYPES } from '@js/extension/constants';
+import PropertiesRadio from '@js/extension/components/information/PropertiesRadio';
+import { downloadResponse } from '@js/extension/utils/download';
+import '@js/extension/ficheUniteFonciere.css';
 import Message from '@mapstore/components/I18N/Message';
 
 import Modal from '@mapstore/components/misc/Modal';
-import OwnersListTable from '../table/OwnersListTable';
+import OwnersListTable from '@js/extension/components/table/OwnersListTable';
 
 import { Button, Glyphicon } from 'react-bootstrap';
-import { exportAsCsv } from '../../api';
+import { exportAsCsv } from '@js/extension/api';
+
+/* eslint-disable camelcase */
 
 export default function OwnersModal({
     loading,
