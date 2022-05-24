@@ -13,7 +13,8 @@ import {
     removePlots,
     zoomToSelection,
     loadInfo,
-    showLandedPropertyInformationByParcelle
+    showLandedPropertyInformationByParcelle,
+    saveAsAnnotation
 } from '../../actions/cadastrapp';
 
 import {
@@ -43,7 +44,8 @@ const PlotsSelection = connect((state) => ({
     removePlots: removePlots,
     zoomToSelection: zoomToSelection,
     showLandedPropertyInformationByParcelle,
-    onTabDelete: () => removePlotSelection()
+    onTabDelete: () => removePlotSelection(),
+    onSaveAsAnnotation: saveAsAnnotation
 })(PS);
 
 /**

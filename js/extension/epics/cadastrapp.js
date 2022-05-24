@@ -7,7 +7,7 @@ export { syncLayerForPlots, zoomToExtentAllResultsEpic } from './layerSync';
 // epics that implement map selection
 export { cadastrappMapSelection, mouseMovePopupEpic, showPopupEpic, showLandedPropertyByParcelle, togglePopupOnIdentify } from './mapSelection';
 
-export { cadastrappZoomToSelection } from './events';
+export { cadastrappZoomToSelection, cadastrappSaveAsAnnotation } from './events';
 
 export { cadastrappSearch, cadastrappOwnersSearch } from './search';
 

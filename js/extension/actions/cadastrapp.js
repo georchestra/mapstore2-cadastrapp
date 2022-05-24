@@ -37,6 +37,7 @@ export const SAVE_BUBBLE_INFO = "CADASTRAPP:SAVE_BUBBLE_INFO";
 export const SHOW_POPUP = "CADASTRAPP:SHOW_POPUP";
 export const PRINT_SUBMITTED = "CADASTRAPP:PRINT_SUBMITTED";
 export const PRINT_RESPONSE = "CADASTRAPP:PRINT_RESPONSE";
+export const SAVE_AS_ANNOTATION = "CADASTRAPP:SAVE_AS_ANNOTATION";
 
 /**
  * Set the style of highlight
@@ -305,4 +306,12 @@ export const onPrintResponse = (requestId, allowDocument = true) => ({
     type: PRINT_RESPONSE,
     allowDocument,
     requestId
+});
+
+/**
+ * Save print response of the request id and allow document to be printed
+ * @return {{type: string}}
+ */
+export const saveAsAnnotation = () => ({
+    type: SAVE_AS_ANNOTATION
 });
