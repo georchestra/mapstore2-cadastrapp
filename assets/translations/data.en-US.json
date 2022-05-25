@@ -295,6 +295,8 @@
                 },
                 "parcelle" : {
                     "fiche": "Information form",
+                    "saveAsAnnotation": "Save as annotation",
+                    "selectedPlots": "Selected plots",
                     "uf": "Land Unit Information",
                     "delete": "Delete selected plots",
                     "zoom": {

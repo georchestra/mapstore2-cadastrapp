@@ -295,6 +295,8 @@
                 },
                 "parcelle" : {
                     "fiche": "Fiche d'info parcelle(s)",
+                    "saveAsAnnotation": "Enregistrer en tant qu'annotation",
+                    "selectedPlots": "Parcelles sélectionnées",
                     "uf": "Fiche unité foncière",
                     "delete": "Enlever parcelle(s)",
                     "zoom": {

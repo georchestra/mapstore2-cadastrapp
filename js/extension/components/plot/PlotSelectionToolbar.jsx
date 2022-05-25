@@ -23,6 +23,7 @@ export default function PlotSelectionToolbar({
     authLevel = {},
     currentData = [],
     loadInfo = () => {},
+    onSaveAsAnnotation = () => {},
     zoomToSelection = () => {},
     removePlots = () => {},
     showLandedPropertyInformationByParcelle = () => {},
@@ -63,6 +64,11 @@ export default function PlotSelectionToolbar({
                     glyph: "info-sign",
                     tooltipId: "cadastrapp.result.parcelle.fiche",
                     onClick: () => { loadInfo(selectedPlots);}
+                }, {
+                    disabled: !isDataPresent,
+                    glyph: "comment",
+                    tooltipId: "cadastrapp.result.parcelle.saveAsAnnotation",
+                    onClick: () => { onSaveAsAnnotation(selectedPlots);}
                 }, ((isCNIL1 || isCNIL2) ? {
                     renderButton:
                         (<DropdownButton
