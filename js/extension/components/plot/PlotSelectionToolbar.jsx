@@ -65,6 +65,7 @@ export default function PlotSelectionToolbar({
                     tooltipId: "cadastrapp.result.parcelle.fiche",
                     onClick: () => { loadInfo(selectedPlots);}
                 }, {
+                    disabled: !isDataPresent,
                     glyph: "comment",
                     tooltipId: "cadastrapp.result.parcelle.saveAsAnnotation",
                     onClick: () => { onSaveAsAnnotation(selectedPlots);}
