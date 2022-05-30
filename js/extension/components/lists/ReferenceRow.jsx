@@ -60,7 +60,7 @@ export default function ReferenceRow({
             data={sections.map(({ ccosec, ...rest}) => ({
                 ccosec,
                 ...rest,
-                label: "" + ccosec
+                label: (ccopre || "") + ccosec
             }))}
         />
         <DropdownList
