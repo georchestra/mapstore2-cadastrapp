@@ -49,7 +49,7 @@ export default function ReferenceRow({
             defaultOpen
             disabled={isEmpty(sections)}
             style={fieldStyle}
-            textField="ccosec"
+            textField="label"
             placeholder={'cadastrapp.parcelle.result.ccosec'}
             value={section}
             onChange={() => { }}
@@ -57,10 +57,11 @@ export default function ReferenceRow({
                 onSetValue('section', newSection);
             }}
             filter="contains"
-            data={sections.map(({ ccosec, ...rest}) => ({
+            data={sections.map(({ ccosec, ccopre, ...rest}) => ({
                 ccosec,
+                ccopre,
                 ...rest,
-                label: "" + ccosec
+                label: ccopre + ccosec
             }))}
         />
         <DropdownList
