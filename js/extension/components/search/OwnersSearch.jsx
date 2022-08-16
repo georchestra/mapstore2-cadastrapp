@@ -46,7 +46,7 @@ export default function OwnersSearch({ loading, onOwnersSearch = () => {}}) {
                 valid={isSearchValid(currentTab, searchState[currentTab])}
                 onClear={() => resetFormState(currentTab)}
                 onSearch={() => {
-                    onOwnersSearch(SEARCH_TYPES.USER, searchState[currentTab]);
+                    onOwnersSearch(currentTab, searchState[currentTab]);
                 }} />
         </div>
     );
