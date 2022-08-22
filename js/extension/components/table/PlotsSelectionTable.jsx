@@ -10,7 +10,7 @@ const columns = [{
     name: "cadastrapp.parcelle.result.commune",
     resizable: true
 }, {
-    key: "ccosec",
+    key: "sectionLabel",
     width: 80,
     sortable: true,
     name: "cadastrapp.parcelle.result.ccosec",
@@ -45,8 +45,8 @@ function PlotsSelectionTable({
     if (!data) {
         return null;
     }
-    // create mixed column for address
-    const processedRows = data.map(v => ({ ...v, cadastralAddr: v.dnvoiri + " " + v.cconvo + " " + v.dvoilib }));
+    // create mixed column for address and section
+    const processedRows = data.map(v => ({ ...v, sectionLabel: v.ccopre + v.ccosec, cadastralAddr: v.dnvoiri + " " + v.cconvo + " " + v.dvoilib }));
     const rows = (({sortColumn, sortDirection} = {}) => {
         if (sortDirection === "ASC") {
             return sortBy(processedRows, sortColumn);
