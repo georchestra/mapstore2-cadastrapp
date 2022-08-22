@@ -31,12 +31,14 @@ export default function Buildings({
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        getBatiments({ parcelle, dnubat: letter }).then((data) => {
-            setBuildings(data);
-            setSelected([]);
-            setLoading(false);
-        });
+        if (letter) {
+            setLoading(true);
+            getBatiments({ parcelle, dnubat: letter }).then((data) => {
+                setBuildings(data);
+                setSelected([]);
+                setLoading(false);
+            });
+        }
     }, [letter]);
 
     // Description
