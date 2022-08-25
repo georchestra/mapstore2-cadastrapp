@@ -6,7 +6,7 @@ import css from 'raw-loader!../../ficheUniteFonciere.css.txt';
 import Message from '@mapstore/components/I18N/Message';
 import bbox from '@turf/bbox';
 
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import Content from './Content';
 import { getInfoUniteFonciere, getProprietaire, getParcelle } from '@js/extension/api/api';

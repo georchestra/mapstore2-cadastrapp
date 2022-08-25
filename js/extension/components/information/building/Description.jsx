@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PanelGroup, Panel} from 'react-bootstrap';
 import useAccordionState from '@js/extension/hooks/useAccordionState';
 import Message from '@mapstore/components/I18N/Message';
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import { getHabitationDetails } from '@js/extension/api';
 
 /* eslint-disable camelcase */
