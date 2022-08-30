@@ -89,7 +89,6 @@ export const cadastrappSetup = (action$, store) =>
                             name: cadastreWMSLayerName,
                             url: cadastreWMSURL,
                             visibility: true,
-                            transparent: false,
                             search: {
                                 url: cadastreWFSURL,
                                 name: cadastreWFSLayerName,
