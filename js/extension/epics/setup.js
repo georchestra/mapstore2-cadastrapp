@@ -28,7 +28,7 @@ import {
     setConfiguration,
     setupCompleted,
     loading,
-    toggleSelectionTool, TOGGLE_SELECTION
+    toggleSelectionTool, TOGGLE_SELECTION, initializedLayers
 } from '../actions/cadastrapp';
 import {
     SET_CONTROL_PROPERTIES,
@@ -89,31 +89,32 @@ export const cadastrappSetup = (action$, store) =>
                             name: cadastreWMSLayerName,
                             url: cadastreWMSURL,
                             visibility: true,
+                            transparent: false,
                             search: {
                                 url: cadastreWFSURL,
                                 name: cadastreWFSLayerName,
                                 type: "wfs"
                             }
-                        }, true),
+                        }),
                     registerEventListener(MOUSE_EVENT, CONTROL_NAME) // Set map's mouse event trigger type
-                ).concat(
-                    Rx.Observable.of(
-                        updateAdditionalLayer(
-                            CADASTRAPP_VECTOR_LAYER_ID,
-                            CADASTRAPP_OWNER,
-                            'overlay',
-                            {
-                                id: CADASTRAPP_VECTOR_LAYER_ID,
-                                features: [],
-                                type: "vector",
-                                name: "searchPoints",
-                                visibility: true
-                            })
-                    )
-                ).concat([...(mapInfoEnabled ? [toggleMapInfoState(), hideMapinfoMarker()] : [])]);
+                ).concat([
+                    updateAdditionalLayer(
+                        CADASTRAPP_VECTOR_LAYER_ID,
+                        CADASTRAPP_OWNER,
+                        'overlay',
+                        {
+                            id: CADASTRAPP_VECTOR_LAYER_ID,
+                            features: [],
+                            type: "vector",
+                            name: "searchPoints",
+                            visibility: true
+                        }),
+                    ...(mapInfoEnabled ? [toggleMapInfoState(), hideMapinfoMarker()] : [])
+                ]);
             })
         )
-            .concat(Rx.Observable.of(setupCompleted())) // required to sync the layer the first time (if closed/reopen)
+            .concat(Rx.Observable.of(setupCompleted())) // subscribes app to sync selection layer upon several actions
+            .concat(Rx.Observable.of(initializedLayers())) // required to sync the layer the first time (if closed/reopen)
             .let(
                 wrapStartStop(
                     loading(true, 'configuration'),

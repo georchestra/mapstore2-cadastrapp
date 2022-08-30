@@ -1,6 +1,7 @@
 
 export const SETUP = "CADASTRAPP:SETUP";
 export const SETUP_COMPLETED = "CADASTRAPP:SETUP_COMPLETED";
+export const LAYERS_INITIALIZED = "CADASTRAPP:LAYERS_INITIALIZED";
 export const TEAR_DOWN = "CADASTRAPP:TEAR_DOWN";
 export const LOADING = "CADASTRAPP:LOADING";
 export const SET_CONFIGURATION = "CADASTRAPP:SET_CONFIGURATION";
@@ -71,6 +72,13 @@ export const setLayerStyles = (styles) => ({
 export const setUp = (cfg) => ({
     type: SETUP,
     cfg
+});
+
+/**
+ * triggered when layers are initialized upon setup, after setup is completed
+ */
+export const initializedLayers = () => ({
+    type: LAYERS_INITIALIZED
 });
 
 /**

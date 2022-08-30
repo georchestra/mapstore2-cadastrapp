@@ -15,7 +15,9 @@ import {
     SET_STYLES,
     ZOOM_TO_RESULTS,
     UPDATE_LAYER_STYLE,
-    ADD_PLOT_SELECTION, TEAR_DOWN
+    ADD_PLOT_SELECTION,
+    TEAR_DOWN,
+    LAYERS_INITIALIZED
 } from '../actions/cadastrapp';
 import {
     getCurrentPlotFeatures,
@@ -35,7 +37,7 @@ import {
 export const syncLayerForPlots = (action$, {getState = () => {}})=>
     action$.ofType(SETUP_COMPLETED)
         .switchMap(() => {
-            return action$.ofType(ADD_PLOT_SELECTION, ADD_PLOTS, REMOVE_PLOTS, SET_ACTIVE_PLOT_SELECTION, REMOVE_PLOT_SELECTION, SELECT_PLOTS, DESELECT_PLOTS, SET_LAYER_STYLE, SET_STYLES, UPDATE_LAYER_STYLE) // actions that modify the layer, so it needs an update.
+            return action$.ofType(LAYERS_INITIALIZED, ADD_PLOT_SELECTION, ADD_PLOTS, REMOVE_PLOTS, SET_ACTIVE_PLOT_SELECTION, REMOVE_PLOT_SELECTION, SELECT_PLOTS, DESELECT_PLOTS, SET_LAYER_STYLE, SET_STYLES, UPDATE_LAYER_STYLE) // actions that modify the layer, so it needs an update.
                 .switchMap(() => {
                     const features = getCurrentPlotFeatures(getState());
                     const options = getCadastrappVectorLayer(getState());
