@@ -62,7 +62,13 @@ export const cadastrappSetup = (action$, store) =>
             .switchMap(data => {
                 return Rx.Observable.of(setConfiguration(data));
             })
-            .startWith(updateDockPanelsList(CONTROL_NAME, 'add', 'right'));
+            .startWith({
+                type: 'MAP_LAYOUT:UPDATE_DOCK_PANELS',
+                name: 'cadastrapp',
+                action: 'add',
+                location: 'right'
+            });
+        const mapInfoEnabled = get(store.getState(), "mapInfo.enabled");
         return initStream$.concat(
             Rx.Observable.defer(() => {
                 // here the configuration has been loaded
@@ -72,7 +78,7 @@ export const cadastrappSetup = (action$, store) =>
                     cadastreWFSLayerName,
                     cadastreWFSURL
                 } = configurationSelector(store.getState());
-                return Rx.Observable.from([
+                return Rx.Observable.of(
                     updateAdditionalLayer(
                         CADASTRAPP_RASTER_LAYER_ID,
                         CADASTRAPP_OWNER,
@@ -89,20 +95,22 @@ export const cadastrappSetup = (action$, store) =>
                                 type: "wfs"
                             }
                         }, true),
-                    updateAdditionalLayer(
-                        CADASTRAPP_VECTOR_LAYER_ID,
-                        CADASTRAPP_OWNER,
-                        'overlay',
-                        {
-                            id: CADASTRAPP_VECTOR_LAYER_ID,
-                            features: [],
-                            type: "vector",
-                            name: "searchPoints",
-                            visibility: true
-                        }),
-                    registerEventListener(MOUSE_EVENT, CONTROL_NAME), // Set map's mouse event trigger type
-                    ...(get(store.getState(), "mapInfo.enabled") ? [toggleMapInfoState(), hideMapinfoMarker()] : [])
-                ]);
+                    registerEventListener(MOUSE_EVENT, CONTROL_NAME) // Set map's mouse event trigger type
+                ).concat(
+                    Rx.Observable.of(
+                        updateAdditionalLayer(
+                            CADASTRAPP_VECTOR_LAYER_ID,
+                            CADASTRAPP_OWNER,
+                            'overlay',
+                            {
+                                id: CADASTRAPP_VECTOR_LAYER_ID,
+                                features: [],
+                                type: "vector",
+                                name: "searchPoints",
+                                visibility: true
+                            })
+                    )
+                ).concat([...(mapInfoEnabled ? [toggleMapInfoState(), hideMapinfoMarker()] : [])]);
             })
         )
             .concat(Rx.Observable.of(setupCompleted())) // required to sync the layer the first time (if closed/reopen)
