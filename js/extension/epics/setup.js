@@ -28,7 +28,7 @@ import {
     setConfiguration,
     setupCompleted,
     loading,
-    toggleSelectionTool, TOGGLE_SELECTION
+    toggleSelectionTool, TOGGLE_SELECTION, initializedLayers
 } from '../actions/cadastrapp';
 import {
     SET_CONTROL_PROPERTIES,
@@ -62,7 +62,13 @@ export const cadastrappSetup = (action$, store) =>
             .switchMap(data => {
                 return Rx.Observable.of(setConfiguration(data));
             })
-            .startWith(updateDockPanelsList(CONTROL_NAME, 'add', 'right'));
+            .startWith({
+                type: 'MAP_LAYOUT:UPDATE_DOCK_PANELS',
+                name: 'cadastrapp',
+                action: 'add',
+                location: 'right'
+            });
+        const mapInfoEnabled = get(store.getState(), "mapInfo.enabled");
         return initStream$.concat(
             Rx.Observable.defer(() => {
                 // here the configuration has been loaded
@@ -72,7 +78,7 @@ export const cadastrappSetup = (action$, store) =>
                     cadastreWFSLayerName,
                     cadastreWFSURL
                 } = configurationSelector(store.getState());
-                return Rx.Observable.from([
+                return Rx.Observable.of(
                     updateAdditionalLayer(
                         CADASTRAPP_RASTER_LAYER_ID,
                         CADASTRAPP_OWNER,
@@ -88,7 +94,9 @@ export const cadastrappSetup = (action$, store) =>
                                 name: cadastreWFSLayerName,
                                 type: "wfs"
                             }
-                        }, true),
+                        }),
+                    registerEventListener(MOUSE_EVENT, CONTROL_NAME) // Set map's mouse event trigger type
+                ).concat([
                     updateAdditionalLayer(
                         CADASTRAPP_VECTOR_LAYER_ID,
                         CADASTRAPP_OWNER,
@@ -100,12 +108,12 @@ export const cadastrappSetup = (action$, store) =>
                             name: "searchPoints",
                             visibility: true
                         }),
-                    registerEventListener(MOUSE_EVENT, CONTROL_NAME), // Set map's mouse event trigger type
-                    ...(get(store.getState(), "mapInfo.enabled") ? [toggleMapInfoState(), hideMapinfoMarker()] : [])
+                    ...(mapInfoEnabled ? [toggleMapInfoState(), hideMapinfoMarker()] : [])
                 ]);
             })
         )
-            .concat(Rx.Observable.of(setupCompleted())) // required to sync the layer the first time (if closed/reopen)
+            .concat(Rx.Observable.of(setupCompleted())) // subscribes app to sync selection layer upon several actions
+            .concat(Rx.Observable.of(initializedLayers())) // required to sync the layer the first time (if closed/reopen)
             .let(
                 wrapStartStop(
                     loading(true, 'configuration'),
