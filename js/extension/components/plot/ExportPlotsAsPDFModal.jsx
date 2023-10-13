@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import { PlotInformationRadio } from "@js/extension/components/information/Plot";
 import {
     baseMapsSelector,
