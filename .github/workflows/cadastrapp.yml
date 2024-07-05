@@ -41,3 +41,15 @@ jobs:
       with:
         name: Cadastrapp-${{ github.sha }}
         path: dist/Cadastrapp.zip
+
+    - name: "change webpack config to avoid minification"
+      run: sed -i -e 's/prod: true/prod: false/' build/extension/prod-webpack.config.js
+
+    - name: "build unminified"
+      run: npm run ext:build
+
+    - name: "publish zip as artifact"
+      uses: actions/upload-artifact@v1
+      with:
+        name: Cadastrapp-unminified-${{ github.sha }}
+        path: dist/Cadastrapp.zip
