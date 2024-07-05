@@ -75,6 +75,45 @@ The application runs at `http://localhost:8081` afterwards. You will see, openin
 You can run this application and refer to a running back-end of geOrchestra by configuring `proxyConfig.js` in the root of the project.
 You can configure this to point to your running instance of geOrchestra, with cadastrapp installed.
 
+When pointing directly at cadastrapp short-circuiting geOrchestra's sec-proxy,
+one can be properly authenticated by faking the extra headers via `proxyConfig.js`:
+
+```javascript
+    "/rest": {
+        target: `http://localhost:8180/mapstore`,
+        secure: false,
+        headers: {
+            "sec-roles": "ROLE_CADASTRAPP;ROLE_MAPSTORE_ADMIN",
+            "sec-username": 'testadmin',
+            "sec-org": 'PSC',
+            host: `georchestra.example.org`
+        }
+    },
+    ...
+    "/cadastrapp": {
+        target: `http://localhost:8180`,
+        secure: false,
+        headers: {
+           "sec-roles": "ROLE_CADASTRAPP",
+           "sec-username": 'testadmin',
+           "sec-org": 'PSC',
+           host: `georchestra.example.org`
+        }
+    }
+```
+
+in that case, that assumes that `npm start` runs on the same machine where
+cadastrapp & mapstore backends runs, and that the corresponding tomcat listens
+on port 8180. This should be adapted if using different ports, or being
+deployed on a different machine.
+
+With that setup and the default `localConfig.json` (which uses a login button),
+simulating a login (eg login with random credentials) will call
+`http://localhost:8081/rest/geostore/users/user/details?includeattributes=true`
+(which behind the scenes will call the existing mapstore backend, adding the
+appropriate headers) and from that point the frontend will consider the
+current user logged in with full rights on cadastrapp backend.
+
 #### Proxy
 
 If you will try to do requests to absolute URLs, you may be redirected to use the proxy. (the request will be transformed in something like `/mapstore/proxy?url=...`).
