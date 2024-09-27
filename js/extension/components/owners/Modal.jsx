@@ -5,7 +5,7 @@ import { downloadResponse } from '@js/extension/utils/download';
 import '@js/extension/ficheUniteFonciere.css';
 import Message from '@mapstore/components/I18N/Message';
 
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import OwnersListTable from '@js/extension/components/table/OwnersListTable';
 
 import { Button, Glyphicon } from 'react-bootstrap';
