@@ -3,9 +3,9 @@ import {SAVE_AS_ANNOTATION, ZOOM_TO_SELECTION} from '../actions/cadastrapp';
 import {getCadastrappVectorLayer, getCurrentPlotFeatures, getSelectedFeatures} from '../selectors/cadastrapp';
 import { zoomToExtent } from '@mapstore/actions/map';
 import bbox from '@turf/bbox';
-import {convertFeaturesToAnnotation} from "@js/extension/utils/download";
-import {setControlProperty} from "@mapstore/actions/controls";
-import {newAnnotation, setEditingFeature} from "@mapstore/actions/annotations";
+import { convertFeaturesToAnnotationLayer } from "@js/extension/utils/download";
+import { editAnnotation } from "@mapstore/plugins/Annotations/actions/annotations";
+import { addLayer } from '@mapstore/actions/layers';
 
 
 /**
@@ -30,11 +30,10 @@ export function cadastrappZoomToSelection(action$, store) {
 export function cadastrappSaveAsAnnotation(action$, store) {
     return action$.ofType(SAVE_AS_ANNOTATION).switchMap(() => {
         const state = store.getState();
-        const collection = convertFeaturesToAnnotation(getCadastrappVectorLayer(state), state);
+        const layer = convertFeaturesToAnnotationLayer(getCadastrappVectorLayer(state), state);
         return Rx.Observable.of(
-            setControlProperty('annotations', 'enabled', true),
-            newAnnotation(),
-            setEditingFeature(collection)
+            addLayer(layer),
+            editAnnotation(layer.id)
         );
     });
 }

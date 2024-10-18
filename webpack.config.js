@@ -34,6 +34,6 @@ const cfg = buildConfig(
     proxyConfig
 );
 // stream are needed here in code
-cfg.resolve.fallback = {timers: false};
+cfg.resolve.fallback = {timers: false, http: false, https: false, stream: false, zlib: false};
 cfg.devtool = "eval-source-map";
 module.exports = cfg;

@@ -37,6 +37,15 @@ const fileLoader = {
         }
     }]
 };
+const urlLoader = {
+    test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
+    use: [{
+        loader: 'url-loader',
+        options: {
+            mimetype: "application/font-woff"
+        }
+    }]
+};
 const {module: moduleObj, ...extensionConfig} = createExtensionWebpackConfig({ prod: true, name, ...commons, plugins});
 // Temp fix to return errors for leaflet
 // TODO: wait for a fix on mapstore createExtensionWebpackConfig
@@ -50,4 +59,4 @@ const rules = [{
     }, ...moduleObj.rules[0].use.slice(1)]
 }, ...moduleObj.rules.slice(1)];
 
-module.exports = { ...extensionConfig, module: { ...moduleObj, rules: [...rules, fileLoader] } };
+module.exports = { ...extensionConfig, module: { ...moduleObj, rules: [...rules, fileLoader, urlLoader] } };
