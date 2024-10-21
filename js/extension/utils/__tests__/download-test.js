@@ -1,8 +1,9 @@
 import expect from 'expect';
-import {convertFeaturesToAnnotation} from "@js/extension/utils/download";
+import {convertFeaturesToAnnotationLayer} from "@js/extension/utils/download";
+import { ANNOTATIONS } from '@mapstore/utils/LegacyAnnotationsUtils';
 
 describe('download utils', () => {
-    it("convertFeaturesToAnnotation", () => {
+    it("convertFeaturesToAnnotationLayer", () => {
         const state = {
             cadastrapp: {
                 configuration:
@@ -67,10 +68,11 @@ describe('download utils', () => {
             ]
         };
 
-        const converted = convertFeaturesToAnnotation(layer, state);
+        const converted = convertFeaturesToAnnotationLayer(layer, state);
         expect(converted.features[0].geometry.type).toBe('Polygon');
         expect(converted.features[1].geometry.type).toBe(layer.features[1].geometry.type);
         expect(converted.features[0].properties.geometryTitle).toBe('SomeTitle');
         expect(converted.features[1].properties.geometryTitle).toBe('SomeTitle2');
+        expect(converted.rowViewer).toBe(ANNOTATIONS);
     });
 });

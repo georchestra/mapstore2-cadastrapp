@@ -10,8 +10,8 @@ import { testEpic } from "@mapstore/epics/__tests__/epicTestUtils";
 import {saveAsAnnotation} from "../../actions/cadastrapp";
 import {CADASTRAPP_VECTOR_LAYER_ID} from "@js/extension/constants";
 import {cadastrappSaveAsAnnotation} from "@js/extension/epics/events";
-import {SET_CONTROL_PROPERTY} from "@mapstore/actions/controls";
-import {NEW_ANNOTATION, SET_EDITING_FEATURE} from "@mapstore/actions/annotations";
+import { ADD_LAYER } from "@mapstore/actions/layers";
+import { EDIT_ANNOTATION } from "@mapstore/plugins/Annotations/actions/annotations";
 
 describe("download Epics", () => {
     const state = {
@@ -86,17 +86,16 @@ describe("download Epics", () => {
     it("cadastrappSaveAsAnnotation", done => {
         testEpic(
             cadastrappSaveAsAnnotation,
-            3,
+            2,
             saveAsAnnotation(),
             actions => {
-                expect(actions.length).toBe(3);
+                expect(actions.length).toBe(2);
                 actions.map(action=>{
                     switch (action.type) {
-                    case SET_CONTROL_PROPERTY:
-                    case NEW_ANNOTATION:
+                    case ADD_LAYER:
                         break;
-                    case SET_EDITING_FEATURE:
-                        expect(action.feature.features.length).toBe(2);
+                    case EDIT_ANNOTATION:
+                        expect(action.id).toBeTruthy();
                         break;
                     default:
                         expect(false).toBe(true);
