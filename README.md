@@ -159,6 +159,7 @@ Here a list of hints to develop your extension:
 
 - In order to keep your changes as much self contained as possible we suggest to put all your code (and assets) in `js/extension/`. (Put css in `js/extension/assets/`, etc...)
 - Use the `@mapstore` alias to refer to MapStore components. This helps your code to be compatible with future enhancements when mapstore will be published as a separated package, that can be shared
+- Ensure that whenever the custom theme [variables](https://github.com/georchestra/mapstore2-georchestra/blob/master/themes/default/variables.less) for the geOrchestra app are modified, the `--ms-primary` variable is updated accordingly
 
 ## Developing your own extension starting from this repo
 
@@ -171,9 +172,9 @@ In ordrer to do a release you can use the following steps. Usually it is done on
 
 - Build the extension locally, or download the last artifact from the github actions (they disappear after N days) 
 - Create a github release ( From github repo page --> `Releases` --> `Draft a new release`)
-    - target the master branch, if you have to publish from master 
-    - Write the tag name you want for the release and click on "Create new tag [...] on publish" entry. (This will create a new tag on the HEAD of the master branch when the release is published). E.g. `1.0.0-rc21`
-    - Fill title of the release with the name of the release (usually the same of the tag)
-    - Fill the release description ("auto-generate release notes" button usually does the job)
-    - Upload the extension zip to the attachments for the release
-    - Publish the release (this will create the tag)
+  - target the master branch, if you have to publish from master
+  - Write the tag name you want for the release and click on "Create new tag [...] on publish" entry. (This will create a new tag on the HEAD of the master branch when the release is published). E.g. `1.0.0-rc21`
+  - Fill title of the release with the name of the release (usually the same of the tag)
+  - Fill the release description ("auto-generate release notes" button usually does the job)
+  - Upload the extension zip to the attachments for the release
+  - Publish the release (this will create the tag)

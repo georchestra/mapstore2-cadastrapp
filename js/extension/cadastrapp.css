@@ -3,6 +3,11 @@
   white-space: normal !important;
 }
 
+.cadastrapp, .cadastrapp-modal {
+  /* update color palette to align with the custom theme variables of geOrchestra (https://github.com/georchestra/mapstore2-georchestra/blob/master/themes/default/variables.less) */
+  --ms-primary: #85127e;
+}
+
 .cadastrapp {
   position: absolute;
   background: #fff;
@@ -18,7 +23,7 @@
   height: 52px;
   width: 100%;
   color: #ffffff;
-  background-color: #078aa3;
+  background-color: var(--ms-primary);
 }
 .cadastrapp .top h4 {
   float: left;
@@ -87,20 +92,20 @@
 }
 .cadastrapp .btn-selected {
   background: #fff;
-  color: #078aa3;
+  color: var(--ms-primary);
 }
 .cadastrapp .row {
   margin-left: 0px;
   margin-right: 0px;
 }
 .cadastrapp .not-selected-row:hover {
-  color: #078aa3 !important;
+  color: var(--ms-primary) !important;
   font-weight: bold;
   background: #f2f2f2;
   cursor: pointer;
 }
 .cadastrapp .selected-row {
-  color: #078aa3 !important;
+  color: var(--ms-primary) !important;
   font-weight: bold;
   background: #f2f2f2;
   cursor: pointer;
@@ -128,11 +133,11 @@
   border-bottom: solid 1px #ddd;
 }
 .cadastrapp .plots-selection .table-row:hover {
-  color: #078aa3 !important;
+  color: var(--ms-primary) !important;
   background: #f2f2f2;
 }
 .cadastrapp .plots-selection .table-row.selected {
-  color: #078aa3 !important;
+  color: var(--ms-primary) !important;
   background: #f2f2f2;
   font-weight: bold;
 }
@@ -210,8 +215,14 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
   border: none;
 }
 .cadastrapp-modal .information-panel-title.selected {
-  background: #078aa3 !important;
+  background: var(--ms-primary);
   color: #fff !important;
+}
+.cadastrapp-modal .information-panel-title.selected a:hover {
+  color: #fff
+}
+.cadastrapp-modal .information-panel-title.unselected a:hover {
+  color: var(--ms-primary);
 }
 .cadastrapp-modal .panel-heading {
   padding: 0 !important;
@@ -231,11 +242,11 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
   border-bottom: solid 1px #ddd;
 }
 .cadastrapp-modal .table-row:hover {
-  color: #078aa3 !important;
+  color: var(--ms-primary) !important;
   background: #f2f2f2;
 }
 .cadastrapp-modal .table-row.selected {
-  color: #078aa3 !important;
+  color: var(--ms-primary) !important;
   background: #f2f2f2;
   font-weight: bold;
 }
