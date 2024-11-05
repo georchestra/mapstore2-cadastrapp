@@ -3,14 +3,9 @@
   white-space: normal !important;
 }
 
-.cadastrapp, .cadastrapp-modal {
-  /* update color palette to align with the custom theme variables of geOrchestra (https://github.com/georchestra/mapstore2-georchestra/blob/master/themes/default/variables.less) */
-  --ms-primary: #85127e;
-}
-
 .cadastrapp {
   position: absolute;
-  background: #fff;
+  background: inherit;
   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.16);
   overflow: hidden;
   top: 0;
@@ -18,27 +13,6 @@
   height: 100%;
   width: 100%;
   z-index: 1000;
-}
-.cadastrapp .top {
-  height: 52px;
-  width: 100%;
-  color: #ffffff;
-  background-color: var(--ms-primary);
-}
-.cadastrapp .top h4 {
-  float: left;
-  width: 200px;
-  line-height: 32px;
-  margin-left: calc(50% - 100px);
-}
-.cadastrapp .top .btn {
-  border: none !important;
-  border-top: none !important;
-}
-.cadastrapp .top .glyphicon:hover {
-  transition: 0.3s;
-  transform: scale(1.2);
-  display: block;
 }
 .cadastrapp .side-bar {
   width: 40px;
@@ -90,25 +64,9 @@
   width: calc(100% - 52px);
   overflow: auto;
 }
-.cadastrapp .btn-selected {
-  background: #fff;
-  color: var(--ms-primary);
-}
 .cadastrapp .row {
   margin-left: 0px;
   margin-right: 0px;
-}
-.cadastrapp .not-selected-row:hover {
-  color: var(--ms-primary) !important;
-  font-weight: bold;
-  background: #f2f2f2;
-  cursor: pointer;
-}
-.cadastrapp .selected-row {
-  color: var(--ms-primary) !important;
-  font-weight: bold;
-  background: #f2f2f2;
-  cursor: pointer;
 }
 .cadastrapp .col-sm-12 {
   padding-left: 0;
@@ -125,21 +83,6 @@
   width: 100%;
   padding: 10px;
   min-height: 420px;
-}
-.cadastrapp .plots-selection .table-row {
-  float: left;
-  width: 100%;
-  cursor: pointer;
-  border-bottom: solid 1px #ddd;
-}
-.cadastrapp .plots-selection .table-row:hover {
-  color: var(--ms-primary) !important;
-  background: #f2f2f2;
-}
-.cadastrapp .plots-selection .table-row.selected {
-  color: var(--ms-primary) !important;
-  background: #f2f2f2;
-  font-weight: bold;
 }
 .cadastrapp .plots-selection .cell {
   padding: 4px;
@@ -215,14 +158,23 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
   border: none;
 }
 .cadastrapp-modal .information-panel-title.selected {
-  background: var(--ms-primary);
+  background: inherit;
   color: #fff !important;
 }
 .cadastrapp-modal .information-panel-title.selected a:hover {
   color: #fff
 }
-.cadastrapp-modal .information-panel-title.unselected a:hover {
-  color: var(--ms-primary);
+.cadastrapp-modal .information-panel-title.selected a,
+.cadastrapp-modal .information-panel-title.unselected a {
+  padding: 0px;
+}
+.cadastrapp-modal .information-panel-title.selected a .modal-header {
+  padding: 10px;
+}
+.cadastrapp-modal .information-panel-title.unselected a .modal-header{
+  padding: 10px;
+  background-color: inherit;
+  color: inherit;
 }
 .cadastrapp-modal .panel-heading {
   padding: 0 !important;
@@ -239,16 +191,7 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
   float: left;
   width: 100%;
   cursor: pointer;
-  border-bottom: solid 1px #ddd;
-}
-.cadastrapp-modal .table-row:hover {
-  color: var(--ms-primary) !important;
-  background: #f2f2f2;
-}
-.cadastrapp-modal .table-row.selected {
-  color: var(--ms-primary) !important;
-  background: #f2f2f2;
-  font-weight: bold;
+  border-bottom: solid 1px;
 }
 .cadastrapp-modal .cell {
   padding: 4px;
@@ -256,12 +199,12 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
 }
 .cadastrapp-modal .header {
   float: left;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px;
   font-weight: bold;
   width: 100%;
 }
 .cadastrapp-preferences-dialog {
-  background: #fff;
+  background: inherit;
   width: 400px;
 }
 .cadastrapp-preferences-dialog .tab-content {

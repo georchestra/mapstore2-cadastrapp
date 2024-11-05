@@ -23,7 +23,7 @@ export default function InformationPanelContainer({ items = [], authLevel, addit
                 let header = (<div
                     onClick={() => { togglePanel(index); }}
                     className={`information-panel-title ${selectedPanel[index] ? 'selected' : 'unselected'}`}>
-                    {r.parcelle}
+                    <div className="modal-header">{r.parcelle}</div>
                     {infoLoading[r?.parcelle] ? <div style={{ "float": "right" }}><Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /></div> : null}
                 </div>);
                 return (
