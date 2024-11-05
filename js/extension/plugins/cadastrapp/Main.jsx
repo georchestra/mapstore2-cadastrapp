@@ -36,7 +36,7 @@ export default connect(state => ({
                     position="right"
                     bsStyle="primary"
                     style={dockStyle}>
-                    <div className="cadastrapp">
+                    <div className="ms-header ms-primary cadastrapp">
                         <Header/>
                         <MainToolbar {...props} />
                         <MainPanel {...props} />

@@ -9,14 +9,14 @@ import Message from '@mapstore/components/I18N/Message';
  * Header of the Cadastrapp panel
  */
 function Header({onClose = () => {}}) {
-    return (<div className="top">
-        <h4><Message msgId={'cadastrapp.cadastre_tools'}/></h4>
-        <Button
+    return (<div className="row">
+        <div className="col-xs-8"><h4><Message msgId={'cadastrapp.cadastre_tools'}/></h4></div>
+        <div className="col-xs-4"><Button
             onClick={() => onClose()}
             bsStyle="primary"
             className="square-button ms-close pull-right">
             <span className="glyphicon glyphicon-1-close"></span>
-        </Button>
+        </Button></div>
     </div>);
 }
 
