@@ -228,9 +228,6 @@ div.cadastrapp-modal.cadastrapp-landed-property-modal {
   position: relative;
   z-index: 10000000;
 }
-.Select-menu-outer {
-  width: 160px !important;
-}
 .land-planning-mockup {
   position: fixed;
   height: 52px;
