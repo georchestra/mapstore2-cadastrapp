@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from "react-spinkit";
 import Message from '@mapstore/components/I18N/Message';
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import { Button, FormGroup, Radio } from 'react-bootstrap';
 
 import {
