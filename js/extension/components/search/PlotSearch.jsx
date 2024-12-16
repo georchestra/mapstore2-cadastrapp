@@ -12,6 +12,7 @@ import Identifier from '../forms/Identifier';
 import Lot from '../forms/Lot';
 import useFormState from '../../hooks/useFormState';
 import SearchButtons from './SearchButtons';
+import SelectionTools from '@js/extension/plugins/cadastrapp/toolbar/SelectionTools';
 
 export default function PlotsSearch({onSearch = () => {}, loading}) {
     const [currentTab, setCurrentTab] = useState('reference');
@@ -20,6 +21,9 @@ export default function PlotsSearch({onSearch = () => {}, loading}) {
     return (
         <div className="plots-search">
             <h3><Message msgId={'cadastrapp.parcelle.title'}/></h3>
+            <div className='selectionToolsButton'>
+                <SelectionTools {...{foncier: false}}/>
+            </div>
             <Tabs
                 className="not-scrolled-tab"
                 onSelect={k => setCurrentTab(k)}

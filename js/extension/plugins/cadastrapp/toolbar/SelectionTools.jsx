@@ -47,7 +47,7 @@ function SelectionTools({ foncier = true, currentTool, onClick = () => {} }) {
     return <>
         {
             Object.keys(SELECTION_TYPES)
-                .filter(k => foncier ? true : k !== SELECTION_TYPES.LANDED_PROPERTY) // if foncier: false, do not show landed property button
+                .filter(k => foncier ? k === SELECTION_TYPES.LANDED_PROPERTY : k !== SELECTION_TYPES.LANDED_PROPERTY) // if foncier: false, do not show landed property button, if true show only landed prop button
                 .map(k => SELECTION_TYPES[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;

@@ -335,3 +335,9 @@ input.request-obj-double.form-control{
 .cadastrapp-modal .react-grid-Cell, .cadastrapp .react-grid-Grid .react-grid-Cell {
   user-select: text;
 }
+
+.selectionToolsButton {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+}
