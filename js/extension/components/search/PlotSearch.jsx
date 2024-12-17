@@ -22,7 +22,7 @@ export default function PlotsSearch({onSearch = () => {}, loading}) {
         <div className="plots-search">
             <h3><Message msgId={'cadastrapp.parcelle.title'}/></h3>
             <div className='selectionToolsButton'>
-                <SelectionTools {...{foncier: false}}/>
+                <SelectionTools foncier = {false}/>
             </div>
             <Tabs
                 className="not-scrolled-tab"
