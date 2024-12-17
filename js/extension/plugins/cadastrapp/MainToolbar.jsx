@@ -11,8 +11,8 @@ import HelpButton from './toolbar/Help';
 export default function MainToolbar(props) {
     return (<div className="side-bar pull-left">
         <ZoomTo/>
-        <SelectionTools {...props}/>
         <SearchTools/>
+        <SelectionTools {...props}/>
         <RequestLanding />
         <Preferences configStyles={props.styles}/>
         <HelpButton helpUrl={props?.helpUrl}/>
