@@ -181,6 +181,9 @@
             "coProprietaire": {
                 "tooltip": "Co-propriétaire"
             },
+            "rechercheProprietaires": {
+                "tooltip": "Propiétaires et co-propiétaires"
+            },
             "bordereauparcellaire": {
                 "title": "Bordereau parcellaire",
                 "basemap": "Fond de plan",

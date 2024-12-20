@@ -23,6 +23,7 @@ export const SELECTION_TYPES = {
  */
 export const SEARCH_TOOLS = {
     PLOT: "PLOT",
+    OWNERS: "OWNERS",
     OWNER: "OWNER",
     COOWNER: "COOWNER"
 };
