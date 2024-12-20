@@ -7,6 +7,7 @@ import Message from "@mapstore/components/I18N/Message";
 import Main from './cadastrapp/Main';
 import init from '../enhancers/init';
 import { CONTROL_NAME } from '../constants';
+import cadastrapp_icon from '../../../assets/img/cadastrapp_icon.svg';
 
 import {setUp} from '../actions/cadastrapp';
 
@@ -47,14 +48,14 @@ export default {
             name: "cadastrapp",
             position: 1050,
             text: <Message msgId="cadastrapp.title"/>,
-            icon: <Glyphicon glyph="th" />,
+            icon: <img src={ cadastrapp_icon } className="cadastrappIcon"/>,
             doNotHide: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),
             priority: 2
         },
         SidebarMenu: {
             name: "cadastrapp",
-            icon: <Glyphicon glyph="th" />,
+            icon: <img src={ cadastrapp_icon } className="cadastrappIcon"/>,
             tooltip: "cadastrapp.title",
             text: <Message msgId="cadastrapp.title"/>,
             doNotHide: true,
