@@ -108,6 +108,17 @@
   height: calc(50vh - 180px);
   min-height: 200px;
 }
+.cadastrapp .not-scrolled-tab .nav {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.cadastrapp .not-scrolled-tab .nav > li > a {
+  padding: 5px;
+}
+.cadastrapp .not-scrolled-tab .nav-tab {
+  justify-content: space-between;
+  width: 100%;
+}
 /* reconsider this */
 .item-row {
   width: 100%;
