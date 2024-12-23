@@ -7,7 +7,7 @@ import TButton from './TButton';
 import { connect } from 'react-redux';
 import { Tooltip } from "react-bootstrap";
 import Message from "@mapstore/components/I18N/Message";
-import owners from "../../../../../assets/img/owners.svg";
+import { owners } from './toolbarIcons';
 
 /*
 ["zoom-to", "search-plots", "Plots Search"],
@@ -15,6 +15,7 @@ import owners from "../../../../../assets/img/owners.svg";
 ["user", "coownership", "Co-ownership data Search"],
 
  */
+const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(owners)}`;
 const tooltip = (id, msgId) => <Tooltip id={"id"}><Message msgId={msgId}/></Tooltip>;
 const BUTTONS_SETTINGS = {
     [SEARCH_TOOLS.PLOT]: {
@@ -22,7 +23,7 @@ const BUTTONS_SETTINGS = {
         tooltip: tooltip("search", "cadastrapp.parcelle.tooltip")
     },
     [SEARCH_TOOLS.OWNERS]: {
-        glyph: <img src={ owners } className="ownersIcon"/>,
+        glyph: <img src={ svgDataUrl } className="ownersIcon"/>,
         tooltip: tooltip("users", "cadastrapp.rechercheProprietaires.tooltip")
     },
     [SEARCH_TOOLS.OWNER]: {
