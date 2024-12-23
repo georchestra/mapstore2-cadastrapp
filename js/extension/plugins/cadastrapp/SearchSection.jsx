@@ -64,22 +64,22 @@ export default function SearchSection({
     case SEARCH_TOOLS.OWNERS:
     case SEARCH_TOOLS.OWNER:
         return (
-        <>
-            <div className='selectionToolsButton'>
-                <SearchTools owners = {true}/>
-            </div>
-            <OwnersSearch/>
-            <OwnersList />
-        </>);
+            <>
+                <div className="selectionToolsButton">
+                    <SearchTools owners/>
+                </div>
+                <OwnersSearch/>
+                <OwnersList />
+            </>);
     case SEARCH_TOOLS.COOWNER:
         return (
-        <>
-            <div className='selectionToolsButton'>
-                <SearchTools owners = {true}/>
-            </div>
-            <CoownershipSearch/>
-            <OwnersList />
-        </>);
+            <>
+                <div className="selectionToolsButton">
+                    <SearchTools owners/>
+                </div>
+                <CoownershipSearch/>
+                <OwnersList />
+            </>);
 
     default:
         return null;

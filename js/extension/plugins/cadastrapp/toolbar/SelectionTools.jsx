@@ -42,7 +42,7 @@ const BUTTONS_SETTINGS = {
  * Implement the selection tools.
  * They are mutually exclusive and allow to start a selection on map.
  */
-function SelectionTools({ foncier = true, currentTool="POINT", onClick = () => {} }) {
+function SelectionTools({ foncier = true, currentTool = "POINT", onClick = () => {} }) {
     return <>
         {
             Object.keys(SELECTION_TYPES)
@@ -56,7 +56,6 @@ function SelectionTools({ foncier = true, currentTool="POINT", onClick = () => {
                         // if the current selection button is clicked, it turns off selection
                         onClick={() => {
                             isActive ? onClick() : onClick(toolName);
-                            setCurrentTool(toolName);
                         }}
                     />);
                 })

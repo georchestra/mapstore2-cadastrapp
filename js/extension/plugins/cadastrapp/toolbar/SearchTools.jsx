@@ -7,7 +7,7 @@ import TButton from './TButton';
 import { connect } from 'react-redux';
 import { Tooltip } from "react-bootstrap";
 import Message from "@mapstore/components/I18N/Message";
-import { owners } from './toolbarIcons';
+import { ownersIcon } from './toolbarIcons';
 
 /*
 ["zoom-to", "search-plots", "Plots Search"],
@@ -15,7 +15,7 @@ import { owners } from './toolbarIcons';
 ["user", "coownership", "Co-ownership data Search"],
 
  */
-const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(owners)}`;
+const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(ownersIcon)}`;
 const tooltip = (id, msgId) => <Tooltip id={"id"}><Message msgId={msgId}/></Tooltip>;
 const BUTTONS_SETTINGS = {
     [SEARCH_TOOLS.PLOT]: {
@@ -48,25 +48,24 @@ const BUTTONS_SETTINGS = {
 function SearchTools({ authLevel = {}, currentTool, onClick = () => { }, owners = false }) {
     const { isCNIL1, isCNIL2 } = authLevel;
     if (currentTool === "OWNERS") currentTool = "OWNER";
-    
     return <>
         {
             Object.keys(SEARCH_TOOLS)
-                .filter(k => owners ? 
+                .filter(k => owners ?
                     [SEARCH_TOOLS.OWNER, SEARCH_TOOLS.COOWNER].includes(k) :
                     [SEARCH_TOOLS.PLOT, SEARCH_TOOLS.OWNERS].includes(k)
                 )
-                .filter(k => {
-                    if (isCNIL1 || isCNIL2) {
-                        return true;
-                    }
-                    return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
-                })
+                // .filter(k => {
+                //     if (isCNIL1 || isCNIL2) {
+                //         return true;
+                //     }
+                //     return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
+                // })
                 .map(k => SEARCH_TOOLS[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;
                     return (<TButton
-                        bsStyle={isActive && "active"}
+                        bsStyle={isActive && "success"}
                         {...BUTTONS_SETTINGS[toolName]}
                         isCustom = {toolName === "OWNERS"}
                         onClick={() => isActive ? onClick() : onClick(toolName)}

@@ -1,4 +1,4 @@
-export const owners = `<svg
+export const ownersIcon = `<svg
    width="5.7034912mm"
    height="7.2020416mm"
    viewBox="0 0 5.7034912 7.2020417"
@@ -56,4 +56,4 @@ export const owners = `<svg
        inkscape:export-xdpi="150"
        inkscape:export-ydpi="150" />
   </g>
-</svg>`
+</svg>`;
