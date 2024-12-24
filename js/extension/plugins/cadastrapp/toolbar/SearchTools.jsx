@@ -23,7 +23,8 @@ const BUTTONS_SETTINGS = {
         tooltip: tooltip("search", "cadastrapp.parcelle.tooltip")
     },
     [SEARCH_TOOLS.OWNERS]: {
-        glyph: <img src={ svgDataUrl } className="ownersIcon"/>,
+        imgSrc: svgDataUrl,
+        cls: "ownersIcon",
         tooltip: tooltip("users", "cadastrapp.rechercheProprietaires.tooltip")
     },
     [SEARCH_TOOLS.OWNER]: {
@@ -55,12 +56,12 @@ function SearchTools({ authLevel = {}, currentTool, onClick = () => { }, owners 
                     [SEARCH_TOOLS.OWNER, SEARCH_TOOLS.COOWNER].includes(k) :
                     [SEARCH_TOOLS.PLOT, SEARCH_TOOLS.OWNERS].includes(k)
                 )
-                .filter(k => {
-                    if (isCNIL1 || isCNIL2) {
-                        return true;
-                    }
-                    return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
-                })
+                // .filter(k => {
+                //     if (isCNIL1 || isCNIL2) {
+                //         return true;
+                //     }
+                //     return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
+                // })
                 .map(k => SEARCH_TOOLS[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;
@@ -70,7 +71,6 @@ function SearchTools({ authLevel = {}, currentTool, onClick = () => { }, owners 
                                 ? "active"
                                 : ""}
                         {...BUTTONS_SETTINGS[toolName]}
-                        isCustom = {toolName === "OWNERS"}
                         onClick={() => isActive ? onClick() : onClick(toolName)}
                     />);
                 })

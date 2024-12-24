@@ -65,7 +65,7 @@ export default function SearchSection({
     case SEARCH_TOOLS.OWNER:
         return (
             <>
-                <div className="selectionToolsButton">
+                <div className="cadastrapp_selectionToolsButton">
                     <SearchTools owners/>
                 </div>
                 <OwnersSearch/>
@@ -74,7 +74,7 @@ export default function SearchSection({
     case SEARCH_TOOLS.COOWNER:
         return (
             <>
-                <div className="selectionToolsButton">
+                <div className="cadastrapp_selectionToolsButton">
                     <SearchTools owners/>
                 </div>
                 <CoownershipSearch/>
