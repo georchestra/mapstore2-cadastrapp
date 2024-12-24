@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SELECTION_TYPES } from '../../../constants';
 import { toggleSelectionTool } from '../../../actions/cadastrapp';
 import { currentSelectionToolSelector } from '../../../selectors/cadastrapp';
@@ -42,7 +42,8 @@ const BUTTONS_SETTINGS = {
  * Implement the selection tools.
  * They are mutually exclusive and allow to start a selection on map.
  */
-function SelectionTools({ foncier = true, currentTool = "POINT", onClick = () => {} }) {
+function SelectionTools({ foncier = true, currentTool, onClick = () => {} }) {
+    useEffect(() => onClick("POINT"), []);
     return <>
         {
             Object.keys(SELECTION_TYPES)
