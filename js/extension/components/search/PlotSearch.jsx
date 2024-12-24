@@ -21,7 +21,7 @@ export default function PlotsSearch({onSearch = () => {}, loading}) {
     return (
         <div className="plots-search">
             <h3><Message msgId={'cadastrapp.parcelle.title'}/></h3>
-            <div className='selectionToolsButton'>
+            <div className='cadstrap_selectionToolsButton'>
                 <SelectionTools foncier = {false}/>
             </div>
             <Tabs
