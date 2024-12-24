@@ -55,17 +55,20 @@ function SearchTools({ authLevel = {}, currentTool, onClick = () => { }, owners 
                     [SEARCH_TOOLS.OWNER, SEARCH_TOOLS.COOWNER].includes(k) :
                     [SEARCH_TOOLS.PLOT, SEARCH_TOOLS.OWNERS].includes(k)
                 )
-                // .filter(k => {
-                //     if (isCNIL1 || isCNIL2) {
-                //         return true;
-                //     }
-                //     return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
-                // })
+                .filter(k => {
+                    if (isCNIL1 || isCNIL2) {
+                        return true;
+                    }
+                    return [SEARCH_TOOLS.PLOT].includes(k); // allowed for normal users.
+                })
                 .map(k => SEARCH_TOOLS[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;
                     return (<TButton
-                        bsStyle={isActive && "success"}
+                        bsStyle={isActive ? "success"
+                            : (["OWNER", "COOWNER"].includes(currentTool) && toolName === "OWNERS")
+                                ? "active"
+                                : ""}
                         {...BUTTONS_SETTINGS[toolName]}
                         isCustom = {toolName === "OWNERS"}
                         onClick={() => isActive ? onClick() : onClick(toolName)}
