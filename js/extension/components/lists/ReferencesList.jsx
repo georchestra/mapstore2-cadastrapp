@@ -38,7 +38,7 @@ export default function ReferencesList({ references = [], cgocommune, onAddRefer
                     style={{ marginLeft: 6, marginTop: 4 }}
                     className="pull-left"><Message msgId={'cadastrapp.parcelle.addMoreReference'}/></span>
             </div>
-            <div style={{ width: "100%", height: "calc(50vh - 290px)", minHeight: 96, "overflowY": "visible" }}>
+            <div style={{ width: "100%", minHeight: 96, "overflowY": "visible" }}>
                 {
                     sections && references.map((row, index) => {
                         return (<ReferenceRow
