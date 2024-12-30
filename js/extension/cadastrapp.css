@@ -76,9 +76,16 @@
 .cadastrapp .coownership-search,
 .cadastrapp .plots-search {
   margin: 10px;
-  max-height: 55%;
-  height: 55%;
   border: solid 1px #ddd;
+}
+.cadastrapp .plots-search .searchButtonsContainer {
+  display: flex;
+  align-items: center;
+}
+.searchButtons{
+  float: none !important;
+  margin: 10px;
+  margin-left: auto;
 }
 .cadastrapp .plots-selection {
   width: 100%;

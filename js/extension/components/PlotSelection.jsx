@@ -59,22 +59,20 @@ function PlotSelectionTabContent({
 
 function PlotSelectionTabActionButtons({onNewTab = () => {}, onTabDelete = () => {}}) {
     return (
-        <ButtonGroup className="pull-right">
+        <ButtonGroup style={{position: "absolute", top: "50%", transform: "translateY(-50%)"}}>
             <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.addTab'}/></Tooltip>}>
                 <Button
-                    className="pull-right"
                     onClick={onNewTab}
                 ><span className="glyphicon glyphicon-plus"></span>
                 </Button>
             </OverlayTrigger>
-            <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
+            {/* <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
                 <ConfirmButton
-                    className="pull-right"
                     confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
                     onClick={onTabDelete}>
                     <Glyphicon glyph="trash" />
                 </ConfirmButton>
-            </OverlayTrigger>
+            </OverlayTrigger> */}
         </ButtonGroup>
     );
 }
@@ -84,6 +82,8 @@ function PlotTabs({
     onTabChange,
     data,
     plots,
+    onTabDelete = () => {},
+    onRowsSelected,
     ...props
 }) {
 
@@ -102,6 +102,13 @@ function PlotTabs({
                         {plots.slice(0, plots.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((plot, index) => (
                             <NavItem role="tab" eventKey={index}>
                                 {getPlotTitle(plot, index)}
+                                <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
+                                    <ConfirmButton
+                                        confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
+                                        onClick={() => {onRowsSelected(); onTabDelete(index);}}>
+                                        <Glyphicon glyph="remove" />
+                                    </ConfirmButton>
+                                </OverlayTrigger>
                             </NavItem>
                         ))}
                         {plots.length > MAX_TABS

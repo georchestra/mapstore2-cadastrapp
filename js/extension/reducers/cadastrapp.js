@@ -193,6 +193,8 @@ export default function cadastrapp(state = DEFAULT_STATE, action) {
     case REMOVE_PLOT_SELECTION: {
         const active = action.active ?? state.activePlotSelection;
         const newPlots = [...state.plots.filter((_, i) => i !== active)];
+        console.log({active});
+        console.log({newPlots});
         return compose(
             set(`plots`, newPlots),
             set(`activePlotSelection`, Math.max(state.activePlotSelection - 1, 0))
