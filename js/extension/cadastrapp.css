@@ -78,7 +78,7 @@
   margin: 10px;
   border: solid 1px #ddd;
 }
-.cadastrapp .plots-search .searchButtonsContainer {
+.cadastrapp .searchButtonsContainer {
   display: flex;
   align-items: center;
 }
