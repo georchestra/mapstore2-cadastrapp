@@ -102,6 +102,11 @@
   font-weight: bold;
   width: 100%;
 }
+.cadastrapp .plotSelectionTabActionButtons {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .cadastrapp .tab-content {
   border-top: none;
   overflow-x: hidden;
@@ -125,6 +130,15 @@
 .cadastrapp .not-scrolled-tab .nav-tab {
   justify-content: space-between;
   width: 100%;
+}
+.cadastrapp .plotPanel a {
+  padding: 10px !important;
+}
+.cadastrapp .plotPanel .btn-default {
+  background-color: rgba(255, 0, 0, 0);
+}
+.cadastrapp .plotPanel.active .btn-default {
+  color: black;
 }
 /* reconsider this */
 .item-row {

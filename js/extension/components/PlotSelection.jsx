@@ -57,22 +57,15 @@ function PlotSelectionTabContent({
     );
 }
 
-function PlotSelectionTabActionButtons({onNewTab = () => {}, onTabDelete = () => {}}) {
+function PlotSelectionTabActionButtons({onNewTab = () => {}}) {
     return (
-        <ButtonGroup style={{position: "absolute", top: "50%", transform: "translateY(-50%)"}}>
+        <ButtonGroup className="plotSelectionTabActionButtons">
             <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.addTab'}/></Tooltip>}>
                 <Button
                     onClick={onNewTab}
                 ><span className="glyphicon glyphicon-plus"></span>
                 </Button>
             </OverlayTrigger>
-            {/* <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
-                <ConfirmButton
-                    confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                    onClick={onTabDelete}>
-                    <Glyphicon glyph="trash" />
-                </ConfirmButton>
-            </OverlayTrigger> */}
         </ButtonGroup>
     );
 }
@@ -98,9 +91,9 @@ function PlotTabs({
             defaultActiveKey={active}>
             <Row className="clearfix">
                 <Col sm={12}>
-                    <Nav bsStyle="tabs">
+                    <Nav bsStyle="tabs" className={plots.length >= MAX_TABS ? "full" : ""}>
                         {plots.slice(0, plots.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((plot, index) => (
-                            <NavItem role="tab" eventKey={index}>
+                            <NavItem role="tab" eventKey={index} href="javascript:void(0)" className="plotPanel">
                                 {getPlotTitle(plot, index)}
                                 <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
                                     <ConfirmButton
@@ -114,8 +107,15 @@ function PlotTabs({
                         {plots.length > MAX_TABS
                             ? <NavDropdown title={active < MAX_TABS - 1 ? "More..." : getPlotTitle(plots[active], active)}>
                                 {plots.slice(MAX_TABS - 1).map((plot, index) => (
-                                    <MenuItem eventKey={index + MAX_TABS - 1}>
+                                    <MenuItem eventKey={index + MAX_TABS - 1} href="javascript:void(0)" className="plotPanel">
                                         {getPlotTitle(plot, index + MAX_TABS - 1)}
+                                        <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
+                                            <ConfirmButton
+                                                confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
+                                                onClick={() => {onRowsSelected(); onTabDelete(index);}}>
+                                                <Glyphicon glyph="remove" />
+                                            </ConfirmButton>
+                                        </OverlayTrigger>
                                     </MenuItem>
                                 ))}
                             </NavDropdown>
