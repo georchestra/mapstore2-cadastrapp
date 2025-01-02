@@ -76,7 +76,6 @@ function PlotTabs({
     data,
     plots,
     onTabDelete = (index) => {index},
-    onRowsSelected,
     ...props
 }) {
 
@@ -93,10 +92,11 @@ function PlotTabs({
                 <Col sm={12}>
                     <Nav bsStyle="tabs" className={plots.length >= MAX_TABS ? "full" : ""}>
                         {plots.slice(0, plots.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((plot, index) => (
-                            <NavItem role="tab" eventKey={index} href="javascript:void(0)" className="plotPanel">
+                            <NavItem role="tab" eventKey={index} className="plotPanel">
                                 {getPlotTitle(plot, index)}
                                 <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
                                     <ConfirmButton
+                                        href="javascript:void(0)"
                                         confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
                                         onClick={() => {onTabDelete(index);}}>
                                         <Glyphicon glyph="remove" />
@@ -107,12 +107,13 @@ function PlotTabs({
                         {plots.length > MAX_TABS
                             ? <NavDropdown title={active < MAX_TABS - 1 ? "More..." : getPlotTitle(plots[active], active)}>
                                 {plots.slice(MAX_TABS - 1).map((plot, index) => (
-                                    <MenuItem eventKey={index + MAX_TABS - 1} href="javascript:void(0)" className="plotPanel">
+                                    <MenuItem eventKey={index + MAX_TABS - 1} className="plotPanel">
                                         {getPlotTitle(plot, index + MAX_TABS - 1)}
                                         <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
-                                            <ConfirmButton
+                                            <ConfirmButton  
+                                                href="javascript:void(0)"
                                                 confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                                onClick={() => {onTabDelete(index);}}>
+                                                onClick={() => {onTabDelete(index + (MAX_TABS - 1));}}>
                                                 <Glyphicon glyph="remove" />
                                             </ConfirmButton>
                                         </OverlayTrigger>
