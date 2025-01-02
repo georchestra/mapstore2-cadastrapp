@@ -75,7 +75,7 @@ function PlotTabs({
     onTabChange,
     data,
     plots,
-    onTabDelete = () => {},
+    onTabDelete = (index) => {index},
     onRowsSelected,
     ...props
 }) {
@@ -98,7 +98,7 @@ function PlotTabs({
                                 <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
                                     <ConfirmButton
                                         confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                        onClick={() => {onRowsSelected(); onTabDelete(index);}}>
+                                        onClick={() => {onTabDelete(index);}}>
                                         <Glyphicon glyph="remove" />
                                     </ConfirmButton>
                                 </OverlayTrigger>
@@ -112,7 +112,7 @@ function PlotTabs({
                                         <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
                                             <ConfirmButton
                                                 confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                                onClick={() => {onRowsSelected(); onTabDelete(index);}}>
+                                                onClick={() => {onTabDelete(index);}}>
                                                 <Glyphicon glyph="remove" />
                                             </ConfirmButton>
                                         </OverlayTrigger>

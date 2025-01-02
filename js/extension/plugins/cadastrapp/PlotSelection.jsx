@@ -44,7 +44,7 @@ const PlotsSelection = connect((state) => ({
     removePlots: removePlots,
     zoomToSelection: zoomToSelection,
     showLandedPropertyInformationByParcelle,
-    onTabDelete: () => removePlotSelection(),
+    onTabDelete: (index) => removePlotSelection(index),
     onSaveAsAnnotation: saveAsAnnotation
 })(PS);
 
