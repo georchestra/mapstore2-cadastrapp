@@ -66,8 +66,8 @@ function SearchTools({ authLevel = {}, currentTool, onClick = () => { }, owners 
                 .map(toolName => {
                     const isActive = toolName === currentTool;
                     return (<TButton
-                        bsStyle={isActive ? "success"
-                            : (["OWNER", "COOWNER"].includes(currentTool) && toolName === "OWNERS")
+                        bsStyle={isActive && toolName !== "PLOT"? "success"
+                            : (["OWNER", "COOWNER"].includes(currentTool) && toolName === "OWNERS") || (toolName === "PLOT" && ["PLOT"].includes(currentTool))
                                 ? "active"
                                 : ""}
                         {...BUTTONS_SETTINGS[toolName]}
