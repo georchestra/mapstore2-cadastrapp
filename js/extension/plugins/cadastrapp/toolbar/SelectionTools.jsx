@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SELECTION_TYPES } from '../../../constants';
 import { toggleSelectionTool } from '../../../actions/cadastrapp';
 import { currentSelectionToolSelector } from '../../../selectors/cadastrapp';
@@ -43,11 +43,11 @@ const BUTTONS_SETTINGS = {
  * They are mutually exclusive and allow to start a selection on map.
  */
 function SelectionTools({ foncier = true, currentTool, onClick = () => {} }) {
-
+    useEffect(() => onClick("POINT"), []);
     return <>
         {
             Object.keys(SELECTION_TYPES)
-                .filter(k => foncier ? true : k !== SELECTION_TYPES.LANDED_PROPERTY) // if foncier: false, do not show landed property button
+                .filter(k => foncier ? k === SELECTION_TYPES.LANDED_PROPERTY : k !== SELECTION_TYPES.LANDED_PROPERTY) // if foncier: false, do not show landed property button, if true show only landed prop button
                 .map(k => SELECTION_TYPES[k])
                 .map(toolName => {
                     const isActive = toolName === currentTool;
@@ -55,7 +55,9 @@ function SelectionTools({ foncier = true, currentTool, onClick = () => {} }) {
                         bsStyle={isActive && "success"}
                         {...BUTTONS_SETTINGS[toolName]}
                         // if the current selection button is clicked, it turns off selection
-                        onClick={() => isActive ? onClick() : onClick(toolName)}
+                        onClick={() => {
+                            isActive ? onClick() : onClick(toolName);
+                        }}
                     />);
                 })
         }
