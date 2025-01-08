@@ -43,7 +43,7 @@ export default function OwnersSearch({ loading, onOwnersSearch = () => {}}) {
             </Tabs>
             <div className="searchButtonsContainer">
                 <SearchButtons
-                    className="searchButtons"
+                    cls="searchButtons"
                     loading={loading}
                     valid={isSearchValid(currentTab, searchState[currentTab])}
                     onClear={() => resetFormState(currentTab)}

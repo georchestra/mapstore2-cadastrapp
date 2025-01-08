@@ -49,7 +49,7 @@ export default function PlotsSearch({onSearch = () => {}, loading}) {
             </Tabs>
             <div className="searchButtonsContainer">
                 <SearchButtons
-                    className="searchButtons"
+                    cls="searchButtons"
                     loading={loading}
                     valid={isSearchValid(currentTab, searchState[currentTab])}
                     onClear={() => resetFormState(currentTab)}

@@ -5,9 +5,9 @@ import { Button, ButtonGroup, Glyphicon } from "react-bootstrap";
 
 
 export default function({
-    loading, valid, onClear = () => {}, onSearch = () => {}, className
+    loading, valid, onClear = () => {}, onSearch = () => {}, cls
 }) {
-    return (<ButtonGroup className={className}>
+    return (<ButtonGroup className={cls}>
         {loading ? <Spinner spinnerName="circle" noFadeIn overrideSpinnerClassName="spinner" /> : null}
         <Button
             onClick={onClear}

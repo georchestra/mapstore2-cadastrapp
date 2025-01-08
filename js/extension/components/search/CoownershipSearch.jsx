@@ -67,7 +67,7 @@ export default function CoownershipSearch({ loading, onSearch = () => { }, onOwn
             </div>
             <div className="searchButtonsContainer">
                 <SearchButtons
-                    className="searchButtons"
+                    cls="searchButtons"
                     loading={loading}
                     valid={isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
                     onClear={() => resetFormState(SEARCH_TYPES.COOWNER)}
