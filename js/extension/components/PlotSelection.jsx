@@ -70,6 +70,27 @@ function PlotSelectionTabActionButtons({onNewTab = () => {}}) {
     );
 }
 
+function DeletePlot ({
+    index, 
+    isDrop=false,
+    onTabDelete,
+    MAX_TABS
+    }) {    
+    return (
+        <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
+            <ConfirmButton
+                href="javascript:void(0)"
+                confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onTabDelete(!isDrop ? index : index + (MAX_TABS - 1));
+                    }}>
+                <Glyphicon glyph="remove" />
+            </ConfirmButton>
+        </OverlayTrigger>
+    )
+}
+
 function PlotTabs({
     active,
     onTabChange,
@@ -93,17 +114,7 @@ function PlotTabs({
                         {plots.slice(0, plots.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((plot, index) => (
                             <NavItem role="tab" eventKey={index} className="plotPanel">
                                 {getPlotTitle(plot, index)}
-                                <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
-                                    <ConfirmButton
-                                        href="javascript:void(0)"
-                                        confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            onTabDelete(index);
-                                            }}>
-                                        <Glyphicon glyph="remove" />
-                                    </ConfirmButton>
-                                </OverlayTrigger>
+                                <DeletePlot index={index} onTabDelete={onTabDelete} MAX_TABS={MAX_TABS}/>
                             </NavItem>
                         ))}
                         {plots.length > MAX_TABS
@@ -111,17 +122,7 @@ function PlotTabs({
                                 {plots.slice(MAX_TABS - 1).map((plot, index) => (
                                     <MenuItem eventKey={index + MAX_TABS - 1} className="plotPanel">
                                         {getPlotTitle(plot, index + MAX_TABS - 1)}
-                                        <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
-                                            <ConfirmButton  
-                                                href="javascript:void(0)"
-                                                confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    onTabDelete(index + (MAX_TABS - 1));
-                                                    }}>
-                                                <Glyphicon glyph="remove" />
-                                            </ConfirmButton>
-                                        </OverlayTrigger>
+                                        <DeletePlot index={index} isDrop={true} onTabDelete={onTabDelete} MAX_TABS={MAX_TABS}/>
                                     </MenuItem>
                                 ))}
                             </NavDropdown>
