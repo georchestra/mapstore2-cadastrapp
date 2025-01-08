@@ -78,11 +78,10 @@ function PlotTabs({
     onTabDelete = (index) => {index},
     ...props
 }) {
-
     const MAX_TABS = 3; // max number of tabs
     const getPlotTitle = (plot, index) => {
         return plot?.title ?? ("Selection " + (index + 1).toString());
-    };
+    };    
     return (
         <Tab.Container
             onSelect={onTabChange}
@@ -98,7 +97,10 @@ function PlotTabs({
                                     <ConfirmButton
                                         href="javascript:void(0)"
                                         confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                        onClick={() => {onTabDelete(index);}}>
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            onTabDelete(index);
+                                            }}>
                                         <Glyphicon glyph="remove" />
                                     </ConfirmButton>
                                 </OverlayTrigger>
@@ -113,7 +115,10 @@ function PlotTabs({
                                             <ConfirmButton  
                                                 href="javascript:void(0)"
                                                 confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
-                                                onClick={() => {onTabDelete(index + (MAX_TABS - 1));}}>
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onTabDelete(index + (MAX_TABS - 1));
+                                                    }}>
                                                 <Glyphicon glyph="remove" />
                                             </ConfirmButton>
                                         </OverlayTrigger>
