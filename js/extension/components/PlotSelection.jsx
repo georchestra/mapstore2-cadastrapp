@@ -71,10 +71,7 @@ function PlotSelectionTabActionButtons({onNewTab = () => {}}) {
 }
 
 function DeletePlot ({
-    index, 
-    isDrop=false,
-    onTabDelete,
-    MAX_TABS
+    onDelete = () => {},
     }) {    
     return (
         <OverlayTrigger placement="bottom" overlay={<Tooltip><Message msgId={'cadastrapp.search.deleteTab'}/></Tooltip>}>
@@ -83,7 +80,7 @@ function DeletePlot ({
                 confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
                 onClick={(e) => {
                     e.stopPropagation();
-                    onTabDelete(!isDrop ? index : index + (MAX_TABS - 1));
+                    onDelete();
                     }}>
                 <Glyphicon glyph="remove" />
             </ConfirmButton>
@@ -114,7 +111,7 @@ function PlotTabs({
                         {plots.slice(0, plots.length > MAX_TABS ? MAX_TABS - 1 : MAX_TABS).map((plot, index) => (
                             <NavItem role="tab" eventKey={index} className="plotPanel">
                                 {getPlotTitle(plot, index)}
-                                <DeletePlot index={index} onTabDelete={onTabDelete} MAX_TABS={MAX_TABS}/>
+                                <DeletePlot onDelete={() => onTabDelete(index)}/>
                             </NavItem>
                         ))}
                         {plots.length > MAX_TABS
@@ -122,7 +119,7 @@ function PlotTabs({
                                 {plots.slice(MAX_TABS - 1).map((plot, index) => (
                                     <MenuItem eventKey={index + MAX_TABS - 1} className="plotPanel">
                                         {getPlotTitle(plot, index + MAX_TABS - 1)}
-                                        <DeletePlot index={index} isDrop={true} onTabDelete={onTabDelete} MAX_TABS={MAX_TABS}/>
+                                        <DeletePlot onDelete={() => onTabDelete(index + (MAX_TABS - 1))}/>
                                     </MenuItem>
                                 ))}
                             </NavDropdown>
