@@ -6,7 +6,6 @@ export const ownersIcon = `<svg
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    sodipodi:docname="interface__cadastrApp.svg"
-   inkscape:export-filename="C:\Users\Agathe\Desktop\Cadastrapp\Refonte_interface\Cadastrapp__interfaceSearchProp.svg"
    inkscape:export-xdpi="150"
    inkscape:export-ydpi="150"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
