@@ -15,6 +15,7 @@ import { search, ownersSearch, clearOwners } from '../../actions/cadastrapp';
 import {
     SEARCH_TOOLS
 } from '../../constants';
+import SearchTools from './toolbar/SearchTools';
 
 const mapSearchLoadingToProps = createSelector(
     searchLoadingSelector,
@@ -60,12 +61,25 @@ export default function SearchSection({
     case SEARCH_TOOLS.PLOT:
         return (<PlotsSearch
         />);
+    case SEARCH_TOOLS.OWNERS:
     case SEARCH_TOOLS.OWNER:
-        return (<><OwnersSearch
-        /><OwnersList /></>);
+        return (
+            <>
+                <div className="cadastrapp_selectionToolsButton">
+                    <SearchTools owners/>
+                </div>
+                <OwnersSearch/>
+                <OwnersList />
+            </>);
     case SEARCH_TOOLS.COOWNER:
-        return (<><CoownershipSearch
-        /><OwnersList /></>);
+        return (
+            <>
+                <div className="cadastrapp_selectionToolsButton">
+                    <SearchTools owners/>
+                </div>
+                <CoownershipSearch/>
+                <OwnersList />
+            </>);
 
     default:
         return null;

@@ -7,6 +7,7 @@ import TButton from './TButton';
 import { connect } from 'react-redux';
 import { Tooltip } from "react-bootstrap";
 import Message from "@mapstore/components/I18N/Message";
+import { ownersIcon } from './toolbarIcons';
 
 /*
 ["zoom-to", "search-plots", "Plots Search"],
@@ -14,11 +15,17 @@ import Message from "@mapstore/components/I18N/Message";
 ["user", "coownership", "Co-ownership data Search"],
 
  */
+const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(ownersIcon)}`;
 const tooltip = (id, msgId) => <Tooltip id={"id"}><Message msgId={msgId}/></Tooltip>;
 const BUTTONS_SETTINGS = {
     [SEARCH_TOOLS.PLOT]: {
         glyph: "search",
         tooltip: tooltip("search", "cadastrapp.parcelle.tooltip")
+    },
+    [SEARCH_TOOLS.OWNERS]: {
+        imgSrc: svgDataUrl,
+        cls: "ownersIcon",
+        tooltip: tooltip("users", "cadastrapp.rechercheProprietaires.tooltip")
     },
     [SEARCH_TOOLS.OWNER]: {
         glyph: "user",
@@ -39,12 +46,16 @@ const BUTTONS_SETTINGS = {
  * Implements Search tools buttons.
  * They are mutually exclusive and allow to select the needed search form.
  */
-function SearchTools({ authLevel = {}, currentTool, onClick = () => { } }) {
+function SearchTools({ authLevel = {}, currentTool, onClick = () => { }, owners = false }) {
     const { isCNIL1, isCNIL2 } = authLevel;
-
+    if (currentTool === "OWNERS") currentTool = "OWNER";
     return <>
         {
             Object.keys(SEARCH_TOOLS)
+                .filter(k => owners ?
+                    [SEARCH_TOOLS.OWNER, SEARCH_TOOLS.COOWNER].includes(k) :
+                    [SEARCH_TOOLS.PLOT, SEARCH_TOOLS.OWNERS].includes(k)
+                )
                 .filter(k => {
                     if (isCNIL1 || isCNIL2) {
                         return true;
@@ -55,7 +66,10 @@ function SearchTools({ authLevel = {}, currentTool, onClick = () => { } }) {
                 .map(toolName => {
                     const isActive = toolName === currentTool;
                     return (<TButton
-                        bsStyle={isActive && "active"}
+                        bsStyle={isActive && toolName !== "PLOT"? "success"
+                            : (["OWNER", "COOWNER"].includes(currentTool) && toolName === "OWNERS") || (toolName === "PLOT" && ["PLOT"].includes(currentTool))
+                                ? "active"
+                                : ""}
                         {...BUTTONS_SETTINGS[toolName]}
                         onClick={() => isActive ? onClick() : onClick(toolName)}
                     />);

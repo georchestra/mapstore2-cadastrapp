@@ -10,8 +10,11 @@ import {
  */
 export default ({
     glyph,
+    imgSrc,
+    cls,
     bsStyle,
     tooltip = <span></span>,
+    isCustom,
     ...props
 }) => {
     return (<OverlayTrigger placement="left" overlay={tooltip}>
@@ -19,7 +22,10 @@ export default ({
             {...props}
             bsStyle={bsStyle || "primary"}
             className="square-button">
-            <Glyphicon glyph={glyph} />
+                {imgSrc ? 
+                    <img src={imgSrc} className={cls} /> : 
+                    <Glyphicon glyph={glyph} />
+                }
         </Button>
     </OverlayTrigger>);
 };
