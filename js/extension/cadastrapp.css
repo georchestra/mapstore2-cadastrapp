@@ -80,6 +80,7 @@
 }
 .cadastrapp .searchButtonsContainer {
   display: flex;
+  max-height: 48px !important;
   align-items: center;
 }
 .searchButtons{
@@ -115,10 +116,11 @@
   min-height: 200px;
 }
 .cadastrapp .not-scrolled-tab .tab-content {
+  display: flex;
   overflow-x: visible;
   overflow-y: visible;
-  height: calc(50vh - 180px);
-  min-height: 200px;
+  /* height: calc(50vh - 180px); */
+  /* min-height: 200px; */
 }
 .cadastrapp .not-scrolled-tab .nav {
   display: flex;
