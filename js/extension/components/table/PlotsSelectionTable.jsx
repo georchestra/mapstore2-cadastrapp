@@ -64,15 +64,21 @@ function PlotsSelectionTable({
         const calculateHeight = () => {
             const parent = document.querySelector(".right-side");
             const parentHeight = document.querySelector(".right-side").clientHeight;
-            // Header size
+            // Header height
             const h3Height = document.querySelector("h3.pull-left").clientHeight;
             const ulSize = document.querySelector(".plots-selection .nav").clientHeight;
-            
+            // Row height min 35px
+            const rowElement = document.querySelector(".plots-selection .react-grid-Row");
+            const rowHeight = rowElement ? rowElement.style.height : 35;
             // add margin if needed to parent to see all the panel on top of footer
             const tabElement = document.querySelector(".plots-selection .tab-content");
             parent.children.length > 2 ? tabElement.style.marginBottom = "50px" : tabElement.style.marginBottom = "";            
 
-            const remainingHeight = parent.children.length > 2 ? Math.max(data.length * 35 + h3Height + ulSize + 30, 200) : Math.max(parentHeight - 220, 200); // 200px min
+            // Calcul tab height needed to display.
+            // +30 add a security bottom margin to avoid scrollbar.
+            // 200 is the minimum height no matter content.
+            // -220 : as the height is based on the total height of cadastrapp component, we need to mount the bottom of the tab.
+            const remainingHeight = parent.children.length > 2 ? Math.max(data.length * rowHeight + h3Height + ulSize + 30, 200) : Math.max(parentHeight - 220, 200);
             setDynamicHeight(remainingHeight);
         };
     
