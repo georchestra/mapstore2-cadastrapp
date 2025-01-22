@@ -69,11 +69,11 @@ function PlotsSelectionTable({
             const ulSize = document.querySelector(".plots-selection .nav").clientHeight;
             // Row height min 35px
             const rowElement = document.querySelector(".plots-selection .react-grid-Row");
-            const rowHeight = rowElement ? rowElement.style.height : 35;
+            const rowHeight = rowElement ? parseInt(rowElement.style.height, 10) : 35;
             // add margin if needed to parent to see all the panel on top of footer
             const tabElement = document.querySelector(".plots-selection .tab-content");
-            parent.children.length > 2 ? tabElement.style.marginBottom = "50px" : tabElement.style.marginBottom = "";            
-
+            parent.children.length > 2 ? tabElement.style.marginBottom = "50px" : tabElement.style.marginBottom = "";
+            
             // Calcul tab height needed to display.
             // +30 add a security bottom margin to avoid scrollbar.
             // 200 is the minimum height no matter content.
