@@ -20,7 +20,7 @@ export function StrList({items = [], onAdd, onRemove, onSetValue}) {
                     className="pull-left"><Message msgId={'cadastrapp.proprietaire.proprietaires.addMoreProprietaire'}/>
                 </span>
             </div>
-            <div style={{ width: "100%", height: "calc(50vh - 290px)", minHeight: 96, "overflowY": "auto" }}>
+            <div style={{ width: "100%", "overflowY": "auto" }}>
                 {items.map((v, index) => (
                     <div style={{ width: "100%", "float": "left" }}>
                         <FormControl

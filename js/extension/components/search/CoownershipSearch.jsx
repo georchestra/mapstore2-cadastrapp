@@ -65,18 +65,21 @@ export default function CoownershipSearch({ loading, onSearch = () => { }, onOwn
                     </div>
                 </div>
             </div>
-            <SearchButtons
-                loading={loading}
-                valid={isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
-                onClear={() => resetFormState(SEARCH_TYPES.COOWNER)}
-                onSearch={() => {
-                    if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire) && !values?.parcelle) {
-                        onOwnersSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
-                    } else {
-                        // plot search
-                        onSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
-                    }
+            <div className="searchButtonsContainer">
+                <SearchButtons
+                    cls="searchButtons"
+                    loading={loading}
+                    valid={isSearchValid(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER])}
+                    onClear={() => resetFormState(SEARCH_TYPES.COOWNER)}
+                    onSearch={() => {
+                        if (isString(searchState[SEARCH_TYPES.COOWNER]?.proprietaire) && !values?.parcelle) {
+                            onOwnersSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
+                        } else {
+                            // plot search
+                            onSearch(SEARCH_TYPES.COOWNER, searchState[SEARCH_TYPES.COOWNER]);
+                        }
                 }}/>
+            </div>
         </div>
     );
 }

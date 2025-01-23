@@ -41,13 +41,17 @@ export default function OwnersSearch({ loading, onOwnersSearch = () => {}}) {
                         setValue={(key, value) => setFormState(SEARCH_TYPES.OWNER_LOT, key, value)} />
                 </Tab>
             </Tabs>
-            <SearchButtons
-                loading={loading}
-                valid={isSearchValid(currentTab, searchState[currentTab])}
-                onClear={() => resetFormState(currentTab)}
-                onSearch={() => {
-                    onOwnersSearch(currentTab, searchState[currentTab]);
+            <div className="searchButtonsContainer">
+                <SearchButtons
+                    cls="searchButtons"
+                    loading={loading}
+                    valid={isSearchValid(currentTab, searchState[currentTab])}
+                    onClear={() => resetFormState(currentTab)}
+                    onSearch={() => {
+                        onOwnersSearch(currentTab, searchState[currentTab]);
                 }} />
+            </div>
+            
         </div>
     );
 }

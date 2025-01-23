@@ -75,9 +75,18 @@
 .cadastrapp .owners-search,
 .cadastrapp .coownership-search,
 .cadastrapp .plots-search {
-  padding: 10px;
-  max-height: 50%;
-  height: 50%;
+  margin: 10px;
+  border: solid 1px #ddd;
+}
+.cadastrapp .searchButtonsContainer {
+  display: flex;
+  max-height: 48px !important;
+  align-items: center;
+}
+.searchButtons{
+  float: none !important;
+  margin: 10px;
+  margin-left: auto;
 }
 .cadastrapp .plots-selection {
   width: 100%;
@@ -94,8 +103,12 @@
   font-weight: bold;
   width: 100%;
 }
+.cadastrapp .plotSelectionTabActionButtons {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .cadastrapp .tab-content {
-  border: solid 1px #ddd;
   border-top: none;
   overflow-x: hidden;
   overflow-y: auto;
@@ -103,10 +116,31 @@
   min-height: 200px;
 }
 .cadastrapp .not-scrolled-tab .tab-content {
+  display: flex;
   overflow-x: visible;
   overflow-y: visible;
-  height: calc(50vh - 180px);
-  min-height: 200px;
+  /* height: calc(50vh - 180px); */
+  /* min-height: 200px; */
+}
+.cadastrapp .not-scrolled-tab .nav {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.cadastrapp .not-scrolled-tab .nav > li > a {
+  padding: 5px;
+}
+.cadastrapp .not-scrolled-tab .nav-tab {
+  justify-content: space-between;
+  width: 100%;
+}
+.cadastrapp .plotPanel a {
+  padding: 10px !important;
+}
+.cadastrapp .plotPanel .btn-default {
+  background-color: rgba(255, 0, 0, 0);
+}
+.cadastrapp .plotPanel.active .btn-default {
+  color: black;
 }
 /* reconsider this */
 .item-row {

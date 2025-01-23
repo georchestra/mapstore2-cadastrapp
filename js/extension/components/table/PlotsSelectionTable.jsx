@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { sortBy } from 'lodash';
 import ReactDataGrid from './MultilineHeaderTable';
 import PropTypes from 'prop-types';
@@ -55,12 +55,50 @@ function PlotsSelectionTable({
         }
         return processedRows;
     })(sorting);
+
+    // Calcul height of parcels tab 
+    const [dynamicHeight, setDynamicHeight] = useState(0);
+    const parentChildren = document.querySelector(".right-side").children.length
+    
+    useEffect(() => {
+        const calculateHeight = () => {
+            const parent = document.querySelector(".right-side");
+            const parentHeight = document.querySelector(".right-side").clientHeight;
+            // Header height
+            const h3Height = document.querySelector("h3.pull-left").clientHeight;
+            const ulSize = document.querySelector(".plots-selection .nav").clientHeight;
+            // Row height min 35px
+            const rowElement = document.querySelector(".plots-selection .react-grid-Row");
+            const rowHeight = rowElement ? parseInt(rowElement.style.height, 10) : 35;
+            // add margin if needed to parent to see all the panel on top of footer
+            const tabElement = document.querySelector(".plots-selection .tab-content");
+            parent.children.length > 2 ? tabElement.style.marginBottom = "50px" : tabElement.style.marginBottom = "";
+            
+            // Calcul tab height needed to display.
+            // +30 add a security bottom margin to avoid scrollbar.
+            // 200 is the minimum height no matter content.
+            // -220 : as the height is based on the total height of cadastrapp component, we need to mount the bottom of the tab.
+            const remainingHeight = parent.children.length > 2 ? Math.max(data.length * rowHeight + h3Height + ulSize + 30, 200) : Math.max(parentHeight - 220, 200);
+            setDynamicHeight(remainingHeight);
+        };
+    
+        calculateHeight();
+
+        window.addEventListener("click", calculateHeight);
+        window.addEventListener("resize", calculateHeight);
+        return () => {
+            window.removeEventListener("click", calculateHeight);
+            window.removeEventListener("resize", calculateHeight);
+        }
+    }, [data, parentChildren]);
+
+    
     return (<ReactDataGrid
         sortable
         onRowDoubleClick={onRowDoubleClick}
         rowGetter={i => rows[i]}
         rowsCount={rows.length}
-        minHeight={230}
+        minHeight={dynamicHeight}
         columns={columns}
         onGridSort={(sortColumn, sortDirection) => {
             // sortDirection: "ASC", "DESC", "NONE"
