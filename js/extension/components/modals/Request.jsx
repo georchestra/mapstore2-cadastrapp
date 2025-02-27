@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import Message from '@mapstore/components/I18N/Message';
 import RS from 'react-select';
 import Spinner from "react-spinkit";

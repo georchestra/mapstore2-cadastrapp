@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import Modal from '@mapstore/components/misc/Modal';
+import { Modal } from 'react-bootstrap';
 import {
     getInformationItems,
     getAuthLevel,
