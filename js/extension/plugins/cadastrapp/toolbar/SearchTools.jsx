@@ -32,7 +32,7 @@ const BUTTONS_SETTINGS = {
         tooltip: tooltip("user", "cadastrapp.proprietaire.tooltip")
     },
     [SEARCH_TOOLS.COOWNER]: {
-        glyph: "1-group",
+        glyph: "group",
         tooltip: tooltip("group", "cadastrapp.coProprietaire.tooltip")
     }
 };
