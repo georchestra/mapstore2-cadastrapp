@@ -1,23 +1,28 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Button } from "react-bootstrap";
+import { Button, Glyphicon } from "react-bootstrap";
 import { toggleControl } from "@mapstore/actions/controls";
 import { CONTROL_NAME } from '../../constants';
 import Message from '@mapstore/components/I18N/Message';
+import FlexBox from '@mapstore/components/layout/FlexBox';
+import Text from '@mapstore/components/layout/Text';
 
 /**
  * Header of the Cadastrapp panel
  */
 function Header({onClose = () => {}}) {
-    return (<div className="row">
-        <div className="col-xs-8"><h4><Message msgId={'cadastrapp.cadastre_tools'}/></h4></div>
-        <div className="col-xs-4"><Button
-            onClick={() => onClose()}
-            bsStyle="primary"
-            className="square-button ms-close pull-right">
-            <span className="glyphicon glyphicon-1-close"></span>
-        </Button></div>
-    </div>);
+    return (
+        <FlexBox className="ms-header _padding-sm" gap="sm" column>
+            <FlexBox centerChildrenVertically>
+                <FlexBox.Fill component={Text} fontSize="md" className="_padding-lr-sm">
+                    <Message msgId={'cadastrapp.cadastre_tools'}/>
+                </FlexBox.Fill>
+                <Button key="ms-header-close" className="ms-close square-button-md _border-transparent" onClick={onClose}>
+                    <Glyphicon glyph="1-close"/>
+                </Button>
+            </FlexBox>
+        </FlexBox>
+    );
 }
 
 export default connect(() => ({
