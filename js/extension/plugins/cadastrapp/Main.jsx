@@ -34,7 +34,7 @@ export default connect(state => ({
                     open
                     size={dockWidth / width > 1 ? width : dockWidth}
                     position="right"
-                    bsStyle="primary"
+                    bsStyle="default"
                     style={dockStyle}>
                     <div className="ms-header ms-primary cadastrapp">
                         <Header/>

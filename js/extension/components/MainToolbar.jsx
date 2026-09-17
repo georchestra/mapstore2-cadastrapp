@@ -40,7 +40,7 @@ export default function MainToolbar(props) {
                 <OverlayTrigger placement="left" overlay={tooltipGenerator(v[2])}>
                     <Button
                         onClick={clickHandler(v[1])}
-                        bsStyle="primary"
+                        bsStyle="default"
                         className={props.selected === v[1] ? "square-button btn-selected" : "square-button"}>
                         <span className={"glyphicon glyphicon-" + v[0]}></span>
                     </Button>

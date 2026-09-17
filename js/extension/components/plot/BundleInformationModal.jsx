@@ -40,7 +40,7 @@ export default function BundleInformationModal({ show, parcelle, onClose }) {
         </Modal.Header>
         <Modal.Body>
             <div><Message msgId={'cadastrapp.lots.batiments'}/></div>
-            {letters.map(({ dnubat }) => <Button bsStyle={letter === dnubat ? "primary" : undefined} onClick={() => setLetter(dnubat)}>{dnubat}</Button>)}
+            {letters.map(({ dnubat }) => <Button bsStyle={letter === dnubat ? "default" : undefined} onClick={() => setLetter(dnubat)}>{dnubat}</Button>)}
         </Modal.Body>
         <FormGroup>
             <b style={{ "float": "left", width: 150, marginRight: 15 }}><Message msgId={'cadastrapp.lots.type.title'}/>:</b>
@@ -54,7 +54,7 @@ export default function BundleInformationModal({ show, parcelle, onClose }) {
         <Modal.Footer>
             <Button
                 disabled={loading}
-                bsStyle="primary"
+                bsStyle="default"
                 onClick={() => {
                     setLoading(true);
                     (format === "csv" ? exportLotsAsCSV({ parcelle, dnubat: letter }) : exportLotsAsPDF({ parcelle, dnubat: letter }))

@@ -43,7 +43,7 @@ export default function OwnersModal({
             <div style={{ margin: 10 }}>
                 <Button
                     disabled={loading || !oneSelected}
-                    bsStyle={expanded ? "primary" : undefined}
+                    bsStyle={expanded ? "default" : undefined}
                     onClick={() => {
                         setExpanded(!expanded);
                     }}
@@ -63,7 +63,7 @@ export default function OwnersModal({
         <Modal.Footer>
             <Button
                 disabled={loading || !oneSelected}
-                bsStyle="primary"
+                bsStyle="default"
                 onClick={() => {
                     onClose();
                     onSearch(SEARCH_TYPES.COMPTE_COMMUNAL, owners[selected[0]]);
@@ -74,7 +74,7 @@ export default function OwnersModal({
             </Button>
             <Button
                 disabled={loading || downloading}
-                bsStyle="primary"
+                bsStyle="default"
                 onClick={() => {
                     const titles = ["Owner id", "Full name information"]; // TODO: localize
                     const dataJson = oneSelected ? [owners[selected[0]]] : owners;

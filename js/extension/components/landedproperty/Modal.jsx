@@ -114,7 +114,7 @@ export default function LandedPropertyInformationModal({
         <Modal.Footer>
             <Button
                 disabled={loading}
-                bsStyle="primary"
+                bsStyle="default"
                 onClick={() => {
                     printPageArea("cadastrapp-landed-prop-print-page");
                 }}
