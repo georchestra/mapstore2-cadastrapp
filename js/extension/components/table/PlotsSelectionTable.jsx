@@ -58,7 +58,6 @@ function PlotsSelectionTable({
 
     // Calcul height of parcels tab 
     const [dynamicHeight, setDynamicHeight] = useState(0);
-    const parentChildren = document.querySelector(".right-side").children.length
     
     useEffect(() => {
         const calculateHeight = () => {
@@ -90,7 +89,7 @@ function PlotsSelectionTable({
             window.removeEventListener("click", calculateHeight);
             window.removeEventListener("resize", calculateHeight);
         }
-    }, [data, parentChildren]);
+    }, [data]);
 
     
     return (<ReactDataGrid
