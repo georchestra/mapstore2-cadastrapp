@@ -145,6 +145,11 @@
 .cadastrapp .plotPanel.active .btn-default {
   color: black;
 }
+
+.cadastrapp .btn {
+  border: 0px;
+}
+
 /* reconsider this */
 .item-row {
   width: 100%;
