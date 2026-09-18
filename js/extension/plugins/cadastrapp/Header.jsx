@@ -14,7 +14,7 @@ function Header({onClose = () => {}}) {
     return (
         <FlexBox className="ms-header _padding-sm" gap="sm" column>
             <FlexBox centerChildrenVertically>
-                <FlexBox.Fill component={Text} fontSize="md" className="_padding-lr-sm">
+                <FlexBox.Fill component={Text} fontSize="lg" className="_padding-lr-sm">
                     <Message msgId={'cadastrapp.cadastre_tools'}/>
                 </FlexBox.Fill>
                 <Button key="ms-header-close" className="ms-close square-button-md _border-transparent" onClick={onClose}>
