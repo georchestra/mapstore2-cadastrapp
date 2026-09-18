@@ -14,7 +14,7 @@ export default function({
         ><Message msgId={'cadastrapp.search.clear'}/> </Button>
         <Button
             disabled={loading || !valid}
-            bsStyle="default"
+            bsStyle="primary"
             onClick={onSearch}
         ><Glyphicon glyph="search"/> <Message msgId={'cadastrapp.search.title'}/></Button>
     </ButtonGroup>);
