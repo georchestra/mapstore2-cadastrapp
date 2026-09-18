@@ -79,7 +79,9 @@ function DeletePlot ({
                 href="javascript:void(0)"
                 confirmContent={<Message msgId={'cadastrapp.search.confirmDeleteTab'}/>}
                 onClick={(e) => {
-                    e.stopPropagation();
+                    if (e !== undefined) {
+                      e.stopPropagation();
+                    }
                     onDelete();
                     }}>
                 <Glyphicon glyph="remove" />
