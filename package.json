@@ -1,6 +1,6 @@
 {
     "name": "CadastrappExtension",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "description": "Cadastrapp plugin for mapstore2",
     "main": "index.js",
     "eslintConfig": {
