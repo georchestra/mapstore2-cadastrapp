@@ -188,7 +188,12 @@ export function cadastrappSearch(action$, store) {
             .let(wrapStartStop(
                 [loading(true, "plotSelection", "count"), loading(true, 'search')],
                 [loading(false, "plotSelection", "count"),  loading(false, 'search')],
-                e => Rx.Observable.of(error({ title: "error during search", message: e.message ?? "unknown error"}))
+                e => {
+                    console.error(e);
+                    return Rx.Observable.of(
+                        error({ title: "error during search", message: e.message ?? "unknown error"})
+                    )
+                }
             ));
     });
 }

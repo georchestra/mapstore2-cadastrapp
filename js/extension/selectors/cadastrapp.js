@@ -41,7 +41,23 @@ export function cadastreLayerIdParcelle(state) {
  */
 export function getCadastrappLayer(state) {
     const additionalLayers = additionalLayersSelector(state) ?? [];
-    return additionalLayers.filter(({ id }) => id === CADASTRAPP_RASTER_LAYER_ID)?.[0]?.options;
+    const layer = additionalLayers.filter(({ id }) => id === CADASTRAPP_RASTER_LAYER_ID)?.[0]?.options;
+    if (!layer?.search?.url) {
+        console.error("missing search url in layer ?");
+        console.error(layer);
+        const { cadastreWFSLayerName, cadastreWFSURL } = configurationSelector(state);
+        return {
+            type: 'wfs',
+            name: cadastreWFSLayerName,
+            url: cadastreWFSURL,
+            search: {
+                type: 'wfs',
+                url: cadastreWFSURL,
+                name: cadastreWFSLayerName
+            }
+        };
+    }
+    return layer;
 }
 // this if the layer is in TOC
 // export function getCadastrappLayer(state) { return getLayerFromId(state, CADASTRAPP_RASTER_LAYER_ID); }
