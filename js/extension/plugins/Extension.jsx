@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { toggleControl } from "@mapstore/actions/controls";
 
-import {Glyphicon} from 'react-bootstrap';
 import Message from "@mapstore/components/I18N/Message";
 import Main from './cadastrapp/Main';
 import init from '../enhancers/init';
@@ -16,7 +15,7 @@ import {mapLayoutValuesSelector} from "@js/extension/selectors/maplayout";
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
 import '../cadastrapp.css';
-import { cadastrappIcon } from "./cadastrapp/toolbar/cadastrapIcon";
+import { CadastrappIcon } from "./cadastrapp/toolbar/cadastrapIcon";
 
 
 const Cadastrapp = compose(
@@ -37,7 +36,6 @@ const Cadastrapp = compose(
         init()
     )
 )(Main);
-const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(cadastrappIcon)}`;
 export default {
     name: "Cadastrapp",
     component: Cadastrapp,
@@ -48,14 +46,14 @@ export default {
             name: "cadastrapp",
             position: 1050,
             text: <Message msgId="cadastrapp.title"/>,
-            icon: <img src={ svgDataUrl } className="cadastrappIcon"/>,
+            icon: <CadastrappIcon/>,
             doNotHide: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),
             priority: 2
         },
         SidebarMenu: {
             name: "cadastrapp",
-            icon: <img src={ svgDataUrl } className="cadastrappIcon"/>,
+            icon: <CadastrappIcon/>,
             tooltip: "cadastrapp.title",
             text: <Message msgId="cadastrapp.title"/>,
             doNotHide: true,
