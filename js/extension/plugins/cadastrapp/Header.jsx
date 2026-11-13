@@ -12,12 +12,12 @@ import Text from '@mapstore/components/layout/Text';
  */
 function Header({onClose = () => {}}) {
     return (
-        <FlexBox className="ms-header _padding-sm" gap="sm" column>
+        <FlexBox className="ms-header ms-primary-colors _padding-sm" gap="sm" column>
             <FlexBox centerChildrenVertically>
                 <FlexBox.Fill component={Text} fontSize="lg" className="_padding-lr-sm">
                     <Message msgId={'cadastrapp.cadastre_tools'}/>
                 </FlexBox.Fill>
-                <Button key="ms-header-close" className="ms-close square-button-md _border-transparent" onClick={onClose}>
+                <Button bsStyle="primary" key="ms-header-close" className="ms-close square-button-md _border-transparent" onClick={onClose}>
                     <Glyphicon glyph="1-close"/>
                 </Button>
             </FlexBox>
