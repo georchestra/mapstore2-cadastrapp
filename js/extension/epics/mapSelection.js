@@ -40,8 +40,6 @@ import { mapSelector } from '@mapstore/selectors/map';
 
 import { workaroundDuplicatedParcelle } from '../utils/workarounds';
 import PopupViewer from '../components/popup/PopupViewer';
-import {TOGGLE_MAPINFO_STATE} from "@mapstore/actions/mapInfo";
-import {mapInfoEnabledSelector} from "@mapstore/selectors/mapInfo";
 
 
 const CLEAN_ACTION = changeDrawingStatus("clean", '', "cadastrapp");
@@ -284,14 +282,5 @@ export const showPopupEpic = (action$, {getState = () => {}}) =>
                     )
                 ) // When mouse move out clear popup
                 .concat(action$.ofType(MOUSE_OUT).switchMap(()=> Rx.Observable.of(cleanPopups())));
-        });
-
-export const togglePopupOnIdentify = (action$, {getState = () => {}}) =>
-    action$.ofType(TOGGLE_MAPINFO_STATE)
-        .switchMap(() => {
-            return Rx.Observable.of(mapInfoEnabledSelector(getState())
-                ? unRegisterEventListener(MOUSE_EVENT, CONTROL_NAME)
-                : registerEventListener(MOUSE_EVENT, CONTROL_NAME)
-            );
         });
 
