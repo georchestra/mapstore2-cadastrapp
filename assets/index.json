@@ -2,7 +2,7 @@
   "plugins": [
     {
       "name": "Cadastrapp",
-      "glyph": "th",
+      "glyph": "cadastrapp",
       "docUrl":"https://github.com/georchestra/mapstore2-cadastrapp#plugin-configuration",
       "defaultConfig": {
         "openOnLoad": false,
