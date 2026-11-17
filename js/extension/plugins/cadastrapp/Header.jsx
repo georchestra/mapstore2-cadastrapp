@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { Button, Glyphicon } from "react-bootstrap";
 import { toggleControl } from "@mapstore/actions/controls";
 import { CONTROL_NAME } from '../../constants';
+import { CadastrappIcon } from "./toolbar/cadastrapIcon";
 import Message from '@mapstore/components/I18N/Message';
 import FlexBox from '@mapstore/components/layout/FlexBox';
 import Text from '@mapstore/components/layout/Text';
@@ -14,6 +15,7 @@ function Header({onClose = () => {}}) {
     return (
         <FlexBox className="ms-header ms-primary-colors _padding-sm" gap="sm" column>
             <FlexBox centerChildrenVertically>
+                <CadastrappIcon/>
                 <FlexBox.Fill component={Text} fontSize="lg" className="_padding-lr-sm">
                     <Message msgId={'cadastrapp.cadastre_tools'}/>
                 </FlexBox.Fill>
