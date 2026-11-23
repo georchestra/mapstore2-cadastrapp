@@ -100,7 +100,7 @@
         "webpack": "5.54.0",
         "webpack-bundle-size-analyzer": "2.0.2",
         "webpack-cli": "4.10.0",
-        "webpack-dev-server": "3.11.0",
+        "webpack-dev-server": "5.2.6",
         "zip-webpack-plugin": "3.0.0"
     },
     "dependencies": {
